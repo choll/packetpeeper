@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="86"
+   name=""
+   committed-date="2008-08-17T16:45:25.184390Z"
+   url="file:///Users/chris/Documents/Programming/SVN/trunk/PacketPeeper/PacketPeeper.xcodeproj"
+   last-author="chris"
+   kind="dir"
+   uuid="f7d6732a-fd00-4a45-95bd-8dea0d6673ea"
+   revision="86"/>
+<entry
+   committed-rev="86"
+   name="chris.pbxuser"
+   text-time="2008-08-17T16:47:00.000000Z"
+   committed-date="2008-08-17T16:45:25.184390Z"
+   checksum="1f1ce7744bc205d434b68ac2d86aed09"
+   last-author="chris"
+   kind="file"
+   prop-time="2008-08-17T16:47:00.000000Z"/>
+<entry
+   committed-rev="29"
+   name="chris.perspective"
+   text-time="2008-08-17T16:47:00.000000Z"
+   committed-date="2007-10-27T20:43:31.454817Z"
+   checksum="759b9535a71659396c265898c40de2b5"
+   last-author="chris"
+   kind="file"
+   prop-time="2008-08-17T16:47:00.000000Z"/>
+<entry
+   committed-rev="82"
+   name="project.pbxproj"
+   text-time="2008-08-17T16:47:00.000000Z"
+   committed-date="2008-07-28T20:21:32.441329Z"
+   checksum="c1ccdd15c47269d4db88266139fca795"
+   last-author="chris"
+   kind="file"
+   prop-time="2008-08-17T16:47:00.000000Z"/>
+<entry
+   committed-rev="86"
+   name="chris.mode1"
+   text-time="2008-08-17T16:47:00.000000Z"
+   committed-date="2008-08-17T16:45:25.184390Z"
+   checksum="3366e8d18470f1f003cc3a3f5f8ab51d"
+   last-author="chris"
+   kind="file"
+   prop-time="2008-08-17T16:47:00.000000Z"/>
+<entry
+   committed-rev="29"
+   name="chris.mode2"
+   text-time="2008-08-17T16:47:00.000000Z"
+   committed-date="2007-10-27T20:43:31.454817Z"
+   checksum="7085a66cea904cc7b5b6830feac78339"
+   last-author="chris"
+   kind="file"
+   prop-time="2008-08-17T16:47:00.000000Z"/>
+</wc-entries>

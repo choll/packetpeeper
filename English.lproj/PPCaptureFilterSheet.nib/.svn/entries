@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="84"
+   name=""
+   committed-date="2008-08-09T17:20:19.503413Z"
+   url="file:///Users/chris/Documents/Programming/SVN/trunk/PacketPeeper/English.lproj/PPCaptureFilterSheet.nib"
+   last-author="chris"
+   kind="dir"
+   uuid="f7d6732a-fd00-4a45-95bd-8dea0d6673ea"
+   revision="86"/>
+<entry
+   committed-rev="74"
+   name="info.nib"
+   text-time="2008-08-17T16:46:58.000000Z"
+   committed-date="2008-06-17T21:04:17.671053Z"
+   checksum="29d795976e244043895e5e6bb24ed98a"
+   last-author="chris"
+   kind="file"
+   prop-time="2008-08-17T16:46:58.000000Z"/>
+<entry
+   committed-rev="84"
+   name="keyedobjects.nib"
+   text-time="2008-08-17T16:46:58.000000Z"
+   committed-date="2008-08-09T17:20:19.503413Z"
+   checksum="d537c7958cbe470f50ed920ea75c886b"
+   last-author="chris"
+   kind="file"
+   prop-time="2008-08-17T16:46:58.000000Z"/>
+<entry
+   committed-rev="74"
+   name="classes.nib"
+   text-time="2008-08-17T16:46:58.000000Z"
+   committed-date="2008-06-17T21:04:17.671053Z"
+   checksum="205f30fa9d5ff4cc9bd81eb2119809b6"
+   last-author="chris"
+   kind="file"
+   prop-time="2008-08-17T16:46:58.000000Z"/>
+</wc-entries>

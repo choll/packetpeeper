@@ -1,0 +1,63 @@
+{
+    IBClasses = (
+        {
+            ACTIONS = {showHelp = id; showPluginsFolder = id; showPreferencePanel = id; }; 
+            CLASS = AppController; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {
+            ACTIONS = {
+                autoScrolling = id; 
+                cancelEndingButton = id; 
+                clearFilterButton = id; 
+                columnMenuAction = id; 
+                deleteButton = id; 
+                discardPacketsAndClearFilterButton = id; 
+                filterButton = id; 
+                firstButton = id; 
+                flushHostnamesButton = id; 
+                individualPacketButton = id; 
+                lastButton = id; 
+                nextButton = id; 
+                nodeGraphButton = id; 
+                prevButton = id; 
+                reassembleStreamButton = id; 
+                stopButton = id; 
+                streamsWindowButton = id; 
+                toggleDrawerButton = id; 
+            }; 
+            CLASS = FirstResponder; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {
+            ACTIONS = {newDocument = id; terminate = id; }; 
+            CLASS = MyDocumentController; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSDocumentController; 
+        }, 
+        {CLASS = PPApplication; LANGUAGE = ObjC; SUPERCLASS = NSApplication; }, 
+        {
+            ACTIONS = {
+                autoScrolling = id; 
+                columnMenuAction = id; 
+                firstButton = id; 
+                lastButton = id; 
+                nextButton = id; 
+                prevButton = id; 
+                stopButton = id; 
+            }; 
+            CLASS = PacketCaptureWindowController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                packetHexView = HexView; 
+                packetOutlineView = NSOutlineView; 
+                packetTableView = NSTableView; 
+                statusTextField = NSTextField; 
+            }; 
+            SUPERCLASS = NSWindowController; 
+        }
+    ); 
+    IBVersion = 1; 
+}

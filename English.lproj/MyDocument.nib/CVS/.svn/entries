@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="1"
+   name=""
+   committed-date="2006-01-05T23:34:17.818819Z"
+   url="file:///Users/chris/Documents/Programming/SVN/trunk/PacketPeeper/English.lproj/MyDocument.nib/CVS"
+   last-author="chris"
+   kind="dir"
+   uuid="f7d6732a-fd00-4a45-95bd-8dea0d6673ea"
+   revision="86"/>
+<entry
+   committed-rev="1"
+   name="Repository"
+   text-time="2008-08-17T16:46:58.000000Z"
+   committed-date="2006-01-05T23:34:17.818819Z"
+   checksum="9797ec7e813b8df1292db66f295c1288"
+   last-author="chris"
+   kind="file"
+   prop-time="2008-08-17T16:46:58.000000Z"/>
+<entry
+   committed-rev="1"
+   name="Root"
+   text-time="2008-08-17T16:46:58.000000Z"
+   committed-date="2006-01-05T23:34:17.818819Z"
+   checksum="1a82716d76f3ab5cb6b23ddb4770c28e"
+   last-author="chris"
+   kind="file"
+   prop-time="2008-08-17T16:46:58.000000Z"/>
+<entry
+   committed-rev="1"
+   name="Entries"
+   text-time="2008-08-17T16:46:58.000000Z"
+   committed-date="2006-01-05T23:34:17.818819Z"
+   checksum="6ef22cdaef3901a0d2112193db46f629"
+   last-author="chris"
+   kind="file"
+   prop-time="2008-08-17T16:46:58.000000Z"/>
+</wc-entries>

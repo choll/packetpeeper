@@ -1,0 +1,44 @@
+{
+    IBClasses = (
+        {
+            ACTIONS = {
+                cancelButtonPressed = id; 
+                interfacePopUpSelected = id; 
+                startButtonPressed = id; 
+                stopConditionCheckBox = id; 
+            }; 
+            CLASS = CaptureSetupWindowController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                bufferLengthSlider = NSSlider; 
+                interfacePopUp = NSPopUpButton; 
+                promiscuousCheckBox = NSButton; 
+                realTimeCheckBox = NSButton; 
+                stopConditionPopUp = NSPopUpButton; 
+                stopDataCheckBox = NSButton; 
+                stopDataTextField = NSTextField; 
+                stopPacketsCheckBox = NSButton; 
+                stopPacketsTextField = NSTextField; 
+                stopTimeCheckBox = NSButton; 
+                stopTimeDatePicker = NSDatePicker; 
+                updateFrequencyTextField = NSTextField; 
+            }; 
+            SUPERCLASS = PPCaptureFilterWindowController; 
+        }, 
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {CLASS = NSDatePicker; LANGUAGE = ObjC; SUPERCLASS = NSControl; }, 
+        {
+            ACTIONS = {deleteFilterButtonPressed = id; saveFilterButtonPressed = id; }; 
+            CLASS = PPCaptureFilterWindowController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                filterErrorTextField = NSTextField; 
+                filterNameComboBox = NSComboBox; 
+                filterNetmaskTextField = NSTextField; 
+                filterTextField = NSTextField; 
+            }; 
+            SUPERCLASS = NSWindowController; 
+        }
+    ); 
+    IBVersion = 1; 
+}

@@ -1,0 +1,22 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            ACTIONS = {
+                columnMenuAction = id; 
+                deleteButton = id; 
+                individualPacketButton = id; 
+                reassembleStreamButton = id; 
+            }; 
+            CLASS = PPStreamsWindowController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                packetTableView = NSTableView; 
+                streamTableColumnMenu = NSMenu; 
+                streamTableView = NSTableView; 
+            }; 
+            SUPERCLASS = NSWindowController; 
+        }
+    ); 
+    IBVersion = 1; 
+}

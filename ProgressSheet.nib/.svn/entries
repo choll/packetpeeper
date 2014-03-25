@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="62"
+   name=""
+   committed-date="2008-03-14T00:24:19.596696Z"
+   url="file:///Users/chris/Documents/Programming/SVN/trunk/PacketPeeper/ProgressSheet.nib"
+   last-author="chris"
+   kind="dir"
+   uuid="f7d6732a-fd00-4a45-95bd-8dea0d6673ea"
+   revision="86"/>
+<entry
+   committed-rev="62"
+   name="info.nib"
+   text-time="2008-08-17T16:46:56.000000Z"
+   committed-date="2008-03-14T00:24:19.596696Z"
+   checksum="563cd3cd2cf72a6e165d1a4d94f63f17"
+   last-author="chris"
+   kind="file"
+   prop-time="2008-08-17T16:46:56.000000Z"/>
+<entry
+   committed-rev="62"
+   name="keyedobjects.nib"
+   text-time="2008-08-17T16:46:56.000000Z"
+   committed-date="2008-03-14T00:24:19.596696Z"
+   checksum="cf90b32f8d18c376588411e490ed1107"
+   last-author="chris"
+   kind="file"
+   prop-time="2008-08-17T16:46:56.000000Z"/>
+<entry
+   committed-rev="19"
+   name="classes.nib"
+   text-time="2008-08-17T16:46:56.000000Z"
+   committed-date="2007-10-26T23:35:15.439625Z"
+   checksum="d7bdbbb18e7403f121dbc2c59044cc33"
+   last-author="chris"
+   kind="file"
+   prop-time="2008-08-17T16:46:56.000000Z"/>
+</wc-entries>

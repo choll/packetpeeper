@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="84"
+   name=""
+   committed-date="2008-08-09T17:20:19.503413Z"
+   url="file:///Users/chris/Documents/Programming/SVN/trunk/PacketPeeper/English.lproj"
+   last-author="chris"
+   kind="dir"
+   uuid="f7d6732a-fd00-4a45-95bd-8dea0d6673ea"
+   revision="86"/>
+<entry
+   committed-rev="25"
+   name="InfoPlist.strings"
+   text-time="2008-08-17T16:46:59.000000Z"
+   committed-date="2007-10-27T20:42:05.150872Z"
+   checksum="9aa83d6404c4987d6574a95c8cba5f13"
+   last-author="chris"
+   kind="file"
+   prop-time="2008-08-17T16:46:56.000000Z"/>
+<entry
+   name="MainMenu.nib"
+   kind="dir"/>
+<entry
+   name="PPTCPStreamWindow.nib"
+   kind="dir"/>
+<entry
+   name="CaptureSetupSheet.nib"
+   kind="dir"/>
+<entry
+   name="ErrorReportSheet.nib"
+   kind="dir"/>
+<entry
+   name="IndividualPacket.nib"
+   kind="dir"/>
+<entry
+   committed-rev="28"
+   name="Credits.rtf"
+   text-time="2008-08-17T16:46:59.000000Z"
+   committed-date="2007-10-27T20:43:18.636385Z"
+   checksum="0db1630495153fe9110484478e996a1f"
+   last-author="chris"
+   kind="file"
+   prop-time="2008-08-17T16:46:58.000000Z"/>
+<entry
+   name="PPCaptureFilterSheet.nib"
+   kind="dir"/>
+<entry
+   name="MyDocument.nib"
+   kind="dir"/>
+<entry
+   name="PPStreamsWindow.nib"
+   kind="dir"/>
+<entry
+   name="PPNodeGraphPanel.nib"
+   kind="dir"/>
+</wc-entries>
