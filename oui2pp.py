@@ -34,11 +34,14 @@ print "Max = %d" % maxlen
 print "slist len = %u" % len(slist)
 print "dict len = %u" % len(oui2manufacturer)
 
-bytes = struct.pack("HHH", 0x1C0D, maxlen + 2 + 4, len(slist))
+bytes = struct.pack("H", 0x1C0D) # magic
+datfile.write(bytes)
+
+bytes = struct.pack(">HH", maxlen + 2 + 4, len(slist)) # record size, number of records
 datfile.write(bytes)
 
 slist.sort
 
 for oui in slist:
-	bytes = struct.pack("LH" + ('%u' % maxlen) + "s", oui[0], len(oui[1]), oui[1])
+	bytes = struct.pack(">LH" + ('%u' % maxlen) + "s", oui[0], len(oui[1]), oui[1])
 	datfile.write(bytes);

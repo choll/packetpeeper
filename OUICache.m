@@ -86,13 +86,13 @@ struct datfile_rec {
 
 		if(read(fd, &hdr, sizeof(hdr)) != sizeof(hdr))
 			goto err;
-
+        
 		hdr.recsz = ntohs(hdr.recsz);
 		hdr.nrecs = ntohs(hdr.nrecs);
 
 		if(hdr.magic != OUICACHE_DATFILE_MAGIC || hdr.recsz < DATFILE_RECHDR_SZ || hdr.nrecs < 1)
 			goto err;
-
+        
 		recsz = hdr.recsz;
 		nrecs = hdr.nrecs;
 
@@ -102,7 +102,7 @@ struct datfile_rec {
 			goto err;
 	}
 	return self;
-
+    
 	err:
 		[self dealloc];
 		return nil;
@@ -114,8 +114,8 @@ struct datfile_rec {
 	uint32_t oui;
 	id str;
 
-	oui = *(uint32_t *)addr >> 8;
-
+    oui = ntohl(*(uint32_t *)addr) >> 8;
+    
 	ret = read_oui(fd, oui, recsz, nrecs, manufacturer, manufacturer_sz);
 
 	if(ret == OUICACHE_RECORD_NULL)
@@ -133,8 +133,7 @@ struct datfile_rec {
 	id str;
 	uint32_t oui;
 
-	oui = *(uint32_t *)addr >> 8;
-
+    oui = ntohl(*(uint32_t *)addr) >> 8;
 	str = [super objectForKey:&oui];
 
 	if(str == nil) {
@@ -193,11 +192,14 @@ static int read_oui(int fd, uint32_t oui, unsigned int recsz, unsigned int nrecs
 		if(pread(fd, &entry, sizeof(entry), offset) != sizeof(entry))
 			return -1;
 
+        entry.oui = ntohl(entry.oui);
+        
 		if(oui > entry.oui)
 			left = mid + 1;
 
 		if(oui < entry.oui)
 			right = mid - 1;
+
 	} while(oui != entry.oui);
 
 	entry.len = MIN(ntohs(entry.len), outbuf_sz - 1);

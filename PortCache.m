@@ -156,7 +156,7 @@ struct datfile_rec {
 
 		if(hdr.magic != PORTCACHE_TCP_DATFILE_MAGIC || hdr.recsz < DATFILE_RECHDR_SZ)
 			goto err;
-
+            
 		tcp_recsz = hdr.recsz;
 
 		if((udp_fd = open(PORTCACHE_UDP_DATFILE_PATH, O_RDONLY, 0)) == -1)
@@ -169,7 +169,7 @@ struct datfile_rec {
 
 		if(hdr.magic != PORTCACHE_UDP_DATFILE_MAGIC || hdr.recsz < DATFILE_RECHDR_SZ)
 			goto err;
-
+            
 		udp_recsz = hdr.recsz;
 
 		service_description_sz = MAX(udp_recsz, tcp_recsz) - 2;

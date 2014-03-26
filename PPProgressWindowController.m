@@ -53,7 +53,7 @@
 	[m_delegate performSelector:m_cancelSelector];
 }
 
-- (void)setLoadingMessage:(NSString *)loadingMessage;
+- (void)setLoadingMessage:(NSString *)loadingMessage
 {
 	[m_loadingMessage setStringValue:loadingMessage];
 }

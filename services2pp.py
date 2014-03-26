@@ -2,8 +2,8 @@
 
 import struct
 
-datfile_tcp = "port-numbers-tcp.dat"
-datfile_udp = "port-numbers-udp.dat"
+datfile_tcp = "port-numbers-tcp.port"
+datfile_udp = "port-numbers-udp.port"
 porturl = "http://www.iana.org/assignments/port-numbers"
 portfile = "port-numbers"
 
@@ -77,7 +77,10 @@ for line in infile.readlines():
 
 # tcp dat
 
-bytes = struct.pack("HH", 0x1A0D, maxdesc + 3)
+bytes = struct.pack("H", 0x1A0D) # magic
+datfile_tcp.write(bytes)
+
+bytes = struct.pack(">H", maxdesc + 3)
 datfile_tcp.write(bytes)
 
 port = 1
@@ -123,18 +126,21 @@ while (port < pow(2,16)):
 			flags = 0x1
 		else:
 			flags = 0x0
-		bytes = struct.pack("HB" + ('%u' % maxdesc) + "s", len(description), flags, description)
+		bytes = struct.pack(">HB" + ('%u' % maxdesc) + "s", len(description), flags, description)
 		datfile_tcp.write(bytes)
 
 	except KeyError:
-			bytes = struct.pack("HB" + ('%u' % maxdesc) + "s", 0, 0, "")
+			bytes = struct.pack(">HB" + ('%u' % maxdesc) + "s", 0, 0, "")
 			datfile_tcp.write(bytes)
 
 	port = port + 1
 
 # udp dat
 
-bytes = struct.pack("HH", 0x1B0D, maxdesc + 3)
+bytes = struct.pack("H", 0x1B0D) # magic
+datfile_udp.write(bytes)
+
+bytes = struct.pack(">H", maxdesc + 3)
 datfile_udp.write(bytes)
 
 port = 1
@@ -179,11 +185,11 @@ while (port < pow(2,16)):
 			flags = 0x1
 		else:
 			flags = 0x0
-		bytes = struct.pack("HB" + ('%u' % maxdesc) + "s", len(description), flags, description)
+		bytes = struct.pack(">HB" + ('%u' % maxdesc) + "s", len(description), flags, description)
 		datfile_udp.write(bytes)
 
 	except KeyError:
-			bytes = struct.pack("HB" + ('%u' % maxdesc) + "s", 0, 0, "")
+			bytes = struct.pack(">HB" + ('%u' % maxdesc) + "s", 0, 0, "")
 			datfile_udp.write(bytes)
 
 	port = port + 1
