@@ -113,6 +113,7 @@ struct thread_args;
 - (void)cancelLoadingFile;
 - (void)cancelSavingFile;
 - (void)closeProgressSheet;
+- (void)displayFileLoadingProgressSheet;
 - (void)displayProgressSheetWithMessage:(NSString *)message cancelSelector:(SEL)cancelSelector;
 - (void)displayFilterSheet;
 - (void)displaySetupSheet;

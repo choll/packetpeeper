@@ -329,8 +329,6 @@ err:
 
 	[streamController flush];
 
-	[self displayProgressSheetWithMessage:@"Loading" cancelSelector:@selector(cancelLoadingFile)];
-
 	thread_args->op = THREAD_OP_DOC_READ;
 	thread_args->input[0] = [absoluteURL retain];
 	thread_args->input[1] = nil;
@@ -347,20 +345,22 @@ err:
 		[thread_args->input[0] release];
 		free(thread_args);
 		thread_args = NULL;
+        goto err;
 	}
 
-	thread_args->timer = [[NSTimer scheduledTimerWithTimeInterval:DEFAULT_PROGRESSBAR_UPDATE_FREQUENCY target:self selector:@selector(workerThreadTimer) userInfo:nil repeats:YES] retain];
+    [self makeWindowControllers];
+    progressWindowController =
+        [[PPProgressWindowController alloc] initWithLoadingMessage:@"Loading" delegate:self cancelSelector:@selector(cancelLoadingFile)];
+    [self performSelector:@selector(displayFileLoadingProgressSheet) withObject:self afterDelay:0];
 
+	thread_args->timer = [[NSTimer scheduledTimerWithTimeInterval:DEFAULT_PROGRESSBAR_UPDATE_FREQUENCY target:self selector:@selector(workerThreadTimer) userInfo:nil repeats:YES] retain];
 	return YES;
 
 err:
 	[self closeProgressSheet];
-
 	errDict = [NSDictionary dictionaryWithObject:errorString forKey:NSLocalizedFailureReasonErrorKey];
-
 	*outError = [[NSError alloc] initWithDomain:@"PacketPeeperErrorDomain" code:noErr userInfo:errDict];
 	[*outError autorelease];
-
 	return NO;
 }
 
@@ -425,9 +425,7 @@ err:
 	int ret;
 
 	if(thread_args->units_total != 0) {
-		double percentLoaded;
-
-		percentLoaded = thread_args->units_current / (double)thread_args->units_total;
+		const double percentLoaded = thread_args->units_current / (double)thread_args->units_total;
 		[progressWindowController setPercentLoaded:percentLoaded];
 	}
 
@@ -522,7 +520,6 @@ err:
 			[tempTimer release];
 		} else if(thread_args->failure) {
 			if(thread_args->op == THREAD_OP_DOC_READ) {
-				[self makeWindowControllers];
 				[[captureWindowController window] makeKeyAndOrderFront:self];
 				[[ErrorStack sharedErrorStack] pushError:[NSString stringWithFormat:@"Loading capture file failed: %@", thread_args->output[0]] lookup:Nil code:0 severity:ERRS_ERROR];
 				[self displayErrorStack:nil close:YES];
@@ -630,13 +627,23 @@ err:
 	}
 }
 
+- (void)displayFileLoadingProgressSheet
+{
+    // This is just a helper for readFromURL. If the sheet is displayed within
+    // readFromURL then weird glitches happen, so instead readFromURL queues
+    // this method via a call to NSObject.performSelector.
+    [self displayProgressSheetWithMessage:@"Loading" cancelSelector:@selector(cancelLoadingFile)];
+}
+
 - (void)displayProgressSheetWithMessage:(NSString *)message cancelSelector:(SEL)cancelSelector
 {
-	[self makeWindowControllers];
-
+    // The check for nil is to accomodate readFromURL, which has to delay displaying
+    // the sheet. To avoid creating a race condition it creates the window controller
+    // without a delay, so that the code that updates the progress bar doesn't need
+    // to be aware of the delay.
 	if(progressWindowController == nil)
 		progressWindowController = [[PPProgressWindowController alloc] initWithLoadingMessage:message delegate:self cancelSelector:cancelSelector];
-
+    
 	[self addWindowController:progressWindowController];
 
 	[NSApp beginSheet:[progressWindowController window]
@@ -1039,40 +1046,27 @@ err:
 /* display an error as a sheet and optionally close the document */
 - (void)displayErrorStack:(ErrorStack *)errorStack close:(BOOL)closeDocument
 {
-	id delegate;
-	SEL selector;
 	ErrorReportWindowController *errorReportWindowController;
-
 
 	errorReportWindowController = [[ErrorReportWindowController alloc] init];
 	[errorReportWindowController setErrorStack:errorStack];
 
-	// XXX nobody frees the errorReportWindowController!
-
-	// looks like this method is called before we're dealloced,
-	// sheetdidend method isnt called because closeDocument is false
-	// also this closeDoc arrangement is a bit lame.. redo it,
-	// with sheetDidEnd in the errorReportWindowController.
-
-	if(closeDocument) {
-		delegate = self;
-		selector = @selector(sheetDidEnd:returnCode:contextInfo:);
-	} else {
-		delegate = nil;
-		selector = nil;
-	}
-
-	[NSApp beginSheet:[errorReportWindowController window]
-		   modalForWindow:[self windowForSheet]
-		   modalDelegate:delegate
-		   didEndSelector:selector
-		   contextInfo:NULL];
+    [NSApp beginSheet:[errorReportWindowController window]
+           modalForWindow:[self windowForSheet]
+           modalDelegate:self
+           didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:)
+           contextInfo:closeDocument /* disgust */];
 }
 
 - (void)sheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo
 {
 	if([[sheet windowController] isMemberOfClass:[ErrorReportWindowController class]])
-		[self close];
+    {
+        [[sheet windowController] release];
+        const BOOL closeDocument = (BOOL)contextInfo; /* disgust */
+        if (closeDocument)
+            [self close];
+    }
 }
 
 - (void)startCaptureOn:(Interface *)anInterface
