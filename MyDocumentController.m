@@ -189,10 +189,17 @@
 	struct fd_set fdset;
 	struct timeval timeout;
 
+    // XXX WONTFIX
+    // For now anyway. EvenBetterAuthorizationSample describes how to use the new API.
+    // Problem is, once the privileged tool has been installed setuid root, can anyone
+    // execute the tool? That would not be acceptable from a security point of view.
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 	if(AuthorizationExecuteWithPrivileges(auth_ref, HELPER_PATH, kAuthorizationFlagDefaults, NULL, NULL) != errAuthorizationSuccess) {
 		[[ErrorStack sharedErrorStack] pushError:@"Could not execute helper tool" lookup:Nil code:0 severity:ERRS_ERROR];
 		return -1;
 	}
+#pragma clang diagnostic pop
 
 	if(ndocs == 1)
 		[self freeAuthRef];
