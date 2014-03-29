@@ -17,26 +17,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef __IN_CKSUM_H__
-#define __IN_CKSUM_H__
+#ifndef PACKETPEEPER_IN_CKSUM_HPP
+#define PACKETPEEPER_IN_CKSUM_HPP
 
-extern unsigned int (*in_cksum_partial)(const void *data, unsigned int nbytes, unsigned int sum);
-
-unsigned int slow_csum_partial(const void *data, unsigned int nbytes, unsigned int sum);
-unsigned int csum_partial_check(const void *data, unsigned int nbytes, unsigned int sum);
-
-/*
-	XXX seems that the SSE function produces a big-endian result?
-*/
-
-#if defined(__ppc__)
-unsigned int vec_csum_partial(const void *data, unsigned int nbytes, unsigned int sum);
-#elif defined(__i386__)
-#if 0
-unsigned int sse_csum_partial(const void *data, unsigned int nbytes, unsigned int sum);
-#endif
-#endif
-
+unsigned int in_cksum_partial(const void *data, unsigned int nbytes, unsigned int sum);
 unsigned long in_cksum_fold(unsigned long sum);
 
 #endif
+

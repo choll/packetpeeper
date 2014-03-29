@@ -25,17 +25,7 @@
 #include <stdio.h>
 #include "in_cksum.h"
 
-#if defined(__ppc__)
-static int altivec_enabled(void);
-#elif defined(__i386__)
-#if 0
-static int sse3_enabled(void);
-#endif
-#endif
-
-unsigned int (*in_cksum_partial)(const void *data, unsigned int nbytes, unsigned int sum) = csum_partial_check;
-
-unsigned int slow_csum_partial(const void *data, unsigned int nbytes, unsigned int sum)
+unsigned int in_cksum_partial(const void *data, unsigned int nbytes, unsigned int sum)
 {
 	const uint16_t *p;
 
@@ -60,28 +50,6 @@ unsigned int slow_csum_partial(const void *data, unsigned int nbytes, unsigned i
 	return sum;
 }
 
-unsigned int csum_partial_check(const void *data, unsigned int nbytes, unsigned int sum)
-{
-	in_cksum_partial = slow_csum_partial;
-
-#if defined(__ppc__)
-	if(altivec_enabled()) {
-		printf("Using AltiVec Internet checksum routine\n");
-		in_cksum_partial = vec_csum_partial;
-	}
-#elif defined(__i386__)
-#if 0
-	/* XXX disabled, crash reported at label_41, no hardware available to debug */
-	if(sse3_enabled()) {
-		printf("Using SSE Internet checksum routine\n");
-		in_cksum_partial = sse_csum_partial;
-	}
-#endif
-#endif
-
-	return in_cksum_partial(data, nbytes, sum);
-}
-
 unsigned long in_cksum_fold(unsigned long sum)
 {
 	sum = (sum >> 16) + (sum & 0xFFFF);
@@ -89,32 +57,3 @@ unsigned long in_cksum_fold(unsigned long sum)
 	return (~sum & 0xFFFF);
 }
 
-#if defined(__ppc__)
-static int altivec_enabled(void)
-{
-	int enabled;
-	size_t len;
-
-	len = sizeof(enabled);
-
-	if(sysctlbyname("hw.optional.altivec", &enabled, &len, NULL, 0) == 0)
-		return enabled;
-
-	return 0;
-}
-#elif defined(__i386__)
-#if 0
-static int sse3_enabled(void)
-{
-	int enabled;
-	size_t len;
-
-	len = sizeof(enabled);
-
-	if(sysctlbyname("hw.optional.sse3", &enabled, &len, NULL, 0) == 0)
-		return enabled;
-
-	return 0;
-}
-#endif
-#endif
