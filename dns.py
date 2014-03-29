@@ -198,10 +198,10 @@ def info(packet):
 		answers = []
 		questions = []
 		detailStr = " [malformed packet: %s]" % errorString
-	except:
+	except Exception, e:
 		answers = []
 		questions = []
-		detailStr = " [parse error]"
+		detailStr = " [parse error: %s] " % str(e)
 
 	if(isResponse(flags)):
 		for answer in answers:
@@ -388,8 +388,8 @@ def descriptionTree(packet):
 
 	except RuntimeError, errorString:
 		ret.append(["Error", str(errorString)])
-	except:
-		ret.append(["Error", "Parse error"])
+	except Exception, e:
+		ret.append(["Error", str(e)])
 
 	return ret
 

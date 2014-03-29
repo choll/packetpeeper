@@ -626,7 +626,7 @@ static PyObject *pp_size(PyObject *self, PyObject *args)
 		PyErr_NoMemory();
 		return NULL;
 	}
-	
+
     return Py_BuildValue("k", [data length]);
 }
 
@@ -750,7 +750,7 @@ static PyObject *pp_unpack(PyObject *self, PyObject *args)
 			char *temp;
 
 			if(repeat_modifier > pkt_data_len) {
-				PyErr_SetString(PyExc_TypeError, "not enough data for format string");
+				PyErr_SetString(PyExc_TypeError, "not enough data for format string (repeat modifier)");
 				goto err;
 			}
 
@@ -788,7 +788,7 @@ static PyObject *pp_unpack(PyObject *self, PyObject *args)
 					case TYPE_PAD_BYTE:
 						nbytes_incr = 1;
 						if(nbytes_incr > pkt_data_len) {
-							PyErr_SetString(PyExc_TypeError, "not enough data for format string");
+							PyErr_SetString(PyExc_TypeError, "not enough data for format string (pad)");
 							goto err;
 						}
 						break;
@@ -796,7 +796,7 @@ static PyObject *pp_unpack(PyObject *self, PyObject *args)
 					case TYPE_CHAR:
 						nbytes_incr = sizeof(char);
 						if(nbytes_incr > pkt_data_len) {
-							PyErr_SetString(PyExc_TypeError, "not enough data for format string");
+							PyErr_SetString(PyExc_TypeError, "not enough data for format string (char)");
 							goto err;
 						}
 						item = PyString_FromFormat("%c", *(char *)pkt_data);
@@ -805,7 +805,7 @@ static PyObject *pp_unpack(PyObject *self, PyObject *args)
 					case TYPE_INT8:
 						nbytes_incr = sizeof(int8_t);
 						if(nbytes_incr > pkt_data_len) {
-							PyErr_SetString(PyExc_TypeError, "not enough data for format string");
+							PyErr_SetString(PyExc_TypeError, "not enough data for format string (int8)");
 							goto err;
 						}
 						item = PyInt_FromLong(*(int8_t *)pkt_data);
@@ -814,7 +814,7 @@ static PyObject *pp_unpack(PyObject *self, PyObject *args)
 					case TYPE_UINT8:
 						nbytes_incr = sizeof(uint8_t);
 						if(nbytes_incr > pkt_data_len) {
-							PyErr_SetString(PyExc_TypeError, "not enough data for format string");
+							PyErr_SetString(PyExc_TypeError, "not enough data for format string (uint8)");
 							goto err;
 						}
 						item = PyInt_FromLong(*(uint8_t *)pkt_data);
@@ -823,7 +823,7 @@ static PyObject *pp_unpack(PyObject *self, PyObject *args)
 					case TYPE_INT16:
 						nbytes_incr = sizeof(int16_t);
 						if(nbytes_incr > pkt_data_len) {
-							PyErr_SetString(PyExc_TypeError, "not enough data for format string");
+							PyErr_SetString(PyExc_TypeError, "not enough data for format string (int16)");
 							goto err;
 						}
 						if(endian_modifier == BIG_ORDER_STD_ALIGN)
@@ -837,7 +837,7 @@ static PyObject *pp_unpack(PyObject *self, PyObject *args)
 					case TYPE_UINT16:
 						nbytes_incr = sizeof(uint16_t);
 						if(nbytes_incr > pkt_data_len) {
-							PyErr_SetString(PyExc_TypeError, "not enough data for format string");
+							PyErr_SetString(PyExc_TypeError, "not enough data for format string (uint16)");
 							goto err;
 						}
 						if(endian_modifier == BIG_ORDER_STD_ALIGN)
@@ -851,7 +851,7 @@ static PyObject *pp_unpack(PyObject *self, PyObject *args)
 					case TYPE_INT32:
 						nbytes_incr = sizeof(int32_t);
 						if(nbytes_incr > pkt_data_len) {
-							PyErr_SetString(PyExc_TypeError, "not enough data for format string");
+							PyErr_SetString(PyExc_TypeError, "not enough data for format string (int32)");
 							goto err;
 						}
 						if(endian_modifier == BIG_ORDER_STD_ALIGN)
@@ -865,7 +865,7 @@ static PyObject *pp_unpack(PyObject *self, PyObject *args)
 					case TYPE_UINT32:
 						nbytes_incr = sizeof(uint32_t);
 						if(nbytes_incr > pkt_data_len) {
-							PyErr_SetString(PyExc_TypeError, "not enough data for format string");
+							PyErr_SetString(PyExc_TypeError, "not enough data for format string (uint32)");
 							goto err;
 						}
 						if(endian_modifier == BIG_ORDER_STD_ALIGN)
@@ -879,7 +879,7 @@ static PyObject *pp_unpack(PyObject *self, PyObject *args)
 					case TYPE_INT64:
 						nbytes_incr = sizeof(int64_t);
 						if(nbytes_incr > pkt_data_len) {
-							PyErr_SetString(PyExc_TypeError, "not enough data for format string");
+							PyErr_SetString(PyExc_TypeError, "not enough data for format string (int64)");
 							goto err;
 						}
 						if(endian_modifier == BIG_ORDER_STD_ALIGN)
@@ -893,7 +893,7 @@ static PyObject *pp_unpack(PyObject *self, PyObject *args)
 					case TYPE_UINT64:
 						nbytes_incr = sizeof(uint64_t);
 						if(nbytes_incr > pkt_data_len) {
-							PyErr_SetString(PyExc_TypeError, "not enough data for format string");
+							PyErr_SetString(PyExc_TypeError, "not enough data for format string (uint64)");
 							goto err;
 						}
 						if(endian_modifier == BIG_ORDER_STD_ALIGN)
@@ -907,16 +907,16 @@ static PyObject *pp_unpack(PyObject *self, PyObject *args)
 					case TYPE_FLOAT:
 						nbytes_incr = sizeof(float);
 						if(nbytes_incr > pkt_data_len) {
-							PyErr_SetString(PyExc_TypeError, "not enough data for format string");
+							PyErr_SetString(PyExc_TypeError, "not enough data for format string (float)");
 							goto err;
 						}
 						item = PyFloat_FromDouble(*(float *)pkt_data);
 						break;
 
-					case TYPE_DOUBLE: 
+					case TYPE_DOUBLE:
 						nbytes_incr = sizeof(double);
 						if(nbytes_incr > pkt_data_len) {
-							PyErr_SetString(PyExc_TypeError, "not enough data for format string");
+							PyErr_SetString(PyExc_TypeError, "not enough data for format string (double)");
 							goto err;
 						}
 						item = PyFloat_FromDouble(*(double *)pkt_data);
@@ -925,7 +925,7 @@ static PyObject *pp_unpack(PyObject *self, PyObject *args)
 					case TYPE_IPv4_ADDR:
 						nbytes_incr = sizeof(struct in_addr);
 						if(nbytes_incr > pkt_data_len) {
-							PyErr_SetString(PyExc_TypeError, "not enough data for format string");
+							PyErr_SetString(PyExc_TypeError, "not enough data for format string (IPv4 address)");
 							goto err;
 						}
 						item = PyString_FromString([ipaddrstr(pkt_data, sizeof(struct in_addr)) UTF8String]);
@@ -954,7 +954,7 @@ static PyObject *pp_unpack(PyObject *self, PyObject *args)
 			}
 		}
 	}
-	
+
 	tuple = PyList_AsTuple(results);
 	Py_DECREF(results);
 	results = NULL;
@@ -1057,7 +1057,7 @@ static size_t pp_unpack_parse_type(const char *format, enum data_type *data_type
 		case 'q':
 			*data_type = TYPE_INT64;
 			return 1;
-		
+
 		case 'Q':
 			*data_type = TYPE_UINT64;
 			return 1;
@@ -1113,25 +1113,38 @@ static OutlineViewItem *buildOutlineViewItemTreeFromList(PyObject *list)
 	return [outlineViewItem autorelease];
 }
 
-/* os x lacks byteswap routines */
+static inline void swap(uint8_t *a, uint8_t *b)
+{
+    const uint8_t temp = *a;
+    *a = *b;
+    *b = temp;
+}
 
 static uint16_t bswap16(uint16_t int16)
 {
-	uint8_t *p;
-	p = (uint8_t *)&int16;
-	return ((uint16_t)p[1] << 8) | (uint16_t)p[0];
+    uint8_t *p;
+    p = (uint8_t *)&int16;
+    swap(&p[0], &p[1]);
+    return int16;
 }
 
 static uint32_t bswap32(uint32_t int32)
 {
 	uint8_t *p;
 	p = (uint8_t *)&int32;
-	return ((uint32_t)p[3] << 24) | ((uint32_t)p[2] << 16) | ((uint32_t)p[1] << 8) | (uint32_t)p[0];
+    swap(&p[0], &p[3]);
+    swap(&p[1], &p[2]);
+    return int32;
 }
 
 static uint64_t bswap64(uint64_t int64)
 {
 	uint8_t *p;
 	p = (uint8_t *)&int64;
-	return ((uint64_t)p[7] << 56) | ((uint64_t)p[6] << 48) | ((uint64_t)p[5] << 40) | ((uint64_t)p[4] << 32) | ((uint64_t)p[3] << 24) | ((uint64_t)p[2] << 16) | ((uint64_t)p[1] << 8) | (uint64_t)p[0];
+    swap(&p[0], &p[7]);
+    swap(&p[1], &p[6]);
+    swap(&p[2], &p[5]);
+    swap(&p[3], &p[4]);
+    return int64;
 }
+
