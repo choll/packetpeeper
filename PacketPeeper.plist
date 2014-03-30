@@ -27,24 +27,6 @@
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
-				<string>peep</string>
-			</array>
-			<key>CFBundleTypeIconFile</key>
-			<string>ppdocumenticon2</string>
-			<key>CFBundleTypeName</key>
-			<string>peep</string>
-			<key>CFBundleTypeOSTypes</key>
-			<array>
-				<string>peep</string>
-			</array>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>NSDocumentClass</key>
-			<string>MyDocument</string>
-		</dict>
-		<dict>
-			<key>CFBundleTypeExtensions</key>
-			<array>
 				<string>pcap</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>

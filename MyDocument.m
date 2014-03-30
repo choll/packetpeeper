@@ -152,34 +152,6 @@ struct thread_args {
 	}
 }
 
-- (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError
-{
-	NSMutableArray *array;
-	NSData *archivedData;
-
-	*outError = nil;
-
-	if(![typeName isEqualToString:@"peep"])
-		return nil;
-
-	array = [[NSMutableArray alloc] initWithCapacity:3];
-
-	[array addObject:interface];
-
-	if(hc != nil)
-		[array addObject:hc];
-	else
-		[array addObject:[NSNull null]];
-
-	[array addObject:[self packetsSortedByNumber]];
-
-	archivedData = [NSArchiver archivedDataWithRootObject:array];
-
-	[array release];
-
-	return archivedData;
-}
-
 - (int)linkType
 {
 	if(linkType == -1) {
@@ -194,7 +166,6 @@ struct thread_args {
 
 - (IBAction)saveDocument:(id)sender
 {
-	
 	[super saveDocument:sender];
 
 }
@@ -202,7 +173,7 @@ struct thread_args {
 - (BOOL)writeSafelyToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName forSaveOperation:(NSSaveOperationType)saveOperation error:(NSError **)outError
 {
 	if(![typeName isEqualToString:@"tcpdump"] && ![typeName isEqualToString:@"tcpdump_import_all"])
-		return [super writeSafelyToURL:absoluteURL ofType:typeName forSaveOperation:saveOperation error:outError];
+		return NO;
 
 	return [self writeToURL:absoluteURL ofType:typeName forSaveOperation:saveOperation originalContentsURL:[self fileURL] error:outError];
 }
@@ -221,7 +192,7 @@ struct thread_args {
 	}
 
 	if(![typeName isEqualToString:@"tcpdump"] && ![typeName isEqualToString:@"tcpdump_import_all"])
-		return [super writeToURL:absoluteURL ofType:typeName error:outError];
+		return NO;
 
 	if((thread_args = malloc(sizeof(struct thread_args))) == NULL) {
 		errorString = [NSString stringWithFormat:@"Error: malloc failed: %s", strerror(errno)];
@@ -294,7 +265,7 @@ err:
 		}
 	}
 
-	return [super revertToContentsOfURL:absoluteURL ofType:typeName error:outError];
+	return NO;
 }
 
 - (BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outError
@@ -311,7 +282,7 @@ err:
 	}
 
 	if((![typeName isEqualToString:@"tcpdump"] && ![typeName isEqualToString:@"tcpdump_import_all"]) || ![absoluteURL isFileURL])
-		return [super readFromURL:absoluteURL ofType:typeName error:outError];
+		return NO;
 
 	if((thread_args = malloc(sizeof(struct thread_args))) == NULL) {
 		errorString = [NSString stringWithFormat:@"Error: malloc failed: %s", strerror(errno)];
@@ -364,52 +335,6 @@ err:
 	return NO;
 }
 
-/*
-	Don't bother threading this because:
-		1. NSUnarchiving the packets NSArray makes it a hassle.
-		2. I want to deprecate this format anyway, pcap should be preferred.
-*/
-- (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outError
-{
-	NSMutableArray *array;
-
-	*outError = nil;
-
-	[interface release];
-	interface = nil;
-
-	[packets release];
-	packets = nil;
-
-	[allPackets release];
-	allPackets = nil;
-
-	[hc release];
-	hc = nil;
-
-	[streamController flush];
-
-	if(![typeName isEqualToString:@"peep"])
-		return NO;
-
-	array = [NSUnarchiver unarchiveObjectWithData:data];
-
-	interface = [[array objectAtIndex:0] retain];
-
-	if([array objectAtIndex:1] != [NSNull null])
-		[self setHostCache:[array objectAtIndex:1]];
-
-	packets = [[array objectAtIndex:2] retain];
-	[packets makeObjectsPerformSelector:@selector(setDocument:) withObject:self];
-
-	[streamController addPacketArray:packets];
-
-	[streamsWindowController tableViewSelectionDidChange:nil];
-	[self updateControllers];
-
-    return (packets != nil);
-}
-
 - (void)waitForWorkerThread
 {
 	NSEvent* event;
@@ -454,9 +379,6 @@ err:
 
 			[self displayErrorStack:nil close:shouldClose];
 
-			// looks like the sheet gets queued to the run loop, then runs after this method returns
-			// so the sheet is run after we've dealloced?
-			/* wont this have the same bug? yes... so how to handle that? show the error stack first? test it..*/
 			[tempTimer invalidate];
 			[tempTimer release];
 			return;

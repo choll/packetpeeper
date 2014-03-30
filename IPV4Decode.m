@@ -91,13 +91,7 @@ static NSString *names[][2] =	{{@"Version", @"IPv4 Ver"},
 		tos = hdr->ip_tos;
 		tlen = ntohs(hdr->ip_len);
 		ident = ntohs(hdr->ip_id);
-//#if (BYTE_ORDER == BIG_ENDIAN)
 		flags = (hdr->ip_off & ~IP_OFFMASK) >> 8;
-//#elif (BYTE_ORDER == LITTLE_ENDIAN)
-//		flags = (hdr->ip_off & ~IP_OFFMASK) >> 13;
-//#else
-//#error "Unknown byte order"
-//#endif
 		offset = ntohs(hdr->ip_off & IP_OFFMASK);
 		ttl = hdr->ip_ttl;
 		proto = hdr->ip_p;
@@ -1103,10 +1097,10 @@ static NSString *names[][2] =	{{@"Version", @"IPv4 Ver"},
 
 - (void)dealloc
 {
-	//struct option *cur;
 	[optionsDecoder release];
 
 #if 0
+    struct option *cur;
 	while(opts_list != NULL) {
 		cur = opts_list;
 		opts_list = opts_list->next;
