@@ -112,7 +112,6 @@
 	if(listener != nil && ![m_listeners containsObject:listener]) {
 		[m_listeners addObject:listener];
 		[listener release]; /* remove the retain done by the listeners array */
-		// XXX NEED TO REVISE THIS, PROBABLY BETTER THAT LISTENERS DON'T RETAIN US
 	}
 }
 
@@ -297,12 +296,6 @@
 {
 	m_stream = nil;
 	[m_listeners makeObjectsPerformSelector:@selector(close)];
-	// XXX this should be part of the protocol, method should then call close itself.
-	// also, we should send self when we do notifications like chunks deleted or appended,
-	// might want an object which listens to multiple streams.
-	/*
-		chunks deleted/appended should send some chunk identification and sender info.
-	*/
 }
 
 - (void)noteSegmentsDeleted
