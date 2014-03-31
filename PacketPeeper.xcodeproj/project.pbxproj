@@ -1289,7 +1289,7 @@
 				JAVA_COMPILER_DEBUGGING_SYMBOLS = NO;
 				LIBRARY_SEARCH_PATHS = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Python.framework/Versions/2.7/lib/python2.7/config";
 				LLVM_LTO = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				OTHER_CFLAGS = (
 					"-W",
 					"-Wall",
@@ -1298,7 +1298,7 @@
 				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "Packet Peeper";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.8;
 				SECTORDER_FLAGS = "";
 				STRIP_INSTALLED_PRODUCT = NO;
 				WARNING_CFLAGS = (
@@ -1348,7 +1348,7 @@
 				JAVA_COMPILER_DEBUGGING_SYMBOLS = NO;
 				LIBRARY_SEARCH_PATHS = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Python.framework/Versions/2.7/lib/python2.7/config";
 				LLVM_LTO = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				OTHER_CFLAGS = (
 					"-W",
 					"-Wall",
@@ -1357,7 +1357,7 @@
 				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "Packet Peeper";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.8;
 				SECTORDER_FLAGS = "";
 				SEPARATE_STRIP = YES;
 				STRIP_INSTALLED_PRODUCT = YES;
@@ -1407,7 +1407,7 @@
 				INFOPLIST_FILE = PacketPeeper.plist;
 				LIBRARY_SEARCH_PATHS = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Python.framework/Versions/2.7/lib/python2.7/config";
 				LLVM_LTO = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				OTHER_CFLAGS = (
 					"-W",
 					"-Wall",
@@ -1416,7 +1416,7 @@
 				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "Packet Peeper";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.8;
 				SECTORDER_FLAGS = "";
 				WARNING_CFLAGS = (
 					"-Wmost",
