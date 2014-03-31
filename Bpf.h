@@ -1,6 +1,6 @@
 /*
  * Packet Peeper
- * Copyright 2006, 2007, Chris E. Holloway
+ * Copyright 2006, 2007, 2008, 2014 Chris E. Holloway
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -27,7 +27,7 @@
 /* when trying to open a bpf device, make up to and including N attempts, eg /dev/bpf[0..n-1]
    As default OS X includes 4 such devices, but the default number of open attempts is 20
    to be on the safe side */
-// XXX config.h?
+
 #define		OPEN_ATTEMPTS		20			/* default number of attempts */
 #define		MAX_OPEN_ATTEMPTS	100			/* maximum number of attempts allowed */
 #define		DEFAULT_INTERFACE	@"en0"		/* default interface to listen on */

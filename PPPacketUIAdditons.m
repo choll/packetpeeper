@@ -1,6 +1,6 @@
 /*
  * Packet Peeper
- * Copyright 2007, Chris E. Holloway
+ * Copyright 2006, 2007, 2008, 2014 Chris E. Holloway
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
