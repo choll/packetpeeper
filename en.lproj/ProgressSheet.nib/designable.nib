@@ -27,20 +27,20 @@
 			<string key="NS.key.0">PluginDependencyRecalculationVersion</string>
 			<integer value="1" key="NS.object.0"/>
 		</object>
-		<array class="NSMutableArray" key="IBDocument.RootObjects" id="334702238">
-			<object class="NSCustomObject" id="638244373">
+		<array class="NSMutableArray" key="IBDocument.RootObjects" id="582356931">
+			<object class="NSCustomObject" id="915363833">
 				<string key="NSClassName">PPProgressWindowController</string>
 			</object>
-			<object class="NSCustomObject" id="911908005">
+			<object class="NSCustomObject" id="447835812">
 				<string key="NSClassName">FirstResponder</string>
 			</object>
-			<object class="NSCustomObject" id="126346212">
+			<object class="NSCustomObject" id="114167963">
 				<string key="NSClassName">NSApplication</string>
 			</object>
-			<object class="NSWindowTemplate" id="506205904">
+			<object class="NSWindowTemplate" id="680371991">
 				<int key="NSWindowStyleMask">1</int>
 				<int key="NSWindowBacking">2</int>
-				<string key="NSWindowRect">{{1005, 923}, {470, 121}}</string>
+				<string key="NSWindowRect">{{0, 0}, {470, 121}}</string>
 				<int key="NSWTFlags">813170688</int>
 				<string key="NSWindowTitle">...</string>
 				<object class="NSMutableString" key="NSWindowClass">
@@ -50,40 +50,40 @@
 					<characters key="NS.bytes">View</characters>
 				</object>
 				<nil key="NSUserInterfaceItemIdentifier"/>
-				<object class="NSView" key="NSWindowView" id="516223822">
+				<object class="NSView" key="NSWindowView" id="515865570">
 					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<array class="NSMutableArray" key="NSSubviews">
-						<object class="NSProgressIndicator" id="1064729586">
-							<reference key="NSNextResponder" ref="516223822"/>
+						<object class="NSProgressIndicator" id="1060609260">
+							<reference key="NSNextResponder" ref="515865570"/>
 							<int key="NSvFlags">1280</int>
 							<string key="NSFrame">{{18, 81}, {434, 20}}</string>
-							<reference key="NSSuperview" ref="516223822"/>
+							<reference key="NSSuperview" ref="515865570"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="1067963392"/>
+							<reference key="NSNextKeyView" ref="911816173"/>
 							<int key="NSpiFlags">16394</int>
 							<double key="NSMaxValue">1</double>
 						</object>
-						<object class="NSButton" id="455984865">
-							<reference key="NSNextResponder" ref="516223822"/>
+						<object class="NSButton" id="970872708">
+							<reference key="NSNextResponder" ref="515865570"/>
 							<int key="NSvFlags">256</int>
 							<string key="NSFrame">{{194, 12}, {82, 32}}</string>
-							<reference key="NSSuperview" ref="516223822"/>
+							<reference key="NSSuperview" ref="515865570"/>
 							<reference key="NSWindow"/>
 							<bool key="NSEnabled">YES</bool>
-							<object class="NSButtonCell" key="NSCell" id="672183544">
+							<object class="NSButtonCell" key="NSCell" id="87899940">
 								<int key="NSCellFlags">67108864</int>
 								<int key="NSCellFlags2">134217728</int>
 								<string key="NSContents">Cancel</string>
-								<object class="NSFont" key="NSSupport" id="332363227">
+								<object class="NSFont" key="NSSupport" id="750846405">
 									<string key="NSName">.LucidaGrandeUI</string>
 									<double key="NSSize">13</double>
 									<int key="NSfFlags">1044</int>
 								</object>
-								<reference key="NSControlView" ref="455984865"/>
+								<reference key="NSControlView" ref="970872708"/>
 								<int key="NSButtonFlags">-2038284288</int>
 								<int key="NSButtonFlags2">1</int>
-								<reference key="NSAlternateImage" ref="332363227"/>
+								<reference key="NSAlternateImage" ref="750846405"/>
 								<string key="NSAlternateContents"/>
 								<object class="NSMutableString" key="NSKeyEquivalent">
 									<characters key="NS.bytes"/>
@@ -93,20 +93,20 @@
 							</object>
 							<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						</object>
-						<object class="NSTextField" id="1067963392">
-							<reference key="NSNextResponder" ref="516223822"/>
+						<object class="NSTextField" id="911816173">
+							<reference key="NSNextResponder" ref="515865570"/>
 							<int key="NSvFlags">256</int>
 							<string key="NSFrame">{{17, 60}, {436, 17}}</string>
-							<reference key="NSSuperview" ref="516223822"/>
+							<reference key="NSSuperview" ref="515865570"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="455984865"/>
+							<reference key="NSNextKeyView" ref="970872708"/>
 							<bool key="NSEnabled">YES</bool>
-							<object class="NSTextFieldCell" key="NSCell" id="277308791">
+							<object class="NSTextFieldCell" key="NSCell" id="836245320">
 								<int key="NSCellFlags">67108864</int>
 								<int key="NSCellFlags2">138412032</int>
 								<string type="base64-UTF8" key="NSContents">Li4uCg</string>
-								<reference key="NSSupport" ref="332363227"/>
-								<reference key="NSControlView" ref="1067963392"/>
+								<reference key="NSSupport" ref="750846405"/>
+								<reference key="NSControlView" ref="911816173"/>
 								<object class="NSColor" key="NSBackgroundColor">
 									<int key="NSColorSpace">6</int>
 									<string key="NSCatalogName">System</string>
@@ -133,7 +133,7 @@
 					<string key="NSFrameSize">{470, 121}</string>
 					<reference key="NSSuperview"/>
 					<reference key="NSWindow"/>
-					<reference key="NSNextKeyView" ref="1064729586"/>
+					<reference key="NSNextKeyView" ref="1060609260"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1680, 1028}}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
@@ -146,40 +146,40 @@
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
 						<string key="label">cancelButtonPressed:</string>
-						<reference key="source" ref="638244373"/>
-						<reference key="destination" ref="455984865"/>
+						<reference key="source" ref="915363833"/>
+						<reference key="destination" ref="970872708"/>
 					</object>
 					<int key="connectionID">15</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">window</string>
-						<reference key="source" ref="638244373"/>
-						<reference key="destination" ref="506205904"/>
+						<reference key="source" ref="915363833"/>
+						<reference key="destination" ref="680371991"/>
 					</object>
 					<int key="connectionID">18</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">m_progressIndicator</string>
-						<reference key="source" ref="638244373"/>
-						<reference key="destination" ref="1064729586"/>
+						<reference key="source" ref="915363833"/>
+						<reference key="destination" ref="1060609260"/>
 					</object>
 					<int key="connectionID">22</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">m_loadingMessage</string>
-						<reference key="source" ref="638244373"/>
-						<reference key="destination" ref="1067963392"/>
+						<reference key="source" ref="915363833"/>
+						<reference key="destination" ref="911816173"/>
 					</object>
 					<int key="connectionID">24</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">delegate</string>
-						<reference key="source" ref="506205904"/>
-						<reference key="destination" ref="638244373"/>
+						<reference key="source" ref="680371991"/>
+						<reference key="destination" ref="915363833"/>
 					</object>
 					<int key="connectionID">17</int>
 				</object>
@@ -189,74 +189,74 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">0</int>
 						<array key="object" id="0"/>
-						<reference key="children" ref="334702238"/>
+						<reference key="children" ref="582356931"/>
 						<nil key="parent"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">-2</int>
-						<reference key="object" ref="638244373"/>
+						<reference key="object" ref="915363833"/>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">File's Owner</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">-1</int>
-						<reference key="object" ref="911908005"/>
+						<reference key="object" ref="447835812"/>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">First Responder</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">5</int>
-						<reference key="object" ref="506205904"/>
+						<reference key="object" ref="680371991"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="516223822"/>
+							<reference ref="515865570"/>
 						</array>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">ProgressSheet</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">6</int>
-						<reference key="object" ref="516223822"/>
+						<reference key="object" ref="515865570"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="1064729586"/>
-							<reference ref="455984865"/>
-							<reference ref="1067963392"/>
+							<reference ref="1060609260"/>
+							<reference ref="970872708"/>
+							<reference ref="911816173"/>
 						</array>
-						<reference key="parent" ref="506205904"/>
+						<reference key="parent" ref="680371991"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">7</int>
-						<reference key="object" ref="1064729586"/>
-						<reference key="parent" ref="516223822"/>
+						<reference key="object" ref="1060609260"/>
+						<reference key="parent" ref="515865570"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">9</int>
-						<reference key="object" ref="455984865"/>
+						<reference key="object" ref="970872708"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="672183544"/>
+							<reference ref="87899940"/>
 						</array>
-						<reference key="parent" ref="516223822"/>
+						<reference key="parent" ref="515865570"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">20</int>
-						<reference key="object" ref="1067963392"/>
+						<reference key="object" ref="911816173"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="277308791"/>
+							<reference ref="836245320"/>
 						</array>
-						<reference key="parent" ref="516223822"/>
+						<reference key="parent" ref="515865570"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">27</int>
-						<reference key="object" ref="672183544"/>
-						<reference key="parent" ref="455984865"/>
+						<reference key="object" ref="87899940"/>
+						<reference key="parent" ref="970872708"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">28</int>
-						<reference key="object" ref="277308791"/>
-						<reference key="parent" ref="1067963392"/>
+						<reference key="object" ref="836245320"/>
+						<reference key="parent" ref="911816173"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">-3</int>
-						<reference key="object" ref="126346212"/>
+						<reference key="object" ref="114167963"/>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">Application</string>
 					</object>
@@ -269,6 +269,8 @@
 				<string key="20.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="27.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="28.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<boolean value="YES" key="5.IBNSWindowAutoPositionCentersHorizontal"/>
+				<boolean value="YES" key="5.IBNSWindowAutoPositionCentersVertical"/>
 				<string key="5.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="6.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="7.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>

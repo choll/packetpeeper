@@ -75,7 +75,6 @@
 		832D5B3D0AFFF00B007D1E56 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */; };
 		832D5B3E0AFFF00B007D1E56 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 2A37F4B6FDCFA73011CA2CEA /* MainMenu.nib */; };
 		832D5B3F0AFFF00B007D1E56 /* MyDocument.nib in Resources */ = {isa = PBXBuildFile; fileRef = 2A37F4B4FDCFA73011CA2CEA /* MyDocument.nib */; };
-		832D5B400AFFF00B007D1E56 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165FFE840EACC02AAC07 /* InfoPlist.strings */; };
 		832D5B410AFFF00B007D1E56 /* CaptureSetupSheet.nib in Resources */ = {isa = PBXBuildFile; fileRef = 83A6399106F5F17700E8CF04 /* CaptureSetupSheet.nib */; };
 		832D5B430AFFF00B007D1E56 /* prev.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 8320757106F8FA1C00416E79 /* prev.tiff */; };
 		832D5B440AFFF00B007D1E56 /* next.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 8320757306F8FA2000416E79 /* next.tiff */; };
@@ -216,8 +215,6 @@
 		835B0FC50DAD703F0034E32D /* PPApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 835B0FC30DAD703F0034E32D /* PPApplication.m */; };
 		835F0BCA0C70C498003B6A65 /* in_cksum.c in Sources */ = {isa = PBXBuildFile; fileRef = 835F0BC80C70C498003B6A65 /* in_cksum.c */; };
 		835F0BCB0C70C499003B6A65 /* in_cksum.h in Headers */ = {isa = PBXBuildFile; fileRef = 835F0BC90C70C498003B6A65 /* in_cksum.h */; };
-		835F0D940C723AA0003B6A65 /* vec_csum.S in Sources */ = {isa = PBXBuildFile; fileRef = 835F0D930C723AA0003B6A65 /* vec_csum.S */; };
-		835F14640C73AEBC003B6A65 /* vec_csum.S in Sources */ = {isa = PBXBuildFile; fileRef = 835F0D930C723AA0003B6A65 /* vec_csum.S */; };
 		835F14660C73AEBD003B6A65 /* in_cksum.c in Sources */ = {isa = PBXBuildFile; fileRef = 835F0BC80C70C498003B6A65 /* in_cksum.c */; };
 		835F14670C73AEBF003B6A65 /* in_cksum.h in Headers */ = {isa = PBXBuildFile; fileRef = 835F0BC90C70C498003B6A65 /* in_cksum.h */; };
 		838B24F20B0387EA00F9CA41 /* ethernet-manufacturers.oui in Resources */ = {isa = PBXBuildFile; fileRef = 838B24F10B0387EA00F9CA41 /* ethernet-manufacturers.oui */; };
@@ -289,7 +286,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		089C1660FE840EACC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		2A37F4ACFDCFA73011CA2CEA /* MyDocument.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = MyDocument.m; sourceTree = "<group>"; };
 		2A37F4AEFDCFA73011CA2CEA /* MyDocument.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MyDocument.h; sourceTree = "<group>"; };
@@ -371,8 +367,6 @@
 		835B0FC30DAD703F0034E32D /* PPApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPApplication.m; sourceTree = "<group>"; };
 		835F0BC80C70C498003B6A65 /* in_cksum.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = in_cksum.c; sourceTree = "<group>"; };
 		835F0BC90C70C498003B6A65 /* in_cksum.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = in_cksum.h; sourceTree = "<group>"; };
-		835F0D930C723AA0003B6A65 /* vec_csum.S */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.asm; path = vec_csum.S; sourceTree = "<group>"; };
-		835F13930C738885003B6A65 /* sse_csum.S */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.asm; path = sse_csum.S; sourceTree = "<group>"; };
 		83620A1E06E08B8A00336558 /* strfuncs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = strfuncs.m; sourceTree = "<group>"; };
 		83620A2006E08B9700336558 /* strfuncs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = strfuncs.h; sourceTree = "<group>"; };
 		8364183B06C05FAD004048C1 /* LoopbackDecode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoopbackDecode.h; sourceTree = "<group>"; };
@@ -596,7 +590,6 @@
 				83FE245B082051F8006CA5C5 /* PPTCPStreamWindow.nib */,
 				8352967C08B10AB100E175FD /* PPNodeGraphPanel.nib */,
 				83B5C8D30948E49100C46868 /* PPStreamsWindow.nib */,
-				089C165FFE840EACC02AAC07 /* InfoPlist.strings */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -654,17 +647,6 @@
 				83565FD30D3FE9E00037485E /* PPCaptureFilterFormatter.m */,
 			);
 			name = Filters;
-			sourceTree = "<group>";
-		};
-		835F16030C786B93003B6A65 /* Checksum */ = {
-			isa = PBXGroup;
-			children = (
-				835F0D930C723AA0003B6A65 /* vec_csum.S */,
-				835F13930C738885003B6A65 /* sse_csum.S */,
-				835F0BC80C70C498003B6A65 /* in_cksum.c */,
-				835F0BC90C70C498003B6A65 /* in_cksum.h */,
-			);
-			name = Checksum;
 			sourceTree = "<group>";
 		};
 		8364184B06C14B1A004048C1 /* ObjectIO */ = {
@@ -771,7 +753,8 @@
 		83CD8FDC0773B60D0012C1CD /* Decoding */ = {
 			isa = PBXGroup;
 			children = (
-				835F16030C786B93003B6A65 /* Checksum */,
+				835F0BC90C70C498003B6A65 /* in_cksum.h */,
+				835F0BC80C70C498003B6A65 /* in_cksum.c */,
 				8364184C06C23E74004048C1 /* dlt_lookup.m */,
 				8364185A06C42A4A004048C1 /* dlt_lookup.h */,
 				838EAD540E2A91940003F920 /* PPDecoderParent.h */,
@@ -1019,7 +1002,6 @@
 				832D5B3D0AFFF00B007D1E56 /* Credits.rtf in Resources */,
 				832D5B3E0AFFF00B007D1E56 /* MainMenu.nib in Resources */,
 				832D5B3F0AFFF00B007D1E56 /* MyDocument.nib in Resources */,
-				832D5B400AFFF00B007D1E56 /* InfoPlist.strings in Resources */,
 				832D5B410AFFF00B007D1E56 /* CaptureSetupSheet.nib in Resources */,
 				832D5B430AFFF00B007D1E56 /* prev.tiff in Resources */,
 				832D5B440AFFF00B007D1E56 /* next.tiff in Resources */,
@@ -1107,7 +1089,6 @@
 				83ABCC2F0C5C9CA50087E70B /* dlt_lookup.m in Sources */,
 				83ABCC620C5C9E7B0087E70B /* demultiplex.m in Sources */,
 				835F0BCA0C70C498003B6A65 /* in_cksum.c in Sources */,
-				835F0D940C723AA0003B6A65 /* vec_csum.S in Sources */,
 				8352BE870C82B9FC00284D91 /* PPProgressWindowController.m in Sources */,
 				8314CAD50CB12A09003610FD /* NSMutableArrayExtensions.m in Sources */,
 				839334670CE2738C00FF58C5 /* stream_compare.m in Sources */,
@@ -1157,7 +1138,6 @@
 				832D5BC70AFFF00B007D1E56 /* PPPDecode.m in Sources */,
 				832D5BC80AFFF00B007D1E56 /* PortCache.m in Sources */,
 				838B25660B03A07400F9CA41 /* OUICache.m in Sources */,
-				835F14640C73AEBC003B6A65 /* vec_csum.S in Sources */,
 				835F14660C73AEBD003B6A65 /* in_cksum.c in Sources */,
 				83565A440D356C7B0037485E /* helper_dummy.m in Sources */,
 				835665F70D43752D0037485E /* PPBPFProgram.m in Sources */,
@@ -1180,14 +1160,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		089C165FFE840EACC02AAC07 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				089C1660FE840EACC02AAC07 /* English */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
 		2A37F4B4FDCFA73011CA2CEA /* MyDocument.nib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1285,6 +1257,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_ALTIVEC_EXTENSIONS = YES;
 				GCC_AUTO_VECTORIZATION = NO;
@@ -1344,6 +1317,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_ALTIVEC_EXTENSIONS = YES;
 				GCC_AUTO_VECTORIZATION = NO;
@@ -1402,15 +1376,18 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_ALTIVEC_EXTENSIONS = YES;
 				GCC_AUTO_VECTORIZATION = NO;
 				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_DEBUGGING_SYMBOLS = full;
 				GCC_ENABLE_SSE3_EXTENSIONS = YES;
 				GCC_FAST_OBJC_DISPATCH = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = fast;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_STRICT_ALIASING = NO;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
