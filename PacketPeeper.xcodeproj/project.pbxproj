@@ -289,14 +289,14 @@
 		1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		2A37F4ACFDCFA73011CA2CEA /* MyDocument.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = MyDocument.m; sourceTree = "<group>"; };
 		2A37F4AEFDCFA73011CA2CEA /* MyDocument.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MyDocument.h; sourceTree = "<group>"; };
-		2A37F4B5FDCFA73011CA2CEA /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MyDocument.nib; sourceTree = "<group>"; };
-		2A37F4B7FDCFA73011CA2CEA /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MainMenu.nib; sourceTree = "<group>"; };
-		2A37F4BAFDCFA73011CA2CEA /* English */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = English; path = English.lproj/Credits.rtf; sourceTree = "<group>"; };
+		2A37F4B5FDCFA73011CA2CEA /* en */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = en; path = en.lproj/MyDocument.nib; sourceTree = "<group>"; };
+		2A37F4B7FDCFA73011CA2CEA /* en */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = en; path = en.lproj/MainMenu.nib; sourceTree = "<group>"; };
+		2A37F4BAFDCFA73011CA2CEA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		8300DBC20B00BE18004C8233 /* PacketPeeper.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PacketPeeper.plist; sourceTree = "<group>"; };
 		8304C2ED07C6A884004FAC45 /* rb_tree.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = rb_tree.c; sourceTree = "<group>"; };
 		8304C2EE07C6A884004FAC45 /* rb_tree.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = rb_tree.h; sourceTree = "<group>"; };
-		8304C6E30D4FC70900652885 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/PPCaptureFilterSheet.nib; sourceTree = "<group>"; };
+		8304C6E30D4FC70900652885 /* en */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = en; path = en.lproj/PPCaptureFilterSheet.nib; sourceTree = "<group>"; };
 		830C23F718E22FC400ACBD55 /* en */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = en; path = en.lproj/ProgressSheet.nib; sourceTree = "<group>"; };
 		83124C7F06A149C8008B5F66 /* socketpath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = socketpath.h; sourceTree = "<group>"; };
 		83124CA806A6F676008B5F66 /* writevn.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = writevn.c; sourceTree = "<group>"; };
@@ -338,7 +338,7 @@
 		835236D40858D87E005F0D73 /* PPNodeGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPNodeGraphView.m; sourceTree = "<group>"; };
 		83524279085B6E4A005F0D73 /* quartzgen.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = quartzgen.m; sourceTree = "<group>"; };
 		8352427D085B6EE3005F0D73 /* quartzgen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = quartzgen.h; sourceTree = "<group>"; };
-		8352967D08B10AB100E175FD /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/PPNodeGraphPanel.nib; sourceTree = "<group>"; };
+		8352967D08B10AB100E175FD /* en */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = en; path = en.lproj/PPNodeGraphPanel.nib; sourceTree = "<group>"; };
 		835296D108B13CF200E175FD /* PPNodeGraphWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPNodeGraphWindowController.h; sourceTree = "<group>"; };
 		835296D208B13CF200E175FD /* PPNodeGraphWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPNodeGraphWindowController.m; sourceTree = "<group>"; };
 		835297E508B265F300E175FD /* PPCenteredClipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPCenteredClipView.h; sourceTree = "<group>"; };
@@ -390,7 +390,7 @@
 		8396932607A0570F00E1EDB9 /* OUICache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OUICache.h; sourceTree = "<group>"; };
 		8396932707A0570F00E1EDB9 /* OUICache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OUICache.m; sourceTree = "<group>"; };
 		839C2C150782D413006BA02E /* IndividualPacketWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndividualPacketWindowController.m; sourceTree = "<group>"; };
-		839C2C290783230E006BA02E /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/IndividualPacket.nib; sourceTree = "<group>"; };
+		839C2C290783230E006BA02E /* en */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = en; path = en.lproj/IndividualPacket.nib; sourceTree = "<group>"; };
 		83A1D4B318E09D4C00ED3C30 /* libpython2.7.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpython2.7.dylib; path = ../../../../System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/config/libpython2.7.dylib; sourceTree = "<group>"; };
 		83A6397D06F3A0F400E8CF04 /* MyDocumentController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MyDocumentController.h; sourceTree = "<group>"; };
 		83A6397E06F3A0F400E8CF04 /* MyDocumentController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = MyDocumentController.m; sourceTree = "<group>"; };
@@ -399,13 +399,13 @@
 		83A6398A06F5DCDC00E8CF04 /* PacketCaptureWindowController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = PacketCaptureWindowController.m; sourceTree = "<group>"; };
 		83A6398D06F5EDE300E8CF04 /* CaptureSetupWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptureSetupWindowController.m; sourceTree = "<group>"; };
 		83A6398F06F5EDEC00E8CF04 /* CaptureSetupWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptureSetupWindowController.h; sourceTree = "<group>"; };
-		83A6399206F5F17700E8CF04 /* CaptureSetupSheet.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = CaptureSetupSheet.nib; path = English.lproj/CaptureSetupSheet.nib; sourceTree = "<group>"; };
+		83A6399206F5F17700E8CF04 /* CaptureSetupSheet.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = CaptureSetupSheet.nib; path = en.lproj/CaptureSetupSheet.nib; sourceTree = "<group>"; };
 		83A74A1806BFC37400FD3004 /* Decode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Decode.h; sourceTree = "<group>"; };
 		83A74A1B06C0040200FD3004 /* Packet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Packet.h; sourceTree = "<group>"; };
 		83A74A1C06C0040200FD3004 /* Packet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Packet.m; sourceTree = "<group>"; };
 		83AD23090994C6860048B019 /* PPDataQuantityFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPDataQuantityFormatter.h; sourceTree = "<group>"; };
 		83AD230A0994C6860048B019 /* PPDataQuantityFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPDataQuantityFormatter.m; sourceTree = "<group>"; };
-		83B5C8D40948E49100C46868 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/PPStreamsWindow.nib; sourceTree = "<group>"; };
+		83B5C8D40948E49100C46868 /* en */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = en; path = en.lproj/PPStreamsWindow.nib; sourceTree = "<group>"; };
 		83B5CBA7094B6BC700C46868 /* lookup_dummy.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = lookup_dummy.c; sourceTree = "<group>"; };
 		83B5CCBC094E28A300C46868 /* PPStreamsWindowController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = PPStreamsWindowController.m; sourceTree = "<group>"; };
 		83B5CCBD094E28A300C46868 /* PPStreamsWindowController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PPStreamsWindowController.h; sourceTree = "<group>"; };
@@ -419,7 +419,7 @@
 		83BA8BA608BDEEC600AC7EF3 /* PPNodeGraphController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPNodeGraphController.m; sourceTree = "<group>"; };
 		83BDB4B50B65676600D635E2 /* PPIPDefragger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPIPDefragger.h; sourceTree = "<group>"; };
 		83BDB4B60B65676600D635E2 /* PPIPDefragger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPIPDefragger.m; sourceTree = "<group>"; };
-		83C4565E076F469C00050832 /* ErrorReportSheet.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = ErrorReportSheet.nib; path = English.lproj/ErrorReportSheet.nib; sourceTree = "<group>"; };
+		83C4565E076F469C00050832 /* ErrorReportSheet.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = ErrorReportSheet.nib; path = en.lproj/ErrorReportSheet.nib; sourceTree = "<group>"; };
 		83C45660076F49C900050832 /* ErrorReportWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorReportWindowController.h; sourceTree = "<group>"; };
 		83C45661076F49C900050832 /* ErrorReportWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorReportWindowController.m; sourceTree = "<group>"; };
 		83C45664076FB20A00050832 /* ColumnIdentifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColumnIdentifier.h; sourceTree = "<group>"; };
@@ -468,7 +468,7 @@
 		83FA8B980DCE35E8004C66C3 /* ip_options.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = ip_options.py; sourceTree = "<group>"; };
 		83FDF2B306BA9AA3009C3584 /* ObjectIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectIO.h; sourceTree = "<group>"; };
 		83FDF2B406BA9AA3009C3584 /* ObjectIO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjectIO.m; sourceTree = "<group>"; };
-		83FE245C082051F8006CA5C5 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/PPTCPStreamWindow.nib; sourceTree = "<group>"; };
+		83FE245C082051F8006CA5C5 /* en */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = en; path = en.lproj/PPTCPStreamWindow.nib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -978,7 +978,7 @@
 			};
 			buildConfigurationList = 837EF0640855D81A00A36659 /* Build configuration list for PBXProject "PacketPeeper" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				en,
@@ -1163,7 +1163,7 @@
 		2A37F4B4FDCFA73011CA2CEA /* MyDocument.nib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				2A37F4B5FDCFA73011CA2CEA /* English */,
+				2A37F4B5FDCFA73011CA2CEA /* en */,
 			);
 			name = MyDocument.nib;
 			sourceTree = "<group>";
@@ -1171,7 +1171,7 @@
 		2A37F4B6FDCFA73011CA2CEA /* MainMenu.nib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				2A37F4B7FDCFA73011CA2CEA /* English */,
+				2A37F4B7FDCFA73011CA2CEA /* en */,
 			);
 			name = MainMenu.nib;
 			sourceTree = "<group>";
@@ -1179,7 +1179,7 @@
 		2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */ = {
 			isa = PBXVariantGroup;
 			children = (
-				2A37F4BAFDCFA73011CA2CEA /* English */,
+				2A37F4BAFDCFA73011CA2CEA /* en */,
 			);
 			name = Credits.rtf;
 			sourceTree = "<group>";
@@ -1187,7 +1187,7 @@
 		8304C6E20D4FC70900652885 /* PPCaptureFilterSheet.nib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				8304C6E30D4FC70900652885 /* English */,
+				8304C6E30D4FC70900652885 /* en */,
 			);
 			name = PPCaptureFilterSheet.nib;
 			sourceTree = "<group>";
@@ -1203,7 +1203,7 @@
 		8352967C08B10AB100E175FD /* PPNodeGraphPanel.nib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				8352967D08B10AB100E175FD /* English */,
+				8352967D08B10AB100E175FD /* en */,
 			);
 			name = PPNodeGraphPanel.nib;
 			sourceTree = "<group>";
@@ -1211,7 +1211,7 @@
 		839C2C280783230E006BA02E /* IndividualPacket.nib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				839C2C290783230E006BA02E /* English */,
+				839C2C290783230E006BA02E /* en */,
 			);
 			name = IndividualPacket.nib;
 			sourceTree = "<group>";
@@ -1227,7 +1227,7 @@
 		83B5C8D30948E49100C46868 /* PPStreamsWindow.nib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				83B5C8D40948E49100C46868 /* English */,
+				83B5C8D40948E49100C46868 /* en */,
 			);
 			name = PPStreamsWindow.nib;
 			sourceTree = "<group>";
@@ -1243,7 +1243,7 @@
 		83FE245B082051F8006CA5C5 /* PPTCPStreamWindow.nib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				83FE245C082051F8006CA5C5 /* English */,
+				83FE245C082051F8006CA5C5 /* en */,
 			);
 			name = PPTCPStreamWindow.nib;
 			sourceTree = "<group>";
