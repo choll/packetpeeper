@@ -85,7 +85,7 @@ static	NSString *rarp_names[][2] =	{{@"Hardware Address Type", @"RARP HW Type"},
 		prottype = ntohs(hdr->ar_pro);
 		hardsz = hdr->ar_hln;
 		protsz = hdr->ar_pln;
-		op = hdr->ar_op;
+		op = ntohs(hdr->ar_op);
 
 		if(hardtype == ARPHRD_ETHER && hardsz == ETHER_ADDR_LEN) {
 			(void)memcpy(ethsender, (void *)((uintptr_t)hdr + ARP_FIELD_SZ), sizeof(ethsender)); // pull back by 4 bytes?
