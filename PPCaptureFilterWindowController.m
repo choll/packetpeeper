@@ -71,6 +71,8 @@
 
 	[filterNameComboBox setDataSource:self];
 	[filterNameComboBox setDelegate:self];
+
+    [applyButton setEnabled:NO];
 }
 
 - (void)sheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo
@@ -87,10 +89,23 @@
 
 - (BOOL)control:(NSControl *)control didFailToFormatString:(NSString *)string errorDescription:(NSString *)error
 {
-	if(error != nil)
-		[filterErrorTextField setStringValue:[NSString stringWithFormat:@"Error: %@", error]];
-
+    [filterErrorTextField setStringValue:[NSString stringWithFormat:@"Error: %@", error]];
+    [applyButton setEnabled:NO];
 	return NO;
+}
+
+- (void)control:(NSControl *)control didFailToValidatePartialString:(NSString *)string errorDescription:(NSString *)error
+{
+    [filterErrorTextField setStringValue:[NSString stringWithFormat:@"Error: %@", error]];
+    [applyButton setEnabled:NO];
+}
+
+- (void)controlTextDidChange:(NSNotification *)aNotification
+{
+    if([filterTextField objectValue] != nil) {
+        [filterErrorTextField setStringValue:@"Filter OK"];
+        [applyButton setEnabled:YES];
+    }
 }
 
 /* NSComboBox data source methods */
@@ -185,8 +200,8 @@
 
 - (IBAction)applyButtonPressed:(id)sender
 {
-	[[self window] orderOut:sender];
-	[NSApp endSheet:[self window] returnCode:1];
+    [[self window] orderOut:sender];
+    [NSApp endSheet:[self window] returnCode:1];
 }
 
 - (IBAction)cancelButtonPressed:(id)sender

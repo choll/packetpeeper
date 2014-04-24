@@ -23,6 +23,7 @@
 #import <AppKit/NSWindowController.h>
 #import <AppKit/NSComboBox.h>
 #import <AppKit/NSTextField.h>
+#import <AppKit/NSButton.h>
 
 @class NSArray;
 @class NSProgressIndicator;
@@ -36,6 +37,7 @@
 	IBOutlet NSComboBox *filterNameComboBox;
 	IBOutlet NSTextField *filterNetmaskTextField;
 	IBOutlet NSTextField *filterErrorTextField;
+	IBOutlet NSButton *applyButton;
 }
 
 - (PPCaptureFilter *)filter;
