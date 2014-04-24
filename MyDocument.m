@@ -52,6 +52,7 @@
 #import <AppKit/NSPanel.h>
 #import <AppKit/NSFont.h>
 #import <AppKit/NSDocument.h>
+#import <AppKit/NSWindowRestoration.h>
 #include "ObjectIO.h"
 #include "AppController.h"
 #include "Describe.h"
@@ -1296,6 +1297,21 @@ err:
 
 }
 
+- (void)addWindowController:(NSWindowController *)aController {
+    NSWindow *window = [aController window];
+
+    if([window respondsToSelector:@selector(setRestorationClass:)])
+        [window setRestorationClass:Nil];
+
+    if([window respondsToSelector:@selector(setRestorable:)])
+        [window setRestorable:NO];
+
+    if([window respondsToSelector:@selector(invalidateRestorableState)])
+        [window invalidateRestorableState];
+
+    [super addWindowController:aController];
+}
+
 - (void)dealloc
 {
 	[timer release];
@@ -1528,7 +1544,7 @@ static void *filter_packets_thread(void *args)
 
 	autoreleasePool = [[NSAutoreleasePool alloc] init];
 	filteredPackets = [[NSMutableArray alloc] init];
-	
+
 	thread_args->units_total = [(NSArray *)thread_args->input[0] count];
 	thread_args->output[0] = nil;
 	thread_args->output[1] = nil;
