@@ -43,7 +43,10 @@
 
 - (PPCaptureFilter *)filter
 {
-	return [filterTextField objectValue];
+    id temp = [filterTextField objectValue];
+	if([temp isKindOfClass:[PPCaptureFilter class]])
+		return temp;
+	return nil;
 }
 
 - (void)windowDidLoad
