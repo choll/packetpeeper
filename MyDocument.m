@@ -266,7 +266,7 @@ err:
 		}
 	}
 
-	return NO;
+    return [super revertToContentsOfURL:absoluteURL ofType:typeName error:outError];
 }
 
 - (BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outError
@@ -1299,6 +1299,9 @@ err:
 
 - (void)addWindowController:(NSWindowController *)aController {
     NSWindow *window = [aController window];
+
+    // This is done to prevent NSDocument automatically opening the
+    // previous document
 
     if([window respondsToSelector:@selector(setRestorationClass:)])
         [window setRestorationClass:Nil];
