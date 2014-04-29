@@ -58,54 +58,6 @@
 @class HostCache;
 @protocol PPDecoderPlugin;
 
-struct option {
-	struct option *next;
-	uint8_t type;
-};
-
-struct option_stream_id {
-	struct option *next;
-	uint8_t type;
-	uint16_t stream_id;
-};
-
-struct option_security {
-	struct option *next;
-	uint8_t type;
-	uint8_t level;
-	uint16_t compartment;
-	uint16_t restrictions;
-	uint32_t control;
-};
-
-struct option_route {
-	struct option *next;
-	uint8_t type;
-	uint8_t n_addrs;
-	struct in_addr addr[];
-};
-
-struct option_timestamp_tso {
-	struct option *next;
-	uint8_t type;
-	uint8_t nelems;
-	uint8_t overflow;
-	uint8_t flags;
-	uint32_t usecs[];
-};
-
-struct option_timestamp_tsa {
-	struct option *next;
-	uint8_t type;
-	uint8_t nelems;
-	uint8_t overflow;
-	uint8_t flags;
-	struct tsa {
-		struct in_addr addr;
-		uint32_t usecs;
-	} tsa[];
-};
-
 @interface IPV4Decode : NSObject <Decode, Describe, NSCoding, OutlineViewItem, ColumnIdentifier>
 {
 	id <PPDecoderParent> parent;
