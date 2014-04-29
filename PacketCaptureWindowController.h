@@ -45,6 +45,8 @@
 	BOOL autoScrolling;
 }
 
+- (void)selectPacketAtIndex:(NSUInteger)index;
+
 - (NSMenu *)packetTableColumnMenu;
 - (void)doubleAction:(id)sender;
 - (void)populatePacketTableView; /* private method */

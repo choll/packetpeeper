@@ -70,6 +70,12 @@
 
 @implementation PacketCaptureWindowController
 
+- (void)selectPacketAtIndex:(NSUInteger)index
+{
+    if ([packetTableView numberOfRows] > index)
+        [packetTableView selectRowIndexes:[NSIndexSet indexSetWithIndex:index] byExtendingSelection:NO];
+}
+
 - (void)windowDidLoad
 {
 	autoScrolling = [[NSUserDefaults standardUserDefaults] boolForKey:PPDOCUMENT_AUTOSCROLLING];
@@ -507,7 +513,7 @@
 		[packetTableView scrollRowToVisible:[packetTableView numberOfRows] - 1];
 	} else {
 		autoScrolling = NO;
-		[sender setState:NSOffState]; 
+		[sender setState:NSOffState];
 	}
 
 	[[NSUserDefaults standardUserDefaults] setBool:autoScrolling forKey:PPDOCUMENT_AUTOSCROLLING];

@@ -26,10 +26,13 @@
 #import <Foundation/NSValue.h>
 #import <Foundation/NSDecimalNumber.h>
 #import <Foundation/NSDictionary.h>
+#import <Foundation/NSUserDefaults.h>
 #import <AppKit/NSOutlineView.h>
 #import <AppKit/NSScrollView.h>
 #import <AppKit/NSClipView.h>
 #import <AppKit/NSTableColumn.h>
+#import <HexFiend/HexFiend.h>
+#include "PacketPeeper.h"
 #include "Packet.h"
 #include "HostCache.h"
 #include "PPPacketUIAdditons.h"
@@ -47,7 +50,7 @@ static OutlineViewItem *copy_item_tree(id <OutlineViewItem> root);
 - (id)initWithWindowNibName:(NSString *)windowNibName
 {
 	if((self = [super initWithWindowNibName:windowNibName]) != nil) {
-		expandedItems = [[NSMutableDictionary alloc] init];	
+		expandedItems = [[NSMutableDictionary alloc] init];
 	}
 	return self;
 }
@@ -69,20 +72,47 @@ static OutlineViewItem *copy_item_tree(id <OutlineViewItem> root);
 
 - (void)windowDidLoad
 {
-	[packetOutlineView setDataSource:self];
-	[packetHexView setDataSource:self];
-	[packetOutlineView setColumnAutoresizingStyle:NSTableViewNoColumnAutoresizing];
-	[[NSNotificationCenter defaultCenter] addObserver:self
-	 selector:@selector(hostNameLookupCompletedNotification:)
-	 name:PPHostCacheHostNameLookupCompleteNotification
-	 object:[[self document] hostCache]];
+    NSNotificationCenter *notificationCenter;
+    HFLineCountingRepresenter *lineCountingRepresenter;
+
+    notificationCenter = [NSNotificationCenter defaultCenter];
+
+    [packetOutlineView setDataSource:self];
+
+    lineCountingRepresenter = [[HFLineCountingRepresenter alloc] init];
+    [lineCountingRepresenter setMinimumDigitCount:10];
+
+    NSNumber *lineNumberFormat = [[NSUserDefaults standardUserDefaults] objectForKey:PPHEXVIEW_LINECOLUMN_MODE];
+    [lineCountingRepresenter setLineNumberFormat:[lineNumberFormat unsignedIntValue]];
+
+    [[packetHexView controller] addRepresenter:lineCountingRepresenter];
+    [[packetHexView layoutRepresenter] addRepresenter:lineCountingRepresenter];
+
+    [[packetHexView controller] setBytesPerColumn:2]; /* same as old HexView */
+
+    [packetHexView setData:[packet packetData]];
+    [[packetHexView layoutRepresenter] performLayout];
+
+    [[packetHexView controller] setEditable:NO];
+    [packetHexView setBordered:YES];
+
+    [packetOutlineView setColumnAutoresizingStyle:NSTableViewNoColumnAutoresizing];
+
+    [notificationCenter addObserver:self
+                        selector:@selector(hostNameLookupCompletedNotification:)
+                        name:PPHostCacheHostNameLookupCompleteNotification
+                        object:[[self document] hostCache]];
+
+    [lineCountingRepresenter release];
 }
 
 - (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName
 {
-	return [NSString stringWithFormat:@"%@ - %@ - Packet #%u, %@ %@",
-	displayName, [[self document] interface], [packet number],
-	([packet protocols] != nil) ? [packet protocols] : @"", ([packet info] != nil) ? [packet info] : @""];
+    return
+        [NSString stringWithFormat:@"%@ - %@ - Packet #%u, %@ %@",
+        displayName, [[self document] interface], [packet number],
+        ([packet protocols] != nil) ? [packet protocols] : @"",
+        ([packet info] != nil) ? [packet info] : @""];
 }
 
 - (void)setDocumentEdited:(BOOL)flag
@@ -104,30 +134,32 @@ static OutlineViewItem *copy_item_tree(id <OutlineViewItem> root);
 
 - (void)setPacket:(Packet *)aPacket
 {
-	NSPoint scrollPosition;
+    NSPoint scrollPosition;
 
-	scrollPosition = [[[packetOutlineView enclosingScrollView] contentView] bounds].origin;
+    scrollPosition = [[[packetOutlineView enclosingScrollView] contentView] bounds].origin;
 
-	if(packet != nil)
-		record_expanded_items(packetOutlineView, expandedItems, packetItems);
+    if(packet != nil)
+        record_expanded_items(packetOutlineView, expandedItems, packetItems);
 
-	[aPacket retain];
-	[packet release];
-	packet = aPacket;
+    [aPacket retain];
+    [packet release];
+    packet = aPacket;
 
-	[packetItems release];
-	packetItems = copy_item_tree(packet);
-	[packetItems retain];
+    [packetItems release];
+    packetItems = copy_item_tree(packet);
+    [packetItems retain];
 
-	[packetOutlineView reloadData];
-	[packetHexView reloadData];
+    [packetOutlineView reloadData];
 
-	expand_items(packetOutlineView, expandedItems, packetItems);
+    [packetHexView setData:[packet packetData]];
+    [[packetHexView layoutRepresenter] performLayout];
 
-	if([[[packetOutlineView enclosingScrollView] contentView] bounds].size.height < [packetOutlineView bounds].size.height) {
-		[[[packetOutlineView enclosingScrollView] contentView] scrollToPoint:scrollPosition];
-		[[packetOutlineView enclosingScrollView] reflectScrolledClipView:[[packetOutlineView enclosingScrollView] contentView]];
-	}
+    expand_items(packetOutlineView, expandedItems, packetItems);
+
+    if([[[packetOutlineView enclosingScrollView] contentView] bounds].size.height < [packetOutlineView bounds].size.height) {
+        [[[packetOutlineView enclosingScrollView] contentView] scrollToPoint:scrollPosition];
+        [[packetOutlineView enclosingScrollView] reflectScrolledClipView:[[packetOutlineView enclosingScrollView] contentView]];
+    }
 }
 
 - (Packet *)packet
@@ -164,7 +196,7 @@ static OutlineViewItem *copy_item_tree(id <OutlineViewItem> root);
 		return [(id <OutlineViewItem>)item numberOfChildren];
 }
 
-- (id)outlineView:(NSOutlineView *)outlineView child:(int)index ofItem:(id)item
+- (id)outlineView:(NSOutlineView *)outlineView child:(int)anIndex ofItem:(id)item
 {
 	id ret;
 
@@ -172,9 +204,9 @@ static OutlineViewItem *copy_item_tree(id <OutlineViewItem> root);
 		if(packetItems == nil)
 			return nil;
 		else
-			ret = [packetItems childAtIndex:index];
+			ret = [packetItems childAtIndex:anIndex];
 	} else {
-			ret = [(id <OutlineViewItem>)item childAtIndex:index];
+			ret = [(id <OutlineViewItem>)item childAtIndex:anIndex];
 	}
 
 	return ret;

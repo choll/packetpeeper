@@ -22,19 +22,19 @@
 
 #import <AppKit/NSOutlineView.h>
 #import <AppKit/NSWindowController.h>
-#include "HexView.h"
 #include "PacketPeeper.h"
 
 @class NSMutableArray;
 @class NSOutlineView;
 @class NSTableColumn;
 @class NSMutableDictionary;
+@class HFTextView;
 @class Packet;
 @class OutlineViewItem;
 
-@interface IndividualPacketWindowController : NSWindowController <HexViewDataSource, NSOutlineViewDataSource> {
+@interface IndividualPacketWindowController : NSWindowController <NSOutlineViewDataSource> {
 	IBOutlet NSOutlineView *packetOutlineView;
-	IBOutlet HexView *packetHexView;
+	IBOutlet HFTextView *packetHexView;
 	OutlineViewItem *packetItems;
 	Packet *packet;
 	NSMutableDictionary *expandedItems;
@@ -54,16 +54,11 @@
 
 - (int)outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(id)item;
 
-- (id)outlineView:(NSOutlineView *)outlineView child:(int)index ofItem:(id)item;
+- (id)outlineView:(NSOutlineView *)outlineView child:(int)anIndex ofItem:(id)item;
 
 - (id)outlineView:(NSOutlineView *)outlineView objectValueForTableColumn:(NSTableColumn *)tableColumn byItem:(id)item;
-
-/* HexView data-source methods */
-
-- (unsigned int)length;
-
-- (const void *)bytes;
 
 @end
 
 #endif
+

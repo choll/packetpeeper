@@ -416,6 +416,7 @@ err:
 				}
 
 				[[captureWindowController window] makeKeyAndOrderFront:self];
+                [captureWindowController selectPacketAtIndex:0];
 			} else if(thread_args->op == THREAD_OP_DOC_SAVE || thread_args->op == THREAD_OP_DOC_SAVE_AS ||
 					  thread_args->op == THREAD_OP_DOC_SAVE_TO || thread_args->op == THREAD_OP_DOC_SAVE_AUTO) {
 				/* stop NSDocument complaining about not being able to find the document */
