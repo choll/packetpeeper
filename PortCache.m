@@ -27,7 +27,6 @@
 #import <Foundation/NSString.h>
 #import <Foundation/NSNull.h>
 #import <Foundation/NSBundle.h>
-#include "getnameinfo.h"
 #include "PortCache.h"
 
 #define PORTCACHE_TCP_DATFILE_PATH		[[[NSBundle mainBundle] pathForResource:@"port-numbers-tcp" ofType:@"port"] UTF8String]

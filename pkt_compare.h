@@ -27,6 +27,7 @@
 #define val_compare(x, y) ((x) > (y) ? NSOrderedDescending : ((x) < (y) ? NSOrderedAscending : NSOrderedSame))
 
 NSComparisonResult pkt_compare(id pkt1, id pkt2, void *context);
-NSComparisonResult mem_compare(void *b1, void *b2, size_t len);
+NSComparisonResult mem_compare(const void *b1, const void *b2, size_t len);
 
 #endif
+

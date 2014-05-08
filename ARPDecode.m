@@ -26,7 +26,7 @@
 #import <Foundation/NSArray.h>
 #import <Foundation/NSArchiver.h>
 #include "Packet.h"
-#include "HostCache.h"
+#include "HostCache.hh"
 #include "OUICache.h"
 #include "strfuncs.h"
 #include "pkt_compare.h"

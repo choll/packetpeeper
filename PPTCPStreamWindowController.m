@@ -35,7 +35,7 @@
 #import <AppKit/NSWindow.h>
 #include "PPTCPStreamReassembler.h"
 #include "MyDocument.h"
-#include "HostCache.h"
+#include "HostCache.hh"
 #include "PPTCPStream.h"
 #include "PacketCaptureWindowController.h"
 #include "PacketPeeper.h"

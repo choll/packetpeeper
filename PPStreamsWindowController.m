@@ -35,7 +35,7 @@
 #import <Appkit/NSColor.h>
 #include "MyDocument.h"
 #include "AppController.h"
-#include "HostCache.h"
+#include "HostCache.hh"
 #include "Packet.h"
 #include "PPPacketUIAdditons.h"
 #include "TCPDecode.h"
@@ -48,7 +48,7 @@
 #include "syncmenu.h"
 #include "PacketPeeper.h"
 #include "PPStreamsWindowController.h"
-						
+
 @implementation PPStreamsWindowController
 
 + (NSMenu *)createStreamTableMenu

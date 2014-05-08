@@ -36,7 +36,6 @@ namespace
                 break;
             queue.cv_.wait(lock);
         }
-        std::cout << "peep::async: Exiting\n";
     }
 }
 
@@ -56,9 +55,6 @@ peep::async::~async() noexcept
     }
     queue_.cv_.notify_all();
     for (auto it = workers_.begin() ; it != workers_.end(); ++it)
-    {
-        std::cout << "peep::async:: Joining thread: " << it->get_id() << "\n";
         it->join();
-    }
 }
 

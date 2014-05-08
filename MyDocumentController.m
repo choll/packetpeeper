@@ -140,7 +140,7 @@
 		}
 
 		if((listenfd = socket(AF_LOCAL, SOCK_STREAM, 0)) == -1)
-			return nil;
+			return NO;
 
 		servaddr.sun_family = AF_LOCAL;
 		strlcpy(servaddr.sun_path, SOCKETPATH, sizeof(servaddr.sun_path));

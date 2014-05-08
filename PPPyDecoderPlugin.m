@@ -544,7 +544,7 @@ err:
 	value = NULL;
 
 	if((args = PyTuple_New(1)) == NULL)
-		return nil;
+		return NO;
 
 	if((value = PyLong_FromVoidPtr(data)) == NULL)
 		goto err;

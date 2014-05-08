@@ -28,6 +28,8 @@
 		8314CAD50CB12A09003610FD /* NSMutableArrayExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8314CAD30CB12A09003610FD /* NSMutableArrayExtensions.m */; };
 		8314CB200CB12E9F003610FD /* ppdocumenticon2.icns in Resources */ = {isa = PBXBuildFile; fileRef = 8314CB1E0CB12E9F003610FD /* ppdocumenticon2.icns */; };
 		8314CB210CB12E9F003610FD /* ppicon2.icns in Resources */ = {isa = PBXBuildFile; fileRef = 8314CB1F0CB12E9F003610FD /* ppicon2.icns */; };
+		83150D78190B3DC200670C34 /* HexFiend.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83150D77190B3DC200670C34 /* HexFiend.framework */; };
+		83150D7B190BDA0500670C34 /* HexFiend.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 83150D77190B3DC200670C34 /* HexFiend.framework */; };
 		832D5B090AFFF00B007D1E56 /* MyDocument.h in Headers */ = {isa = PBXBuildFile; fileRef = 2A37F4AEFDCFA73011CA2CEA /* MyDocument.h */; };
 		832D5B0A0AFFF00B007D1E56 /* Interface.h in Headers */ = {isa = PBXBuildFile; fileRef = 8332D40F069EDC4900F35800 /* Interface.h */; };
 		832D5B0B0AFFF00B007D1E56 /* socketpath.h in Headers */ = {isa = PBXBuildFile; fileRef = 83124C7F06A149C8008B5F66 /* socketpath.h */; };
@@ -40,7 +42,6 @@
 		832D5B120AFFF00B007D1E56 /* EthernetDecode.h in Headers */ = {isa = PBXBuildFile; fileRef = 8364184106C1459A004048C1 /* EthernetDecode.h */; };
 		832D5B130AFFF00B007D1E56 /* IPV4Decode.h in Headers */ = {isa = PBXBuildFile; fileRef = 8384E1BC06D660AB001F2BA7 /* IPV4Decode.h */; };
 		832D5B140AFFF00B007D1E56 /* PacketPeeper.h in Headers */ = {isa = PBXBuildFile; fileRef = 8321A4F906E54C2D00D96BA4 /* PacketPeeper.h */; };
-		832D5B150AFFF00B007D1E56 /* getnameinfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 83D2D72C06EFAD0D00495BFF /* getnameinfo.h */; };
 		832D5B160AFFF00B007D1E56 /* MyDocumentController.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A6397D06F3A0F400E8CF04 /* MyDocumentController.h */; };
 		832D5B170AFFF00B007D1E56 /* AppController.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A6398506F3BC5B00E8CF04 /* AppController.h */; };
 		832D5B190AFFF00B007D1E56 /* OutlineViewItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 83E4C11506FE46CB001F592F /* OutlineViewItem.h */; };
@@ -54,7 +55,6 @@
 		832D5B210AFFF00B007D1E56 /* ARPDecode.h in Headers */ = {isa = PBXBuildFile; fileRef = 83CD8FAF0773AFED0012C1CD /* ARPDecode.h */; };
 		832D5B220AFFF00B007D1E56 /* ICMPDecode.h in Headers */ = {isa = PBXBuildFile; fileRef = 83CD8FC10773B03F0012C1CD /* ICMPDecode.h */; };
 		832D5B270AFFF00B007D1E56 /* Cache.h in Headers */ = {isa = PBXBuildFile; fileRef = 834C84E70796A98500C0235D /* Cache.h */; };
-		832D5B280AFFF00B007D1E56 /* HostCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 8332D40C069EDC4900F35800 /* HostCache.h */; };
 		832D5B290AFFF00B007D1E56 /* UDPDecode.h in Headers */ = {isa = PBXBuildFile; fileRef = 83CD8FBB0773B02D0012C1CD /* UDPDecode.h */; };
 		832D5B2A0AFFF00B007D1E56 /* TCPDecode.h in Headers */ = {isa = PBXBuildFile; fileRef = 83CD8FCD0773B0660012C1CD /* TCPDecode.h */; };
 		832D5B2B0AFFF00B007D1E56 /* PortCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 8396932207A056CC00E1EDB9 /* PortCache.h */; };
@@ -100,7 +100,6 @@
 		832D5B5D0AFFF00B007D1E56 /* LoopbackDecode.m in Sources */ = {isa = PBXBuildFile; fileRef = 8364183C06C05FAD004048C1 /* LoopbackDecode.m */; };
 		832D5B5E0AFFF00B007D1E56 /* EthernetDecode.m in Sources */ = {isa = PBXBuildFile; fileRef = 8364184206C1459A004048C1 /* EthernetDecode.m */; };
 		832D5B5F0AFFF00B007D1E56 /* IPV4Decode.m in Sources */ = {isa = PBXBuildFile; fileRef = 8384E1BD06D660AB001F2BA7 /* IPV4Decode.m */; };
-		832D5B600AFFF00B007D1E56 /* getnameinfo.c in Sources */ = {isa = PBXBuildFile; fileRef = 83D2D72906EFA89800495BFF /* getnameinfo.c */; };
 		832D5B610AFFF00B007D1E56 /* MyDocumentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A6397E06F3A0F400E8CF04 /* MyDocumentController.m */; };
 		832D5B620AFFF00B007D1E56 /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A6398606F3BC5B00E8CF04 /* AppController.m */; };
 		832D5B630AFFF00B007D1E56 /* PacketCaptureWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A6398A06F5DCDC00E8CF04 /* PacketCaptureWindowController.m */; };
@@ -115,7 +114,6 @@
 		832D5B6C0AFFF00B007D1E56 /* UDPDecode.m in Sources */ = {isa = PBXBuildFile; fileRef = 83CD8FBC0773B02D0012C1CD /* UDPDecode.m */; };
 		832D5B6D0AFFF00B007D1E56 /* ICMPDecode.m in Sources */ = {isa = PBXBuildFile; fileRef = 83CD8FC20773B03F0012C1CD /* ICMPDecode.m */; };
 		832D5B700AFFF00B007D1E56 /* Cache.m in Sources */ = {isa = PBXBuildFile; fileRef = 834C84E50796A97300C0235D /* Cache.m */; };
-		832D5B710AFFF00B007D1E56 /* HostCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 8332D40D069EDC4900F35800 /* HostCache.m */; };
 		832D5B720AFFF00B007D1E56 /* TCPDecode.m in Sources */ = {isa = PBXBuildFile; fileRef = 83CD8FCE0773B0660012C1CD /* TCPDecode.m */; };
 		832D5B730AFFF00B007D1E56 /* PortCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 8396932307A056CC00E1EDB9 /* PortCache.m */; };
 		832D5B740AFFF00B007D1E56 /* OUICache.m in Sources */ = {isa = PBXBuildFile; fileRef = 8396932707A0570F00E1EDB9 /* OUICache.m */; };
@@ -146,12 +144,10 @@
 		832D5B9C0AFFF00B007D1E56 /* IPV4Decode.h in Headers */ = {isa = PBXBuildFile; fileRef = 8384E1BC06D660AB001F2BA7 /* IPV4Decode.h */; };
 		832D5B9D0AFFF00B007D1E56 /* PacketPeeper.h in Headers */ = {isa = PBXBuildFile; fileRef = 8321A4F906E54C2D00D96BA4 /* PacketPeeper.h */; };
 		832D5B9E0AFFF00B007D1E56 /* strfuncs.h in Headers */ = {isa = PBXBuildFile; fileRef = 83620A2006E08B9700336558 /* strfuncs.h */; };
-		832D5B9F0AFFF00B007D1E56 /* getnameinfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 83D2D72C06EFAD0D00495BFF /* getnameinfo.h */; };
 		832D5BA00AFFF00B007D1E56 /* ObjectIO.h in Headers */ = {isa = PBXBuildFile; fileRef = 83FDF2B306BA9AA3009C3584 /* ObjectIO.h */; };
 		832D5BA10AFFF00B007D1E56 /* Bpf.h in Headers */ = {isa = PBXBuildFile; fileRef = 8332D427069EDD3C00F35800 /* Bpf.h */; };
 		832D5BA30AFFF00B007D1E56 /* OutlineViewItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 83E4C11506FE46CB001F592F /* OutlineViewItem.h */; };
 		832D5BA40AFFF00B007D1E56 /* Describe.h in Headers */ = {isa = PBXBuildFile; fileRef = 83CD8FD90773B2790012C1CD /* Describe.h */; };
-		832D5BA50AFFF00B007D1E56 /* HostCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 8332D40C069EDC4900F35800 /* HostCache.h */; };
 		832D5BA60AFFF00B007D1E56 /* ARPDecode.h in Headers */ = {isa = PBXBuildFile; fileRef = 83CD8FAF0773AFED0012C1CD /* ARPDecode.h */; };
 		832D5BA70AFFF00B007D1E56 /* UDPDecode.h in Headers */ = {isa = PBXBuildFile; fileRef = 83CD8FBB0773B02D0012C1CD /* UDPDecode.h */; };
 		832D5BA80AFFF00B007D1E56 /* ICMPDecode.h in Headers */ = {isa = PBXBuildFile; fileRef = 83CD8FC10773B03F0012C1CD /* ICMPDecode.h */; };
@@ -171,11 +167,9 @@
 		832D5BB70AFFF00B007D1E56 /* dlt_lookup.m in Sources */ = {isa = PBXBuildFile; fileRef = 8364184C06C23E74004048C1 /* dlt_lookup.m */; };
 		832D5BB80AFFF00B007D1E56 /* IPV4Decode.m in Sources */ = {isa = PBXBuildFile; fileRef = 8384E1BD06D660AB001F2BA7 /* IPV4Decode.m */; };
 		832D5BB90AFFF00B007D1E56 /* strfuncs.m in Sources */ = {isa = PBXBuildFile; fileRef = 83620A1E06E08B8A00336558 /* strfuncs.m */; };
-		832D5BBA0AFFF00B007D1E56 /* getnameinfo.c in Sources */ = {isa = PBXBuildFile; fileRef = 83D2D72906EFA89800495BFF /* getnameinfo.c */; };
 		832D5BBB0AFFF00B007D1E56 /* ObjectIO.m in Sources */ = {isa = PBXBuildFile; fileRef = 83FDF2B406BA9AA3009C3584 /* ObjectIO.m */; };
 		832D5BBC0AFFF00B007D1E56 /* Bpf.m in Sources */ = {isa = PBXBuildFile; fileRef = 8332D428069EDD3C00F35800 /* Bpf.m */; };
 		832D5BBE0AFFF00B007D1E56 /* OutlineViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 83E4C11206FE46BE001F592F /* OutlineViewItem.m */; };
-		832D5BBF0AFFF00B007D1E56 /* HostCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 8332D40D069EDC4900F35800 /* HostCache.m */; };
 		832D5BC00AFFF00B007D1E56 /* ARPDecode.m in Sources */ = {isa = PBXBuildFile; fileRef = 83CD8FB00773AFED0012C1CD /* ARPDecode.m */; };
 		832D5BC10AFFF00B007D1E56 /* UDPDecode.m in Sources */ = {isa = PBXBuildFile; fileRef = 83CD8FBC0773B02D0012C1CD /* UDPDecode.m */; };
 		832D5BC20AFFF00B007D1E56 /* ICMPDecode.m in Sources */ = {isa = PBXBuildFile; fileRef = 83CD8FC20773B03F0012C1CD /* ICMPDecode.m */; };
@@ -217,6 +211,8 @@
 		835F0BCB0C70C499003B6A65 /* in_cksum.h in Headers */ = {isa = PBXBuildFile; fileRef = 835F0BC90C70C498003B6A65 /* in_cksum.h */; };
 		835F14660C73AEBD003B6A65 /* in_cksum.c in Sources */ = {isa = PBXBuildFile; fileRef = 835F0BC80C70C498003B6A65 /* in_cksum.c */; };
 		835F14670C73AEBF003B6A65 /* in_cksum.h in Headers */ = {isa = PBXBuildFile; fileRef = 835F0BC90C70C498003B6A65 /* in_cksum.h */; };
+		8369ADDD191857B5002966D9 /* async.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8369ADDB191857B5002966D9 /* async.cpp */; };
+		8369ADDE191857B5002966D9 /* async.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8369ADDC191857B5002966D9 /* async.hpp */; };
 		838B24F20B0387EA00F9CA41 /* ethernet-manufacturers.oui in Resources */ = {isa = PBXBuildFile; fileRef = 838B24F10B0387EA00F9CA41 /* ethernet-manufacturers.oui */; };
 		838B25650B03A07400F9CA41 /* OUICache.h in Headers */ = {isa = PBXBuildFile; fileRef = 8396932607A0570F00E1EDB9 /* OUICache.h */; };
 		838B25660B03A07400F9CA41 /* OUICache.m in Sources */ = {isa = PBXBuildFile; fileRef = 8396932707A0570F00E1EDB9 /* OUICache.m */; };
@@ -224,11 +220,21 @@
 		839334660CE2738C00FF58C5 /* stream_compare.h in Headers */ = {isa = PBXBuildFile; fileRef = 839334640CE2738C00FF58C5 /* stream_compare.h */; };
 		839334670CE2738C00FF58C5 /* stream_compare.m in Sources */ = {isa = PBXBuildFile; fileRef = 839334650CE2738C00FF58C5 /* stream_compare.m */; };
 		83A1D4B418E09D4C00ED3C30 /* libpython2.7.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A1D4B318E09D4C00ED3C30 /* libpython2.7.dylib */; };
+		83A81E8F191121BE008B6B73 /* IPV6Decode.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A81E8D191121BE008B6B73 /* IPV6Decode.h */; };
+		83A81E90191121BE008B6B73 /* IPV6Decode.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A81E8D191121BE008B6B73 /* IPV6Decode.h */; };
+		83A81E91191121BE008B6B73 /* IPV6Decode.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A81E8E191121BE008B6B73 /* IPV6Decode.m */; };
+		83A81E92191121BE008B6B73 /* IPV6Decode.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A81E8E191121BE008B6B73 /* IPV6Decode.m */; };
 		83ABCC2F0C5C9CA50087E70B /* dlt_lookup.m in Sources */ = {isa = PBXBuildFile; fileRef = 8364184C06C23E74004048C1 /* dlt_lookup.m */; };
 		83ABCC300C5C9CA50087E70B /* dlt_lookup.h in Headers */ = {isa = PBXBuildFile; fileRef = 8364185A06C42A4A004048C1 /* dlt_lookup.h */; };
 		83ABCC620C5C9E7B0087E70B /* demultiplex.m in Sources */ = {isa = PBXBuildFile; fileRef = 8364185406C3E8BC004048C1 /* demultiplex.m */; };
 		83ABCC640C5C9E7E0087E70B /* demultiplex.h in Headers */ = {isa = PBXBuildFile; fileRef = 8364185606C3E8C6004048C1 /* demultiplex.h */; };
 		83CC8DC00C9B516400B70DF4 /* libpcap.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 83CC8DBF0C9B516300B70DF4 /* libpcap.dylib */; };
+		83D22BC1191ABDDF00DA0745 /* HostCache.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8332D40D069EDC4900F35800 /* HostCache.mm */; };
+		83D22BC2191ABDDF00DA0745 /* HostCache.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8332D40D069EDC4900F35800 /* HostCache.mm */; };
+		83D22BC3191ABDE200DA0745 /* HostCache.hh in Headers */ = {isa = PBXBuildFile; fileRef = 8332D40C069EDC4900F35800 /* HostCache.hh */; };
+		83D22BC4191ABDE300DA0745 /* HostCache.hh in Headers */ = {isa = PBXBuildFile; fileRef = 8332D40C069EDC4900F35800 /* HostCache.hh */; };
+		83D22BC5191ABDE500DA0745 /* async.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8369ADDB191857B5002966D9 /* async.cpp */; };
+		83D22BC6191ABDE700DA0745 /* async.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8369ADDC191857B5002966D9 /* async.hpp */; };
 		83D7F35F0D257B3B00229DB3 /* PPPyDecoderPlugin.h in Headers */ = {isa = PBXBuildFile; fileRef = 83D7F35D0D257B3B00229DB3 /* PPPyDecoderPlugin.h */; };
 		83D7F3600D257B3B00229DB3 /* PPPyDecoderPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 83D7F35E0D257B3B00229DB3 /* PPPyDecoderPlugin.m */; };
 		83D7F3B10D25812A00229DB3 /* PPDecoderPlugin.h in Headers */ = {isa = PBXBuildFile; fileRef = 83D7F3B00D25812A00229DB3 /* PPDecoderPlugin.h */; };
@@ -261,6 +267,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		83150D7A190BD9E900670C34 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				83150D7B190BDA0500670C34 /* HexFiend.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		832D5B870AFFF00B007D1E56 /* Copy PacketPeeperHelper */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -305,6 +321,7 @@
 		8314CAD30CB12A09003610FD /* NSMutableArrayExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSMutableArrayExtensions.m; sourceTree = "<group>"; };
 		8314CB1E0CB12E9F003610FD /* ppdocumenticon2.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = ppdocumenticon2.icns; sourceTree = "<group>"; };
 		8314CB1F0CB12E9F003610FD /* ppicon2.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = ppicon2.icns; sourceTree = "<group>"; };
+		83150D77190B3DC200670C34 /* HexFiend.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = HexFiend.framework; sourceTree = "<group>"; };
 		8320757106F8FA1C00416E79 /* prev.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = prev.tiff; sourceTree = "<group>"; };
 		8320757306F8FA2000416E79 /* next.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = next.tiff; sourceTree = "<group>"; };
 		8320758106F9084100416E79 /* last.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = last.tiff; sourceTree = "<group>"; };
@@ -316,8 +333,8 @@
 		832D5BD00AFFF00B007D1E56 /* PacketPeeperHelper */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PacketPeeperHelper; sourceTree = BUILT_PRODUCTS_DIR; };
 		833125580D3107A900BD80C4 /* dns.py */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.python; path = dns.py; sourceTree = "<group>"; };
 		8332D3FF069ECBC700F35800 /* PacketPeeperHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PacketPeeperHelper.m; sourceTree = "<group>"; };
-		8332D40C069EDC4900F35800 /* HostCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HostCache.h; sourceTree = "<group>"; };
-		8332D40D069EDC4900F35800 /* HostCache.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HostCache.m; sourceTree = "<group>"; };
+		8332D40C069EDC4900F35800 /* HostCache.hh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = HostCache.hh; sourceTree = "<group>"; };
+		8332D40D069EDC4900F35800 /* HostCache.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = HostCache.mm; sourceTree = "<group>"; };
 		8332D40F069EDC4900F35800 /* Interface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Interface.h; sourceTree = "<group>"; };
 		8332D410069EDC4900F35800 /* Interface.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Interface.m; sourceTree = "<group>"; };
 		8332D413069EDC6300F35800 /* main.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -377,6 +394,8 @@
 		8364185406C3E8BC004048C1 /* demultiplex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = demultiplex.m; sourceTree = "<group>"; };
 		8364185606C3E8C6004048C1 /* demultiplex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = demultiplex.h; sourceTree = "<group>"; };
 		8364185A06C42A4A004048C1 /* dlt_lookup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dlt_lookup.h; sourceTree = "<group>"; };
+		8369ADDB191857B5002966D9 /* async.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = async.cpp; sourceTree = "<group>"; };
+		8369ADDC191857B5002966D9 /* async.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = async.hpp; sourceTree = "<group>"; };
 		837BC1790AF522300004A36E /* port-numbers-tcp.port */ = {isa = PBXFileReference; lastKnownFileType = file; path = "port-numbers-tcp.port"; sourceTree = "<group>"; };
 		837BC17A0AF522310004A36E /* port-numbers-udp.port */ = {isa = PBXFileReference; lastKnownFileType = file; path = "port-numbers-udp.port"; sourceTree = "<group>"; };
 		8384E1BC06D660AB001F2BA7 /* IPV4Decode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPV4Decode.h; sourceTree = "<group>"; };
@@ -403,6 +422,8 @@
 		83A74A1806BFC37400FD3004 /* Decode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Decode.h; sourceTree = "<group>"; };
 		83A74A1B06C0040200FD3004 /* Packet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Packet.h; sourceTree = "<group>"; };
 		83A74A1C06C0040200FD3004 /* Packet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Packet.m; sourceTree = "<group>"; };
+		83A81E8D191121BE008B6B73 /* IPV6Decode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPV6Decode.h; sourceTree = "<group>"; };
+		83A81E8E191121BE008B6B73 /* IPV6Decode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPV6Decode.m; sourceTree = "<group>"; };
 		83AD23090994C6860048B019 /* PPDataQuantityFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPDataQuantityFormatter.h; sourceTree = "<group>"; };
 		83AD230A0994C6860048B019 /* PPDataQuantityFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPDataQuantityFormatter.m; sourceTree = "<group>"; };
 		83B5C8D40948E49100C46868 /* en */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = en; path = en.lproj/PPStreamsWindow.nib; sourceTree = "<group>"; };
@@ -446,8 +467,6 @@
 		83D1CBE107DCC39A007E7652 /* PPTCPStreamReassembler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPTCPStreamReassembler.m; sourceTree = "<group>"; };
 		83D1CBE907E8B6BA007E7652 /* pkt_compare.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pkt_compare.m; sourceTree = "<group>"; };
 		83D1CBEB07E8B6CB007E7652 /* pkt_compare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pkt_compare.h; sourceTree = "<group>"; };
-		83D2D72906EFA89800495BFF /* getnameinfo.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = getnameinfo.c; sourceTree = "<group>"; };
-		83D2D72C06EFAD0D00495BFF /* getnameinfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = getnameinfo.h; sourceTree = "<group>"; };
 		83D7F35D0D257B3B00229DB3 /* PPPyDecoderPlugin.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PPPyDecoderPlugin.h; sourceTree = "<group>"; };
 		83D7F35E0D257B3B00229DB3 /* PPPyDecoderPlugin.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = PPPyDecoderPlugin.m; sourceTree = "<group>"; };
 		83D7F3B00D25812A00229DB3 /* PPDecoderPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPDecoderPlugin.h; sourceTree = "<group>"; };
@@ -478,6 +497,7 @@
 			files = (
 				83A1D4B418E09D4C00ED3C30 /* libpython2.7.dylib in Frameworks */,
 				832D5B850AFFF00B007D1E56 /* Cocoa.framework in Frameworks */,
+				83150D78190B3DC200670C34 /* HexFiend.framework in Frameworks */,
 				832D5B860AFFF00B007D1E56 /* Security.framework in Frameworks */,
 				83CC8DC00C9B516400B70DF4 /* libpcap.dylib in Frameworks */,
 			);
@@ -508,7 +528,6 @@
 			children = (
 				83A74A2106C004C600FD3004 /* Main */,
 				8332D3FE069ECB5500F35800 /* PacketPeeperHelper */,
-				83D2D72806EFA88000495BFF /* External */,
 				83A74A2206C0060E00FD3004 /* Shared */,
 				2A37F4B8FDCFA73011CA2CEA /* Resources */,
 				2A37F4C3FDCFA73011CA2CEA /* Frameworks */,
@@ -597,6 +616,7 @@
 		2A37F4C3FDCFA73011CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				83150D77190B3DC200670C34 /* HexFiend.framework */,
 				83A1D4B318E09D4C00ED3C30 /* libpython2.7.dylib */,
 				83CC8DBF0C9B516300B70DF4 /* libpcap.dylib */,
 				8332D42C069EE17000F35800 /* Security.framework */,
@@ -676,8 +696,10 @@
 				83CD8FD90773B2790012C1CD /* Describe.h */,
 				8332D40F069EDC4900F35800 /* Interface.h */,
 				8332D410069EDC4900F35800 /* Interface.m */,
-				8332D40C069EDC4900F35800 /* HostCache.h */,
-				8332D40D069EDC4900F35800 /* HostCache.m */,
+				8332D40C069EDC4900F35800 /* HostCache.hh */,
+				8332D40D069EDC4900F35800 /* HostCache.mm */,
+				8369ADDB191857B5002966D9 /* async.cpp */,
+				8369ADDC191857B5002966D9 /* async.hpp */,
 				8396932207A056CC00E1EDB9 /* PortCache.h */,
 				8396932307A056CC00E1EDB9 /* PortCache.m */,
 				8396932607A0570F00E1EDB9 /* OUICache.h */,
@@ -775,6 +797,8 @@
 				83CD8FB00773AFED0012C1CD /* ARPDecode.m */,
 				8384E1BC06D660AB001F2BA7 /* IPV4Decode.h */,
 				8384E1BD06D660AB001F2BA7 /* IPV4Decode.m */,
+				83A81E8D191121BE008B6B73 /* IPV6Decode.h */,
+				83A81E8E191121BE008B6B73 /* IPV6Decode.m */,
 				83CD8FC10773B03F0012C1CD /* ICMPDecode.h */,
 				83CD8FC20773B03F0012C1CD /* ICMPDecode.m */,
 				83CD8FC70773B0550012C1CD /* IGMPDecode.h */,
@@ -785,15 +809,6 @@
 				83CD8FBC0773B02D0012C1CD /* UDPDecode.m */,
 			);
 			name = Decoding;
-			sourceTree = "<group>";
-		};
-		83D2D72806EFA88000495BFF /* External */ = {
-			isa = PBXGroup;
-			children = (
-				83D2D72906EFA89800495BFF /* getnameinfo.c */,
-				83D2D72C06EFAD0D00495BFF /* getnameinfo.h */,
-			);
-			name = External;
 			sourceTree = "<group>";
 		};
 		83D7F35C0D257B2700229DB3 /* Plugins */ = {
@@ -823,6 +838,7 @@
 				832D5B0A0AFFF00B007D1E56 /* Interface.h in Headers */,
 				832D5B0B0AFFF00B007D1E56 /* socketpath.h in Headers */,
 				832D5B0C0AFFF00B007D1E56 /* writevn.h in Headers */,
+				83A81E8F191121BE008B6B73 /* IPV6Decode.h in Headers */,
 				832D5B0D0AFFF00B007D1E56 /* Messages.h in Headers */,
 				832D5B0E0AFFF00B007D1E56 /* ObjectIO.h in Headers */,
 				832D5B0F0AFFF00B007D1E56 /* ErrorStack.h in Headers */,
@@ -831,7 +847,7 @@
 				832D5B120AFFF00B007D1E56 /* EthernetDecode.h in Headers */,
 				832D5B130AFFF00B007D1E56 /* IPV4Decode.h in Headers */,
 				832D5B140AFFF00B007D1E56 /* PacketPeeper.h in Headers */,
-				832D5B150AFFF00B007D1E56 /* getnameinfo.h in Headers */,
+				8369ADDE191857B5002966D9 /* async.hpp in Headers */,
 				832D5B160AFFF00B007D1E56 /* MyDocumentController.h in Headers */,
 				832D5B170AFFF00B007D1E56 /* AppController.h in Headers */,
 				832D5B190AFFF00B007D1E56 /* OutlineViewItem.h in Headers */,
@@ -845,11 +861,11 @@
 				832D5B210AFFF00B007D1E56 /* ARPDecode.h in Headers */,
 				832D5B220AFFF00B007D1E56 /* ICMPDecode.h in Headers */,
 				832D5B270AFFF00B007D1E56 /* Cache.h in Headers */,
-				832D5B280AFFF00B007D1E56 /* HostCache.h in Headers */,
 				832D5B290AFFF00B007D1E56 /* UDPDecode.h in Headers */,
 				832D5B2A0AFFF00B007D1E56 /* TCPDecode.h in Headers */,
 				832D5B2B0AFFF00B007D1E56 /* PortCache.h in Headers */,
 				832D5B2C0AFFF00B007D1E56 /* OUICache.h in Headers */,
+				83D22BC4191ABDE300DA0745 /* HostCache.hh in Headers */,
 				832D5B2D0AFFF00B007D1E56 /* rb_tree.h in Headers */,
 				832D5B2F0AFFF00B007D1E56 /* pkt_compare.h in Headers */,
 				832D5B300AFFF00B007D1E56 /* PPTableView.h in Headers */,
@@ -902,15 +918,15 @@
 				832D5B990AFFF00B007D1E56 /* ErrorStack.h in Headers */,
 				832D5B9A0AFFF00B007D1E56 /* EthernetDecode.h in Headers */,
 				832D5B9B0AFFF00B007D1E56 /* dlt_lookup.h in Headers */,
+				83D22BC6191ABDE700DA0745 /* async.hpp in Headers */,
 				832D5B9C0AFFF00B007D1E56 /* IPV4Decode.h in Headers */,
+				83A81E90191121BE008B6B73 /* IPV6Decode.h in Headers */,
 				832D5B9D0AFFF00B007D1E56 /* PacketPeeper.h in Headers */,
 				832D5B9E0AFFF00B007D1E56 /* strfuncs.h in Headers */,
-				832D5B9F0AFFF00B007D1E56 /* getnameinfo.h in Headers */,
 				832D5BA00AFFF00B007D1E56 /* ObjectIO.h in Headers */,
 				832D5BA10AFFF00B007D1E56 /* Bpf.h in Headers */,
 				832D5BA30AFFF00B007D1E56 /* OutlineViewItem.h in Headers */,
 				832D5BA40AFFF00B007D1E56 /* Describe.h in Headers */,
-				832D5BA50AFFF00B007D1E56 /* HostCache.h in Headers */,
 				832D5BA60AFFF00B007D1E56 /* ARPDecode.h in Headers */,
 				832D5BA70AFFF00B007D1E56 /* UDPDecode.h in Headers */,
 				832D5BA80AFFF00B007D1E56 /* ICMPDecode.h in Headers */,
@@ -920,6 +936,7 @@
 				832D5BAC0AFFF00B007D1E56 /* PPPDecode.h in Headers */,
 				832D5BAD0AFFF00B007D1E56 /* PortCache.h in Headers */,
 				838B25650B03A07400F9CA41 /* OUICache.h in Headers */,
+				83D22BC3191ABDE200DA0745 /* HostCache.hh in Headers */,
 				835F14670C73AEBF003B6A65 /* in_cksum.h in Headers */,
 				83565A430D356C7B0037485E /* helper_dummy.h in Headers */,
 				835665F60D43752D0037485E /* PPBPFProgram.h in Headers */,
@@ -939,6 +956,7 @@
 				832D5B840AFFF00B007D1E56 /* Frameworks */,
 				832D5B870AFFF00B007D1E56 /* Copy PacketPeeperHelper */,
 				83D7F5AD0D25CC6700229DB3 /* Copy Plugins */,
+				83150D7A190BD9E900670C34 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -1055,7 +1073,6 @@
 				832D5B5D0AFFF00B007D1E56 /* LoopbackDecode.m in Sources */,
 				832D5B5E0AFFF00B007D1E56 /* EthernetDecode.m in Sources */,
 				832D5B5F0AFFF00B007D1E56 /* IPV4Decode.m in Sources */,
-				832D5B600AFFF00B007D1E56 /* getnameinfo.c in Sources */,
 				832D5B610AFFF00B007D1E56 /* MyDocumentController.m in Sources */,
 				832D5B620AFFF00B007D1E56 /* AppController.m in Sources */,
 				832D5B630AFFF00B007D1E56 /* PacketCaptureWindowController.m in Sources */,
@@ -1070,7 +1087,6 @@
 				832D5B6C0AFFF00B007D1E56 /* UDPDecode.m in Sources */,
 				832D5B6D0AFFF00B007D1E56 /* ICMPDecode.m in Sources */,
 				832D5B700AFFF00B007D1E56 /* Cache.m in Sources */,
-				832D5B710AFFF00B007D1E56 /* HostCache.m in Sources */,
 				832D5B720AFFF00B007D1E56 /* TCPDecode.m in Sources */,
 				832D5B730AFFF00B007D1E56 /* PortCache.m in Sources */,
 				832D5B740AFFF00B007D1E56 /* OUICache.m in Sources */,
@@ -1082,6 +1098,7 @@
 				832D5B7D0AFFF00B007D1E56 /* PPCenteredClipView.m in Sources */,
 				832D5B7E0AFFF00B007D1E56 /* PPStreamsWindowController.m in Sources */,
 				832D5B7F0AFFF00B007D1E56 /* PPTCPStream.m in Sources */,
+				83A81E91191121BE008B6B73 /* IPV6Decode.m in Sources */,
 				832D5B800AFFF00B007D1E56 /* PPTCPStreamController.m in Sources */,
 				832D5B810AFFF00B007D1E56 /* syncmenu.m in Sources */,
 				832D5B820AFFF00B007D1E56 /* PPPDecode.m in Sources */,
@@ -1101,10 +1118,12 @@
 				83565D6E0D3D69A20037485E /* PPHexNumberFormatter.m in Sources */,
 				83565E320D3EA46D0037485E /* PPCaptureFilterManager.m in Sources */,
 				83565FD50D3FE9E00037485E /* PPCaptureFilterFormatter.m in Sources */,
+				8369ADDD191857B5002966D9 /* async.cpp in Sources */,
 				835666BF0D43EAEC0037485E /* bpf_filter.c in Sources */,
 				83566B340D4E87C90037485E /* PPCaptureFilterWindowController.m in Sources */,
 				835B0FC50DAD703F0034E32D /* PPApplication.m in Sources */,
 				83FA8A7F0DC67AAC004C66C3 /* IndividualPacketWindowController.m in Sources */,
+				83D22BC1191ABDDF00DA0745 /* HostCache.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1117,17 +1136,18 @@
 				832D5BB10AFFF00B007D1E56 /* Packet.m in Sources */,
 				832D5BB20AFFF00B007D1E56 /* demultiplex.m in Sources */,
 				832D5BB30AFFF00B007D1E56 /* LoopbackDecode.m in Sources */,
+				83D22BC5191ABDE500DA0745 /* async.cpp in Sources */,
 				832D5BB40AFFF00B007D1E56 /* ErrorStack.m in Sources */,
 				832D5BB50AFFF00B007D1E56 /* PacketPeeperHelper.m in Sources */,
 				832D5BB60AFFF00B007D1E56 /* EthernetDecode.m in Sources */,
 				832D5BB70AFFF00B007D1E56 /* dlt_lookup.m in Sources */,
 				832D5BB80AFFF00B007D1E56 /* IPV4Decode.m in Sources */,
 				832D5BB90AFFF00B007D1E56 /* strfuncs.m in Sources */,
-				832D5BBA0AFFF00B007D1E56 /* getnameinfo.c in Sources */,
+				83A81E92191121BE008B6B73 /* IPV6Decode.m in Sources */,
 				832D5BBB0AFFF00B007D1E56 /* ObjectIO.m in Sources */,
+				83D22BC2191ABDDF00DA0745 /* HostCache.mm in Sources */,
 				832D5BBC0AFFF00B007D1E56 /* Bpf.m in Sources */,
 				832D5BBE0AFFF00B007D1E56 /* OutlineViewItem.m in Sources */,
-				832D5BBF0AFFF00B007D1E56 /* HostCache.m in Sources */,
 				832D5BC00AFFF00B007D1E56 /* ARPDecode.m in Sources */,
 				832D5BC10AFFF00B007D1E56 /* UDPDecode.m in Sources */,
 				832D5BC20AFFF00B007D1E56 /* ICMPDecode.m in Sources */,
@@ -1258,7 +1278,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FRAMEWORK_SEARCH_PATHS = "";
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)";
 				GCC_ALTIVEC_EXTENSIONS = YES;
 				GCC_AUTO_VECTORIZATION = NO;
 				GCC_C_LANGUAGE_STANDARD = c99;
@@ -1281,7 +1301,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = NO;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_LABEL = YES;
-				GCC_WARN_UNUSED_PARAMETER = YES;
+				GCC_WARN_UNUSED_PARAMETER = NO;
 				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = /System/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7;
@@ -1289,7 +1309,7 @@
 				JAVA_COMPILER_DEBUGGING_SYMBOLS = NO;
 				LIBRARY_SEARCH_PATHS = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Python.framework/Versions/2.7/lib/python2.7/config";
 				LLVM_LTO = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				OTHER_CFLAGS = (
 					"-W",
 					"-Wall",
@@ -1318,7 +1338,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FRAMEWORK_SEARCH_PATHS = "";
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)";
 				GCC_ALTIVEC_EXTENSIONS = YES;
 				GCC_AUTO_VECTORIZATION = NO;
 				GCC_C_LANGUAGE_STANDARD = c99;
@@ -1340,7 +1360,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_LABEL = YES;
-				GCC_WARN_UNUSED_PARAMETER = YES;
+				GCC_WARN_UNUSED_PARAMETER = NO;
 				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = /System/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7;
@@ -1348,7 +1368,7 @@
 				JAVA_COMPILER_DEBUGGING_SYMBOLS = NO;
 				LIBRARY_SEARCH_PATHS = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Python.framework/Versions/2.7/lib/python2.7/config";
 				LLVM_LTO = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				OTHER_CFLAGS = (
 					"-W",
 					"-Wall",
@@ -1378,7 +1398,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FRAMEWORK_SEARCH_PATHS = "";
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)";
 				GCC_ALTIVEC_EXTENSIONS = YES;
 				GCC_AUTO_VECTORIZATION = NO;
 				GCC_C_LANGUAGE_STANDARD = c99;
@@ -1400,14 +1420,14 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_LABEL = YES;
-				GCC_WARN_UNUSED_PARAMETER = YES;
+				GCC_WARN_UNUSED_PARAMETER = NO;
 				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = /System/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7;
 				INFOPLIST_FILE = PacketPeeper.plist;
 				LIBRARY_SEARCH_PATHS = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Python.framework/Versions/2.7/lib/python2.7/config";
 				LLVM_LTO = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				OTHER_CFLAGS = (
 					"-W",
 					"-Wall",
@@ -1592,97 +1612,132 @@
 		837EF0650855D81A00A36659 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_ALTIVEC_EXTENSIONS = YES;
 				GCC_C_LANGUAGE_STANDARD = c99;
-				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_EXCEPTIONS = YES;
 				GCC_ENABLE_CPP_RTTI = NO;
 				GCC_ENABLE_PASCAL_STRINGS = NO;
 				GCC_FAST_OBJC_DISPATCH = YES;
+				GCC_INPUT_FILETYPE = automatic;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_STRICT_ALIASING = NO;
+				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
+				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = YES;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_FOUR_CHARACTER_CONSTANTS = YES;
+				GCC_WARN_PEDANTIC = YES;
 				GCC_WARN_SHADOW = YES;
 				GCC_WARN_SIGN_COMPARE = YES;
 				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_LABEL = YES;
-				GCC_WARN_UNUSED_PARAMETER = YES;
+				GCC_WARN_UNUSED_PARAMETER = NO;
 				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				LIBRARY_SEARCH_PATHS = "";
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				OTHER_LDFLAGS = "";
 				PREBINDING = NO;
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PRODUCT_NAME = "Packet Peeper";
 				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.4u.sdk";
+				WARNING_CFLAGS = "-Wall";
 			};
 			name = Development;
 		};
 		837EF0660855D81A00A36659 /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_X86_VECTOR_INSTRUCTIONS = default;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_ALTIVEC_EXTENSIONS = YES;
 				GCC_AUTO_VECTORIZATION = NO;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_DYNAMIC_NO_PIC = YES;
-				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_EXCEPTIONS = YES;
 				GCC_ENABLE_CPP_RTTI = NO;
 				GCC_ENABLE_PASCAL_STRINGS = NO;
 				GCC_ENABLE_SSE3_EXTENSIONS = YES;
 				GCC_ENABLE_SYMBOL_SEPARATION = NO;
 				GCC_FAST_OBJC_DISPATCH = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INPUT_FILETYPE = automatic;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = fast;
 				GCC_STRICT_ALIASING = NO;
-				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
+				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = YES;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_UNROLL_LOOPS = YES;
 				GCC_USE_GCC3_PFE_SUPPORT = NO;
 				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_FOUR_CHARACTER_CONSTANTS = YES;
-				GCC_WARN_PEDANTIC = NO;
+				GCC_WARN_PEDANTIC = YES;
 				GCC_WARN_SHADOW = YES;
 				GCC_WARN_SIGN_COMPARE = YES;
 				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_LABEL = YES;
-				GCC_WARN_UNUSED_PARAMETER = YES;
+				GCC_WARN_UNUSED_PARAMETER = NO;
 				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				LIBRARY_SEARCH_PATHS = "";
 				MACH_O_TYPE = mh_execute;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				OTHER_CFLAGS = "";
 				OTHER_CPLUSPLUSFLAGS = "";
 				PREBINDING = NO;
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PRODUCT_NAME = "Packet Peeper";
 				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.4u.sdk";
-				WARNING_CFLAGS = "";
+				WARNING_CFLAGS = "-Wall";
 			};
 			name = Deployment;
 		};
 		837EF0670855D81A00A36659 /* Default */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_INPUT_FILETYPE = automatic;
 				GCC_OPTIMIZATION_LEVEL = fast;
+				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
+				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = YES;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_PEDANTIC = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PREBINDING = NO;
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.4u.sdk";
+				WARNING_CFLAGS = "-Wall";
 			};
 			name = Default;
 		};

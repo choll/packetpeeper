@@ -159,10 +159,10 @@
 
 		if(nread > sizeof(size_t)) {
 			size_t prevlen = rlen;
-			(void)memcpy(&rlen, buf + prevlen, sizeof(size_t));
-			(void)memmove(buf, buf + prevlen + sizeof(size_t), nread - sizeof(size_t));
+			(void)memcpy(&rlen, (uint8_t *)buf + prevlen, sizeof(size_t));
+			(void)memmove(buf, (uint8_t *)buf + prevlen + sizeof(size_t), nread - sizeof(size_t));
 		} else
-			(void)memcpy(&rlen, buf + rlen, nread);
+			(void)memcpy(&rlen, (uint8_t *)buf + rlen, nread);
 
 		more = YES;
 	} else {

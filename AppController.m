@@ -42,6 +42,7 @@
 #include "PPPDecode.h"
 #include "ARPDecode.h"
 #include "IPV4Decode.h"
+#include "IPV6Decode.h"
 #include "ICMPDecode.h"
 #include "UDPDecode.h"
 #include "TCPDecode.h"
@@ -113,6 +114,7 @@
 						[EthernetDecode class],
 						[PPPDecode class],
 						[IPV4Decode class],
+						[IPV6Decode class],
 						[TCPDecode class]};
 
 	return [self createProtocolsMenuForDecoders:decoders count:(sizeof(decoders) / sizeof(decoders[0]))];
@@ -126,6 +128,7 @@
 						[ARPDecode class],
 						[RARPDecode class],
 						[IPV4Decode class],
+						[IPV6Decode class],
 						[ICMPDecode class],
 						[UDPDecode class],
 						[TCPDecode class]};

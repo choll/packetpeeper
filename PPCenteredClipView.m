@@ -91,16 +91,6 @@
 	return proposedNewOrigin;
 }
 
-//- (void)viewBoundsChanged:(NSNotification *)notification
-//{
-//	[super viewBoundsChanged:notification];
-//}
-
-//- (void)viewFrameChanged:(NSNotification *)notification
-//{
-//	[super viewFrameChanged:notification];
-//}
-
 - (void)setFrame:(NSRect)frameRect
 {
 	[super setFrame:frameRect];

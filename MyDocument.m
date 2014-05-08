@@ -20,6 +20,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <errno.h>
+#include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -81,7 +82,7 @@
 #include "PPProgressWindowController.h"
 #include "ErrorReportWindowController.h"
 #include "MyDocumentController.h"
-#include "HostCache.h"
+#include "HostCache.hh"
 #include "ErrorStack.h"
 #include "DateFormat.h"
 #include "PacketPeeper.h"
@@ -979,7 +980,7 @@ err:
            modalForWindow:[self windowForSheet]
            modalDelegate:self
            didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:)
-           contextInfo:closeDocument /* disgust */];
+           contextInfo:(void*)((intptr_t)closeDocument) /* disgust, intptr is to suppress warning... */];
 }
 
 - (void)sheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo

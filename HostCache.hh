@@ -23,12 +23,12 @@
 #include <Foundation/NSObject.h>
 #include <netinet/in.h>
 
-#define PPHostCacheHostNameLookupCompleteNotification	@"PPHostCache.LComp"
+#define PPHostCacheHostNameLookupCompleteNotification @"PPHostCache.LComp"
 
-#define HOSTCACHE_SUCCESS	1	/* successful lookup */
-#define HOSTCACHE_NONAME	2	/* lookup failed */
-#define HOSTCACHE_INPROG	3	/* lookup in progress */
-#define HOSTCACHE_ERROR		4	/* error occured */
+#define HOSTCACHE_SUCCESS   1   /* successful lookup */
+#define HOSTCACHE_NONAME    2   /* lookup failed */
+#define HOSTCACHE_INPROG    3   /* lookup in progress */
+#define HOSTCACHE_ERROR	    4   /* error occured */
 
 @interface HostCache : NSObject
 {

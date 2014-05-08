@@ -34,7 +34,7 @@
 #import <HexFiend/HexFiend.h>
 #include "PacketPeeper.h"
 #include "Packet.h"
-#include "HostCache.h"
+#include "HostCache.hh"
 #include "PPPacketUIAdditons.h"
 #include "MyDocument.h"
 #include "OutlineViewItem.h"

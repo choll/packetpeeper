@@ -27,7 +27,7 @@ NSComparisonResult pkt_compare(id pkt1, id pkt2, void *context)
 	return [(Packet *)pkt1 compare:pkt2 withColumn:(ColumnIdentifier *)context];
 }
 
-NSComparisonResult mem_compare(void *b1, void *b2, size_t len)
+NSComparisonResult mem_compare(const void *b1, const void *b2, size_t len)
 {
 	size_t i;
 
@@ -41,3 +41,4 @@ NSComparisonResult mem_compare(void *b1, void *b2, size_t len)
 
 	return NSOrderedSame;
 }
+

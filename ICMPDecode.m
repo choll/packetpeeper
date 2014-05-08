@@ -31,7 +31,7 @@
 #include "TCPDecode.h"
 #include "UDPDecode.h"
 #include "ICMPDecode.h"
-#include "HostCache.h"
+#include "HostCache.hh"
 #include "in_cksum.h"
 #include "strfuncs.h"
 
