@@ -44,6 +44,7 @@
 #define PPSTREAMSWINDOW_AUTOSCROLLING					@"PPStreamsWindow.AutoScrolling"
 #define PPTCPSTREAMCONTROLLER_IP_DROP_BAD_CHECKSUMS		@"PPTCPStreamControllerIPDropBadChecksums"
 #define PPTCPSTREAMCONTROLLER_TCP_DROP_BAD_CHECKSUMS	@"PPTCPStreamControllerTCPDropBadChecksums"
+#define PPHEXVIEW_LINECOLUMN_MODE                       @"PPHexView.LineColumnMode"
 
 /* how often to update progress bars, in seconds */
 #define DEFAULT_PROGRESSBAR_UPDATE_FREQUENCY			0.3

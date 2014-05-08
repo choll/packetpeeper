@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1060" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5053"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5056"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="IndividualPacketWindowController">
             <connections>
-                <outlet property="packetHexView" destination="52" id="55"/>
+                <outlet property="packetHexView" destination="mNr-nt-ICc" id="glG-lA-d54"/>
                 <outlet property="packetOutlineView" destination="43" id="56"/>
                 <outlet property="window" destination="39" id="57"/>
             </connections>
@@ -29,14 +29,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="42">
-                                <rect key="frame" x="0.0" y="0.0" width="598" height="201"/>
+                                <rect key="frame" x="0.0" y="0.0" width="598" height="197"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <clipView key="contentView" id="eQ4-35-BXL">
-                                    <rect key="frame" x="1" y="17" width="596" height="183"/>
+                                    <rect key="frame" x="1" y="17" width="581" height="164"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" autosaveName="PacketOutlineView" headerView="49" indentationPerLevel="16" autoresizesOutlineColumn="YES" outlineTableColumn="44" id="43">
-                                            <rect key="frame" x="0.0" y="0.0" width="596" height="183"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="581" height="164"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -55,7 +55,7 @@
                                                     </textFieldCell>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                 </tableColumn>
-                                                <tableColumn identifier="Value" editable="NO" width="375" minWidth="4" maxWidth="1000" id="46">
+                                                <tableColumn identifier="Value" editable="NO" width="360" minWidth="4" maxWidth="1000" id="46">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Value">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -74,41 +74,25 @@
                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </clipView>
                                 <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="48">
-                                    <rect key="frame" x="1" y="184" width="596" height="16"/>
+                                    <rect key="frame" x="1" y="181" width="581" height="15"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="50">
-                                    <rect key="frame" x="581" y="17" width="16" height="183"/>
+                                    <rect key="frame" x="582" y="17" width="15" height="164"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <tableHeaderView key="headerView" id="49">
-                                    <rect key="frame" x="0.0" y="0.0" width="596" height="17"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="581" height="17"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableHeaderView>
                             </scrollView>
-                            <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="51">
-                                <rect key="frame" x="0.0" y="210" width="598" height="234"/>
+                            <customView id="mNr-nt-ICc" customClass="HFTextView">
+                                <rect key="frame" x="0.0" y="206" width="598" height="238"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <clipView key="contentView" id="7bC-dm-Zhn">
-                                    <rect key="frame" x="1" y="1" width="596" height="232"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <subviews>
-                                        <customView id="52" customClass="HexView">
-                                            <rect key="frame" x="0.0" y="0.0" width="400" height="214"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </customView>
-                                    </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </clipView>
-                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="53">
-                                    <rect key="frame" x="-100" y="-100" width="581" height="15"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </scroller>
-                                <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="54">
-                                    <rect key="frame" x="581" y="1" width="16" height="232"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </scroller>
-                            </scrollView>
+                                <connections>
+                                    <outlet property="menu" destination="Twy-co-j5g" id="gn3-W7-Tvk"/>
+                                </connections>
+                            </customView>
                         </subviews>
                         <holdingPriorities>
                             <real value="250"/>
@@ -122,5 +106,15 @@
                 <outlet property="initialFirstResponder" destination="43" id="59"/>
             </connections>
         </window>
+        <menu id="Twy-co-j5g">
+            <items>
+                <menuItem title="Copy" id="Lmk-SD-zB1">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="copy:" target="-1" id="YGP-kq-yiM"/>
+                    </connections>
+                </menuItem>
+            </items>
+        </menu>
     </objects>
 </document>
