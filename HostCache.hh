@@ -17,12 +17,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef _HOSTCACHE_H_
-#define _HOSTCACHE_H_
+#ifndef PACKETPEEPER_HOSTCACHE_HPP
+#define PACKETPEEPER_HOSTCACHE_HPP
 
+#include <Foundation/NSObject.h>
 #include <netinet/in.h>
-#include <pthread.h>
-#include "Cache.h"
 
 #define PPHostCacheHostNameLookupCompleteNotification	@"PPHostCache.LComp"
 
@@ -31,27 +30,18 @@
 #define HOSTCACHE_INPROG	3	/* lookup in progress */
 #define HOSTCACHE_ERROR		4	/* error occured */
 
-/* note that mask and table size must match up,
-   i.e the mask must extract N bits, where
-   2^N = table size. */
-#define HC_HASHMASK			(HC_HASHTABLE_SZ - 1)
-#define HC_HASHTABLE_SZ		256
-
-struct thread_args;
-
-@interface HostCache : Cache <NSCoding>
+@interface HostCache : NSObject
 {
-	struct thread_args *thread_list;
-	pthread_mutex_t mutex;
-	pthread_attr_t thread_attr;
 }
 
 + (HostCache *)sharedHostCache;
 + (void)releaseSharedHostCache;
 - (void)lookupComplete:(id)sender;
-- (NSString *)hostWithAddress:(struct in_addr *)addr;
-- (NSString *)hostWithAddressASync:(struct in_addr *)addr returnCode:(int *)code;
+- (void)flush;
+- (NSString *)hostWithAddressASync:(const struct in_addr *)addr returnCode:(int *)code;
+- (NSString *)hostWithIp6AddressASync:(const struct in6_addr *)addr returnCode:(int *)code;
 
 @end
 
-#endif /* _HOSTCACHE_H_ */
+#endif
+
