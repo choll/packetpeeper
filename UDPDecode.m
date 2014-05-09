@@ -155,8 +155,8 @@ err:
 {
     NSData *data;
     NSArray *decoders;
-    IPV4Decode *ip4;
-    IPV6Decode *ip6;
+    IPV4Decode *ip4 = nil;
+    IPV6Decode *ip6 = nil;
     struct udphdr *hdr;
     unsigned int i;
     unsigned int skip_bytes;

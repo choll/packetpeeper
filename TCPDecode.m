@@ -193,8 +193,8 @@ err:
 {
     NSData *data;
     NSArray *decoders;
-    IPV4Decode *ip4;
-    IPV6Decode *ip6;
+    IPV4Decode *ip4 = nil;
+    IPV6Decode *ip6 = nil;
     struct tcphdr *hdr;
     unsigned int i;
     unsigned int skip_bytes;
@@ -259,7 +259,7 @@ err:
         pseudo4_hdr.dst = [ip4 in_addrDst];
         pseudo4_hdr.zero = 0;
         pseudo4_hdr.proto = IPPROTO_TCP;
-        pseudo4_hdr.len = htonl(pseudo_hdr_nbytes);
+        pseudo4_hdr.len = htons(pseudo_hdr_nbytes);
         pseudo_hdr = &pseudo4_hdr;
         pseudo_hdr_len = sizeof(pseudo4_hdr);
     }
@@ -278,7 +278,7 @@ err:
     if(pseudo_hdr_nbytes > [data length] - skip_bytes)
         return 0;
 
-    partial_sum = in_cksum_partial(&pseudo_hdr, pseudo_hdr_len, 0);
+    partial_sum = in_cksum_partial(pseudo_hdr, pseudo_hdr_len, 0);
     partial_sum = in_cksum_partial(hdr, pseudo_hdr_nbytes, partial_sum);
     calced_sum = in_cksum_fold(partial_sum);
     hdr->th_sum = saved_sum;
