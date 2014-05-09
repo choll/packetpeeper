@@ -45,7 +45,7 @@
 
 - (id)init
 {
-	return nil;
+    return nil;
 }
 
 - (id)initWithData:(NSData *)dataVal
@@ -54,213 +54,212 @@
     timestamp:(NSDate *)timestamp
     linkLayer:(Class)linkLayer
 {
-	if(dataVal == nil || linkLayer == Nil)
-		return nil;
+    if(dataVal == nil || linkLayer == Nil)
+        return nil;
 
-	if((self = [super init]) != nil) {
-		data = [dataVal retain];
-		decoders = nil;
-		date = nil;
-		document = nil;
+    if((self = [super init]) != nil) {
+        data = [dataVal retain];
+        decoders = nil;
+        date = nil;
+        document = nil;
 
-		captureLength = aCaptureLength;
-		actualLength = anActualLength;
+        captureLength = aCaptureLength;
+        actualLength = anActualLength;
 
-		if((decoders = [[NSMutableArray alloc] init]) == nil)
-			goto err;
+        if((decoders = [[NSMutableArray alloc] init]) == nil)
+            goto err;
 
-		if(demultiplex_data(data, decoders, self, linkLayer) == -1)
-			goto err;
+        if(demultiplex_data(data, decoders, self, linkLayer) == -1)
+            goto err;
 
         date = [timestamp retain];
-		pendingDeletion = NO;
-		processedPlugins = NO;
-	}
-	return self;
+        pendingDeletion = NO;
+        processedPlugins = NO;
+    }
+    return self;
 
-	err:
-		[self dealloc];
-		return nil;
+err:
+    [self dealloc];
+    return nil;
 }
 
 - (NSString *)description
 {
-	return [NSString stringWithFormat:@"<Packet: %p, #%u, %u bytes>", self, number, captureLength];
+    return [NSString stringWithFormat:@"<Packet: %p, #%u, %u bytes>", self, number, captureLength];
 }
 
 - (void)setNumber:(unsigned int)aNumber
 {
-	number = aNumber;
+    number = aNumber;
 }
 
 - (unsigned int)number
 {
-	return number;
+    return number;
 }
 
 - (HostCache *)hostCache
 {
-	return [document hostCache];
+    return [document hostCache];
 }
 
 - (MyDocument *)document
 {
-	return document;
+    return document;
 }
 
 - (void)setDocument:(MyDocument *)aDocument
 {
-	document = aDocument;
+    document = aDocument;
 }
 
 - (NSArray *)decoders
 {
-	return decoders;
+    return decoders;
 }
 
 /*
-	What is returned here does not include the bpf header, as we do not
-	consider that to be a part of the actual packet data, it was not
-	sent over the wire, but added by bpf.
-*/
+   What is returned here does not include the bpf header, as we do not
+   consider that to be a part of the actual packet data, it was not
+   sent over the wire, but added by bpf.
+   */
 
 - (NSData *)packetData
 {
-	return data;
+    return data;
 }
 
 - (NSData *)dataForDecoder:(id)decoder
 {
-	size_t offset;
+    size_t offset;
 
-	offset = [self byteOffsetForDecoder:decoder];
+    offset = [self byteOffsetForDecoder:decoder];
 
-	return [NSData dataWithBytesNoCopy:((uint8_t *)[data bytes] + offset)
-				   length:([data length] - offset)
-				   freeWhenDone:NO];
+    return [NSData dataWithBytesNoCopy:((uint8_t *)[data bytes] + offset)
+        length:([data length] - offset)
+        freeWhenDone:NO];
 }
 
 - (size_t)byteOffsetForDecoder:(id)decoder
 {
-	unsigned int i;
-	size_t nbytes;
+    unsigned int i;
+    size_t nbytes;
 
-	nbytes = 0;
+    nbytes = 0;
 
-	for(i = 0; i < [decoders count]; ++i) {
-		id <Decode> current;
-	
-		if((current = [decoders objectAtIndex:i]) == decoder)
-			break;
+    for(i = 0; i < [decoders count]; ++i) {
+        id <Decode> current;
 
-		nbytes += [current frontSize];
-	}
+        if((current = [decoders objectAtIndex:i]) == decoder)
+            break;
 
-	return nbytes;
+        nbytes += [current frontSize];
+    }
+
+    return nbytes;
 }
 
 - (unsigned int)captureLength
 {
-	return captureLength;
+    return captureLength;
 }
 
 - (unsigned int)actualLength
 {
-	return actualLength;
+    return actualLength;
 }
 
 - (BOOL)isPendingDeletion
 {
-	return pendingDeletion;
+    return pendingDeletion;
 }
 
 - (void)setPendingDeletion
 {
-	pendingDeletion = YES;
+    pendingDeletion = YES;
 }
 
 - (int)linkType
 {
-	Class linkType;
+    Class linkType;
 
-	if([decoders count] < 1)
-		return DLT_NULL;
+    if([decoders count] < 1)
+        return DLT_NULL;
 
-	linkType = [[decoders objectAtIndex:0] class];
+    linkType = [[decoders objectAtIndex:0] class];
 
-	if(linkType == [LoopbackDecode class])
-		return DLT_NULL;
+    if(linkType == [LoopbackDecode class])
+        return DLT_NULL;
 
-	if(linkType == [EthernetDecode class])
-		return DLT_EN10MB;
+    if(linkType == [EthernetDecode class])
+        return DLT_EN10MB;
 
-	if(linkType == [PPPDecode class])
-		return DLT_PPP;
+    if(linkType == [PPPDecode class])
+        return DLT_PPP;
 
-	if(linkType == [IPV4Decode class])
-		return DLT_RAW;
+    if(linkType == [IPV4Decode class])
+        return DLT_RAW;
 
-	return DLT_NULL;
+    return DLT_NULL;
 }
 
 - (NSDate *)date
 {
-	return date;
+    return date;
 }
 
 - (id)decoderForClass:(Class)aClass
 {
-	unsigned int i;
+    unsigned int i;
 
-	if(aClass == Nil)
-		return nil;
+    if(aClass == Nil)
+        return nil;
 
-	for(i = 0; i < [decoders count]; ++i) {
-		if([[decoders objectAtIndex:i] isMemberOfClass:aClass])
-			return [decoders objectAtIndex:i];
-	}
+    for(i = 0; i < [decoders count]; ++i) {
+        if([[decoders objectAtIndex:i] isMemberOfClass:aClass])
+            return [decoders objectAtIndex:i];
+    }
 
-	return nil;
+    return nil;
 }
 
 /* NSCoding protocol methods */
 
 - (void)encodeWithCoder:(NSCoder *)coder
 {
-	[coder encodeDataObject:data];
-	[coder encodeObject:date];
-	[coder encodeObject:decoders];
-	[coder encodeValueOfObjCType:@encode(unsigned int) at:&captureLength];
-	[coder encodeValueOfObjCType:@encode(unsigned int) at:&actualLength];
-	[coder encodeValueOfObjCType:@encode(unsigned int) at:&number];
+    [coder encodeDataObject:data];
+    [coder encodeObject:date];
+    [coder encodeObject:decoders];
+    [coder encodeValueOfObjCType:@encode(unsigned int) at:&captureLength];
+    [coder encodeValueOfObjCType:@encode(unsigned int) at:&actualLength];
+    [coder encodeValueOfObjCType:@encode(unsigned int) at:&number];
 }
 
-/*
-	Note that only Packet should encode its data object.
-*/
+/* Note that only Packet should encode its data object */
 - (id)initWithCoder:(NSCoder *)coder
 {
-	if((self = [super init]) != nil) {
-		data = [[coder decodeDataObject] retain];
-		date = [[coder decodeObject] retain];
-		decoders = [[coder decodeObject] retain];
-		[coder decodeValueOfObjCType:@encode(unsigned int) at:&captureLength];
-		[coder decodeValueOfObjCType:@encode(unsigned int) at:&actualLength];
-		[coder decodeValueOfObjCType:@encode(unsigned int) at:&number];
-		[decoders makeObjectsPerformSelector:@selector(setParent:) withObject:self];
-		document = nil;
-		pendingDeletion = NO;
-		processedPlugins = NO;
-	}
-	return self;
+    if((self = [super init]) != nil) {
+        data = [[coder decodeDataObject] retain];
+        date = [[coder decodeObject] retain];
+        decoders = [[coder decodeObject] retain];
+        [coder decodeValueOfObjCType:@encode(unsigned int) at:&captureLength];
+        [coder decodeValueOfObjCType:@encode(unsigned int) at:&actualLength];
+        [coder decodeValueOfObjCType:@encode(unsigned int) at:&number];
+        [decoders makeObjectsPerformSelector:@selector(setParent:) withObject:self];
+        document = nil;
+        pendingDeletion = NO;
+        processedPlugins = NO;
+    }
+    return self;
 }
 
 - (void)dealloc
 {
-	[data release];
-	[date release];
-	[decoders release];
-	[super dealloc];
+    [data release];
+    [date release];
+    [decoders release];
+    [super dealloc];
 }
 
 @end
+
