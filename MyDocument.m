@@ -1299,24 +1299,6 @@ err:
 
 }
 
-- (void)addWindowController:(NSWindowController *)aController {
-    NSWindow *window = [aController window];
-
-    // This is done to prevent NSDocument automatically opening the
-    // previous document
-
-    if([window respondsToSelector:@selector(setRestorationClass:)])
-        [window setRestorationClass:Nil];
-
-    if([window respondsToSelector:@selector(setRestorable:)])
-        [window setRestorable:NO];
-
-    if([window respondsToSelector:@selector(invalidateRestorableState)])
-        [window invalidateRestorableState];
-
-    [super addWindowController:aController];
-}
-
 - (void)dealloc
 {
 	[timer release];
