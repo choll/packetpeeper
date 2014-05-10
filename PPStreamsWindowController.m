@@ -563,6 +563,9 @@
 
 - (BOOL)validateMenuItem:(NSMenuItem *)menuItem
 {
+	if([menuItem action] == @selector(autoScrolling:) && ![[self document] isLive])
+		return NO;
+
 	if([menuItem tag] == PPSTREAMSWINDOW_PACKETS_TABLE_MENU_TAG &&
 	   ([menuItem action] == @selector(deleteButton:) || [menuItem action] == @selector(reassembleStreamButton:)) &&
 	   [packetTableView selectedRow] == -1)
