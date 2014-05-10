@@ -198,9 +198,13 @@ CA
                                     <action selector="autoScrolling:" target="-1" id="604"/>
                                 </connections>
                             </menuItem>
-                            <menuItem isSeparatorItem="YES" id="559">
-                                <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                            <menuItem title="Data Inspector" tag="7" keyEquivalent="i" id="3mh-dh-UIB">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES"/>
+                                <connections>
+                                    <action selector="toggleDataInspectorView:" target="-1" id="nkI-fV-jsQ"/>
+                                </connections>
                             </menuItem>
+                            <menuItem isSeparatorItem="YES" id="smm-Ex-h5Q"/>
                             <menuItem title="Hide Toolbar" id="554">
                                 <connections>
                                     <action selector="toggleToolbarShown:" target="-1" id="599"/>

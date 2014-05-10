@@ -148,7 +148,6 @@ struct thread_args {
 {
 	if(captureWindowController == nil) {
 		captureWindowController = [[PacketCaptureWindowController alloc] initWithWindowNibName:@"MyDocument"];
-        [[captureWindowController window] setRestorable:NO];
 		[self addWindowController:captureWindowController];
 		[captureWindowController showWindow:self];
 		/* hang on to captureWindowController--we release in dealloc */
