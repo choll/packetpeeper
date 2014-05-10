@@ -17,8 +17,8 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef PPDECODERPARENT_H_
-#define PPDECODERPARENT_H_
+#ifndef PACKETPEEPER_DECODERPARENT_H
+#define PACKETPEEPER_DECODERPARENT_H
 
 @class NSData;
 @class NSDate;
