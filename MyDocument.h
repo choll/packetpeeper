@@ -17,8 +17,8 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef _MYDOCUMENT_H_
-#define _MYDOCUMENT_H_
+#ifndef PACKETPEEPER_MYDOCUMENT_H
+#define PACKETPEEPER_MYDOCUMENT_H
 
 #ifdef __APPLE__
 #include <CoreFoundation/CFSocket.h>
@@ -180,7 +180,7 @@ struct thread_args;
 - (PPBPFProgram *)filterProgram;
 - (void)setCaptureFilter:(PPCaptureFilter *)captureFilter;
 
-
 @end
 
-#endif /* _MYDOCUMENT_H_ */
+#endif
+

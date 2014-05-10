@@ -148,6 +148,7 @@ struct thread_args {
 {
 	if(captureWindowController == nil) {
 		captureWindowController = [[PacketCaptureWindowController alloc] initWithWindowNibName:@"MyDocument"];
+        [[captureWindowController window] setRestorable:NO];
 		[self addWindowController:captureWindowController];
 		[captureWindowController showWindow:self];
 		/* hang on to captureWindowController--we release in dealloc */
@@ -568,7 +569,7 @@ err:
     // to be aware of the delay.
 	if(progressWindowController == nil)
 		progressWindowController = [[PPProgressWindowController alloc] initWithLoadingMessage:message delegate:self cancelSelector:cancelSelector];
-    
+
 	[self addWindowController:progressWindowController];
 
 	[NSApp beginSheet:[progressWindowController window]
