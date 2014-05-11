@@ -43,9 +43,6 @@ TYPE_TXT	= 16
 def canDecodeProtocol(protocol, port):
 	return (port == 53)
 
-def validatePacketData(packet):
-	return True
-
 def shortName():
 	return "DNS"
 
@@ -463,3 +460,4 @@ def compareColumnForIndex(packet_a, packet_b, index):
 
 def isValidData(packet):
 	return packetpeeper.size(packet) > 12
+
