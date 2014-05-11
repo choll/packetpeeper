@@ -27,23 +27,24 @@
                                                         (((timeval).tv_sec + fabs((timeval).tv_usec / 1000000.0)) \
                                                         - NSTimeIntervalSince1970)] autorelease])
 
-#define PP_VERSION_NUMBER								0.2f
+#define PP_VERSION_NUMBER                               1.3f
 
 /* user defaults key */
-#define PPCAPTUREFILTERMANAGER_SAVED_FILTERS			@"PPCaptureFilterManager.SavedFilters"
-#define PP_PREFS_VERSION_NUMBER_KEY						@"PPReleaseNumber"
-#define PPSTREAMSWINDOW_PACKETTABLEVIEW_COLUMNS_KEY		@"PPStreamsWindow.PacketTableView.Columns"
-#define PPSTREAMSWINDOW_STREAMTABLEVIEW_COLUMNS_KEY		@"PPStreamsWindow.StreamTableView.Columns"
-#define PPDOCUMENT_TABLEVIEW_COLUMNS_KEY				@"PPDocument.TableView.Columns"
-#define CAPTURE_SETUP_INTERFACE							@"PPCaptureSetup.Interface"
-#define CAPTURE_SETUP_PROMISC							@"PPCaptureSetup.Promisc"
-#define CAPTURE_SETUP_REALTIME							@"PPCaptureSetup.RealTime"
-#define CAPTURE_SETUP_BUFSIZE							@"PPCaptureSetup.BufSize"
-#define CAPTURE_SETUP_UPDATE_FREQUENCY					@"PPCaptureSetup.UpdateFreq"
-#define PPDOCUMENT_AUTOSCROLLING						@"PPDocument.AutoScrolling"
-#define PPSTREAMSWINDOW_AUTOSCROLLING					@"PPStreamsWindow.AutoScrolling"
-#define PPTCPSTREAMCONTROLLER_IP_DROP_BAD_CHECKSUMS		@"PPTCPStreamControllerIPDropBadChecksums"
-#define PPTCPSTREAMCONTROLLER_TCP_DROP_BAD_CHECKSUMS	@"PPTCPStreamControllerTCPDropBadChecksums"
+#define PPCAPTUREFILTERMANAGER_SAVED_FILTERS            @"PPCaptureFilterManager.SavedFilters"
+#define PP_PREFS_VERSION_NUMBER_KEY                     @"PPReleaseNumber"
+#define PPSTREAMSWINDOW_PACKETTABLEVIEW_COLUMNS_KEY     @"PPStreamsWindow.PacketTableView.Columns"
+#define PPSTREAMSWINDOW_STREAMTABLEVIEW_COLUMNS_KEY     @"PPStreamsWindow.StreamTableView.Columns"
+#define PPDOCUMENT_TABLEVIEW_COLUMNS_KEY                @"PPDocument.TableView.Columns"
+#define CAPTURE_SETUP_INTERFACE                         @"PPCaptureSetup.Interface"
+#define CAPTURE_SETUP_PROMISC                           @"PPCaptureSetup.Promisc"
+#define CAPTURE_SETUP_REALTIME                          @"PPCaptureSetup.RealTime"
+#define CAPTURE_SETUP_BUFSIZE                           @"PPCaptureSetup.BufSize"
+#define CAPTURE_SETUP_UPDATE_FREQUENCY                  @"PPCaptureSetup.UpdateFreq"
+#define PPDOCUMENT_AUTOSCROLLING                        @"PPDocument.AutoScrolling"
+#define PPDOCUMENT_DATA_INSPECTOR                       @"PPDocument.DataInspector"
+#define PPSTREAMSWINDOW_AUTOSCROLLING                   @"PPStreamsWindow.AutoScrolling"
+#define PPTCPSTREAMCONTROLLER_IP_DROP_BAD_CHECKSUMS     @"PPTCPStreamControllerIPDropBadChecksums"
+#define PPTCPSTREAMCONTROLLER_TCP_DROP_BAD_CHECKSUMS    @"PPTCPStreamControllerTCPDropBadChecksums"
 #define PPHEXVIEW_LINECOLUMN_MODE                       @"PPHexView.LineColumnMode"
 
 /* how often to update progress bars, in seconds */
@@ -94,10 +95,11 @@
 #define PPSTREAMSWINDOW_STREAMS_TABLE_STATUS_TAG			12
 
 /* tags used to (easily) traverse the app menu, set in MainMenu.nib */
-#define APPMENU_ITEM_VIEW_TAG		1
-#define APPMENU_ITEM_COLUMNS_TAG	2
-#define APPMENU_ITEM_SORTBY_TAG		3
-#define APPMENU_ITEM_SCROLLING_TAG	6
+#define APPMENU_ITEM_VIEW_TAG           1
+#define APPMENU_ITEM_COLUMNS_TAG        2
+#define APPMENU_ITEM_SORTBY_TAG         3
+#define APPMENU_ITEM_SCROLLING_TAG      6
+#define APPMENU_ITEM_DATA_INSPECTOR_TAG 7
 
 #define GRAPH_UTILISATION_TAG		0
 #define GRAPH_NODES_TAG				1

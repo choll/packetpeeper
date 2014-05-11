@@ -32,6 +32,7 @@
 #import <AppKit/NSClipView.h>
 #import <AppKit/NSTableColumn.h>
 #import <HexFiend/HexFiend.h>
+#import "DataInspectorRepresenter.h"
 #include "PacketPeeper.h"
 #include "Packet.h"
 #include "HostCache.hh"
@@ -51,6 +52,9 @@ static OutlineViewItem *copy_item_tree(id <OutlineViewItem> root);
 {
 	if((self = [super initWithWindowNibName:windowNibName]) != nil) {
 		expandedItems = [[NSMutableDictionary alloc] init];
+        packetItems = nil;
+        packet = nil;
+        dataInspectorRepresenter = nil;
 	}
 	return self;
 }
@@ -70,23 +74,54 @@ static OutlineViewItem *copy_item_tree(id <OutlineViewItem> root);
 	return self;
 }
 
+- (IBAction)toggleDataInspectorView:(id)sender
+{
+	if([sender state] == NSOffState) {
+		[sender setState:NSOnState];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:PPDOCUMENT_DATA_INSPECTOR];
+        if(![self isDataInspectorViewVisible]) {
+            [[packetHexView controller] addRepresenter:dataInspectorRepresenter];
+            [[packetHexView layoutRepresenter] addRepresenter:dataInspectorRepresenter];
+        }
+	} else {
+		[sender setState:NSOffState];
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:PPDOCUMENT_DATA_INSPECTOR];
+        if([self isDataInspectorViewVisible]) {
+            [[packetHexView controller] removeRepresenter:dataInspectorRepresenter];
+            [[packetHexView layoutRepresenter] removeRepresenter:dataInspectorRepresenter];
+        }
+	}
+}
+
+- (bool)isDataInspectorViewVisible
+{
+    return [[[packetHexView layoutRepresenter] representers] containsObject:dataInspectorRepresenter];
+}
+
 - (void)windowDidLoad
 {
-    NSNotificationCenter *notificationCenter;
-    HFLineCountingRepresenter *lineCountingRepresenter;
-
-    notificationCenter = [NSNotificationCenter defaultCenter];
+    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
 
     [packetOutlineView setDataSource:self];
 
-    lineCountingRepresenter = [[HFLineCountingRepresenter alloc] init];
+    // LineCountingRepresenter
+    HFLineCountingRepresenter *lineCountingRepresenter = [[HFLineCountingRepresenter alloc] init];
     [lineCountingRepresenter setMinimumDigitCount:10];
-
     NSNumber *lineNumberFormat = [[NSUserDefaults standardUserDefaults] objectForKey:PPHEXVIEW_LINECOLUMN_MODE];
     [lineCountingRepresenter setLineNumberFormat:[lineNumberFormat unsignedIntValue]];
-
     [[packetHexView controller] addRepresenter:lineCountingRepresenter];
     [[packetHexView layoutRepresenter] addRepresenter:lineCountingRepresenter];
+    [lineCountingRepresenter release];
+
+    // DataInsepctorRepresenter
+    dataInspectorRepresenter = [[DataInspectorRepresenter alloc] init];
+    [notificationCenter addObserver:self selector:@selector(dataInspectorChangedRowCount:) name:DataInspectorDidChangeRowCount object:dataInspectorRepresenter];
+    [notificationCenter addObserver:self selector:@selector(dataInspectorDeletedAllRows:) name:DataInspectorDidDeleteAllRows object:dataInspectorRepresenter];
+
+    if([[NSUserDefaults standardUserDefaults] boolForKey:PPDOCUMENT_DATA_INSPECTOR]) {
+        [[packetHexView controller] addRepresenter:dataInspectorRepresenter];
+        [[packetHexView layoutRepresenter] addRepresenter:dataInspectorRepresenter];
+    }
 
     [[packetHexView controller] setBytesPerColumn:2]; /* same as old HexView */
 
@@ -103,7 +138,27 @@ static OutlineViewItem *copy_item_tree(id <OutlineViewItem> root);
                         name:PPHostCacheHostNameLookupCompleteNotification
                         object:[[self document] hostCache]];
 
-    [lineCountingRepresenter release];
+    [[packetHexView layoutRepresenter] performLayout];
+}
+
+- (void)dataInspectorDeletedAllRows:(NSNotification *)note {
+    DataInspectorRepresenter *inspector = [note object];
+    [self hideViewForRepresenter:inspector];
+}
+
+/* Called when our data inspector changes its size (number of rows) */
+- (void)dataInspectorChangedRowCount:(NSNotification *)note {
+    DataInspectorRepresenter *inspector = [note object];
+    CGFloat newHeight = (CGFloat)[[[note userInfo] objectForKey:@"height"] doubleValue];
+    NSView *dataInspectorView = [inspector view];
+    NSSize size = [dataInspectorView frame].size;
+    size.height = newHeight;
+    [dataInspectorView setFrameSize:size];
+    [[packetHexView layoutRepresenter] performLayout];
+}
+- (void)hideViewForRepresenter:(HFRepresenter *)rep {
+    [[packetHexView controller] removeRepresenter:rep];
+    [[packetHexView layoutRepresenter] removeRepresenter:rep];
 }
 
 - (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName
@@ -247,6 +302,7 @@ static OutlineViewItem *copy_item_tree(id <OutlineViewItem> root);
 
 - (void)dealloc
 {
+    [dataInspectorRepresenter release];
 	[expandedItems release];
 	[packetItems release];
 	[packet release];

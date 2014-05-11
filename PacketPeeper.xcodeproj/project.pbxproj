@@ -235,6 +235,9 @@
 		83D22BC4191ABDE300DA0745 /* HostCache.hh in Headers */ = {isa = PBXBuildFile; fileRef = 8332D40C069EDC4900F35800 /* HostCache.hh */; };
 		83D22BC5191ABDE500DA0745 /* async.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8369ADDB191857B5002966D9 /* async.cpp */; };
 		83D22BC6191ABDE700DA0745 /* async.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8369ADDC191857B5002966D9 /* async.hpp */; };
+		83D22BC9191D591100DA0745 /* DataInspectorRepresenter.h in Headers */ = {isa = PBXBuildFile; fileRef = 83D22BC7191D591100DA0745 /* DataInspectorRepresenter.h */; };
+		83D22BCA191D591100DA0745 /* DataInspectorRepresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 83D22BC8191D591100DA0745 /* DataInspectorRepresenter.m */; };
+		83D22BCD191FEA4B00DA0745 /* DataInspectorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83D22BCF191FEA4B00DA0745 /* DataInspectorView.xib */; };
 		83D7F35F0D257B3B00229DB3 /* PPPyDecoderPlugin.h in Headers */ = {isa = PBXBuildFile; fileRef = 83D7F35D0D257B3B00229DB3 /* PPPyDecoderPlugin.h */; };
 		83D7F3600D257B3B00229DB3 /* PPPyDecoderPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 83D7F35E0D257B3B00229DB3 /* PPPyDecoderPlugin.m */; };
 		83D7F3B10D25812A00229DB3 /* PPDecoderPlugin.h in Headers */ = {isa = PBXBuildFile; fileRef = 83D7F3B00D25812A00229DB3 /* PPDecoderPlugin.h */; };
@@ -467,6 +470,9 @@
 		83D1CBE107DCC39A007E7652 /* PPTCPStreamReassembler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPTCPStreamReassembler.m; sourceTree = "<group>"; };
 		83D1CBE907E8B6BA007E7652 /* pkt_compare.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pkt_compare.m; sourceTree = "<group>"; };
 		83D1CBEB07E8B6CB007E7652 /* pkt_compare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pkt_compare.h; sourceTree = "<group>"; };
+		83D22BC7191D591100DA0745 /* DataInspectorRepresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataInspectorRepresenter.h; sourceTree = "<group>"; };
+		83D22BC8191D591100DA0745 /* DataInspectorRepresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataInspectorRepresenter.m; sourceTree = "<group>"; };
+		83D22BCE191FEA4B00DA0745 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/DataInspectorView.xib; sourceTree = "<group>"; };
 		83D7F35D0D257B3B00229DB3 /* PPPyDecoderPlugin.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PPPyDecoderPlugin.h; sourceTree = "<group>"; };
 		83D7F35E0D257B3B00229DB3 /* PPPyDecoderPlugin.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = PPPyDecoderPlugin.m; sourceTree = "<group>"; };
 		83D7F3B00D25812A00229DB3 /* PPDecoderPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPDecoderPlugin.h; sourceTree = "<group>"; };
@@ -564,6 +570,8 @@
 				83A6397E06F3A0F400E8CF04 /* MyDocumentController.m */,
 				2A37F4AEFDCFA73011CA2CEA /* MyDocument.h */,
 				2A37F4ACFDCFA73011CA2CEA /* MyDocument.m */,
+				83D22BC7191D591100DA0745 /* DataInspectorRepresenter.h */,
+				83D22BC8191D591100DA0745 /* DataInspectorRepresenter.m */,
 				83C8FAFC0708A8F1009EAA5A /* HexView.h */,
 				83C8FAFE0708A8F8009EAA5A /* HexView.m */,
 				833B81BA07EC520900178219 /* PPTableView.h */,
@@ -599,6 +607,7 @@
 				8320757306F8FA2000416E79 /* next.tiff */,
 				8320758106F9084100416E79 /* last.tiff */,
 				2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */,
+				83D22BCF191FEA4B00DA0745 /* DataInspectorView.xib */,
 				8304C6E20D4FC70900652885 /* PPCaptureFilterSheet.nib */,
 				830C23F818E22FC400ACBD55 /* ProgressSheet.nib */,
 				2A37F4B6FDCFA73011CA2CEA /* MainMenu.nib */,
@@ -838,6 +847,7 @@
 				832D5B0A0AFFF00B007D1E56 /* Interface.h in Headers */,
 				832D5B0B0AFFF00B007D1E56 /* socketpath.h in Headers */,
 				832D5B0C0AFFF00B007D1E56 /* writevn.h in Headers */,
+				83D22BC9191D591100DA0745 /* DataInspectorRepresenter.h in Headers */,
 				83A81E8F191121BE008B6B73 /* IPV6Decode.h in Headers */,
 				832D5B0D0AFFF00B007D1E56 /* Messages.h in Headers */,
 				832D5B0E0AFFF00B007D1E56 /* ObjectIO.h in Headers */,
@@ -1031,6 +1041,7 @@
 				832D5B4B0AFFF00B007D1E56 /* IndividualPacket.nib in Resources */,
 				832D5B4D0AFFF00B007D1E56 /* PPTCPStreamWindow.nib in Resources */,
 				832D5B4E0AFFF00B007D1E56 /* PPNodeGraphPanel.nib in Resources */,
+				83D22BCD191FEA4B00DA0745 /* DataInspectorView.xib in Resources */,
 				832D5B4F0AFFF00B007D1E56 /* PPStreamsWindow.nib in Resources */,
 				830C23F618E22FC400ACBD55 /* ProgressSheet.nib in Resources */,
 				832D5B510AFFF00B007D1E56 /* port-numbers-tcp.port in Resources */,
@@ -1092,6 +1103,7 @@
 				832D5B740AFFF00B007D1E56 /* OUICache.m in Sources */,
 				832D5B750AFFF00B007D1E56 /* rb_tree.c in Sources */,
 				832D5B770AFFF00B007D1E56 /* pkt_compare.m in Sources */,
+				83D22BCA191D591100DA0745 /* DataInspectorRepresenter.m in Sources */,
 				832D5B780AFFF00B007D1E56 /* PPTableView.m in Sources */,
 				832D5B7A0AFFF00B007D1E56 /* PPTCPStreamReassembler.m in Sources */,
 				832D5B7B0AFFF00B007D1E56 /* PPTCPStreamWindowController.m in Sources */,
@@ -1258,6 +1270,14 @@
 				83C4565E076F469C00050832 /* ErrorReportSheet.nib */,
 			);
 			name = ErrorReportSheet.nib;
+			sourceTree = "<group>";
+		};
+		83D22BCF191FEA4B00DA0745 /* DataInspectorView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				83D22BCE191FEA4B00DA0745 /* en */,
+			);
+			name = DataInspectorView.xib;
 			sourceTree = "<group>";
 		};
 		83FE245B082051F8006CA5C5 /* PPTCPStreamWindow.nib */ = {

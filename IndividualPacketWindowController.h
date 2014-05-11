@@ -31,6 +31,7 @@
 @class HFTextView;
 @class Packet;
 @class OutlineViewItem;
+@class DataInspectorRepresenter;
 
 @interface IndividualPacketWindowController : NSWindowController <NSOutlineViewDataSource> {
 	IBOutlet NSOutlineView *packetOutlineView;
@@ -38,26 +39,23 @@
 	OutlineViewItem *packetItems;
 	Packet *packet;
 	NSMutableDictionary *expandedItems;
+    DataInspectorRepresenter *dataInspectorRepresenter;
 }
 
 - (id)initWithPacket:(Packet *)aPacket;
-
 - (void)setPacket:(Packet *)aPacket;
-
 - (Packet *)packet;
-
 - (void)hostNameLookupCompletedNotification:(NSNotification *)note;
 
 /* NSOutlineView data-source methods */
 
 - (BOOL)outlineView:(NSOutlineView *)outlineView isItemExpandable:(id)item;
-
 - (int)outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(id)item;
-
 - (id)outlineView:(NSOutlineView *)outlineView child:(int)anIndex ofItem:(id)item;
-
 - (id)outlineView:(NSOutlineView *)outlineView objectValueForTableColumn:(NSTableColumn *)tableColumn byItem:(id)item;
 
+- (IBAction)toggleDataInspectorView:(id)sender;
+- (bool)isDataInspectorViewVisible;
 @end
 
 #endif

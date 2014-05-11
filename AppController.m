@@ -73,33 +73,40 @@
 
 - (void)windowDidBecomeKey:(NSNotification *)aNotification
 {
-	NSMenu *viewMenu;
-	id windowController;
+    NSMenu *viewMenu;
+    id windowController;
 
-	windowController = [[aNotification object] windowController];
-	viewMenu = [[[NSApp mainMenu] itemWithTag:APPMENU_ITEM_VIEW_TAG] submenu];
+    windowController = [[aNotification object] windowController];
+    viewMenu = [[[NSApp mainMenu] itemWithTag:APPMENU_ITEM_VIEW_TAG] submenu];
 
-	/* set the View->Columns menu if the window controller supports it */
-	if([windowController respondsToSelector:@selector(packetTableColumnMenu)]) {
-		[viewMenu setSubmenu:[windowController packetTableColumnMenu]
-				  forItem:[viewMenu itemWithTag:APPMENU_ITEM_COLUMNS_TAG]];
-	}
+    /* set the View->Columns menu if the window controller supports it */
+    if([windowController respondsToSelector:@selector(packetTableColumnMenu)]) {
+        [viewMenu setSubmenu:[windowController packetTableColumnMenu]
+            forItem:[viewMenu itemWithTag:APPMENU_ITEM_COLUMNS_TAG]];
+    }
 
-	/* set the View->Sort By menu if the window controller supports it */
-	/* XXX TODO...	APPMENU_ITEM_SORTBY_TAG, also needs adding to nib */
+    /* set the View->Sort By menu if the window controller supports it */
+    /* XXX TODO...	APPMENU_ITEM_SORTBY_TAG, also needs adding to nib */
 
-	/* set the View -> Auto Scroling menu item if the window controller supports it */
-	if([windowController respondsToSelector:@selector(packetTableDoesAutoScroll)]) {
-		if([windowController isMemberOfClass:[PPStreamsWindowController class]])
-			[[viewMenu itemWithTag:APPMENU_ITEM_SCROLLING_TAG] setState:[windowController packetTableDoesAutoScroll]];
-		else {
-			MyDocument *currentDocument;
+    /* set the View -> Auto Scroling menu item if the window controller supports it */
+    if([windowController respondsToSelector:@selector(packetTableDoesAutoScroll)]) {
+        [[viewMenu itemWithTag:APPMENU_ITEM_SCROLLING_TAG] setState:[windowController packetTableDoesAutoScroll]];
+    } else {
+        MyDocument *currentDocument;
+        currentDocument = [[MyDocumentController sharedDocumentController] documentForWindow:[aNotification object]];
+        [[viewMenu itemWithTag:APPMENU_ITEM_SCROLLING_TAG] setState:
+            [[currentDocument packetCaptureWindowController] packetTableDoesAutoScroll]];
+    }
 
-			currentDocument = [[MyDocumentController sharedDocumentController] documentForWindow:[aNotification object]];
-			[[viewMenu itemWithTag:APPMENU_ITEM_SCROLLING_TAG] setState:
-			[[currentDocument packetCaptureWindowController] packetTableDoesAutoScroll]];
-		}
-	}
+    /* set the View -> Data Inspector menu item if the window controller supports it */
+    if([windowController respondsToSelector:@selector(isDataInspectorViewVisible)]) {
+        [[viewMenu itemWithTag:APPMENU_ITEM_DATA_INSPECTOR_TAG] setState:[windowController isDataInspectorViewVisible]];
+    } else {
+        MyDocument *currentDocument;
+        currentDocument = [[MyDocumentController sharedDocumentController] documentForWindow:[aNotification object]];
+        [[viewMenu itemWithTag:APPMENU_ITEM_DATA_INSPECTOR_TAG] setState:
+            [[currentDocument packetCaptureWindowController] isDataInspectorViewVisible]];
+    }
 }
 
 /* Prevent NSApplication from opening an untitled document at application startup */
@@ -310,6 +317,7 @@
 	[defaultValues setObject:[NSArchiver archivedDataWithRootObject:packetTableColumnArray] forKey:PPDOCUMENT_TABLEVIEW_COLUMNS_KEY];
 	[defaultValues setObject:[NSArchiver archivedDataWithRootObject:packetTableColumnArray] forKey:PPSTREAMSWINDOW_PACKETTABLEVIEW_COLUMNS_KEY];
 	[defaultValues setObject:[NSArchiver archivedDataWithRootObject:streamTableColumnArray] forKey:PPSTREAMSWINDOW_STREAMTABLEVIEW_COLUMNS_KEY];
+	[defaultValues setObject:[NSNumber numberWithBool:YES] forKey:PPDOCUMENT_DATA_INSPECTOR];
 	[defaultValues setObject:[NSNumber numberWithBool:NO] forKey:PPDOCUMENT_AUTOSCROLLING];
 	[defaultValues setObject:[NSNumber numberWithBool:NO] forKey:PPSTREAMSWINDOW_AUTOSCROLLING];
 	[defaultValues setObject:[NSNumber numberWithBool:NO] forKey:CAPTURE_SETUP_PROMISC];
