@@ -17,8 +17,8 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef _DATEFORMAT_H_
-#define _DATEFORMAT_H_
+#ifndef PACKETPEEPER_DATEFORMAT_H
+#define PACKETPEEPER_DATEFORMAT_H
 
 @class NSString;
 @class NSDate;
@@ -33,3 +33,4 @@
 @end
 
 #endif
+
