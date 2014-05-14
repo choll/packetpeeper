@@ -53,8 +53,8 @@
 /* how often to update the user interface, in seconds */
 #define DEFAULT_UI_UPDATE_FREQUENCY						1.0f
 
-#define OUTLINEVIEW_DATE_FORMAT							@"%A, %e %B %Y, %H:%M:%S.%F"
-#define TABLEVIEW_DATE_FORMAT							@"%m/%d/%y %H:%M:%S.%F"
+#define OUTLINEVIEW_DATE_FORMAT                         @"EEEE, dd MMMM yyyy, HH:mm:ss.SSS"
+#define TABLEVIEW_DATE_FORMAT                           @"yyyy-MM-dd HH:mm:ss.SSS"
 
 #define PPCAPTUREWINDOW_STOPMODE_ANY_TAG				1
 #define PPCAPTUREWINDOW_STOPMODE_ALL_TAG				2

@@ -26,14 +26,11 @@
 
 - (NSString *)descriptionWithFormat:(NSString *)format
 {
-	NSDateFormatter *datefmt;
-	NSString *ret;
-
-	datefmt = [[NSDateFormatter alloc] initWithDateFormat:format allowNaturalLanguage:NO];
-	ret = [datefmt stringForObjectValue:self];
-	[datefmt release];
-
-	return ret;
+    NSDateFormatter *datefmt = [[NSDateFormatter alloc] init];
+    [datefmt setDateFormat:format];
+    NSString *ret = [datefmt stringFromDate:self];
+    [datefmt release];
+    return ret;
 }
 
 @end
