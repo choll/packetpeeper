@@ -28,7 +28,7 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application"/>
-        <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" visibleAtLaunch="NO" animationBehavior="default" id="73" userLabel="CaptureSheet">
+        <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" visibleAtLaunch="NO" frameAutosaveName="CaptureSheet" animationBehavior="default" id="73" userLabel="CaptureSheet">
             <windowStyleMask key="styleMask" titled="YES"/>
             <rect key="contentRect" x="0.0" y="0.0" width="455" height="446"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1028"/>
@@ -344,7 +344,7 @@
                             <tabViewItem label="Filters" identifier="3" id="347">
                                 <view key="view" id="348">
                                     <rect key="frame" x="10" y="33" width="425" height="346"/>
-                                    <autoresizingMask key="autoresizingMask"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textField verticalHuggingPriority="750" id="349">
                                             <rect key="frame" x="20" y="132" width="385" height="206"/>

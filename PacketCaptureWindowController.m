@@ -192,7 +192,7 @@
 	return [[self document] numberOfPackets];
 }
 
-- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex
+- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex
 {
 	if(rowIndex < 0)
 		return nil;
@@ -440,6 +440,9 @@
 
 - (BOOL)validateMenuItem:(NSMenuItem *)menuItem
 {
+	if([menuItem action] == @selector(arpSpoofingWindowButton:) && ![[self document] isLive])
+		return NO;
+
 	if([menuItem action] == @selector(autoScrolling:) && ![[self document] isLive])
 		return NO;
 
@@ -715,6 +718,11 @@
 - (IBAction)streamsWindowButton:(id)sender
 {
 	[[self document] displayStreamsWindow];
+}
+
+- (IBAction)arpSpoofingWindowButton:(id)sender
+{
+	[[self document] displayArpSpoofingWindow];
 }
 
 - (IBAction)nodeGraphButton:(id)sender

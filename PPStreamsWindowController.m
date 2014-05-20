@@ -264,8 +264,9 @@
 
 - (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName
 {
-	return [NSString stringWithFormat:@"%@ - %@ - TCP Streams",
-	displayName, [[self document] interface]];
+	return
+        [NSString stringWithFormat:@"%@ - %@ - TCP Streams", displayName,
+        [[self document] interface]];
 }
 
 - (void)setDocumentEdited:(BOOL)flag
@@ -291,7 +292,7 @@
 	return [[[self document] tcpStreamController] numberOfStreams];
 }
 
-- (id)packetTableObjectValueForTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex
+- (id)packetTableObjectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex
 {
 	if(rowIndex < 0)
 		return nil;
@@ -303,7 +304,7 @@
 #pragma clang diagnostic pop
 }
 
-- (id)streamTableObjectValueForTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex
+- (id)streamTableObjectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex
 {
 	PPTCPStream *stream;
 
@@ -485,7 +486,7 @@
 	return 0;
 }
 
-- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex
+- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex
 {
 	if(rowIndex < 0)
 		return nil;

@@ -45,7 +45,6 @@
 		832D5B160AFFF00B007D1E56 /* MyDocumentController.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A6397D06F3A0F400E8CF04 /* MyDocumentController.h */; };
 		832D5B170AFFF00B007D1E56 /* AppController.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A6398506F3BC5B00E8CF04 /* AppController.h */; };
 		832D5B190AFFF00B007D1E56 /* OutlineViewItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 83E4C11506FE46CB001F592F /* OutlineViewItem.h */; };
-		832D5B1A0AFFF00B007D1E56 /* HexView.h in Headers */ = {isa = PBXBuildFile; fileRef = 83C8FAFC0708A8F1009EAA5A /* HexView.h */; };
 		832D5B1B0AFFF00B007D1E56 /* ErrorReportWindowController.h in Headers */ = {isa = PBXBuildFile; fileRef = 83C45660076F49C900050832 /* ErrorReportWindowController.h */; };
 		832D5B1C0AFFF00B007D1E56 /* ColumnIdentifier.h in Headers */ = {isa = PBXBuildFile; fileRef = 83C45664076FB20A00050832 /* ColumnIdentifier.h */; };
 		832D5B1D0AFFF00B007D1E56 /* DateFormat.h in Headers */ = {isa = PBXBuildFile; fileRef = 83CD8FAC07739D7D0012C1CD /* DateFormat.h */; };
@@ -105,7 +104,6 @@
 		832D5B630AFFF00B007D1E56 /* PacketCaptureWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A6398A06F5DCDC00E8CF04 /* PacketCaptureWindowController.m */; };
 		832D5B640AFFF00B007D1E56 /* CaptureSetupWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A6398D06F5EDE300E8CF04 /* CaptureSetupWindowController.m */; };
 		832D5B650AFFF00B007D1E56 /* OutlineViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 83E4C11206FE46BE001F592F /* OutlineViewItem.m */; };
-		832D5B660AFFF00B007D1E56 /* HexView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83C8FAFE0708A8F8009EAA5A /* HexView.m */; };
 		832D5B670AFFF00B007D1E56 /* ErrorReportWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83C45661076F49C900050832 /* ErrorReportWindowController.m */; };
 		832D5B680AFFF00B007D1E56 /* ColumnIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 83C45665076FB20A00050832 /* ColumnIdentifier.m */; };
 		832D5B690AFFF00B007D1E56 /* DateFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 83CD8FA907739D680012C1CD /* DateFormat.m */; };
@@ -238,6 +236,9 @@
 		83D22BC9191D591100DA0745 /* DataInspectorRepresenter.h in Headers */ = {isa = PBXBuildFile; fileRef = 83D22BC7191D591100DA0745 /* DataInspectorRepresenter.h */; };
 		83D22BCA191D591100DA0745 /* DataInspectorRepresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 83D22BC8191D591100DA0745 /* DataInspectorRepresenter.m */; };
 		83D22BCD191FEA4B00DA0745 /* DataInspectorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83D22BCF191FEA4B00DA0745 /* DataInspectorView.xib */; };
+		83D22BD119217B5D00DA0745 /* PPArpSpoofingWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83D22BD019217B5D00DA0745 /* PPArpSpoofingWindow.xib */; };
+		83D22BD319241BE400DA0745 /* PPArpSpoofingWindowController.h in Headers */ = {isa = PBXBuildFile; fileRef = 83D22BD219241BE400DA0745 /* PPArpSpoofingWindowController.h */; };
+		83D22BD51924256700DA0745 /* PPArpSpoofingWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83D22BD41924256700DA0745 /* PPArpSpoofingWindowController.m */; };
 		83D7F35F0D257B3B00229DB3 /* PPPyDecoderPlugin.h in Headers */ = {isa = PBXBuildFile; fileRef = 83D7F35D0D257B3B00229DB3 /* PPPyDecoderPlugin.h */; };
 		83D7F3600D257B3B00229DB3 /* PPPyDecoderPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 83D7F35E0D257B3B00229DB3 /* PPPyDecoderPlugin.m */; };
 		83D7F3B10D25812A00229DB3 /* PPDecoderPlugin.h in Headers */ = {isa = PBXBuildFile; fileRef = 83D7F3B00D25812A00229DB3 /* PPDecoderPlugin.h */; };
@@ -448,8 +449,6 @@
 		83C45661076F49C900050832 /* ErrorReportWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorReportWindowController.m; sourceTree = "<group>"; };
 		83C45664076FB20A00050832 /* ColumnIdentifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColumnIdentifier.h; sourceTree = "<group>"; };
 		83C45665076FB20A00050832 /* ColumnIdentifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColumnIdentifier.m; sourceTree = "<group>"; };
-		83C8FAFC0708A8F1009EAA5A /* HexView.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = HexView.h; sourceTree = "<group>"; };
-		83C8FAFE0708A8F8009EAA5A /* HexView.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = HexView.m; sourceTree = "<group>"; };
 		83CC8DBF0C9B516300B70DF4 /* libpcap.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpcap.dylib; path = /usr/lib/libpcap.dylib; sourceTree = "<absolute>"; };
 		83CD8FA907739D680012C1CD /* DateFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateFormat.m; sourceTree = "<group>"; };
 		83CD8FAC07739D7D0012C1CD /* DateFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateFormat.h; sourceTree = "<group>"; };
@@ -473,6 +472,9 @@
 		83D22BC7191D591100DA0745 /* DataInspectorRepresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataInspectorRepresenter.h; sourceTree = "<group>"; };
 		83D22BC8191D591100DA0745 /* DataInspectorRepresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataInspectorRepresenter.m; sourceTree = "<group>"; };
 		83D22BCE191FEA4B00DA0745 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/DataInspectorView.xib; sourceTree = "<group>"; };
+		83D22BD019217B5D00DA0745 /* PPArpSpoofingWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PPArpSpoofingWindow.xib; sourceTree = "<group>"; };
+		83D22BD219241BE400DA0745 /* PPArpSpoofingWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPArpSpoofingWindowController.h; sourceTree = "<group>"; };
+		83D22BD41924256700DA0745 /* PPArpSpoofingWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPArpSpoofingWindowController.m; sourceTree = "<group>"; };
 		83D7F35D0D257B3B00229DB3 /* PPPyDecoderPlugin.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PPPyDecoderPlugin.h; sourceTree = "<group>"; };
 		83D7F35E0D257B3B00229DB3 /* PPPyDecoderPlugin.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = PPPyDecoderPlugin.m; sourceTree = "<group>"; };
 		83D7F3B00D25812A00229DB3 /* PPDecoderPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPDecoderPlugin.h; sourceTree = "<group>"; };
@@ -561,6 +563,8 @@
 				83A6398D06F5EDE300E8CF04 /* CaptureSetupWindowController.m */,
 				83566B310D4E87C90037485E /* PPCaptureFilterWindowController.h */,
 				83566B320D4E87C90037485E /* PPCaptureFilterWindowController.m */,
+				83D22BD219241BE400DA0745 /* PPArpSpoofingWindowController.h */,
+				83D22BD41924256700DA0745 /* PPArpSpoofingWindowController.m */,
 				83C45660076F49C900050832 /* ErrorReportWindowController.h */,
 				83C45661076F49C900050832 /* ErrorReportWindowController.m */,
 				83AD23090994C6860048B019 /* PPDataQuantityFormatter.h */,
@@ -572,8 +576,6 @@
 				2A37F4ACFDCFA73011CA2CEA /* MyDocument.m */,
 				83D22BC7191D591100DA0745 /* DataInspectorRepresenter.h */,
 				83D22BC8191D591100DA0745 /* DataInspectorRepresenter.m */,
-				83C8FAFC0708A8F1009EAA5A /* HexView.h */,
-				83C8FAFE0708A8F8009EAA5A /* HexView.m */,
 				833B81BA07EC520900178219 /* PPTableView.h */,
 				833B81BC07EC521300178219 /* PPTableView.m */,
 				835297E508B265F300E175FD /* PPCenteredClipView.h */,
@@ -608,6 +610,7 @@
 				8320758106F9084100416E79 /* last.tiff */,
 				2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */,
 				83D22BCF191FEA4B00DA0745 /* DataInspectorView.xib */,
+				83D22BD019217B5D00DA0745 /* PPArpSpoofingWindow.xib */,
 				8304C6E20D4FC70900652885 /* PPCaptureFilterSheet.nib */,
 				830C23F818E22FC400ACBD55 /* ProgressSheet.nib */,
 				2A37F4B6FDCFA73011CA2CEA /* MainMenu.nib */,
@@ -861,7 +864,6 @@
 				832D5B160AFFF00B007D1E56 /* MyDocumentController.h in Headers */,
 				832D5B170AFFF00B007D1E56 /* AppController.h in Headers */,
 				832D5B190AFFF00B007D1E56 /* OutlineViewItem.h in Headers */,
-				832D5B1A0AFFF00B007D1E56 /* HexView.h in Headers */,
 				832D5B1B0AFFF00B007D1E56 /* ErrorReportWindowController.h in Headers */,
 				832D5B1C0AFFF00B007D1E56 /* ColumnIdentifier.h in Headers */,
 				832D5B1D0AFFF00B007D1E56 /* DateFormat.h in Headers */,
@@ -893,6 +895,7 @@
 				83ABCC640C5C9E7E0087E70B /* demultiplex.h in Headers */,
 				835F0BCB0C70C499003B6A65 /* in_cksum.h in Headers */,
 				8352BE860C82B9FC00284D91 /* PPProgressWindowController.h in Headers */,
+				83D22BD319241BE400DA0745 /* PPArpSpoofingWindowController.h in Headers */,
 				8314CAD40CB12A09003610FD /* NSMutableArrayExtensions.h in Headers */,
 				839334660CE2738C00FF58C5 /* stream_compare.h in Headers */,
 				83D7F35F0D257B3B00229DB3 /* PPPyDecoderPlugin.h in Headers */,
@@ -1041,6 +1044,7 @@
 				832D5B4B0AFFF00B007D1E56 /* IndividualPacket.nib in Resources */,
 				832D5B4D0AFFF00B007D1E56 /* PPTCPStreamWindow.nib in Resources */,
 				832D5B4E0AFFF00B007D1E56 /* PPNodeGraphPanel.nib in Resources */,
+				83D22BD119217B5D00DA0745 /* PPArpSpoofingWindow.xib in Resources */,
 				83D22BCD191FEA4B00DA0745 /* DataInspectorView.xib in Resources */,
 				832D5B4F0AFFF00B007D1E56 /* PPStreamsWindow.nib in Resources */,
 				830C23F618E22FC400ACBD55 /* ProgressSheet.nib in Resources */,
@@ -1089,7 +1093,6 @@
 				832D5B630AFFF00B007D1E56 /* PacketCaptureWindowController.m in Sources */,
 				832D5B640AFFF00B007D1E56 /* CaptureSetupWindowController.m in Sources */,
 				832D5B650AFFF00B007D1E56 /* OutlineViewItem.m in Sources */,
-				832D5B660AFFF00B007D1E56 /* HexView.m in Sources */,
 				832D5B670AFFF00B007D1E56 /* ErrorReportWindowController.m in Sources */,
 				832D5B680AFFF00B007D1E56 /* ColumnIdentifier.m in Sources */,
 				832D5B690AFFF00B007D1E56 /* DateFormat.m in Sources */,
@@ -1098,6 +1101,7 @@
 				832D5B6C0AFFF00B007D1E56 /* UDPDecode.m in Sources */,
 				832D5B6D0AFFF00B007D1E56 /* ICMPDecode.m in Sources */,
 				832D5B700AFFF00B007D1E56 /* Cache.m in Sources */,
+				83D22BD51924256700DA0745 /* PPArpSpoofingWindowController.m in Sources */,
 				832D5B720AFFF00B007D1E56 /* TCPDecode.m in Sources */,
 				832D5B730AFFF00B007D1E56 /* PortCache.m in Sources */,
 				832D5B740AFFF00B007D1E56 /* OUICache.m in Sources */,
@@ -1672,7 +1676,7 @@
 				PREBINDING = NO;
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PRODUCT_NAME = "Packet Peeper";
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.4u.sdk";
+				SDKROOT = macosx10.8;
 				WARNING_CFLAGS = "-Wall";
 			};
 			name = Development;
@@ -1730,7 +1734,7 @@
 				PREBINDING = NO;
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PRODUCT_NAME = "Packet Peeper";
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.4u.sdk";
+				SDKROOT = macosx10.8;
 				WARNING_CFLAGS = "-Wall";
 			};
 			name = Deployment;
@@ -1756,7 +1760,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PREBINDING = NO;
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.4u.sdk";
+				SDKROOT = macosx10.8;
 				WARNING_CFLAGS = "-Wall";
 			};
 			name = Default;

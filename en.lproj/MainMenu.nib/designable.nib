@@ -300,7 +300,13 @@ Gw
                             <menuItem title="Link Utilization Graph" id="508"/>
                             <menuItem title="Protocol Graph" id="509"/>
                             <menuItem title="Packet Size Graph" id="510"/>
-                            <menuItem title="Streams" keyEquivalent="t" id="511">
+                            <menuItem title="ARP Spoofing..." id="U3A-MH-YHH">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="arpSpoofingWindowButton:" target="-1" id="Hqc-Zx-ldL"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="TCP Streams..." keyEquivalent="t" id="511">
                                 <connections>
                                     <action selector="streamsWindowButton:" target="-1" id="608"/>
                                 </connections>

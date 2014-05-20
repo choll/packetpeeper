@@ -57,9 +57,9 @@
 - (int)numberOfRowsInTableView:(NSTableView *)tableView;
 - (int)numberOfRowsInPacketTableView;
 - (int)numberOfRowsInStreamTableView;
-- (id)packetTableObjectValueForTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex;
-- (id)streamTableObjectValueForTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex;
-- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex;
+- (id)packetTableObjectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex;
+- (id)streamTableObjectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex;
+- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex;
 - (void)sortStreamTable;
 - (void)updateWithUserScrolling;
 - (void)update:(BOOL)shouldScroll;

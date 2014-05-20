@@ -17,8 +17,8 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef _PACKETCAPTUREWINDOWCONTROLLER_H_
-#define _PACKETCAPTUREWINDOWCONTROLLER_H_
+#ifndef PACKETPEEPER_PACKETCAPTUREWINDOWCONTROLLER_H
+#define PACKETPEEPER_PACKETCAPTUREWINDOWCONTROLLER_H
 
 #import <AppKit/NSTableView.h>
 #import <AppKit/NSToolbar.h>
@@ -65,8 +65,7 @@
 
 - (int)numberOfRowsInTableView:(NSTableView *)tableView;
 
-- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn
-				row:(int)rowIndex;
+- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex;
 
 /* NSToolbar delegate methods */
 - (NSToolbarItem *)toolbar:(NSToolbar *)toolbar itemForItemIdentifier:(NSString *)itemIdentifier
@@ -96,11 +95,12 @@
 - (IBAction)individualPacketButton:(id)sender;
 - (IBAction)flushHostnamesButton:(id)sender;
 - (IBAction)reassembleStreamButton:(id)sender;
-//- (IBAction)showStreamPacket:(id)sender;
 - (IBAction)nodeGraphButton:(id)sender;
 - (IBAction)streamsWindowButton:(id)sender;
+- (IBAction)arpSpoofingWindowButton:(id)sender;
 - (IBAction)cancelEndingButton:(id)sender;
 
 @end
 
 #endif
+

@@ -77,6 +77,7 @@
 #include "PPNodeGraphWindowController.h"
 #include "PPTCPStreamWindowController.h"
 #include "PPStreamsWindowController.h"
+#include "PPArpSpoofingWindowController.h"
 #include "CaptureSetupWindowController.h"
 #include "PPCaptureFilterWindowController.h"
 #include "PPProgressWindowController.h"
@@ -683,6 +684,15 @@ err:
 	}
 
 	[streamsWindowController showWindow:self];
+}
+
+- (void)displayArpSpoofingWindow
+{
+	if(arpSpoofingWindowController == nil) {
+		arpSpoofingWindowController = [[PPArpSpoofingWindowController alloc] init];
+		[self addWindowController:arpSpoofingWindowController];
+	}
+	[arpSpoofingWindowController showWindow:self];
 }
 
 - (void)removeWindowController:(NSWindowController *)windowController

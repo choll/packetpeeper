@@ -68,6 +68,7 @@ typedef enum _bufsize bufsize;
 @class PPCaptureFilter;
 @class PPBPFProgram;
 @class PPStreamsWindowController;
+@class PPArpSpoofingWindowController;
 @class ColumnIdentifier;
 @class HostCache;
 @class ErrorStack;
@@ -78,6 +79,7 @@ struct thread_args;
 {
 	PacketCaptureWindowController *captureWindowController;
 	PPStreamsWindowController *streamsWindowController;
+	PPArpSpoofingWindowController *arpSpoofingWindowController;
 	PPProgressWindowController *progressWindowController;
 	ObjectIO *helperIO;
 	PPTCPStreamController *streamController;
@@ -121,6 +123,7 @@ struct thread_args;
 - (void)displayReassemblyWindowForPacket:(Packet *)aPacket;
 - (void)displayNodeGraphWindow;
 - (void)displayStreamsWindow;
+- (void)displayArpSpoofingWindow;
 
 - (PacketCaptureWindowController *)packetCaptureWindowController;
 

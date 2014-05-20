@@ -27,7 +27,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="681" height="500"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <splitView id="495">
+                    <splitView autosaveName="MainWindow" id="495">
                         <rect key="frame" x="0.0" y="31" width="681" height="469"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>

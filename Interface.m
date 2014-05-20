@@ -80,7 +80,7 @@
 	if(sysctl(mib, 6, buf, &needed, NULL, 0) < 0) {
 		[[ErrorStack sharedErrorStack] pushError:@"Could not read interface list data" lookup:[PosixError class] code:errno severity:ERRS_ERROR];
 		goto err;
-	} 
+	}
 
 	/* alloc after possible errors can occur */
 	if((ret = [[NSMutableArray alloc] init]) == nil) {

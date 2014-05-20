@@ -25,12 +25,6 @@
 @class NSString;
 @class NSArray;
 
-/*
-	TODO: Link up with MAC lookup class to give the card name manufacturer.
-		  Although, this might be ok on a PC, on a mac its always going to
-		  be Apple...
-*/
-
 @interface Interface : NSObject
 {
 	NSString *shortName;	/* interfaces short name, eg en0 */
