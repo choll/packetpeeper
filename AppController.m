@@ -37,6 +37,7 @@
 #import <CoreServices/CoreServices.h>
 #include "LoopbackDecode.h"
 #include "EthernetDecode.h"
+#include "PPRVIDecode.h"
 #include "Packet.h"
 #include "PPPacketUIAdditons.h"
 #include "PPPDecode.h"
@@ -119,6 +120,7 @@
 {
 	Class decoders[] = {[LoopbackDecode class],
 						[EthernetDecode class],
+                        [PPRVIDecode class],
 						[PPPDecode class],
 						[IPV4Decode class],
 						[IPV6Decode class],
@@ -131,6 +133,7 @@
 {
 	Class decoders[] = {[LoopbackDecode class],
 						[EthernetDecode class],
+                        [PPRVIDecode class],
 						[PPPDecode class],
 						[ARPDecode class],
 						[RARPDecode class],

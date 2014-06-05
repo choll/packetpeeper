@@ -240,7 +240,7 @@
 - (NSData *)chunkDataAt:(unsigned int)chunkIndex
 {
 	PPTCPStreamReassemblerChunk *chunk;
-	
+
 	chunk = [m_chunks objectAtIndex:chunkIndex];
 
 	return [NSData dataWithBytesNoCopy:(void *)[chunk data] length:[chunk length] freeWhenDone:NO];

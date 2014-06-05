@@ -30,6 +30,7 @@
 #include <pcap.h>
 #include <libkern/OSAtomic.h>
 #include <CoreFoundation/CFSocket.h>
+#include <assert.h>
 #import <Foundation/NSThread.h>
 #import <Foundation/NSObject.h>
 #import <Foundation/NSNull.h>
@@ -54,6 +55,7 @@
 #import <AppKit/NSFont.h>
 #import <AppKit/NSDocument.h>
 #import <AppKit/NSWindowRestoration.h>
+#include "pktap.h"
 #include "ObjectIO.h"
 #include "AppController.h"
 #include "Describe.h"
@@ -65,6 +67,7 @@
 #include "EthernetDecode.h"
 #include "IPV4Decode.h"
 #include "TCPDecode.h"
+#include "PPRVIDecode.h"
 #include "Interface.h"
 #include "PPCaptureFilter.h"
 #include "PPBPFProgram.h"
@@ -102,7 +105,7 @@ struct thread_args {
 		  THREAD_OP_DOC_SAVE_TO,
 		  THREAD_OP_DOC_SAVE_AUTO,
 		  THREAD_OP_DOC_FILTER} op;
-	id input[2];
+	id input[3];
 	volatile id output[2];
 	NSTimer *timer;
 	volatile int cancel;
@@ -221,6 +224,7 @@ struct thread_args {
 
 	thread_args->input[0] = [absoluteURL retain];
 	thread_args->input[1] = [[self packetsSortedByNumber] retain];
+	thread_args->input[2] = [[self interface] retain];
 	thread_args->output[0] = nil;
 	thread_args->output[1] = nil;
 	thread_args->cancel = 0;
@@ -233,6 +237,7 @@ struct thread_args {
 		errorString = [NSString stringWithFormat:@"Error: failed to create thread: %s", strerror(ret)];
 		[thread_args->input[0] release];
 		[thread_args->input[1] release];
+		[thread_args->input[2] release];
 		free(thread_args);
 		thread_args = NULL;
 	}
@@ -305,6 +310,7 @@ err:
 	thread_args->op = THREAD_OP_DOC_READ;
 	thread_args->input[0] = [absoluteURL retain];
 	thread_args->input[1] = nil;
+	thread_args->input[2] = nil;
 	thread_args->output[0] = nil;
 	thread_args->output[1] = nil;
 	thread_args->cancel = 0;
@@ -363,6 +369,7 @@ err:
 
 		[thread_args->input[0] release];
 		[thread_args->input[1] release];
+		[thread_args->input[2] release];
 
 		[self closeProgressSheet];
 
@@ -487,6 +494,7 @@ err:
 	[thread_args->timer release];
 	[thread_args->input[0] release];
 	[thread_args->input[1] release];
+	[thread_args->input[2] release];
 
 	thread_args->cancel = 1;
 
@@ -1273,6 +1281,7 @@ err:
 	thread_args->input[1] = [bpfProgram retain]; /* this is kind of lame, as we've already retained above, but
 													it allows workerThreadTimer to be generic (in that it releases
 													thread inputs after the thread is done) */
+	thread_args->input[2] = nil;
 	thread_args->output[0] = nil;
 	thread_args->output[1] = nil;
 	thread_args->cancel = 0;
@@ -1393,7 +1402,7 @@ static void *read_from_url_thread(void *args)
 		}
 	}
 
-	if(ret != -2) {
+	if(ret != -2 && packet_number == 1) {
 		thread_args->output[0] = @"Error reading packet";
 		goto err;
 	}
@@ -1430,92 +1439,119 @@ err:
 
 static void *write_to_url_thread(void *args)
 {
-	NSString *savePath;
-	NSAutoreleasePool *autoreleasePool;
-	pcap_t *pcap;
-	pcap_dumper_t *dump;
-	struct thread_args *thread_args;
-	struct pcap_pkthdr hdr;
+    NSString *savePath;
+    NSAutoreleasePool *autoreleasePool;
+    pcap_t *pcap;
+    pcap_dumper_t *dump;
+    struct thread_args *thread_args;
+    struct pcap_pkthdr hdr;
 
-	pcap = NULL;
-	dump = NULL;
-	thread_args = args;
+    pcap = NULL;
+    dump = NULL;
+    thread_args = args;
 
-	autoreleasePool = [[NSAutoreleasePool alloc] init];
+    autoreleasePool = [[NSAutoreleasePool alloc] init];
 
-	if(thread_args->op == THREAD_OP_DOC_SAVE)
-		savePath = make_temp_path([(NSURL *)thread_args->input[0] path]);
-	else
-		savePath = [(NSURL *)thread_args->input[0] path];
+    // If we have an RVI/PKTAP capture that was captured live then strip off the
+    // pktap header to keep compatibility with other sniffers. This is needed
+    // because Apple used a DLT_USER value for the DLT instead of getting a
+    // proper DLT value assigned. Technically Packet Peeper is incorrect for
+    // assuming that a DLT of 149 is RVI/PKTAP.
+    const BOOL stripPkTap =
+        [[(NSArray *)thread_args->input[1] objectAtIndex:0] linkType] == DLT_PKTAP &&
+        [[[[(NSArray *)thread_args->input[1] objectAtIndex:0] decoders] objectAtIndex:0] class] == [PPRVIDecode class] &&
+        ![(NSString *)thread_args->input[2] isEqualToString:@"pcap"];
 
-	if((pcap = pcap_open_dead([[(NSArray *)thread_args->input[1] objectAtIndex:0] linkType], BPF_MAXBUFSIZE)) == NULL) {
-		thread_args->output[0] = @"pcap_open_dead failed";
-		goto err;
-	}
+    int linkType = [[(NSArray *)thread_args->input[1] objectAtIndex:0] linkType];
 
-	if((dump = pcap_dump_open(pcap, [savePath UTF8String])) == NULL) {
-		thread_args->output[0] = [[NSString alloc] initWithUTF8String:pcap_geterr(pcap)];
-		goto err;
-	}
+    if(stripPkTap) {
+        linkType = [[[[(NSArray *)thread_args->input[1] objectAtIndex:0] decoders] objectAtIndex:0] dlt];
+    } else {
+        linkType = [[(NSArray *)thread_args->input[1] objectAtIndex:0] linkType];
+    }
 
-	thread_args->units_total = [(NSArray *)thread_args->input[1] count];
-	thread_args->output[0] = nil;
-	thread_args->output[1] = nil;
+    if(thread_args->op == THREAD_OP_DOC_SAVE)
+        savePath = make_temp_path([(NSURL *)thread_args->input[0] path]);
+    else
+        savePath = [(NSURL *)thread_args->input[0] path];
 
-	for(thread_args->units_current = 0; thread_args->units_current < thread_args->units_total; ++thread_args->units_current) {
-		Packet *pkt;
-		NSTimeInterval timeInterval;
-		double seconds;
-		suseconds_t mseconds;
+    if((pcap = pcap_open_dead(linkType, BPF_MAXBUFSIZE)) == NULL) {
+        thread_args->output[0] = @"pcap_open_dead failed";
+        goto err;
+    }
 
-		pkt = [(NSArray *)thread_args->input[1] objectAtIndex:thread_args->units_current];
+    if((dump = pcap_dump_open(pcap, [savePath UTF8String])) == NULL) {
+        thread_args->output[0] = [[NSString alloc] initWithUTF8String:pcap_geterr(pcap)];
+        goto err;
+    }
 
-		hdr.len = [pkt actualLength];
-		hdr.caplen = [pkt captureLength];
+    thread_args->units_total = [(NSArray *)thread_args->input[1] count];
+    thread_args->output[0] = nil;
+    thread_args->output[1] = nil;
 
-		timeInterval = [[pkt date] timeIntervalSince1970];
+    for(thread_args->units_current = 0; thread_args->units_current < thread_args->units_total; ++thread_args->units_current) {
+        Packet *pkt;
+        NSTimeInterval timeInterval;
+        double seconds;
+        suseconds_t mseconds;
 
-		mseconds = (suseconds_t)(modf(timeInterval, &seconds) * 1000000.0);
+        pkt = [(NSArray *)thread_args->input[1] objectAtIndex:thread_args->units_current];
 
-		hdr.ts.tv_sec = (time_t)seconds;
-		hdr.ts.tv_usec = mseconds;
+        hdr.len = [pkt actualLength];
+        hdr.caplen = [pkt captureLength];
 
-		pcap_dump((unsigned char *)dump, &hdr, (unsigned char *)[[pkt packetData] bytes]);
+        timeInterval = [[pkt date] timeIntervalSince1970];
 
-		if(thread_args->cancel != 0)
-			goto cleanup;
-	}
+        mseconds = (suseconds_t)(modf(timeInterval, &seconds) * 1000000.0);
 
-	if(thread_args->op == THREAD_OP_DOC_SAVE) {
-		if(rename([savePath UTF8String], [[(NSURL *)thread_args->input[0] path] UTF8String]) != 0) {
-			thread_args->output[0] = [[NSString alloc] initWithFormat:@"Failed to rename temporary file: %s", strerror(errno)];
-			goto err;
-		}
-	}
+        hdr.ts.tv_sec = (time_t)seconds;
+        hdr.ts.tv_usec = mseconds;
 
-	/* no memory barrier required */
-	thread_args->success = 1;
+        if(stripPkTap && [[[pkt decoders] objectAtIndex:0] class] == [PPRVIDecode class]) {
+            // If the decoder at index 0 is a PPRVIDecoder then we know we got a complete
+            // pktap header
+            const unsigned int offset = [[[pkt decoders] objectAtIndex:0] frontSize];
+            hdr.len -= offset;
+            hdr.caplen -= offset;
+            pcap_dump((unsigned char *)dump, &hdr, (unsigned char *)[[pkt packetData] bytes] + offset);
+        } else {
+            pcap_dump((unsigned char *)dump, &hdr, (unsigned char *)[[pkt packetData] bytes]);
+        }
+
+        if(thread_args->cancel != 0)
+            goto cleanup;
+    }
+
+    if(thread_args->op == THREAD_OP_DOC_SAVE) {
+        if(rename([savePath UTF8String], [[(NSURL *)thread_args->input[0] path] UTF8String]) != 0) {
+            thread_args->output[0] = [[NSString alloc] initWithFormat:@"Failed to rename temporary file: %s", strerror(errno)];
+            goto err;
+        }
+    }
+
+    /* no memory barrier required */
+    thread_args->success = 1;
 
 cleanup:
-	[autoreleasePool release];
-	pcap_dump_flush(dump);
-	pcap_dump_close(dump);
-	pcap_close(pcap);
-	return NULL;
+    [autoreleasePool release];
+    pcap_dump_flush(dump);
+    pcap_dump_close(dump);
+    pcap_close(pcap);
+    return NULL;
 
 err:
-	[autoreleasePool release];
+    [autoreleasePool release];
 
-	if(dump != NULL)
-		pcap_dump_close(dump);
-	if(pcap != NULL)
-		pcap_close(pcap);
+    if(dump != NULL)
+        pcap_dump_close(dump);
+    if(pcap != NULL)
+        pcap_close(pcap);
 
-	OSMemoryBarrier();
-	thread_args->failure = 1;
+    OSMemoryBarrier();
+    thread_args->failure = 1;
 
-	/* the document is responsible for releasing thread_args->output */
-	return thread_args->output[0];
+    /* the document is responsible for releasing thread_args->output */
+    return thread_args->output[0];
 }
 
 static void *filter_packets_thread(void *args)

@@ -32,12 +32,14 @@
 #include <ifaddrs.h>
 #import <Foundation/NSArray.h>
 #import <Foundation/NSString.h>
+#include "pktap.h"
 #include "ErrorStack.h"
 #include "Interface.h"
 
-#define IFSTR_ETHER	"Ethernet Adaptor"
-#define IFSTR_LOOP	"Loopback Network"
-#define IFSTR_PPP	"Point-to-Point Link"
+#define IFSTR_ETHER "Ethernet Adaptor"
+#define IFSTR_LOOP  "Loopback Network"
+#define IFSTR_PPP   "Point-to-Point Link"
+#define IFSTR_RVI   "Remote Virtual Interface"
 
 @implementation Interface
 
@@ -80,7 +82,7 @@
 	if(sysctl(mib, 6, buf, &needed, NULL, 0) < 0) {
 		[[ErrorStack sharedErrorStack] pushError:@"Could not read interface list data" lookup:[PosixError class] code:errno severity:ERRS_ERROR];
 		goto err;
-	} 
+	}
 
 	/* alloc after possible errors can occur */
 	if((ret = [[NSMutableArray alloc] init]) == nil) {
@@ -100,6 +102,11 @@
 			sdl = (struct sockaddr_dl *)(ifm + 1);
 
 			switch(sdl->sdl_type) {
+                case IFT_OTHER:
+                    iftype_str = IFSTR_RVI;
+                    linkType = DLT_PKTAP;
+                    break;
+
 				case IFT_ETHER:
 					iftype_str = IFSTR_ETHER;
 					linkType = DLT_EN10MB;

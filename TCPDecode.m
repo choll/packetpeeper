@@ -514,59 +514,32 @@ err:
     switch(fieldIndex) {
         case 0:
             return [NSString stringWithFormat:@"%u", sport];
-            /* NOTREACHED */
-
         case 1:
             return [NSString stringWithFormat:@"%u", dport];
-            /* NOTREACHED */
-
         case 2:
             return [NSString stringWithFormat:@"%u", seq_no];
-            /* NOTREACHED */
-
         case 3:
             return [NSString stringWithFormat:@"%u", ack_no];
-            /* NOTREACHED */
-
         case 4:
             return [NSString stringWithFormat:@"%u (%u B)", hlen, hlen * 4];
-            /* NOTREACHED */
-
         case 5:
             return [NSString stringWithFormat:@"0x%.2x", flags];
-            /* NOTREACHED */
-
         case 6:
             return [NSString stringWithFormat:@"%u B", win_sz];
-            /* NOTREACHED */
-
         case 7:
             return [NSString stringWithFormat:@"0x%.4x", sum];
-            /* NOTREACHED */
-
         case 8:
             return [NSString stringWithFormat:@"%u", urg_ptr];
-            /* NOTREACHED */
-
         case 9:
             return [NSString stringWithFormat:@"%u", [self size]];
-            /* NOTREACHED */
-
         case 10:
             return (inOrder ? @"Yes" : @"No");
-            /* NOTREACHED */
-
         case 11:
             return [self srcPortName];
-            /* NOTREACHED */
-
         case 12:
             return [self dstPortName];
-            /* NOTREACHED */
-
         case 13:
             return [self flagsStr];
-            /* NOTREACHED */
     }
 
     return nil;
@@ -577,45 +550,32 @@ err:
     switch(fieldIndex) {
         case 0:
             return val_compare(sport, ((TCPDecode *)obj)->sport);
-
         case 1:
             return val_compare(dport, ((TCPDecode *)obj)->dport);
-
         case 2:
             return val_compare(seq_no, ((TCPDecode *)obj)->seq_no);
-
         case 3:
             return val_compare(ack_no, ((TCPDecode *)obj)->ack_no);
-
         case 4:
             return val_compare(hlen, ((TCPDecode *)obj)->hlen);
-
         case 5:
             return val_compare(flags, ((TCPDecode *)obj)->flags);
-
         case 6:
             return val_compare(win_sz, ((TCPDecode *)obj)->win_sz);
-
         case 7:
             return val_compare(sum, ((TCPDecode *)obj)->sum);
-
         case 8:
             return val_compare(urg_ptr, ((TCPDecode *)obj)->urg_ptr);
-
         case 9:
             return val_compare([self size], [obj size]);
-
         case 10:
             return val_compare(inOrder, ((TCPDecode *)obj)->inOrder);
-
         case 11:
             return [[[PortCache sharedPortCache] serviceWithTCPPort:dport] compare:
                 [[PortCache sharedPortCache] serviceWithTCPPort:((TCPDecode *)obj)->dport]];
-
         case 12:
             return [[[PortCache sharedPortCache] serviceWithTCPPort:sport] compare:
                 [[PortCache sharedPortCache] serviceWithTCPPort:((TCPDecode *)obj)->sport]];
-
         case 13:
             return [[self flagsStr] compare:[obj flagsStr]];
     }
