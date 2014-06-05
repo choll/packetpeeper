@@ -144,6 +144,10 @@ static OutlineViewItem *copy_item_tree(id <OutlineViewItem> root);
 - (void)dataInspectorDeletedAllRows:(NSNotification *)note {
     DataInspectorRepresenter *inspector = [note object];
     [self hideViewForRepresenter:inspector];
+    // Disable menu item
+    NSMenu *viewMenu = [[[NSApp mainMenu] itemWithTag:APPMENU_ITEM_VIEW_TAG] submenu];
+    NSMenuItem *viewItem = [viewMenu itemWithTag:APPMENU_ITEM_DATA_INSPECTOR_TAG];
+    [self toggleDataInspectorView:viewItem];
 }
 
 /* Called when our data inspector changes its size (number of rows) */
