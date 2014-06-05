@@ -24,12 +24,9 @@
 #include <stddef.h>
 #import <Foundation/NSData.h>
 #import <Foundation/NSString.h>
-#import <Foundation/NSHost.h>
 #import <Foundation/NSArray.h>
 #import <Foundation/NSArchiver.h>
 #include "Packet.h"
-#include "PPPluginManager.h"
-#include "PPDecoderPlugin.h"
 #include "UDPDecode.h"
 #include "TCPDecode.h"
 #include "HostCache.hh"
@@ -96,7 +93,9 @@ static inline unsigned int ip6_get_hop_limit(const struct ip6_hdr* hdr)
 - (void)setParent:(id <PPDecoderParent>)parent
 {
     m_parent = parent;
-    m_hdr = (struct ip6_hdr*)[m_parent packetData];
+    m_hdr =
+        (struct ip6_hdr*)((char*)[[m_parent packetData] bytes] +
+            [m_parent byteOffsetForDecoder:self]);
 }
 
 - (unsigned int)frontSize
@@ -120,7 +119,8 @@ static inline unsigned int ip6_get_hop_limit(const struct ip6_hdr* hdr)
 
 - (Class)nextLayer
 {
-    switch(m_hdr->ip6_ctlun.ip6_un1.ip6_un1_nxt) {
+    switch(m_hdr->ip6_ctlun.ip6_un1.ip6_un1_nxt)
+    {
         case IPPROTO_TCP:
             return [TCPDecode class];
         case IPPROTO_UDP:
@@ -182,11 +182,6 @@ static inline unsigned int ip6_get_hop_limit(const struct ip6_hdr* hdr)
         ret = [self addrFrom];
 
     return ret;
-}
-
-- (uint8_t)nextHeader
-{
-    return ip6_get_next_header(m_hdr);
 }
 
 - (unsigned int)length
@@ -415,9 +410,5 @@ static inline unsigned int ip6_get_hop_limit(const struct ip6_hdr* hdr)
     return self;
 }
 
-- (void)dealloc
-{
-    [super dealloc];
-}
-
 @end
+

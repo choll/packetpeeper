@@ -28,16 +28,9 @@
 #include "OutlineViewItem.h"
 #include "ColumnIdentifier.h"
 
-#define PACKETPEEPER_IP64DECODE_HDR_MIN		(sizeof(struct ip))
-
-#ifndef IPOPT_SECUR_PROG
-	#define IPOPT_SECUR_PROG	0x5E26
-#endif
-
 @class NSData;
 @class NSString;
 @class HostCache;
-@protocol PPDecoderPlugin;
 
 @interface IPV6Decode : NSObject <Decode, Describe, NSCoding, OutlineViewItem, ColumnIdentifier>
 {
@@ -51,7 +44,6 @@
 - (NSString *)resolvFrom;
 - (NSString *)to;
 - (NSString *)from;
-- (uint8_t)nextHeader;
 - (unsigned int)length;
 - (unsigned int)headerLength;
 - (struct in6_addr)in6_addrSrc;
