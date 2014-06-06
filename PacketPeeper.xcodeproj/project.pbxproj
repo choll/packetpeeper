@@ -179,6 +179,35 @@
 		832D5BC80AFFF00B007D1E56 /* PortCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 8396932307A056CC00E1EDB9 /* PortCache.m */; };
 		832D5BCA0AFFF00B007D1E56 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */; };
 		832D5BE90AFFF00B007D1E56 /* PacketPeeperHelper in Copy PacketPeeperHelper */ = {isa = PBXBuildFile; fileRef = 832D5BD00AFFF00B007D1E56 /* PacketPeeperHelper */; };
+		83368D85192E77F900D1CF35 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 83368D84192E77F900D1CF35 /* main.m */; };
+		83368D8C192E7D4500D1CF35 /* Bpf.m in Sources */ = {isa = PBXBuildFile; fileRef = 8332D428069EDD3C00F35800 /* Bpf.m */; };
+		83368D8D192E7D4F00D1CF35 /* lookup_dummy.c in Sources */ = {isa = PBXBuildFile; fileRef = 83B5CBA7094B6BC700C46868 /* lookup_dummy.c */; };
+		83368D8E192E7D5600D1CF35 /* helper_dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 83565A400D356BFB0037485E /* helper_dummy.m */; };
+		83368D8F192E861600D1CF35 /* ErrorStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 833FF94806D0EFAF00D0395E /* ErrorStack.m */; };
+		83368D90192E93FE00D1CF35 /* dlt_lookup.m in Sources */ = {isa = PBXBuildFile; fileRef = 8364184C06C23E74004048C1 /* dlt_lookup.m */; };
+		83368D91192E9AEB00D1CF35 /* EthernetDecode.m in Sources */ = {isa = PBXBuildFile; fileRef = 8364184206C1459A004048C1 /* EthernetDecode.m */; };
+		83368D92192E9AEE00D1CF35 /* LoopbackDecode.m in Sources */ = {isa = PBXBuildFile; fileRef = 8364183C06C05FAD004048C1 /* LoopbackDecode.m */; };
+		83368D93192E9AF100D1CF35 /* PPPDecode.m in Sources */ = {isa = PBXBuildFile; fileRef = 83CD8FD40773B0750012C1CD /* PPPDecode.m */; };
+		83368D94192E9AF400D1CF35 /* ARPDecode.m in Sources */ = {isa = PBXBuildFile; fileRef = 83CD8FB00773AFED0012C1CD /* ARPDecode.m */; };
+		83368D95192E9AF600D1CF35 /* IPV4Decode.m in Sources */ = {isa = PBXBuildFile; fileRef = 8384E1BD06D660AB001F2BA7 /* IPV4Decode.m */; };
+		83368D96192E9AF900D1CF35 /* IPV6Decode.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A81E8E191121BE008B6B73 /* IPV6Decode.m */; };
+		83368D97192E9AFC00D1CF35 /* ICMPDecode.m in Sources */ = {isa = PBXBuildFile; fileRef = 83CD8FC20773B03F0012C1CD /* ICMPDecode.m */; };
+		83368D98192E9B0100D1CF35 /* TCPDecode.m in Sources */ = {isa = PBXBuildFile; fileRef = 83CD8FCE0773B0660012C1CD /* TCPDecode.m */; };
+		83368D99192E9B0500D1CF35 /* UDPDecode.m in Sources */ = {isa = PBXBuildFile; fileRef = 83CD8FBC0773B02D0012C1CD /* UDPDecode.m */; };
+		83368D9A192EB32900D1CF35 /* Messages.m in Sources */ = {isa = PBXBuildFile; fileRef = 83F6B10B06B1B83100E320E9 /* Messages.m */; };
+		83368D9B192EB32B00D1CF35 /* ObjectIO.m in Sources */ = {isa = PBXBuildFile; fileRef = 83FDF2B406BA9AA3009C3584 /* ObjectIO.m */; };
+		83368D9C192EB33000D1CF35 /* strfuncs.m in Sources */ = {isa = PBXBuildFile; fileRef = 83620A1E06E08B8A00336558 /* strfuncs.m */; };
+		83368D9D192EB33400D1CF35 /* demultiplex.m in Sources */ = {isa = PBXBuildFile; fileRef = 8364185406C3E8BC004048C1 /* demultiplex.m */; };
+		83368D9E192EB34800D1CF35 /* OUICache.m in Sources */ = {isa = PBXBuildFile; fileRef = 8396932707A0570F00E1EDB9 /* OUICache.m */; };
+		83368D9F192EB35C00D1CF35 /* OutlineViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 83E4C11206FE46BE001F592F /* OutlineViewItem.m */; };
+		83368DA0192EB36700D1CF35 /* PortCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 8396932307A056CC00E1EDB9 /* PortCache.m */; };
+		83368DA1192EB37600D1CF35 /* in_cksum.c in Sources */ = {isa = PBXBuildFile; fileRef = 835F0BC80C70C498003B6A65 /* in_cksum.c */; };
+		83368DA2192EB37F00D1CF35 /* writevn.c in Sources */ = {isa = PBXBuildFile; fileRef = 83124CA806A6F676008B5F66 /* writevn.c */; };
+		83368DA3192EB83900D1CF35 /* Cache.m in Sources */ = {isa = PBXBuildFile; fileRef = 834C84E50796A97300C0235D /* Cache.m */; };
+		83368DA4192EB84700D1CF35 /* rb_tree.c in Sources */ = {isa = PBXBuildFile; fileRef = 8304C2ED07C6A884004FAC45 /* rb_tree.c */; };
+		83368DA519300B6000D1CF35 /* PPBPFProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = 83565B670D38E0730037485E /* PPBPFProgram.m */; };
+		83368DA619300B6700D1CF35 /* PPCaptureFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 83565B610D38E0260037485E /* PPCaptureFilter.m */; };
+		83368DA819300B8400D1CF35 /* libpcap.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 83CC8DBF0C9B516300B70DF4 /* libpcap.dylib */; };
 		8352BE860C82B9FC00284D91 /* PPProgressWindowController.h in Headers */ = {isa = PBXBuildFile; fileRef = 8352BE840C82B9FC00284D91 /* PPProgressWindowController.h */; };
 		8352BE870C82B9FC00284D91 /* PPProgressWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8352BE850C82B9FC00284D91 /* PPProgressWindowController.m */; };
 		83565A430D356C7B0037485E /* helper_dummy.h in Headers */ = {isa = PBXBuildFile; fileRef = 83565A3F0D356BFB0037485E /* helper_dummy.h */; };
@@ -292,6 +321,15 @@
 			name = "Copy PacketPeeperHelper";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		83368D80192E77F900D1CF35 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
 		83D7F5AD0D25CC6700229DB3 /* Copy Plugins */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -345,6 +383,8 @@
 		8332D427069EDD3C00F35800 /* Bpf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bpf.h; sourceTree = "<group>"; };
 		8332D428069EDD3C00F35800 /* Bpf.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Bpf.m; sourceTree = "<group>"; };
 		8332D42C069EE17000F35800 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = /System/Library/Frameworks/Security.framework; sourceTree = "<absolute>"; };
+		83368D82192E77F900D1CF35 /* ArpSpoofingTester */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ArpSpoofingTester; sourceTree = BUILT_PRODUCTS_DIR; };
+		83368D84192E77F900D1CF35 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		833B81BA07EC520900178219 /* PPTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPTableView.h; sourceTree = "<group>"; };
 		833B81BC07EC521300178219 /* PPTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPTableView.m; sourceTree = "<group>"; };
 		833B81F107F36D5000178219 /* PPTCPStreamWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPTCPStreamWindowController.h; sourceTree = "<group>"; };
@@ -519,6 +559,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		83368D7F192E77F900D1CF35 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				83368DA819300B8400D1CF35 /* libpcap.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -527,6 +575,7 @@
 			children = (
 				832D5B8E0AFFF00B007D1E56 /* Packet Peeper.app */,
 				832D5BD00AFFF00B007D1E56 /* PacketPeeperHelper */,
+				83368D82192E77F900D1CF35 /* ArpSpoofingTester */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -538,6 +587,7 @@
 				8332D3FE069ECB5500F35800 /* PacketPeeperHelper */,
 				83A74A2206C0060E00FD3004 /* Shared */,
 				2A37F4B8FDCFA73011CA2CEA /* Resources */,
+				83368D83192E77F900D1CF35 /* ArpSpoofingTester */,
 				2A37F4C3FDCFA73011CA2CEA /* Frameworks */,
 				19C28FB0FE9D524F11CA2CBB /* Products */,
 				8300DBC20B00BE18004C8233 /* PacketPeeper.plist */,
@@ -660,6 +710,14 @@
 				83565A400D356BFB0037485E /* helper_dummy.m */,
 			);
 			name = PacketPeeperHelper;
+			sourceTree = "<group>";
+		};
+		83368D83192E77F900D1CF35 /* ArpSpoofingTester */ = {
+			isa = PBXGroup;
+			children = (
+				83368D84192E77F900D1CF35 /* main.m */,
+			);
+			path = ArpSpoofingTester;
 			sourceTree = "<group>";
 		};
 		83565B5A0D38DCC30037485E /* Filters */ = {
@@ -999,6 +1057,23 @@
 			productReference = 832D5BD00AFFF00B007D1E56 /* PacketPeeperHelper */;
 			productType = "com.apple.product-type.tool";
 		};
+		83368D81192E77F900D1CF35 /* ArpSpoofingTester */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 83368D8B192E77F900D1CF35 /* Build configuration list for PBXNativeTarget "ArpSpoofingTester" */;
+			buildPhases = (
+				83368D7E192E77F900D1CF35 /* Sources */,
+				83368D7F192E77F900D1CF35 /* Frameworks */,
+				83368D80192E77F900D1CF35 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ArpSpoofingTester;
+			productName = ArpSpoofingTester;
+			productReference = 83368D82192E77F900D1CF35 /* ArpSpoofingTester */;
+			productType = "com.apple.product-type.tool";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1021,6 +1096,7 @@
 				832D5B070AFFF00B007D1E56 /* PacketPeeper */,
 				832D5B900AFFF00B007D1E56 /* PacketPeeperHelper */,
 				832D5BD20AFFF00B007D1E56 /* All */,
+				83368D81192E77F900D1CF35 /* ArpSpoofingTester */,
 			);
 		};
 /* End PBXProject section */
@@ -1177,6 +1253,41 @@
 				835F14660C73AEBD003B6A65 /* in_cksum.c in Sources */,
 				83565A440D356C7B0037485E /* helper_dummy.m in Sources */,
 				835665F70D43752D0037485E /* PPBPFProgram.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		83368D7E192E77F900D1CF35 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				83368D96192E9AF900D1CF35 /* IPV6Decode.m in Sources */,
+				83368DA2192EB37F00D1CF35 /* writevn.c in Sources */,
+				83368D91192E9AEB00D1CF35 /* EthernetDecode.m in Sources */,
+				83368D8E192E7D5600D1CF35 /* helper_dummy.m in Sources */,
+				83368D99192E9B0500D1CF35 /* UDPDecode.m in Sources */,
+				83368D93192E9AF100D1CF35 /* PPPDecode.m in Sources */,
+				83368D92192E9AEE00D1CF35 /* LoopbackDecode.m in Sources */,
+				83368DA519300B6000D1CF35 /* PPBPFProgram.m in Sources */,
+				83368D8C192E7D4500D1CF35 /* Bpf.m in Sources */,
+				83368D9C192EB33000D1CF35 /* strfuncs.m in Sources */,
+				83368D90192E93FE00D1CF35 /* dlt_lookup.m in Sources */,
+				83368D9D192EB33400D1CF35 /* demultiplex.m in Sources */,
+				83368DA4192EB84700D1CF35 /* rb_tree.c in Sources */,
+				83368D8D192E7D4F00D1CF35 /* lookup_dummy.c in Sources */,
+				83368DA0192EB36700D1CF35 /* PortCache.m in Sources */,
+				83368D85192E77F900D1CF35 /* main.m in Sources */,
+				83368D9F192EB35C00D1CF35 /* OutlineViewItem.m in Sources */,
+				83368D8F192E861600D1CF35 /* ErrorStack.m in Sources */,
+				83368D95192E9AF600D1CF35 /* IPV4Decode.m in Sources */,
+				83368D9B192EB32B00D1CF35 /* ObjectIO.m in Sources */,
+				83368D98192E9B0100D1CF35 /* TCPDecode.m in Sources */,
+				83368D9A192EB32900D1CF35 /* Messages.m in Sources */,
+				83368D94192E9AF400D1CF35 /* ARPDecode.m in Sources */,
+				83368D9E192EB34800D1CF35 /* OUICache.m in Sources */,
+				83368DA3192EB83900D1CF35 /* Cache.m in Sources */,
+				83368D97192E9AFC00D1CF35 /* ICMPDecode.m in Sources */,
+				83368DA619300B6700D1CF35 /* PPCaptureFilter.m in Sources */,
+				83368DA1192EB37600D1CF35 /* in_cksum.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1633,6 +1744,116 @@
 			};
 			name = Default;
 		};
+		83368D88192E77F900D1CF35 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_PEDANTIC = NO;
+				GCC_WARN_SIGN_COMPARE = NO;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx10.8;
+			};
+			name = Development;
+		};
+		83368D89192E77F900D1CF35 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_PEDANTIC = NO;
+				GCC_WARN_SIGN_COMPARE = NO;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx10.8;
+			};
+			name = Deployment;
+		};
+		83368D8A192E77F900D1CF35 /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_PEDANTIC = NO;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx10.8;
+			};
+			name = Default;
+		};
 		837EF0650855D81A00A36659 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1797,6 +2018,15 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Default;
+		};
+		83368D8B192E77F900D1CF35 /* Build configuration list for PBXNativeTarget "ArpSpoofingTester" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				83368D88192E77F900D1CF35 /* Development */,
+				83368D89192E77F900D1CF35 /* Deployment */,
+				83368D8A192E77F900D1CF35 /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		837EF0640855D81A00A36659 /* Build configuration list for PBXProject "PacketPeeper" */ = {
 			isa = XCConfigurationList;
