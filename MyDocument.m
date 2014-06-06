@@ -689,7 +689,7 @@ err:
 - (void)displayArpSpoofingWindow
 {
 	if(arpSpoofingWindowController == nil) {
-		arpSpoofingWindowController = [[PPArpSpoofingWindowController alloc] init];
+		arpSpoofingWindowController = [[PPArpSpoofingWindowController alloc] initWithInterface:[self interface]];
 		[self addWindowController:arpSpoofingWindowController];
 	}
 	[arpSpoofingWindowController showWindow:self];
@@ -1403,7 +1403,7 @@ static void *read_from_url_thread(void *args)
 		}
 	}
 
-	if(ret != -2) {
+	if(ret != -2 && packet_number == 1) {
 		thread_args->output[0] = @"Error reading packet";
 		goto err;
 	}
