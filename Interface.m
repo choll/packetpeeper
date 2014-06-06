@@ -90,6 +90,8 @@
 
 	lim = buf + needed;
 
+    /* getifaddrs isn't used as it doesn't provide information about the link type */
+
 	for(next = buf; next < lim; next += ifm->ifm_msglen) {
 		ifm = (struct if_msghdr *)next;
 
