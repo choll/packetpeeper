@@ -17,40 +17,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include <sys/types.h>
-#include <sys/time.h>
-#include <sys/ioctl.h>
+#ifndef PACKETPEEPER_PKTAP_H
+#define PACKETPEEPER_PKTAP_H
+
 #include <net/bpf.h>
-#include <objc/objc.h>
-#include "LoopbackDecode.h"
-#include "PPPDecode.h"
-#include "PPRVIDecode.h"
-#include "EthernetDecode.h"
-#include "IPV4Decode.h"
-#include "pktap.h"
-#include "dlt_lookup.h"
 
-/*
-	Not strictly part of the 'Decoders' set of objects/functions,
-	exists to 'kickstart' the demultiplexing of the packet by
-	returning the protocol value for a bpf DLT_XXX value.
-*/
+#ifndef DLT_PKTAP
+#define DLT_PKTAP 149
+#endif
 
-Class dlt_lookup(int dlt)
-{
-	switch(dlt) {
-		case DLT_PKTAP:
-			return [PPRVIDecode class];
-		case DLT_NULL:
-			return [LoopbackDecode class];
-		case DLT_EN10MB:
-			return [EthernetDecode class];
-		case DLT_PPP:
-			return [PPPDecode class];
-		/* bpf.h describes as 'raw IP', assumed to be IPV4 */
-		case DLT_RAW:
-			return [IPV4Decode class];
-	}
+#endif
 
-	return  Nil;
-}

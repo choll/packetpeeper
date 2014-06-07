@@ -30,6 +30,7 @@
 #import <AppKit/NSTextField.h>
 #import <AppKit/NSStepper.h>
 #import <AppKit/NSSlider.h>
+#include "pktap.h"
 #include "ErrorStack.h"
 #include "PacketPeeper.h"
 #include "Interface.h"
@@ -53,7 +54,6 @@
 	NSUserDefaults *defaults;
 	NSString *defaultInterface;
 	PPDataQuantityFormatter *dataFormatter;
-	unsigned int i;
 	unsigned int defaultIndex;
 
 	defaults = [NSUserDefaults standardUserDefaults];
@@ -76,9 +76,7 @@
 	defaultInterface = [defaults stringForKey:CAPTURE_SETUP_INTERFACE];
 	defaultIndex = 0;
 
-	/* XXX todo: better descriptions of the interfaces,
-	   such as ``Airport network'' or ``Built-in Ethernet'' */
-	for(i = 0; i < [interfaces count]; ++i) {
+	for(unsigned int i = 0; i < [interfaces count]; ++i) {
 		[interfacePopUp addItemWithTitle:[[interfaces objectAtIndex:i] description]];
 		if(defaultInterface != nil && [defaultInterface isEqualToString:[[interfaces objectAtIndex:i] shortName]])
 			defaultIndex = i;
@@ -89,14 +87,16 @@
 
 	[interfacePopUp selectItemAtIndex:defaultIndex];
 
-	if([[interfaces objectAtIndex:defaultIndex] loopback]) {
+	if([[interfaces objectAtIndex:defaultIndex] loopback] ||
+        [[interfaces objectAtIndex:defaultIndex] linkType] == DLT_PKTAP) {
 		[promiscuousCheckBox setEnabled:NO];
 		[promiscuousCheckBox setState:NO];
 	} else if([[interfaces objectAtIndex:defaultIndex] promisc]) {
 		[promiscuousCheckBox setEnabled:NO];
 		[promiscuousCheckBox setState:YES];
-	} else
+	} else {
 		[promiscuousCheckBox setState:[defaults boolForKey:CAPTURE_SETUP_PROMISC]];
+    }
 
 	[realTimeCheckBox setState:[defaults boolForKey:CAPTURE_SETUP_REALTIME]];
 	[bufferLengthSlider setIntValue:[defaults integerForKey:CAPTURE_SETUP_BUFSIZE]];
@@ -171,26 +171,26 @@
 
 - (IBAction)interfacePopUpSelected:(id)sender
 {
-	int itemIndex;
-	BOOL isLoopback;
-	BOOL isPromisc;
+    int itemIndex;
 
-	if((itemIndex = [sender indexOfSelectedItem]) == -1)
-		return;
+    if((itemIndex = [sender indexOfSelectedItem]) == -1)
+        return;
 
-	isLoopback = [[interfaces objectAtIndex:itemIndex] loopback];
-	isPromisc = [[interfaces objectAtIndex:itemIndex] promisc];
+    const BOOL isLoopback = [[interfaces objectAtIndex:itemIndex] loopback];
+    const BOOL isPromisc = [[interfaces objectAtIndex:itemIndex] promisc];
+    const BOOL isPkTap = [[interfaces objectAtIndex:itemIndex] linkType] == DLT_PKTAP;
 
-	/* a loopback interface does not support promiscuous mode, so turn off the
-	   checkbox and prevent the user from changing it */
-	if(isLoopback) {
-		[promiscuousCheckBox setEnabled:NO];
-		[promiscuousCheckBox setState:NO];
-	} else if(isPromisc) {
-		[promiscuousCheckBox setEnabled:NO];
-		[promiscuousCheckBox setState:YES];
-	} else
-		[promiscuousCheckBox setEnabled:YES];
+    /* a loopback interface does not support promiscuous mode, so turn off the
+       checkbox and prevent the user from changing it */
+    if(isLoopback || isPkTap) {
+        [promiscuousCheckBox setEnabled:NO];
+        [promiscuousCheckBox setState:NO];
+    } else if(isPromisc) {
+        [promiscuousCheckBox setEnabled:NO];
+        [promiscuousCheckBox setState:YES];
+    } else {
+        [promiscuousCheckBox setEnabled:YES];
+    }
 }
 
 - (IBAction)startButtonPressed:(id)sender

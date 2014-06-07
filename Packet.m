@@ -34,10 +34,12 @@
 #include "PPPluginManager.h"
 #include "ColumnIdentifier.h"
 #include "LoopbackDecode.h"
+#include "PPRVIDecode.h"
 #include "EthernetDecode.h"
 #include "PPPDecode.h"
 #include "IPV4Decode.h"
 #include "demultiplex.h"
+#include "pktap.h"
 #include "PacketPeeper.h"
 #include "Packet.h"
 
@@ -187,6 +189,9 @@ err:
         return DLT_NULL;
 
     linkType = [[decoders objectAtIndex:0] class];
+
+    if(linkType == [PPRVIDecode class])
+        return DLT_PKTAP;
 
     if(linkType == [LoopbackDecode class])
         return DLT_NULL;

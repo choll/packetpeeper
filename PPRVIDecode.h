@@ -17,40 +17,27 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef PACKETPEEPER_IPV6DECODE_H
-#define PACKETPEEPER_IPV6DECODE_H
+#ifndef PACKETPEEPER_RVIDECODE_H
+#define PACKETPEEPER_RVIDECODE_H
 
-#include <stdint.h>
-#include <netinet/in.h>
-#import <Foundation/NSObject.h>
 #include "Decode.h"
 #include "Describe.h"
 #include "OutlineViewItem.h"
 #include "ColumnIdentifier.h"
 
-@class NSData;
-@class NSString;
-@class HostCache;
+#import <Foundation/NSObject.h>
 
-@interface IPV6Decode : NSObject <Decode, Describe, NSCoding, OutlineViewItem, ColumnIdentifier>
+#include <stdint.h>
+
+struct pp_pktap_header;
+
+@interface PPRVIDecode : NSObject <Decode, Describe, NSCoding, OutlineViewItem, ColumnIdentifier>
 {
-    struct ip6_hdr *m_hdr;
+    struct pp_pktap_header* m_hdr;
     id <PPDecoderParent> m_parent;
 }
 
-- (NSString *)addrTo;
-- (NSString *)addrFrom;
-- (NSString *)resolvTo;
-- (NSString *)resolvFrom;
-- (NSString *)to;
-- (NSString *)from;
-- (unsigned int)length;
-- (unsigned int)headerLength;
-- (struct in6_addr)in6_addrSrc;
-- (struct in6_addr)in6_addrDst;
-
-/* private method */
-- (id <OutlineViewItem>)resolvCallback:(void *)data;
+- (uint32_t)dlt;
 
 @end
 
