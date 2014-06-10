@@ -21,6 +21,7 @@
 #define _PPAPPCONTROLLER_H_
 
 #import <Foundation/NSObject.h>
+#import <Breakpad/Breakpad.h>
 
 @class NSApplication;
 @class NSNotification;
@@ -29,7 +30,8 @@
 
 @interface AppController : NSObject
 {
-	BOOL isTerminating;
+    BOOL isTerminating;
+    BreakpadRef breakpad;
 }
 
 - (void)windowDidBecomeKey:(NSNotification *)aNotification;
@@ -39,6 +41,7 @@
 - (NSMenu *)createProtocolsMenuForDecoders:(Class *)decoders count:(size_t)ndecoders;
 - (void)applicationWillFinishLaunching:(NSNotification *)aNotification;
 - (void)initializeDefaults;
+- (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender;
 - (void)applicationWillTerminate:(NSNotification *)aNotification;
 - (BOOL)applicationIsTerminating;
 - (IBAction)showHelp:(id)sender;
