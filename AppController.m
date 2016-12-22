@@ -61,6 +61,8 @@
 
 /* NSApplication delegate, used by MainMenu.nib */
 
+static BreakpadRef InitBreakpad(void);
+
 @implementation AppController
 
 - (id)init
@@ -68,6 +70,7 @@
 	if((self = [super init]) != nil) {
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowDidBecomeKey:) name:@"NSWindowDidBecomeKeyNotification" object:nil];
 		isTerminating = NO;
+        breakpad = 0;
 	}
 	return self;
 }
@@ -338,6 +341,18 @@
 	[streamTableColumnArray release];
 }
 
+// See https://code.google.com/p/google-breakpad/wiki/MacBreakpadStarterGuide
+- (void)awakeFromNib {
+    breakpad = InitBreakpad();
+}
+
+// See https://code.google.com/p/google-breakpad/wiki/MacBreakpadStarterGuide
+- (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender
+{
+    BreakpadRelease(breakpad);
+    return NSTerminateNow;
+}
+
 - (void)applicationWillTerminate:(NSNotification *)aNotification
 {
 	[[PPCaptureFilterManager sharedCaptureFilterManager] saveFilters];
@@ -373,3 +388,19 @@
 }
 
 @end
+
+// See https://code.google.com/p/google-breakpad/wiki/MacBreakpadStarterGuide
+static BreakpadRef InitBreakpad(void)
+{
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    BreakpadRef breakpad = 0;
+    NSDictionary *plist = [[NSBundle mainBundle] infoDictionary];
+    if (plist) {
+        // Note: version 1.0.0.4 of the framework changed the type of the argument
+        // from CFDictionaryRef to NSDictionary * on the next line:
+        breakpad = BreakpadCreate(plist);
+    }
+    [pool release];
+    return breakpad;
+}
+

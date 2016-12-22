@@ -247,6 +247,8 @@
 		83700F5519428FE8005BE7DB /* PPRVIDecode.m in Sources */ = {isa = PBXBuildFile; fileRef = 83700F5219428FE8005BE7DB /* PPRVIDecode.m */; };
 		83700F5619428FE8005BE7DB /* PPRVIDecode.m in Sources */ = {isa = PBXBuildFile; fileRef = 83700F5219428FE8005BE7DB /* PPRVIDecode.m */; };
 		83700F5719428FE8005BE7DB /* PPRVIDecode.m in Sources */ = {isa = PBXBuildFile; fileRef = 83700F5219428FE8005BE7DB /* PPRVIDecode.m */; };
+		83700F791943BF35005BE7DB /* Breakpad.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83700F781943BF35005BE7DB /* Breakpad.framework */; };
+		83700F7A1943C2DA005BE7DB /* Breakpad.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 83700F781943BF35005BE7DB /* Breakpad.framework */; };
 		838B24F20B0387EA00F9CA41 /* ethernet-manufacturers.oui in Resources */ = {isa = PBXBuildFile; fileRef = 838B24F10B0387EA00F9CA41 /* ethernet-manufacturers.oui */; };
 		838B25650B03A07400F9CA41 /* OUICache.h in Headers */ = {isa = PBXBuildFile; fileRef = 8396932607A0570F00E1EDB9 /* OUICache.h */; };
 		838B25660B03A07400F9CA41 /* OUICache.m in Sources */ = {isa = PBXBuildFile; fileRef = 8396932707A0570F00E1EDB9 /* OUICache.m */; };
@@ -313,6 +315,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				83700F7A1943C2DA005BE7DB /* Breakpad.framework in CopyFiles */,
 				83150D7B190BDA0500670C34 /* HexFiend.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -450,6 +453,7 @@
 		83700F4E1940C7A5005BE7DB /* pktap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pktap.h; sourceTree = "<group>"; };
 		83700F5119428FE8005BE7DB /* PPRVIDecode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPRVIDecode.h; sourceTree = "<group>"; };
 		83700F5219428FE8005BE7DB /* PPRVIDecode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPRVIDecode.m; sourceTree = "<group>"; };
+		83700F781943BF35005BE7DB /* Breakpad.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Breakpad.framework; sourceTree = "<group>"; };
 		837BC1790AF522300004A36E /* port-numbers-tcp.port */ = {isa = PBXFileReference; lastKnownFileType = file; path = "port-numbers-tcp.port"; sourceTree = "<group>"; };
 		837BC17A0AF522310004A36E /* port-numbers-udp.port */ = {isa = PBXFileReference; lastKnownFileType = file; path = "port-numbers-udp.port"; sourceTree = "<group>"; };
 		8384E1BC06D660AB001F2BA7 /* IPV4Decode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPV4Decode.h; sourceTree = "<group>"; };
@@ -557,6 +561,7 @@
 				832D5B850AFFF00B007D1E56 /* Cocoa.framework in Frameworks */,
 				83150D78190B3DC200670C34 /* HexFiend.framework in Frameworks */,
 				832D5B860AFFF00B007D1E56 /* Security.framework in Frameworks */,
+				83700F791943BF35005BE7DB /* Breakpad.framework in Frameworks */,
 				83CC8DC00C9B516400B70DF4 /* libpcap.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -688,6 +693,7 @@
 		2A37F4C3FDCFA73011CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				83700F781943BF35005BE7DB /* Breakpad.framework */,
 				83150D77190B3DC200670C34 /* HexFiend.framework */,
 				83A1D4B318E09D4C00ED3C30 /* libpython2.7.dylib */,
 				83CC8DBF0C9B516300B70DF4 /* libpcap.dylib */,
@@ -1045,6 +1051,7 @@
 				832D5B870AFFF00B007D1E56 /* Copy PacketPeeperHelper */,
 				83D7F5AD0D25CC6700229DB3 /* Copy Plugins */,
 				83150D7A190BD9E900670C34 /* CopyFiles */,
+				83700F7B1943D28E005BE7DB /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1164,6 +1171,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXRezBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		83700F7B1943D28E005BE7DB /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/sh\n\nPROD=$TARGET_BUILD_DIR/$EXECUTABLE_PATH\n\n\"./dump_syms\" -a x86_64 \"$PROD\" > $TARGET_NAME\"_x86_64.breakpad\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		832D5B530AFFF00B007D1E56 /* Sources */ = {
@@ -1432,7 +1456,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)";
 				GCC_ALTIVEC_EXTENSIONS = YES;
 				GCC_AUTO_VECTORIZATION = NO;
@@ -1475,7 +1499,9 @@
 				PRODUCT_NAME = "Packet Peeper";
 				SDKROOT = macosx10.8;
 				SECTORDER_FLAGS = "";
+				SEPARATE_STRIP = YES;
 				STRIP_INSTALLED_PRODUCT = NO;
+				STRIP_STYLE = "non-global";
 				WARNING_CFLAGS = (
 					"-Wmost",
 					"-Wno-four-char-constants",
@@ -1491,8 +1517,8 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				COMBINE_HIDPI_IMAGES = YES;
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)";
 				GCC_ALTIVEC_EXTENSIONS = YES;
 				GCC_AUTO_VECTORIZATION = NO;
@@ -1500,7 +1526,7 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_ENABLE_SSE3_EXTENSIONS = YES;
 				GCC_FAST_OBJC_DISPATCH = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_MODEL_PPC64 = NO;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = fast;
@@ -1536,6 +1562,7 @@
 				SECTORDER_FLAGS = "";
 				SEPARATE_STRIP = YES;
 				STRIP_INSTALLED_PRODUCT = YES;
+				STRIP_STYLE = "non-global";
 				WARNING_CFLAGS = (
 					"-Wmost",
 					"-Wno-four-char-constants",
@@ -1552,7 +1579,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)";
 				GCC_ALTIVEC_EXTENSIONS = YES;
 				GCC_AUTO_VECTORIZATION = NO;
@@ -1593,6 +1620,8 @@
 				PRODUCT_NAME = "Packet Peeper";
 				SDKROOT = macosx10.8;
 				SECTORDER_FLAGS = "";
+				SEPARATE_STRIP = YES;
+				STRIP_STYLE = "non-global";
 				WARNING_CFLAGS = (
 					"-Wmost",
 					"-Wno-four-char-constants",

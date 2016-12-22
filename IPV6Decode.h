@@ -28,10 +28,6 @@
 #include "OutlineViewItem.h"
 #include "ColumnIdentifier.h"
 
-@class NSData;
-@class NSString;
-@class HostCache;
-
 @interface IPV6Decode : NSObject <Decode, Describe, NSCoding, OutlineViewItem, ColumnIdentifier>
 {
     struct ip6_hdr *m_hdr;
