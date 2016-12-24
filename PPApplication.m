@@ -88,6 +88,8 @@
 	}
 }
 
+#if 0
+// XXX THIS IS BECAUSE OF ASYNC SAVING - NEED TO GET RID OF THIS AS NSDOCUMENT CAN DO ASYNC NOW
 - (BOOL)sendAction:(SEL)action to:(id)target from:(id)sender
 {
 	if(action == @selector(_close:) &&
@@ -98,13 +100,14 @@
 
 		windowController = [target windowController];
 		document = [windowController document];
- 
+
 		[document shouldCloseWindowController:windowController delegate:self shouldCloseSelector:@selector(document:shouldClose:contextInfo:) contextInfo:NULL];
 		return YES;
 	}
 
 	return [super sendAction:action to:target from:sender];
 }
+#endif
 
 - (void)document:(MyDocument *)document shouldClose:(BOOL)shouldClose contextInfo:(void *)contextInfo
 {
@@ -164,7 +167,6 @@
 {
 	NSArray *documents;
 	NSString *applicationName;
-	int panelResult;
 
 	if(terminatePending)
 		return;
@@ -186,17 +188,21 @@
 	applicationName = [[[NSBundle mainBundle] localizedInfoDictionary] objectForKey:(NSString *)kCFBundleNameKey];
 
 	if([documents count] > 1) {
-		panelResult = NSRunAlertPanel([NSString stringWithFormat:@"You have %lu %@ documents with unsaved changes.\n"
-																@"Do you want to review these changes before quitting?",
-																(unsigned long)[documents count], applicationName],
-									  @"If you don't review your documents, all your changes will be lost.",
-									  @"Review Changes...",
-									  @"Discard Changes",
-									  @"Cancel");
+        NSAlert *alert = [[NSAlert alloc] init];
 
-		if(panelResult == -1)
+        alert.messageText = [NSString stringWithFormat:@"You have %lu %@ documents with unsaved changes.\n"
+                                                       @"Do you want to review these changes before quitting?",
+                                                       [documents count], applicationName];
+        alert.informativeText = @"If you don't review your documents, all your changes will be lost.";
+        [alert addButtonWithTitle:@"Don’t Save"];
+        [alert addButtonWithTitle:@"Cancel"];
+
+        const NSModalResponse panelResult = [alert runModal];
+        [alert release];
+
+		if(panelResult == NSAlertThirdButtonReturn)
 			return; /* user cancelled quit */
-		if(panelResult == 0)
+		if(panelResult == NSAlertSecondButtonReturn)
 			[self exit]; /* user chose to discard changes */
 	}
 

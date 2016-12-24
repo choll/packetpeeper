@@ -78,7 +78,7 @@
     [applyButton setEnabled:NO];
 }
 
-- (void)sheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo
+- (void)sheetDidEnd:(NSWindow *)sheet returnCode:(NSModalResponse)returnCode contextInfo:(void *)contextInfo
 {
 	if(returnCode) {
 		[[self document] setCaptureFilter:[self filter]];
@@ -127,7 +127,7 @@
 
 - (void)comboBoxSelectionDidChange:(NSNotification *)notification
 {
-	int itemIndex;
+	NSInteger itemIndex;
 
 	if((itemIndex = [filterNameComboBox indexOfSelectedItem]) == -1)
 		return;
@@ -155,7 +155,7 @@
 
 	filter = [filterTextField objectValue];
 	[filter setName:[filterNameComboBox stringValue]];
-	[filter setNetmask:[[filterNetmaskTextField objectValue] unsignedLongValue]];
+	[filter setNetmask:[[filterNetmaskTextField objectValue] unsignedIntValue]];
 
 	[filterManager addFilter:filter];
 
@@ -181,7 +181,7 @@
 		[filterTextField setStringValue:@""];
 		[filterNetmaskTextField setStringValue:@""];
 	} else {
-		int itemIndex;
+		NSInteger itemIndex;
 
 		/* select item below, or next lowest if we were bottom item */
 

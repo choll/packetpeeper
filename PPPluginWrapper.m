@@ -91,7 +91,7 @@
 	return [outlineTree expandable];
 }
 
-- (unsigned int)numberOfChildren
+- (size_t)numberOfChildren
 {
 	id <OutlineViewItem> outlineTree;
 
@@ -111,7 +111,7 @@
 	return [outlineTree childAtIndex:fieldIndex];
 }
 
-- (unsigned int)numberOfValues
+- (size_t)numberOfValues
 {
 	id <OutlineViewItem> outlineTree;
 
@@ -169,12 +169,12 @@
 
 }
 
-- (unsigned int)frontSize
+- (size_t)frontSize
 {
 	return 0;
 }
 
-- (unsigned int)rearSize
+- (size_t)rearSize
 {
 	return 0;
 }

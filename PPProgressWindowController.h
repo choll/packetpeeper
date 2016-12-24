@@ -35,7 +35,6 @@
 }
 
 - (id)initWithLoadingMessage:(NSString *)loadingMessage delegate:(id)delegate cancelSelector:(SEL)cancelSelector;
-- (void)sheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo;
 - (IBAction)cancelButtonPressed:(id)sender;
 - (void)setLoadingMessage:(NSString *)loadingMessage;
 - (void)setPercentLoaded:(double)loadedPercent;

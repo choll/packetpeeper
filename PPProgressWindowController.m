@@ -43,11 +43,6 @@
 	[m_progressIndicator startAnimation:self];
 }
 
-- (void)sheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo
-{
-	/* placeholder */
-}
-
 - (IBAction)cancelButtonPressed:(id)sender
 {
 	[m_delegate performSelector:m_cancelSelector];

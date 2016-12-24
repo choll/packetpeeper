@@ -190,7 +190,8 @@ struct thread_args {
 	NSDictionary *errDict;
 	int ret;
 
-	*outError = nil;
+    if (outError != NULL)
+        *outError = nil;
 
 	if(thread_args != NULL) {
 		errorString = @"File loading or saving operation already in progress";
@@ -214,7 +215,7 @@ struct thread_args {
 		case NSSaveToOperation:
 			thread_args->op = THREAD_OP_DOC_SAVE_TO;
 			break;
-		case NSAutosaveOperation:
+		case NSAutosaveElsewhereOperation:
 			thread_args->op = THREAD_OP_DOC_SAVE_AUTO;
 			break;
 		case NSSaveAsOperation:
@@ -240,7 +241,7 @@ struct thread_args {
 		[thread_args->input[1] release];
 		[thread_args->input[2] release];
 		free(thread_args);
-		thread_args = NULL;
+        goto err;
 	}
 
 	thread_args->timer = [[NSTimer scheduledTimerWithTimeInterval:DEFAULT_PROGRESSBAR_UPDATE_FREQUENCY target:self selector:@selector(workerThreadTimer) userInfo:nil repeats:YES] retain];
@@ -249,12 +250,14 @@ struct thread_args {
 
 err:
 	[self closeProgressSheet];
-
 	errDict = [NSDictionary dictionaryWithObject:errorString forKey:NSLocalizedFailureReasonErrorKey];
 
-	*outError = [[NSError alloc] initWithDomain:@"PacketPeeperErrorDomain" code:noErr userInfo:errDict];
-	[*outError autorelease];
-
+    if (outError != NULL)
+    {
+        *outError = [[NSError alloc] initWithDomain:@"PacketPeeperErrorDomain" code:noErr userInfo:errDict];
+        [*outError autorelease];
+    }
+    
 	return NO;
 }
 
@@ -282,7 +285,8 @@ err:
 	NSDictionary *errDict;
 	int ret;
 
-	*outError = nil;
+    if (outError != NULL)
+        *outError = nil;
 
 	if(thread_args != NULL) {
 		errorString = @"File loading or saving operation already in progress";
@@ -346,12 +350,9 @@ err:
 
 - (void)waitForWorkerThread
 {
-	NSEvent* event;
-
-	/* we don't need to specify an expiry date because thread_args->timer will fire regularly */ 
-
+	/* we don't need to specify an expiry date because thread_args->timer will fire regularly */
 	while(thread_args != NULL)
-		event = [NSApp nextEventMatchingMask:NSAnyEventMask untilDate:nil inMode:NSDefaultRunLoopMode dequeue:YES];
+		[NSApp nextEventMatchingMask:NSAnyEventMask untilDate:nil inMode:NSDefaultRunLoopMode dequeue:YES];
 }
 
 - (void)workerThreadTimer
@@ -380,7 +381,7 @@ err:
 
 			shouldClose = (thread_args->op == THREAD_OP_DOC_READ) ? YES : NO;
 
-			errorString = [NSString stringWithFormat:@"pthread_join(%p) failed", thread_args->thread_id];
+			errorString = [NSString stringWithFormat:@"pthread_join(%p) failed", (void*)thread_args->thread_id];
 			[[ErrorStack sharedErrorStack] pushError:errorString lookup:[PosixError class] code:ret severity:ERRS_ERROR];
 			[thread_args->output[0] release];
 			[thread_args->output[1] release];
@@ -505,7 +506,7 @@ err:
 
 		shouldClose = (thread_args->op == THREAD_OP_DOC_READ) ? YES : NO;
 
-		errorString = [NSString stringWithFormat:@"pthread_join(%p) failed", thread_args->thread_id];
+		errorString = [NSString stringWithFormat:@"pthread_join(%p) failed", (void*)thread_args->thread_id];
 		[[ErrorStack sharedErrorStack] pushError:errorString lookup:[PosixError class] code:ret severity:ERRS_ERROR];
 		[thread_args->output[0] autorelease];
 		[thread_args->output[1] autorelease];
@@ -580,11 +581,9 @@ err:
 
 	[self addWindowController:progressWindowController];
 
-	[NSApp beginSheet:[progressWindowController window]
-		   modalForWindow:[self windowForSheet]
-		   modalDelegate:progressWindowController
-		   didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:)
-		   contextInfo:NULL];
+    [[self windowForSheet]
+        beginSheet:[progressWindowController window]
+        completionHandler:nil];
 }
 
 - (void)displayFilterSheet
@@ -595,11 +594,13 @@ err:
 
 	[self addWindowController:filterWindowController];
 
-	[NSApp beginSheet:[filterWindowController window]
-		   modalForWindow:[self windowForSheet]
-		   modalDelegate:filterWindowController
-		   didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:)
-		   contextInfo:NULL];
+    [[self windowForSheet]
+        beginSheet:[filterWindowController window]
+        completionHandler:
+            ^(NSModalResponse result)
+            {
+                [filterWindowController sheetDidEnd:[self windowForSheet] returnCode:result contextInfo:NULL];
+            }];
 
 	[filterWindowController release];
 }
@@ -612,11 +613,13 @@ err:
 
 	[self addWindowController:setupWindowController];
 
-	[NSApp beginSheet:[setupWindowController window]
-		   modalForWindow:[self windowForSheet]
-		   modalDelegate:setupWindowController
-		   didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:)
-		   contextInfo:NULL];
+    [[self windowForSheet]
+        beginSheet:[setupWindowController window]
+        completionHandler:
+            ^(NSModalResponse result)
+            {
+                [setupWindowController sheetDidEnd:[self windowForSheet] returnCode:result contextInfo:NULL];
+            }];
 
 	[setupWindowController release];
 }
@@ -697,7 +700,7 @@ err:
 - (void)displayArpSpoofingWindow
 {
 	if(arpSpoofingWindowController == nil) {
-		arpSpoofingWindowController = [[PPArpSpoofingWindowController alloc] initWithInterface:[self interface]];
+		arpSpoofingWindowController = [[PPArpSpoofingWindowController alloc] init];
 		[self addWindowController:arpSpoofingWindowController];
 	}
 	[arpSpoofingWindowController showWindow:self];
@@ -761,9 +764,9 @@ err:
 	interface = anInterface;
 }
 
-- (Packet *)packetAtIndex:(int)packetIndex
+- (Packet *)packetAtIndex:(NSInteger)packetIndex
 {
-	unsigned int total;
+	NSUInteger total;
 
 	total = [packets count];
 
@@ -771,13 +774,13 @@ err:
 	if(reverseOrder)
 		packetIndex = (total - 1) - packetIndex;
 
-	if(packetIndex >= 0 && (unsigned int)packetIndex < total)
+	if(packetIndex >= 0 && (NSUInteger)packetIndex < total)
 		return [packets objectAtIndex:packetIndex];
 
 	return nil;
 }
 
-- (unsigned int)numberOfPackets
+- (size_t)numberOfPackets
 {
 	return [packets count];
 }
@@ -819,13 +822,13 @@ err:
 	byteCount += [packet captureLength];
 }
 
-- (void)deletePacketAtIndex:(int)packetIndex
+- (void)deletePacketAtIndex:(NSInteger)packetIndex
 {
 	/* transform the index if we are in reverse order */
 	if(reverseOrder)
 		packetIndex = ([packets count] - 1) - packetIndex;
 
-	if(packetIndex >= 0 && (unsigned int)packetIndex < [packets count]) {
+	if(packetIndex >= 0 && (NSUInteger)packetIndex < [packets count]) {
 		[streamController removePacket:[packets objectAtIndex:packetIndex]];
 		byteCount -= [[packets objectAtIndex:packetIndex] captureLength];
 		[packets removeObjectAtIndex:packetIndex];
@@ -840,10 +843,10 @@ err:
 }
 
 /* Note: does *NOT* update the documents streamController */
-- (void)purgePacketsPendingDeletionWithHint:(unsigned int)count
+- (void)purgePacketsPendingDeletionWithHint:(size_t)count
 {
 	Packet *packet;
-	unsigned int i;
+	size_t i;
 
 	i = 0;
 
@@ -861,10 +864,10 @@ err:
 	[self updateChangeCount:NSChangeDone];
 }
 
-- (void)deleteStream:(PPTCPStream *)stream streamIndex:(unsigned int)streamIndex indexValid:(BOOL)indexValid
+- (void)deleteStream:(PPTCPStream *)stream streamIndex:(NSUInteger)streamIndex indexValid:(BOOL)indexValid
 {
-	unsigned int i;
-	unsigned int count;
+	size_t i;
+	size_t count;
 
 	count = [stream packetsCount];
 
@@ -880,7 +883,7 @@ err:
 	/* purgePacketsPendingDeletion.. calls updateChangeCount */
 }
 
-- (void)deleteStream:(PPTCPStream *)stream streamIndex:(unsigned int)streamIndex
+- (void)deleteStream:(PPTCPStream *)stream streamIndex:(NSUInteger)streamIndex
 {
 	[self deleteStream:stream streamIndex:streamIndex indexValid:YES];
 }
@@ -917,12 +920,12 @@ err:
 	return reverseOrder;
 }
 
-- (int)indexForPacket:(Packet *)packet
+- (NSInteger)indexForPacket:(Packet *)packet
 {
-	unsigned int upper,
-				 lower,
-				 current,
-				 total;
+	NSUInteger upper,
+               lower,
+               current,
+               total;
 
 	if(packet == nil)
 		return -1;
@@ -994,14 +997,18 @@ err:
 	errorReportWindowController = [[ErrorReportWindowController alloc] init];
 	[errorReportWindowController setErrorStack:errorStack];
 
-    [NSApp beginSheet:[errorReportWindowController window]
-           modalForWindow:[self windowForSheet]
-           modalDelegate:self
-           didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:)
-           contextInfo:(void*)((intptr_t)closeDocument) /* disgust, intptr is to suppress warning... */];
+    [[self windowForSheet]
+        beginSheet:[errorReportWindowController window]
+        completionHandler:
+            ^(NSModalResponse result)
+            {
+                [self sheetDidEnd:[self windowForSheet]
+                      returnCode:result
+                      contextInfo:(void*)((intptr_t)closeDocument) /* disgust, intptr is to suppress warning... */];
+            }];
 }
 
-- (void)sheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo
+- (void)sheetDidEnd:(NSWindow *)sheet returnCode:(NSModalResponse)returnCode contextInfo:(void *)contextInfo
 {
 	if([[sheet windowController] isMemberOfClass:[ErrorReportWindowController class]])
     {
@@ -1472,7 +1479,7 @@ static void *write_to_url_thread(void *args)
         [[[[(NSArray *)thread_args->input[1] objectAtIndex:0] decoders] objectAtIndex:0] class] == [PPRVIDecode class] &&
         ![(NSString *)thread_args->input[2] isEqualToString:@"pcap"];
 
-    int linkType = [[(NSArray *)thread_args->input[1] objectAtIndex:0] linkType];
+    int linkType;
 
     if(stripPkTap) {
         linkType = [[[[(NSArray *)thread_args->input[1] objectAtIndex:0] decoders] objectAtIndex:0] dlt];
@@ -1520,7 +1527,7 @@ static void *write_to_url_thread(void *args)
         if(stripPkTap && [[[pkt decoders] objectAtIndex:0] class] == [PPRVIDecode class]) {
             // If the decoder at index 0 is a PPRVIDecoder then we know we got a complete
             // pktap header
-            const unsigned int offset = [[[pkt decoders] objectAtIndex:0] frontSize];
+            const size_t offset = [[[pkt decoders] objectAtIndex:0] frontSize];
             hdr.len -= offset;
             hdr.caplen -= offset;
             pcap_dump((unsigned char *)dump, &hdr, (unsigned char *)[[pkt packetData] bytes] + offset);
@@ -1619,27 +1626,12 @@ static void *filter_packets_thread(void *args)
 cleanup:
 	[autoreleasePool release];
 	return thread_args->output[0];
-
-#if 0
-err:
-	[filteredPackets release];
-	[streamController release];
-	[autoreleasePool release];
-
-	OSMemoryBarrier();
-	thread_args->failure = 1;
-
-	/* the document is responsible for releasing thread_args->output */
-	return thread_args->output[0];
-#endif
 }
 
 static NSString *make_temp_path(NSString *path)
 {
 	NSMutableString *temp;
-	unsigned int i;
-
-	i = [path length];
+	NSUInteger i = [path length];
 
 	while(i-- > 0) {
 		if([path characterAtIndex:i] == '/')
@@ -1656,3 +1648,4 @@ static NSString *make_temp_path(NSString *path)
 
 	return [temp autorelease];
 }
+

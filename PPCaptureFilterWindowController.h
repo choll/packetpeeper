@@ -41,7 +41,7 @@
 }
 
 - (PPCaptureFilter *)filter;
-- (void)sheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo;
+- (void)sheetDidEnd:(NSWindow *)sheet returnCode:(NSModalResponse)returnCode contextInfo:(void *)contextInfo;
 - (IBAction)saveFilterButtonPressed:(id)sender;
 - (IBAction)deleteFilterButtonPressed:(id)sender;
 - (IBAction)applyButtonPressed:(id)sender;

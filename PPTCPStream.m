@@ -65,8 +65,6 @@ static SEL add_pkt_dispatch_table[STATUS_NELEMS];
 		add_pkt_dispatch_table[STATUS_SIMULTANEOUS_OPEN] = @selector(addPacketSimultaneousOpen:);
 		add_pkt_dispatch_table[STATUS_SIMULTANEOUS_SYN_ACK_WAIT_CLIENT] = @selector(addPacketSimultaneousSynAckWaitClient:);
 		add_pkt_dispatch_table[STATUS_SIMULTANEOUS_SYN_ACK_WAIT_SERVER] = @selector(addPacketSimultaneousSynAckWaitServer:);
-		add_pkt_dispatch_table[STATUS_SIMULTANEOUS_ACK_WAIT_CLIENT] = @selector(addPacketSimultaneousAckWaitClient:);
-		add_pkt_dispatch_table[STATUS_SIMULTANEOUS_ACK_WAIT_SERVER] = @selector(addPacketSimultaneousAckWaitServer:);
 		add_pkt_dispatch_table[STATUS_SYN_ACK_RECV] = @selector(addPacketSynAckRecv:);
 		add_pkt_dispatch_table[STATUS_ESTABLISHED] = @selector(addPacketEstablished:);
 		add_pkt_dispatch_table[STATUS_FIN_WAIT_CLIENT_1] = @selector(addPacketFinWaitClient1:);
@@ -84,7 +82,7 @@ static SEL add_pkt_dispatch_table[STATUS_NELEMS];
 - (NSString *)description
 {
 	return [NSString stringWithFormat:@"<PPTCPStream: %p, %@, valid: %s, client<queue: %lu, segments: %lu> server<queue: %lu, segments: %lu>",
-			self, [self status], m_isValid ? "yes" : "no", (unsigned long)[m_clientQueue count], (unsigned long)[m_clientSegments count],
+			(void*)self, [self status], m_isValid ? "yes" : "no", (unsigned long)[m_clientQueue count], (unsigned long)[m_clientSegments count],
 			(unsigned long)[m_serverQueue count], (unsigned long)[m_serverSegments count]];
 }
 
@@ -210,7 +208,7 @@ static SEL add_pkt_dispatch_table[STATUS_NELEMS];
 	if((segment = [packet decoderForClass:[TCPDecode class]]) == nil)
 		return NO;
 
-	action = (intptr_t)[self performSelector:add_pkt_dispatch_table[m_status] withObject:segment];
+	action = (enum segment_action)[self performSelector:add_pkt_dispatch_table[m_status] withObject:segment];
 
 	if(action == SEGMENT_DISCARD)
 		return YES;
@@ -246,13 +244,13 @@ static SEL add_pkt_dispatch_table[STATUS_NELEMS];
 		}
 
 		while([m_clientQueue count] > 0) {
-			action = (intptr_t)[self performSelector:add_pkt_dispatch_table[m_status] withObject:[m_clientQueue objectAtIndex:0]];
+			action = (enum segment_action)[self performSelector:add_pkt_dispatch_table[m_status] withObject:[m_clientQueue objectAtIndex:0]];
 			if(action != SEGMENT_ACCEPT)
 				break;
 			[m_clientQueue removeObjectAtIndex:0];
 		}
 		while([m_serverQueue count] > 0) {
-			action = (intptr_t)[self performSelector:add_pkt_dispatch_table[m_status] withObject:[m_serverQueue objectAtIndex:0]];
+			action = (enum segment_action)[self performSelector:add_pkt_dispatch_table[m_status] withObject:[m_serverQueue objectAtIndex:0]];
 			if(action != SEGMENT_ACCEPT)
 				break;
 			[m_serverQueue removeObjectAtIndex:0];
@@ -655,7 +653,7 @@ static SEL add_pkt_dispatch_table[STATUS_NELEMS];
 - (void)addSegment:(TCPDecode *)segment toQueue:(NSMutableArray *)queue
 {
 	TCPDecode *queueSegment;
-	unsigned int i;
+	NSUInteger i;
 
 	if([queue count] > PPTCPSTREAM_QUEUE_MAX)
 		return;
@@ -669,12 +667,12 @@ static SEL add_pkt_dispatch_table[STATUS_NELEMS];
 	[queue insertObject:segment atIndex:i];
 }
 
-- (unsigned int)packetsCount
+- (size_t)packetsCount
 {
 	return [m_packets count];
 }
 
-- (Packet *)packetAtIndex:(int)index
+- (Packet *)packetAtIndex:(NSInteger)index
 {
 	if(index >= 0 && index < [m_packets count])	
 		return [m_packets objectAtIndex:index];
@@ -682,7 +680,7 @@ static SEL add_pkt_dispatch_table[STATUS_NELEMS];
 	return nil;
 }
 
-- (TCPDecode *)segmentAtIndex:(int)index
+- (TCPDecode *)segmentAtIndex:(NSInteger)index
 {
 	/* XXX this might be slow, due to the decoderForClass; TODO: measure it */
 	if(index >= 0 && index < [m_packets count])	
@@ -691,12 +689,12 @@ static SEL add_pkt_dispatch_table[STATUS_NELEMS];
 	return nil;
 }
 
-- (unsigned int)clientSegmentsCount
+- (size_t)clientSegmentsCount
 {
 	return [m_clientSegments count];
 }
 
-- (TCPDecode *)clientSegmentAtIndex:(int)index
+- (TCPDecode *)clientSegmentAtIndex:(NSInteger)index
 {
 	if(index >= 0 && index < [m_clientSegments count])	
 		return [m_clientSegments objectAtIndex:index];
@@ -704,12 +702,12 @@ static SEL add_pkt_dispatch_table[STATUS_NELEMS];
 	return nil;
 }
 
-- (unsigned int)serverSegmentsCount
+- (size_t)serverSegmentsCount
 {
 	return [m_serverSegments count];
 }
 
-- (TCPDecode *)serverSegmentAtIndex:(int)index
+- (TCPDecode *)serverSegmentAtIndex:(NSInteger)index
 {
 	if(index >= 0 && index < [m_serverSegments count])	
 		return [m_serverSegments objectAtIndex:index];
@@ -939,7 +937,7 @@ static SEL add_pkt_dispatch_table[STATUS_NELEMS];
 - (void)removePacketsAtIndexes:(NSIndexSet *)indexSet
 {
 	NSRange range;
-	unsigned int i, n;
+	size_t i, n;
 	NSUInteger indexes[128];
 
 	range.location = [indexSet firstIndex];

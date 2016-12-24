@@ -99,12 +99,12 @@ err:
     parent = parentVal;
 }
 
-- (unsigned int)frontSize
+- (size_t)frontSize
 {
     return hlen * 4;	/* header length is measured in 32bit words, maximum value is 60 */
 }
 
-- (unsigned int)rearSize
+- (size_t)rearSize
 {
     return 0;
 }
@@ -355,9 +355,9 @@ err:
 - (uint32_t)size
 {
     NSArray *decoders;
-    unsigned int i,
-                 front,
-                 iplen;
+    unsigned int i;
+    size_t front;
+    size_t iplen;
 
     if(size != UINT32_MAX)
         return size;
@@ -388,7 +388,7 @@ err:
             continue;
 
         if([decoders objectAtIndex:i] == self) {
-            size = iplen - front;
+            size = (uint32_t)(iplen - front);
             return size;
         }
     }
@@ -399,10 +399,10 @@ err:
 - (NSData *)payload
 {
     NSArray *decoders;
-    unsigned int i,
-                 front,
-                 htotal,
-                 iplen;
+    unsigned int i;
+    size_t front;
+    size_t htotal;
+    size_t iplen;
 
     if((decoders = [parent decoders]) == nil)
         return nil;
@@ -590,7 +590,7 @@ err:
     return YES;
 }
 
-- (unsigned int)numberOfChildren
+- (size_t)numberOfChildren
 {
     return 11; // XXX plus options
 }
@@ -713,7 +713,7 @@ err:
     return [ret autorelease];
 }
 
-- (unsigned int)numberOfValues
+- (size_t)numberOfValues
 {
     return 1;
 }

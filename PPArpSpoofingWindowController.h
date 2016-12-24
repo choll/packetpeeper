@@ -48,7 +48,7 @@
 - (IBAction)helpButton:(id)sender;
 
 // NSTableView data-source methods
-- (int)numberOfRowsInTableView:(NSTableView *)tableView;
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView;
 - (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex;
 
 // NSComboBoxCell data-source methods

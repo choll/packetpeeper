@@ -68,12 +68,12 @@ static NSString *names[][2]	=	{{@"Address", @"PPP Address"},
 	return;
 }
 
-- (unsigned int)frontSize
+- (size_t)frontSize
 {
 	return (sizeof(addr) + sizeof(control) + sizeof(protocol));
 }
 
-- (unsigned int)rearSize
+- (size_t)rearSize
 {
 	return 0;//(sizeof(crc) + 1);
 }
@@ -172,7 +172,7 @@ static NSString *names[][2]	=	{{@"Address", @"PPP Address"},
 	return YES;
 }
 
-- (unsigned int)numberOfChildren
+- (size_t)numberOfChildren
 {
 	return 4;
 }
@@ -218,7 +218,7 @@ static NSString *names[][2]	=	{{@"Address", @"PPP Address"},
 	return [ret autorelease];
 }
 
-- (unsigned int)numberOfValues
+- (size_t)numberOfValues
 {
 	return 1;
 }

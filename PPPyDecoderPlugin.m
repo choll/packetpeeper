@@ -1008,7 +1008,7 @@ static size_t pp_unpack_parse_repeat_modifier(const char *format, unsigned int *
 	if(errno == EINVAL || temp < 0 || temp == LONG_MAX)
 		*repeat_modifier = 1;
 	else
-		*repeat_modifier = temp;
+		*repeat_modifier = (unsigned int)temp;
 
 	return ((intptr_t)endptr - (intptr_t)format);
 }

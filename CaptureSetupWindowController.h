@@ -64,7 +64,7 @@
 /* advanced settings actions */
 - (IBAction)stopConditionCheckBox:(id)sender;
 
-- (void)sheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo;
+- (void)sheetDidEnd:(NSWindow *)sheet returnCode:(NSModalResponse)returnCode contextInfo:(void *)contextInfo;
 
 @end
 

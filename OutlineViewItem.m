@@ -81,11 +81,6 @@
 		[children addObject:anObject];
 }
 
-- (unsigned int)indexOfChild:(id)anObject
-{
-	return [children indexOfObject:anObject];
-}
-
 - (void)insertChild:(id)anObject atIndex:(unsigned int)index
 {
 	if(children == nil)
@@ -130,7 +125,7 @@
 	return (children != nil);
 }
 
-- (unsigned int)numberOfChildren
+- (size_t)numberOfChildren
 {
 	if(children)
 		return [children count];
@@ -150,7 +145,7 @@
 	return ret;
 }
 
-- (unsigned int)numberOfValues
+- (size_t)numberOfValues
 {
 	return [items count];
 }
@@ -183,7 +178,7 @@
 
 - (id)performAction
 {
-	return objc_msgSend(target, selector, data);
+	return ((id(*)(id, SEL, void*))objc_msgSend)(target, selector, data);
 }
 
 @end

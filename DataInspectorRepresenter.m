@@ -752,10 +752,12 @@ static BOOL stringRangeIsNullBytes(NSString *string, NSRange range) {
 }
 
 - (NSView *)createView {
-    BOOL loaded = [NSBundle loadNibNamed:@"DataInspectorView" owner:self];
+    NSMutableArray *topLevelObjects = [NSMutableArray array];
+    BOOL loaded = [[NSBundle mainBundle] loadNibNamed:@"DataInspectorView" owner:self topLevelObjects:&topLevelObjects];
     if (! loaded || ! outletView) {
         [NSException raise:NSInternalInconsistencyException format:@"Unable to load nib named DataInspectorView"];
     }
+    [topLevelObjects retain];
     NSView *resultView = outletView; //want to inherit its retain here
     outletView = nil;
     if ([table respondsToSelector:@selector(setSelectionHighlightStyle:)]) {

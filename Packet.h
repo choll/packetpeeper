@@ -20,10 +20,12 @@
 #ifndef PACKETPEEPER_PACKET_H
 #define PACKETPEEPER_PACKET_H
 
-#include <sys/types.h>
-#import <Foundation/NSObject.h>
 #include "OutlineViewItem.h"
 #include "PPDecoderParent.h"
+
+#import <Foundation/NSObject.h>
+
+#include <sys/types.h>
 
 @class NSData;
 @class NSDate;
@@ -40,21 +42,21 @@
     /* the following variables are archived */
     NSDate *date;                   /* date the packet was recieved */
     NSMutableArray *decoders;       /* array of decoder objects */
-    unsigned int captureLength;     /* length of this packet that was captured */
-    unsigned int actualLength;      /* original length of this packet ``off the wire''  */
-    unsigned int number;
+    uint32_t captureLength;         /* length of this packet that was captured */
+    uint32_t actualLength;          /* original length of this packet ``off the wire''  */
+    unsigned long number;
     BOOL pendingDeletion;
     NSData *data;                   /* packet data */
     BOOL processedPlugins;
 }
 
 - (id)initWithData:(NSData *)dataVal
-    captureLength:(unsigned int)aCaptureLength
-    actualLength:(unsigned int)anActualLength
+    captureLength:(uint32_t)aCaptureLength
+    actualLength:(uint32_t)anActualLength
     timestamp:(NSDate *)timestamp
     linkLayer:(Class)linkLayer;
-- (void)setNumber:(unsigned int)aNumber;
-- (unsigned int)number;
+- (void)setNumber:(unsigned long)aNumber;
+- (unsigned long)number;
 - (MyDocument *)document;
 - (void)setDocument:(MyDocument *)aDocument;
 - (BOOL)isPendingDeletion;

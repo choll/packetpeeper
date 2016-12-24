@@ -28,6 +28,7 @@
 #import <Foundation/NSArchiver.h>
 #import <AppKit/NSApplication.h>
 #import <AppKit/NSTableColumn.h>
+#import <AppKit/NSTableHeaderCell.h>
 #import <AppKit/NSWindow.h>
 #import <AppKit/NSMenu.h>
 #import <AppKit/NSAlert.h>
@@ -296,7 +297,7 @@ static BreakpadRef InitBreakpad(void);
 		column = [[NSTableColumn alloc] initWithIdentifier:currentIdentifier];
 #pragma clang diagnostic pop
 
-		[[column headerCell] setStringValue:[currentIdentifier shortName]];
+		[[column headerCell] takeStringValueFrom:[currentIdentifier shortName]];
 		[column setEditable:NO];
 		[packetTableColumnArray addObject:column];
 		[column release];
@@ -312,7 +313,7 @@ static BreakpadRef InitBreakpad(void);
 		menuItem = [menu itemAtIndex:[menu indexOfItemWithRepresentedObject:column_id_stream_table[i]]];
 		column = [[NSTableColumn alloc] initWithIdentifier:column_id_stream_table[i]];
 
-		[[column headerCell] setStringValue:[menuItem title]];
+		[[column headerCell] takeStringValueFrom:[menuItem title]];
 
 		[column setEditable:NO];
 		[streamTableColumnArray addObject:column];

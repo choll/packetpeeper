@@ -90,7 +90,7 @@
 		} lower;
 	} cont;
 
-	unsigned int frontSize;
+    size_t frontSize;
 }
 
 - (NSString *)infoType;

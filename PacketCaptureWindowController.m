@@ -35,6 +35,7 @@
 #import <AppKit/NSMenu.h>
 #import <AppKit/NSEvent.h>
 #import <AppKit/NSTableColumn.h>
+#import <AppKit/NSTableHeaderCell.h>
 #import <AppKit/NSCell.h>
 #import <AppKit/NSTextField.h>
 #import <AppKit/NSTableHeaderView.h>
@@ -130,7 +131,7 @@
 
 - (void)doubleAction:(id)sender
 {
-	int row;
+	NSInteger row;
 
 	if((row = [sender clickedRow]) != -1)
 		[[self document] displayIndividualWindow:[[self document] packetAtIndex:row]];
@@ -187,7 +188,7 @@
 
 /* NSTableView data source methods */
 
-- (int)numberOfRowsInTableView:(NSTableView *)tableView
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView
 {
 	return [[self document] numberOfPackets];
 }
@@ -227,12 +228,12 @@
 	NSIndexSet *indexSet;
 	NSRange range;
 	NSUInteger indexes[128];
-	unsigned int i, n;
+	size_t i, n;
 
 	mutableIndexSet = nil;
 
 	if(lastColumn == tableColumn) {
-		unsigned int n_pkts;
+		size_t n_pkts;
 
 		/* same column clicked, so reverse the sort order */
 		if((mutableIndexSet = [[NSMutableIndexSet alloc] init]) == nil)
@@ -408,13 +409,12 @@
 - (BOOL)validateToolbarItem:(NSToolbarItem *)theItem
 {
 	if([[theItem itemIdentifier] isEqualToString:LAST_TOOLBARITEM_ID]) {
-		unsigned int total;
-		total = [packetTableView numberOfRows];
+		const NSInteger total = [packetTableView numberOfRows];
 		return ([packetTableView selectedRow] != (total - 1) && total != 0);
 	}
 
 	if([[theItem itemIdentifier] isEqualToString:NEXT_TOOLBARITEM_ID]) {
-		unsigned int row;
+		NSInteger row;
 		return ((row = [packetTableView selectedRow]) != -1 && row != ([packetTableView numberOfRows] - 1));
 	}
 
@@ -422,7 +422,7 @@
 		return ([packetTableView selectedRow] != 0 && [packetTableView numberOfRows] != 0);
 
 	if([[theItem itemIdentifier] isEqualToString:PREV_TOOLBARITEM_ID]) {
-		unsigned int row;
+		NSInteger row;
 		return ((row = [packetTableView selectedRow]) != -1 && row != 0);
 	}
 
@@ -488,7 +488,7 @@
 	}
 
 	[packetTableView noteNumberOfRowsChanged];
-	[statusTextField setStringValue:[NSString stringWithFormat:@"%u packets, %@",
+	[statusTextField setStringValue:[NSString stringWithFormat:@"%zu packets, %@",
 											  [[self document] numberOfPackets],
 											  data_quantity_str([[self document] numberOfBytes])]];
 
@@ -561,7 +561,7 @@
 - (IBAction)lastButton:(id)sender
 {
 	NSIndexSet *indexSet;
-	unsigned int total;
+	NSInteger total;
 
 	if((total = [packetTableView numberOfRows]) == 0)
 		return;
@@ -575,8 +575,8 @@
 - (IBAction)nextButton:(id)sender
 {
 	NSIndexSet *indexSet;
-	int packetIndex;
-	int total;
+	NSInteger packetIndex;
+	NSInteger total;
 
 	packetIndex = [packetTableView selectedRow];
 	total = [packetTableView numberOfRows];
@@ -601,7 +601,7 @@
 - (IBAction)prevButton:(id)sender
 {
 	NSIndexSet *indexSet;
-	int packetIndex;
+	NSInteger packetIndex;
 
 	packetIndex = [packetTableView selectedRow];
 
@@ -645,7 +645,7 @@
 	NSIndexSet *indexSet;
 	NSRange range;
 	NSUInteger indexes[128];
-	unsigned int i, n, adjust;
+	NSUInteger i, n, adjust;
 
 	indexSet = [packetTableView selectedRowIndexes];
 
@@ -678,7 +678,7 @@
 	NSIndexSet *indexSet;
 	NSRange range;
 	NSUInteger indexes[128];
-	unsigned int i, n;
+	NSUInteger i, n;
 
 	indexSet = [packetTableView selectedRowIndexes];
 
@@ -702,7 +702,7 @@
 	NSIndexSet *indexSet;
 	NSRange range;
 	NSUInteger indexes[128];
-	unsigned int i, n;
+	NSUInteger i, n;
 
 	indexSet = [packetTableView selectedRowIndexes];
 

@@ -20,9 +20,10 @@
 #ifndef _PPTCPSTREAMREASSEMBLER_H_
 #define _PPTCPSTREAMREASSEMBLER_H_
 
+#import <Foundation/NSObject.h>
+
 #include <sys/types.h>
 #include <stdint.h>
-#import <Foundation/NSObject.h>
 
 @class NSMutableArray;
 @class NSString;
@@ -43,6 +44,7 @@ struct reassembly_queue {
 
 - (void)noteChunksDeleted;
 - (void)noteChunksAppended;
+- (void)close;
 
 @end
 
@@ -59,30 +61,6 @@ struct reassembly_queue {
 - (size_t)length;
 
 @end
-
-/*
-	So, you have two lists of segments, sorted for you by their start sequence number
-
-	And another list, with them interleaved.
-
-	So, you could look at timestamps
-
-	perhaps, the interleaved list should be used for position, and the client/server lists
-	should be used for finding acks.
-
-	so, we keep an ackindex for the client and server, and an index into the main list.
-
-
-	for deleting segments, perhaps a back ptr wouldht be so bad, eg when 
-
-	unsigned int m_streamIndex;
-	unsigned int m_clientStreamIndex;
-	unsigned int m_serverStreamIndex;
-	uint32_t m_c_seq_no;
-	uint32_t m_c_ack_no;
-	uint32_t m_s_seq_no;
-	uint32_t m_s_ack_no;
-*/
 
 @interface PPTCPStreamReassembler : NSObject
 {
@@ -106,7 +84,7 @@ struct reassembly_queue {
 - (void)addListener:(id <PPTCPStreamListener>)aListener;
 - (void)removeListener:(id <PPTCPStreamListener>)aListener;
 - (void)reassemble;
-- (unsigned int)numberOfChunks;
+- (size_t)numberOfChunks;
 - (NSData *)chunkDataAt:(unsigned int)chunkIndex;
 - (BOOL)chunkIsClient:(unsigned int)chunkIndex;
 - (BOOL)chunkIsServer:(unsigned int)chunkIndex;

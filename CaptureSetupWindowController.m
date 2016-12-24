@@ -99,7 +99,7 @@
     }
 
 	[realTimeCheckBox setState:[defaults boolForKey:CAPTURE_SETUP_REALTIME]];
-	[bufferLengthSlider setIntValue:[defaults integerForKey:CAPTURE_SETUP_BUFSIZE]];
+	[bufferLengthSlider setIntegerValue:[defaults integerForKey:CAPTURE_SETUP_BUFSIZE]];
 	[updateFrequencyTextField setFloatValue:[defaults floatForKey:CAPTURE_SETUP_UPDATE_FREQUENCY]];
 
 	[stopTimeDatePicker setMinDate:[NSDate date]];
@@ -112,7 +112,7 @@
 	[super windowDidLoad];
 }
 
-- (void)sheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo
+- (void)sheetDidEnd:(NSWindow *)sheet returnCode:(NSModalResponse)returnCode contextInfo:(void *)contextInfo
 {
 	NSUserDefaults *defaults;
 	NSDate *stopDate;
@@ -120,7 +120,7 @@
 	unsigned long numberOfPackets;
 	unsigned long long numberOfBytes;
 
-	if(returnCode != 1) {
+	if(returnCode != NSModalResponseOK) {
 		/* inform the doc controller that the user cancelled, so it may free
 		   the authorization reference */
 		[[MyDocumentController sharedDocumentController] cancelHelper];
@@ -171,7 +171,7 @@
 
 - (IBAction)interfacePopUpSelected:(id)sender
 {
-    int itemIndex;
+    NSInteger itemIndex;
 
     if((itemIndex = [sender indexOfSelectedItem]) == -1)
         return;
@@ -195,14 +195,15 @@
 
 - (IBAction)startButtonPressed:(id)sender
 {
-	[[self window] orderOut:sender];
-	[NSApp endSheet:[self window] returnCode:1];
+    [[[self window] sheetParent] endSheet:[self window] returnCode:NSModalResponseOK];
+    // window controller has now been dealloced--not sure if this is the
+    // correct approach, possibly the completionHandler block should autorelease?
 }
 
 - (IBAction)cancelButtonPressed:(id)sender
 {
-	[[self window] orderOut:sender];
-	[NSApp endSheet:[self window] returnCode:0];
+    [[[self window] sheetParent] endSheet:[self window] returnCode:NSModalResponseCancel];
+    // window controller has now been dealloced--see above
 }
 
 - (IBAction)stopConditionCheckBox:(id)sender

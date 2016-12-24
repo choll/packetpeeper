@@ -195,7 +195,8 @@
     // execute the tool? That would not be acceptable from a security point of view.
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
-	if(AuthorizationExecuteWithPrivileges(auth_ref, HELPER_PATH, kAuthorizationFlagDefaults, NULL, NULL) != errAuthorizationSuccess) {
+    char* args = NULL;
+	if(AuthorizationExecuteWithPrivileges(auth_ref, HELPER_PATH, kAuthorizationFlagDefaults, &args, NULL) != errAuthorizationSuccess) {
 		[[ErrorStack sharedErrorStack] pushError:@"Could not execute helper tool" lookup:Nil code:0 severity:ERRS_ERROR];
 		return -1;
 	}

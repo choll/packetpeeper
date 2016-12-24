@@ -25,7 +25,7 @@
 #include <stdio.h>
 #include "in_cksum.h"
 
-unsigned int in_cksum_partial(const void *data, unsigned int nbytes, unsigned int sum)
+unsigned int in_cksum_partial(const void *data, size_t nbytes, unsigned int sum)
 {
 	const uint16_t *p;
 

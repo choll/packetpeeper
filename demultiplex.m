@@ -32,12 +32,12 @@
     Returns the number of bytes of the NSData object processed.
 */
 
-int demultiplex_data(NSData *data, NSMutableArray *outlist, id <PPDecoderParent> parent, Class layer)
+size_t demultiplex_data(NSData *data, NSMutableArray *outlist, id <PPDecoderParent> parent, Class layer)
 {
     id <Decode> obj;
     const char *ptr;
-    unsigned int nbytes; /* number of bytes processed from 'data' object, this is returned */
-    unsigned int ptrlen;
+    size_t nbytes; /* number of bytes processed from 'data' object, this is returned */
+    size_t ptrlen;
 
     if(data == nil || outlist == nil)
         return -1;
@@ -55,20 +55,20 @@ int demultiplex_data(NSData *data, NSMutableArray *outlist, id <PPDecoderParent>
             return nbytes;
 
         [outlist addObject:obj];
-        layer = [obj nextLayer];
-
-        ptr += [obj frontSize];
-        nbytes += ([obj frontSize] + [obj rearSize]);
+        [obj release]; // rely on NSMutableArray.addObject's retain
 
         /* this should never occur */
         if(([obj frontSize] + [obj rearSize]) > ptrlen)
             return -1;
-
+        
+        ptr += [obj frontSize];
         ptrlen -= ([obj frontSize] + [obj rearSize]);
-        [obj release];
-
+        nbytes += ([obj frontSize] + [obj rearSize]);
+        
         if((data = [[NSData alloc] initWithBytesNoCopy:(void*)ptr length:ptrlen freeWhenDone:NO]) == nil)
             return -1;
+        
+        layer = [obj nextLayer];
     }
     [data release];
     return nbytes;

@@ -75,12 +75,12 @@ err:
     parent = parentVal;
 }
 
-- (unsigned int)frontSize
+- (size_t)frontSize
 {
     return sizeof(struct udphdr);
 }
 
-- (unsigned int)rearSize
+- (size_t)rearSize
 {
     return 0;
 }
@@ -313,7 +313,7 @@ err:
     return YES;
 }
 
-- (unsigned int)numberOfChildren
+- (size_t)numberOfChildren
 {
     return 4;
 }
@@ -368,7 +368,7 @@ err:
     return [ret autorelease];
 }
 
-- (unsigned int)numberOfValues
+- (size_t)numberOfValues
 {
     return 1;
 }

@@ -20,7 +20,9 @@
 #ifndef PACKETPEEPER_IN_CKSUM_HPP
 #define PACKETPEEPER_IN_CKSUM_HPP
 
-unsigned int in_cksum_partial(const void *data, unsigned int nbytes, unsigned int sum);
+#include <stddef.h>
+
+unsigned int in_cksum_partial(const void *data, size_t nbytes, unsigned int sum);
 unsigned long in_cksum_fold(unsigned long sum);
 
 #endif

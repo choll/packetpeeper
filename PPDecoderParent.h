@@ -20,6 +20,9 @@
 #ifndef PACKETPEEPER_DECODERPARENT_H
 #define PACKETPEEPER_DECODERPARENT_H
 
+#include <stddef.h>
+#include <stdint.h>
+
 @class NSData;
 @class NSDate;
 @class NSArray;
@@ -33,8 +36,8 @@
 - (id)decoderForClass:(Class)aClass;
 - (NSArray *)decoders;
 - (NSData *)packetData;
-- (unsigned int)captureLength;
-- (unsigned int)actualLength;
+- (uint32_t)captureLength;
+- (uint32_t)actualLength;
 - (NSDate *)date;
 
 @end

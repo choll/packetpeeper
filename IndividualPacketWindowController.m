@@ -168,7 +168,7 @@ static OutlineViewItem *copy_item_tree(id <OutlineViewItem> root);
 - (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName
 {
     return
-        [NSString stringWithFormat:@"%@ - %@ - Packet #%u, %@ %@",
+        [NSString stringWithFormat:@"%@ - %@ - Packet #%lu, %@ %@",
         displayName, [[self document] interface], [packet number],
         ([packet protocols] != nil) ? [packet protocols] : @"",
         ([packet info] != nil) ? [packet info] : @""];
@@ -244,7 +244,7 @@ static OutlineViewItem *copy_item_tree(id <OutlineViewItem> root);
 		return [(id <OutlineViewItem>)item expandable];
 }
 
-- (int)outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(id)item
+- (NSInteger)outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(id)item
 {
 	if(item == nil) {
 		if(packetItems == nil)
@@ -284,24 +284,6 @@ static OutlineViewItem *copy_item_tree(id <OutlineViewItem> root);
 		return nil;
 
 	return [(id <OutlineViewItem>)item valueAtIndex:isValue ? 1 : 0];
-}
-
-/* HexView data-source methods */
-
-- (unsigned int)length
-{
-	if(packet == nil)
-		return 0;
-
-	return [[packet packetData] length];
-}
-
-- (const void *)bytes
-{
-	if(packet == nil)
-		return NULL;
-
-	return [[packet packetData] bytes];
 }
 
 - (void)dealloc

@@ -54,9 +54,9 @@
 - (NSMenu *)packetTableColumnMenu;
 - (NSMenu *)streamTableColumnMenu;
 - (void)tableViewSelectionDidChange:(NSNotification *)aNotification;
-- (int)numberOfRowsInTableView:(NSTableView *)tableView;
-- (int)numberOfRowsInPacketTableView;
-- (int)numberOfRowsInStreamTableView;
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView;
+- (NSInteger)numberOfRowsInPacketTableView;
+- (NSInteger)numberOfRowsInStreamTableView;
 - (id)packetTableObjectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex;
 - (id)streamTableObjectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex;
 - (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex;

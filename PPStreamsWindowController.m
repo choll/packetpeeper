@@ -29,6 +29,7 @@
 #import <AppKit/NSWindow.h>
 #import <AppKit/NSImage.h>
 #import <AppKit/NSTableColumn.h>
+#import <AppKit/NSTableHeaderCell.h>
 #import <AppKit/NSMenu.h>
 #import <AppKit/NSCell.h>
 #import <AppKit/NSTextFieldCell.h>
@@ -159,7 +160,7 @@
 
 - (void)doubleAction:(id)sender
 {
-	int row;
+	NSInteger row;
 
 	if((row = [sender clickedRow]) == -1)
 		return;
@@ -188,9 +189,9 @@
 		column = [[NSTableColumn alloc] initWithIdentifier:identifier];
 
 		if([identifier isMemberOfClass:[ColumnIdentifier class]])
-			[[column headerCell] setStringValue:[identifier shortName]];
+			[[column headerCell] takeStringValueFrom:[identifier shortName]];
 		else if([identifier isKindOfClass:[NSString class]])
-			[[column headerCell] setStringValue:[sender title]];
+			[[column headerCell] takeStringValueFrom:[sender title]];
 		else
 			return;
 
@@ -279,7 +280,7 @@
 	return [[self document] packetCaptureWindowController];
 }
 
-- (int)numberOfRowsInPacketTableView
+- (NSInteger)numberOfRowsInPacketTableView
 {
 	if(selectedStream != nil)
 		return [selectedStream packetsCount];
@@ -287,7 +288,7 @@
 	return 0;
 }
 
-- (int)numberOfRowsInStreamTableView
+- (NSInteger)numberOfRowsInStreamTableView
 {
 	return [[[self document] tcpStreamController] numberOfStreams];
 }
@@ -348,12 +349,12 @@
 	NSIndexSet *indexSet;
 	NSRange range;
 	NSUInteger indexes[128];
-	unsigned int i, n;
+	size_t i, n;
 
 	mutableIndexSet = nil;
 
 	if(lastStreamTableColumn == tableColumn) {
-		unsigned int n_streams;
+		size_t n_streams;
 
 		/* same column clicked, so reverse the sort order */
 		if((mutableIndexSet = [[NSMutableIndexSet alloc] init]) == nil)
@@ -445,7 +446,7 @@
 
 - (void)tableViewSelectionDidChange:(NSNotification *)aNotification
 {
-	int row;
+	NSInteger row;
 
 	if(aNotification == nil || [aNotification object] == streamTableView) {
 		row = [streamTableView selectedRow];
@@ -475,7 +476,7 @@
 
 /* NSTableView data-source methods */
 
-- (int)numberOfRowsInTableView:(NSTableView *)tableView
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView
 {
 	if(tableView == packetTableView) {
 		return [self numberOfRowsInPacketTableView];
@@ -539,7 +540,7 @@
 	   and select and display an appropriate stream */
 	if(selectedStream != nil && [selectedStream packetsCount] == 0) {
 		NSIndexSet *indexSet;
-		int row;
+		NSInteger row;
 
 		if((row = [streamTableView selectedRow]) == -1 || row >= [self numberOfRowsInStreamTableView]) {
 			--row;
@@ -592,7 +593,7 @@
 {
 	NSIndexSet *indexSet;
 	NSRange range;
-	unsigned int i, n, count;
+	size_t i, n, count;
 	NSUInteger indexes[128];
 
 	indexSet = [packetTableView selectedRowIndexes];
@@ -623,7 +624,7 @@
 		}
 
 		return;
-	} else { 
+	} else {
 		while((n = [indexSet getIndexes:indexes maxCount:(sizeof(indexes) / sizeof(indexes[0])) inIndexRange:&range]) > 0) {
 			for(i = 0; i < n; ++i) {
 				[[selectedStream packetAtIndex:indexes[i]] setPendingDeletion];
@@ -656,7 +657,7 @@
 	NSIndexSet *indexSet;
 	NSRange range;
 	NSUInteger indexes[128];
-	unsigned int i, n, adjust;
+	NSUInteger i, n, adjust;
 
 	indexSet = [streamTableView selectedRowIndexes];
 
@@ -703,7 +704,7 @@
 	NSIndexSet *indexSet;
 	NSRange range;
 	NSUInteger indexes[128];
-	unsigned int i, n;
+	NSUInteger i, n;
 
 	indexSet = [packetTableView selectedRowIndexes];
 
@@ -722,7 +723,7 @@
 	NSIndexSet *indexSet;
 	NSRange range;
 	NSUInteger indexes[128];
-	unsigned int i, n;
+	NSUInteger i, n;
 
 	if([sender tag] == PPSTREAMSWINDOW_PACKETS_TABLE_MENU_TAG) {
 		[[self document] displayReassemblyWindowForPacket:[selectedStream packetAtIndex:[packetTableView selectedRow]]];

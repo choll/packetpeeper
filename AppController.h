@@ -35,7 +35,7 @@
 }
 
 - (void)windowDidBecomeKey:(NSNotification *)aNotification;
-- (BOOL)applicationShouldOpenUntitledFile:(NSApplication *)sender;- (NSMenu *)createProtocolsMenu;
+- (BOOL)applicationShouldOpenUntitledFile:(NSApplication *)sender;
 - (NSMenu *)createTCPProtocolsMenu;
 - (NSMenu *)createProtocolsMenu;
 - (NSMenu *)createProtocolsMenuForDecoders:(Class *)decoders count:(size_t)ndecoders;

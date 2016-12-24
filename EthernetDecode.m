@@ -87,12 +87,12 @@ err:
     return;
 }
 
-- (unsigned int)frontSize
+- (size_t)frontSize
 {
     return ETHER_HDR_LEN;
 }
 
-- (unsigned int)rearSize
+- (size_t)rearSize
 {
     return 0;
 }
@@ -201,7 +201,7 @@ err:
     return YES;
 }
 
-- (unsigned int)numberOfChildren
+- (size_t)numberOfChildren
 {
     return 3;
 }
@@ -243,7 +243,7 @@ err:
     return [ret autorelease];
 }
 
-- (unsigned int)numberOfValues
+- (size_t)numberOfValues
 {
     return 1;
 }

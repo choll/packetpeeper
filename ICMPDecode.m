@@ -181,12 +181,12 @@ static NSString *names[][2] =	{{@"Type", @"ICMP Type"},
 	parent = parentVal;
 }
 
-- (unsigned int)frontSize
+- (size_t)frontSize
 {
 	return frontSize;
 }
 
-- (unsigned int)rearSize
+- (size_t)rearSize
 {
 	return 0;
 }
@@ -533,7 +533,7 @@ static NSString *names[][2] =	{{@"Type", @"ICMP Type"},
 	return YES;
 }
 
-- (unsigned int)numberOfChildren
+- (size_t)numberOfChildren
 {
 	return 3 + (((fields & ICMPDECODE_UPPERMASK) == ICMPDECODE_IDSEQ) * 2) +	/* only one of these 3 is present */
 			   (((fields & ICMPDECODE_UPPERMASK) == ICMPDECODE_GWADDR) * 1) +
@@ -542,8 +542,8 @@ static NSString *names[][2] =	{{@"Type", @"ICMP Type"},
 			   (((fields & ICMPDECODE_LOWERMASK) == ICMPDECODE_IP) * 1) +
 			   (((fields & ICMPDECODE_LOWERMASK) == ICMPDECODE_UDP) * 2) + /* UDP and TCP include IP */
 			   (((fields & ICMPDECODE_LOWERMASK) == ICMPDECODE_TCP) * 2) +
-   			   (((fields & ICMPDECODE_LOWERMASK) == ICMPDECODE_SUBMASK) * 1) +
-   			   (((fields & ICMPDECODE_LOWERMASK) == ICMPDECODE_TSTAMP) * 3);
+               (((fields & ICMPDECODE_LOWERMASK) == ICMPDECODE_SUBMASK) * 1) +
+               (((fields & ICMPDECODE_LOWERMASK) == ICMPDECODE_TSTAMP) * 3);
 }
 
 - (id)childAtIndex:(int)fieldIndex
@@ -628,7 +628,7 @@ static NSString *names[][2] =	{{@"Type", @"ICMP Type"},
 			} else if((fields & ICMPDECODE_LOWERMASK) == ICMPDECODE_IP) /* the order of this if statement is significant, as we may have IDSEQ and IP, in which case IPSEQ comes first */
 				return cont.lower.ipdata.ipdec;
 			break;
-			
+
 		case 5:
 			if((fields & ICMPDECODE_UPPERMASK) == ICMPDECODE_IDSEQ) {
 				if((fields & ICMPDECODE_LOWERMASK) == ICMPDECODE_TSTAMP) {
@@ -748,7 +748,7 @@ static NSString *names[][2] =	{{@"Type", @"ICMP Type"},
 	return [ret autorelease];
 }
 
-- (unsigned int)numberOfValues
+- (size_t)numberOfValues
 {
 	return 1;
 }
@@ -802,13 +802,7 @@ static NSString *names[][2] =	{{@"Type", @"ICMP Type"},
 }
 
 /* Decodes IPv4 header + UDP or 8 bytes of TCP,
-   Data should be the unmodified NSData object passed to ICMPDecode.
-   Notes: Could make the offset into `data' (ICMP_MINLEN currently) an,
-   no real need to though. 
-   
-   Why dont you initwithbytes nocopy ?
-   
-   */
+   Data should be the unmodified NSData object passed to ICMPDecode. */
 - (void)decodeIPData:(NSData *)dataVal
 {
 	NSData *subip;
@@ -981,14 +975,14 @@ static NSString *names[][2] =	{{@"Type", @"ICMP Type"},
 				   freeWhenDone:NO];
 }
 
-- (unsigned int)captureLength
+- (uint32_t)captureLength
 {
-	return [[self packetData] length];
+	return (uint32_t)[[self packetData] length];
 }
 
-- (unsigned int)actualLength
+- (uint32_t)actualLength
 {
-	return [[self packetData] length];
+	return (uint32_t)[[self packetData] length];
 }
 
 - (NSDate *)date

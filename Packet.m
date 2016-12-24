@@ -51,8 +51,8 @@
 }
 
 - (id)initWithData:(NSData *)dataVal
-    captureLength:(unsigned int)aCaptureLength
-    actualLength:(unsigned int)anActualLength
+    captureLength:(uint32_t)aCaptureLength
+    actualLength:(uint32_t)anActualLength
     timestamp:(NSDate *)timestamp
     linkLayer:(Class)linkLayer
 {
@@ -87,15 +87,15 @@ err:
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"<Packet: %p, #%u, %u bytes>", self, number, captureLength];
+    return [NSString stringWithFormat:@"<Packet: %p, #%lu, %u bytes>", (void*)self, number, captureLength];
 }
 
-- (void)setNumber:(unsigned int)aNumber
+- (void)setNumber:(unsigned long)aNumber
 {
     number = aNumber;
 }
 
-- (unsigned int)number
+- (unsigned long)number
 {
     return number;
 }
@@ -161,12 +161,12 @@ err:
     return nbytes;
 }
 
-- (unsigned int)captureLength
+- (uint32_t)captureLength
 {
     return captureLength;
 }
 
-- (unsigned int)actualLength
+- (uint32_t)actualLength
 {
     return actualLength;
 }

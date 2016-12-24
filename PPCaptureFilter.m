@@ -130,7 +130,7 @@
 
 - (NSString *)description
 {
-	return [NSString stringWithFormat:@"<PPCaptureFilter [%p]: name: '%@' filter: '%@' compileError: '%@'>", self, m_name, m_filter, m_compileError];
+	return [NSString stringWithFormat:@"<PPCaptureFilter [%p]: name: '%@' filter: '%@' compileError: '%@'>", (void*)self, m_name, m_filter, m_compileError];
 }
 
 - (void)encodeWithCoder:(NSCoder *)encoder

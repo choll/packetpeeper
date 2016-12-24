@@ -40,8 +40,8 @@
 - (NSString *)resolvFrom;
 - (NSString *)to;
 - (NSString *)from;
-- (unsigned int)length;
-- (unsigned int)headerLength;
+- (size_t)length;
+- (size_t)headerLength;
 - (struct in6_addr)in6_addrSrc;
 - (struct in6_addr)in6_addrDst;
 

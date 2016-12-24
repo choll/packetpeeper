@@ -23,11 +23,11 @@
 
 #import <Foundation/NSString.h>
 
-static int eventRow = -1;
+static NSInteger eventRow = -1;
 
 @implementation NSTableView (PPTableViewAdditions)
 
-- (int)eventRow
+- (NSInteger)eventRow
 {
 	return eventRow;
 }

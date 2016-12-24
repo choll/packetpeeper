@@ -70,8 +70,6 @@ enum stream_status {STATUS_UNINITIALISED,
 					STATUS_SIMULTANEOUS_SYN_ACK_WAIT_SERVER,
 					STATUS_SIMULTANEOUS_SYN_ACK_WAIT_CLIENT_2,
 					STATUS_SIMULTANEOUS_SYN_ACK_WAIT_SERVER_2,
-					STATUS_SIMULTANEOUS_ACK_WAIT_CLIENT,
-					STATUS_SIMULTANEOUS_ACK_WAIT_SERVER,
 					STATUS_SYN_ACK_RECV,
 					STATUS_ESTABLISHED,
 					STATUS_FIN_WAIT_CLIENT_1,
@@ -145,15 +143,15 @@ enum stream_status {STATUS_UNINITIALISED,
 
 - (void)addSegment:(TCPDecode *)segment toQueue:(NSMutableArray *)queue;
 
-- (unsigned int)packetsCount;
-- (Packet *)packetAtIndex:(int)index;
-- (TCPDecode *)segmentAtIndex:(int)index;
+- (size_t)packetsCount;
+- (Packet *)packetAtIndex:(NSInteger)index;
+- (TCPDecode *)segmentAtIndex:(NSInteger)index;
 
-- (unsigned int)clientSegmentsCount;
-- (TCPDecode *)clientSegmentAtIndex:(int)index;
+- (size_t)clientSegmentsCount;
+- (TCPDecode *)clientSegmentAtIndex:(NSInteger)index;
 
-- (unsigned int)serverSegmentsCount;
-- (TCPDecode *)serverSegmentAtIndex:(int)index;
+- (size_t)serverSegmentsCount;
+- (TCPDecode *)serverSegmentAtIndex:(NSInteger)index;
 
 - (NSString *)addrTo;
 - (NSString *)addrFrom;

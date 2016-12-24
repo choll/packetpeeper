@@ -110,12 +110,12 @@ err:
     parent = parentVal;
 }
 
-- (unsigned int)frontSize
+- (size_t)frontSize
 {
     return hlen * 4; /* hlen is measured in 32bit words, maximum value is 60 */
 }
 
-- (unsigned int)rearSize
+- (size_t)rearSize
 {
     return 0;
 }
@@ -154,7 +154,7 @@ err:
 
 - (NSString *)info
 {
-    return [NSString stringWithFormat:@"%@ to %@, %uB total%s", [self from], [self to], [self length], [self isChecksumValid] ? "" : " (bad checksum)"];
+    return [NSString stringWithFormat:@"%@ to %@, %zuB total%s", [self from], [self to], [self length], [self isChecksumValid] ? "" : " (bad checksum)"];
 }
 
 - (NSString *)addrTo
@@ -279,12 +279,12 @@ err:
     return offset;
 }
 
-- (unsigned int)length
+- (size_t)length
 {
     return tlen;
 }
 
-- (unsigned int)headerLength
+- (size_t)headerLength
 {
     return [self frontSize];
 }
@@ -466,7 +466,7 @@ err:
     return YES;
 }
 
-- (unsigned int)numberOfChildren
+- (size_t)numberOfChildren
 {
     return 12 + ((hlen > 5) ? 1 : 0);
 }
@@ -580,7 +580,7 @@ err:
     return [ret autorelease];
 }
 
-- (unsigned int)numberOfValues
+- (size_t)numberOfValues
 {
     return 1;
 }

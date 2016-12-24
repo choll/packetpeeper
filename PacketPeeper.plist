@@ -2,22 +2,20 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSHumanReadableCopyright</key>
-	<string>Copyright 2006, 2007, 2008, 2014 Chris E. Holloway</string>
 	<key>BreakpadConfirmTimeout</key>
-	<string>0</string>
-	<key>BreakpadReportInterval</key>
 	<string>0</string>
 	<key>BreakpadProduct</key>
 	<string>PacketPeeper</string>
 	<key>BreakpadProductDisplay</key>
 	<string>Packet Peeper</string>
-	<key>BreakpadVendor</key>
-	<string>packetpeeper.org</string>
-	<key>BreakpadURL</key>
-	<string>http://packetpeeper.org/cgi-bin/crash_collector.py</string>
+	<key>BreakpadReportInterval</key>
+	<string>0</string>
 	<key>BreakpadRequestComments</key>
 	<string>TRUE</string>
+	<key>BreakpadURL</key>
+	<string>http://packetpeeper.org/cgi-bin/crash_collector.py</string>
+	<key>BreakpadVendor</key>
+	<string>packetpeeper.org</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleDocumentTypes</key>
@@ -61,10 +59,10 @@
 	</array>
 	<key>CFBundleExecutable</key>
 	<string>Packet Peeper</string>
-	<key>CFBundleIdentifier</key>
-	<string>org.PacketPeeper</string>
 	<key>CFBundleIconFile</key>
 	<string>ppicon2</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -75,6 +73,8 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>2014-05-11</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>Copyright 2006, 2007, 2008, 2014 Chris E. Holloway</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>

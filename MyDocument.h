@@ -20,10 +20,9 @@
 #ifndef PACKETPEEPER_MYDOCUMENT_H
 #define PACKETPEEPER_MYDOCUMENT_H
 
-#ifdef __APPLE__
 #include <CoreFoundation/CFSocket.h>
-#endif
 #import <AppKit/NSDocument.h>
+#import <AppKit/NSAlert.h>
 #include "pkt_compare.h"
 
 #define BPF_SMALLBUFSIZE	0x80
@@ -92,9 +91,7 @@ struct thread_args;
 	PPBPFProgram *bpfProgram;
 	struct thread_args *thread_args;
 	size_t byteCount;
-#ifdef __APPLE__
 	CFSocketRef sockref;
-#endif
 	unsigned long packetCount;
 	int sockfd;
 	int linkType;
@@ -136,26 +133,28 @@ struct thread_args;
 - (HostCache *)hostCache;
 - (NSString *)interface;
 - (void)setInterface:(NSString *)anInterface;
-- (Packet *)packetAtIndex:(int)packetIndex;
-- (unsigned int)numberOfPackets;
+- (Packet *)packetAtIndex:(NSInteger)packetIndex;
+- (size_t)numberOfPackets;
 - (size_t)numberOfBytes;
-- (void)deletePacketAtIndex:(int)packetIndex;
+- (void)deletePacketAtIndex:(NSInteger)packetIndex;
 - (void)updateControllers;
 - (void)addPacketArray:(NSArray *)packetArray;
 - (void)addPacket:(Packet *)packet;
 - (void)deletePacket:(Packet *)packet;
-- (void)deleteStream:(PPTCPStream *)stream streamIndex:(unsigned int)streamIndex indexValid:(BOOL)indexValid;
-- (void)deleteStream:(PPTCPStream *)stream streamIndex:(unsigned int)streamIndex;
+- (void)deleteStream:(PPTCPStream *)stream streamIndex:(NSUInteger)streamIndex indexValid:(BOOL)indexValid;
+- (void)deleteStream:(PPTCPStream *)stream streamIndex:(NSUInteger)streamIndex;
 - (void)deleteStream:(PPTCPStream *)stream;
 - (NSArray *)packetsSortedByNumber;
 - (void)sortPacketsWithColumn:(ColumnIdentifier *)column;
 - (void)setReversePacketOrder:(BOOL)reverse;
 - (BOOL)isReverseOrder;
-- (int)indexForPacket:(Packet *)packet;
+- (NSInteger)indexForPacket:(Packet *)packet;
 
 - (PPTCPStreamController *)tcpStreamController;
 
 - (void)displayErrorStack:(ErrorStack *)errorStack close:(BOOL)closeDocument; // XXX perhaps move to PCWC
+
+- (void)sheetDidEnd:(NSWindow *)sheet returnCode:(NSModalResponse)returnCode contextInfo:(void *)contextInfo;
 
 - (void)startCaptureOn:(Interface *)anInterface
 					   isPromiscuous:(BOOL)promiscuousVal
@@ -168,7 +167,7 @@ struct thread_args;
 					   stopAfterMatchAll:(BOOL)matchAllConditions
 					   filter:(PPCaptureFilter *)filter;
 
-- (void)purgePacketsPendingDeletionWithHint:(unsigned int)count;
+- (void)purgePacketsPendingDeletionWithHint:(size_t)count;
 
 - (void)flushHostnames;
 

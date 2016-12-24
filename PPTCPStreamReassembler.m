@@ -232,7 +232,7 @@
 	m_streamIndex = i;
 }
 
-- (unsigned int)numberOfChunks
+- (size_t)numberOfChunks
 {
 	return [m_chunks count];
 }

@@ -98,12 +98,12 @@ static NSString *names[][2] =
             [m_parent byteOffsetForDecoder:self]);
 }
 
-- (unsigned int)frontSize
+- (size_t)frontSize
 {
     return m_hdr->pth_length;
 }
 
-- (unsigned int)rearSize
+- (size_t)rearSize
 {
 	return 0;
 }
@@ -241,7 +241,7 @@ static NSString *names[][2] =
     return YES;
 }
 
-- (unsigned int)numberOfChildren
+- (size_t)numberOfChildren
 {
     return sizeof(names) / sizeof(names[0]);
 }
@@ -338,7 +338,7 @@ static NSString *names[][2] =
 	return [ret autorelease];
 }
 
-- (unsigned int)numberOfValues
+- (size_t)numberOfValues
 {
     return 1;
 }

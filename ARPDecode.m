@@ -109,12 +109,12 @@ static	NSString *rarp_names[][2] =	{{@"Hardware Address Type", @"RARP HW Type"},
 	parent = parentVal;
 }
 
-- (unsigned int)frontSize
+- (size_t)frontSize
 {
 	return sizeof(struct arphdr) + (hardsz * 2) + (protsz * 2);
 }
 
-- (unsigned int)rearSize
+- (size_t)rearSize
 {
 	return 0;
 }
@@ -457,7 +457,7 @@ static	NSString *rarp_names[][2] =	{{@"Hardware Address Type", @"RARP HW Type"},
 	return YES;
 }
 
-- (unsigned int)numberOfChildren
+- (size_t)numberOfChildren
 {
 	return 9;
 }
@@ -535,7 +535,7 @@ static	NSString *rarp_names[][2] =	{{@"Hardware Address Type", @"RARP HW Type"},
 	return [ret autorelease];
 }
 
-- (unsigned int)numberOfValues
+- (size_t)numberOfValues
 {
 	return 1;
 }

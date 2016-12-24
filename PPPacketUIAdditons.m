@@ -98,7 +98,7 @@ static NSString *names[][2] = {{@"Packet number", @"#"},
 - (NSString *)protocols
 {
 	NSMutableString *ret;
-	unsigned int n;
+	NSUInteger n;
 
 	[self processPlugins];
 
@@ -130,7 +130,7 @@ static NSString *names[][2] = {{@"Packet number", @"#"},
 - (NSString *)info
 {
 	NSString *ret;
-	unsigned int n;
+	NSUInteger n;
 
 	[self processPlugins];
 
@@ -186,7 +186,7 @@ static NSString *names[][2] = {{@"Packet number", @"#"},
 	return YES;
 }
 
-- (unsigned int)numberOfChildren
+- (size_t)numberOfChildren
 {
 	[self processPlugins];
 	return ([decoders count] + 3);
@@ -229,7 +229,7 @@ static NSString *names[][2] = {{@"Packet number", @"#"},
 	}
 }
 
-- (unsigned int)numberOfValues
+- (size_t)numberOfValues
 {
 	return 0;
 }
@@ -262,7 +262,7 @@ static NSString *names[][2] = {{@"Packet number", @"#"},
 {
 	switch(fieldIndex) {
 		case 0:
-			return [NSString stringWithFormat:@"%u", [self number]];
+			return [NSString stringWithFormat:@"%lu", [self number]];
 		case 1:
 			return [[self date] descriptionWithFormat:TABLEVIEW_DATE_FORMAT];
 		case 2:
@@ -315,7 +315,7 @@ static NSString *names[][2] = {{@"Packet number", @"#"},
 - (id)decoderForPlugin:(id <PPDecoderPlugin>)plugin
 {
 	PPPluginWrapper *pluginWrapper;
-	unsigned int i;
+	NSUInteger i;
 
 	if(plugin == nil)
 		return nil;
@@ -340,7 +340,7 @@ static NSString *names[][2] = {{@"Packet number", @"#"},
 	if([filterProgram program] == NULL)
 		return YES;
 
-	return (bpf_filter2([filterProgram program]->bf_insns, (unsigned char *)[data bytes], actualLength, captureLength) != 0) ? YES : NO;
+	return (bpf_filter2([filterProgram program]->bf_insns, (unsigned char *)[data bytes], (unsigned)actualLength, (unsigned)captureLength) != 0) ? YES : NO;
 }
 
 @end

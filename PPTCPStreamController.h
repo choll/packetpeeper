@@ -53,16 +53,16 @@
 - (void)removePacketsAtIndexes:(NSIndexSet *)indexSet forStream:(PPTCPStream *)stream;
 - (void)removeStream:(PPTCPStream *)stream;
 - (void)removeStreamFromMap:(PPTCPStream *)stream; /* private method */
-- (void)removeStreamAtIndex:(unsigned int)index;
+- (void)removeStreamAtIndex:(NSInteger)index;
 - (void)addPacket:(Packet *)packet;
 - (void)addPacketArray:(NSArray *)array;
 - (void)flush;
 - (void)sortStreams:(unsigned int)index;
 - (void)setReversePacketOrder:(BOOL)reverse;
 - (BOOL)isReverseOrder;
-- (int)indexForStream:(PPTCPStream *)stream;
-- (unsigned int)numberOfStreams;
-- (PPTCPStream *)streamAtIndex:(int)index;
+- (NSInteger)indexForStream:(PPTCPStream *)stream;
+- (size_t)numberOfStreams;
+- (PPTCPStream *)streamAtIndex:(NSInteger)index;
 
 @end
 

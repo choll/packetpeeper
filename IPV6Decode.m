@@ -98,7 +98,7 @@ static inline unsigned int ip6_get_hop_limit(const struct ip6_hdr* hdr)
             [m_parent byteOffsetForDecoder:self]);
 }
 
-- (unsigned int)frontSize
+- (size_t)frontSize
 {
     // TODO: Support extension headers:
     //
@@ -112,7 +112,7 @@ static inline unsigned int ip6_get_hop_limit(const struct ip6_hdr* hdr)
     return sizeof(struct ip6_hdr);
 }
 
-- (unsigned int)rearSize
+- (size_t)rearSize
 {
 	return 0;
 }
@@ -141,7 +141,7 @@ static inline unsigned int ip6_get_hop_limit(const struct ip6_hdr* hdr)
 
 - (NSString *)info
 {
-    return [NSString stringWithFormat:@"%@ to %@, %uB total", [self from], [self to], [self length]];
+    return [NSString stringWithFormat:@"%@ to %@, %zuB total", [self from], [self to], [self length]];
 }
 
 - (NSString *)addrTo
@@ -184,12 +184,12 @@ static inline unsigned int ip6_get_hop_limit(const struct ip6_hdr* hdr)
     return ret;
 }
 
-- (unsigned int)length
+- (size_t)length
 {
     return ip6_get_payload_length(m_hdr) + sizeof(struct ip6_hdr);
 }
 
-- (unsigned int)headerLength
+- (size_t)headerLength
 {
 	return [self frontSize];
 }
@@ -327,7 +327,7 @@ static inline unsigned int ip6_get_hop_limit(const struct ip6_hdr* hdr)
     return YES;
 }
 
-- (unsigned int)numberOfChildren
+- (size_t)numberOfChildren
 {
     return 8;
 }
@@ -387,7 +387,7 @@ static inline unsigned int ip6_get_hop_limit(const struct ip6_hdr* hdr)
 	return [ret autorelease];
 }
 
-- (unsigned int)numberOfValues
+- (size_t)numberOfValues
 {
     return 1;
 }

@@ -69,8 +69,8 @@
 - (NSString *)flagsMeaning;
 - (BOOL)dontFragmentFlag;
 - (BOOL)moreFragmentsFlag;
-- (unsigned int)length;
-- (unsigned int)headerLength;
+- (size_t)length;
+- (size_t)headerLength;
 - (unsigned int)fragmentOffset;
 - (struct in_addr)in_addrSrc;
 - (struct in_addr)in_addrDst;

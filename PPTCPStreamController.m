@@ -184,7 +184,7 @@ static void rb_key_copy(void *dst, const void *src);
 	[stream release];
 }
 
-- (void)removeStreamAtIndex:(unsigned int)index
+- (void)removeStreamAtIndex:(NSInteger)index
 {
 	PPTCPStream *stream;
 
@@ -313,12 +313,12 @@ static void rb_key_copy(void *dst, const void *src);
 	return reverseOrder;
 }
 
-- (int)indexForStream:(PPTCPStream *)stream
+- (NSInteger)indexForStream:(PPTCPStream *)stream
 {
-	unsigned int upper,
-				 lower,
-				 current,
-				 total;
+	NSInteger upper,
+              lower,
+              current,
+              total;
 
 	if(stream == nil)
 		return -1;
@@ -377,12 +377,12 @@ static void rb_key_copy(void *dst, const void *src);
 	/* NOTREACHED */
 }
 
-- (unsigned int)numberOfStreams
+- (size_t)numberOfStreams
 {
 	return [streams count];
 }
 
-- (PPTCPStream *)streamAtIndex:(int)index
+- (PPTCPStream *)streamAtIndex:(NSInteger)index
 {
 	if(index >= 0 && index < [streams count])	{
 		/* transform the index if we are in reverse order */

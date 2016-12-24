@@ -20,6 +20,8 @@
 #ifndef _DECODE_H_
 #define _DECODE_H_
 
+#include <stddef.h>
+
 @class Packet;
 @class NSData;
 @protocol NSObject;
@@ -43,13 +45,13 @@
 	Returns the amount of data processed by the decoder, from the front of the
 	given data.
 */
-- (unsigned int)frontSize;
+- (size_t)frontSize;
 
 /*
 	Returns the amount of data processed by the decoder, from the rear of the
 	given data.
 */
-- (unsigned int)rearSize;
+- (size_t)rearSize;
 
 /*
 	Returns the class that can decode the layer immediately below the called

@@ -148,7 +148,7 @@
 
 // NSTableView data-source methods
 
-- (int)numberOfRowsInTableView:(NSTableView *)tableView
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView
 {
     return [targetsArray_ count];
 }
@@ -178,14 +178,14 @@
     if ([[tableColumn identifier] isEqualToString:@"HostA"] && [[anObject class] isSubclassOfClass:[NSString class]])
     {
         PPArpSpoofingTableItem* item = [targetsArray_ objectAtIndex:rowIndex];
-        const int hostIndex = [neighbouringHostsArray_ indexOfObject:anObject];
+        const NSUInteger hostIndex = [neighbouringHostsArray_ indexOfObject:anObject];
         [item->hostAComboBox_ selectItemAtIndex:hostIndex];
         [item->hostAComboBox_ setObjectValue:anObject];
     }
     else if ([[tableColumn identifier] isEqualToString:@"HostB"] && [[anObject class] isSubclassOfClass:[NSString class]])
     {
         PPArpSpoofingTableItem* item = [targetsArray_ objectAtIndex:rowIndex];
-        const int hostIndex = [neighbouringHostsArray_ indexOfObject:anObject];
+        const NSUInteger hostIndex = [neighbouringHostsArray_ indexOfObject:anObject];
         [item->hostBComboBox_ selectItemAtIndex:hostIndex];
         [item->hostBComboBox_ setObjectValue:anObject];
     }

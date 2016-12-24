@@ -21,6 +21,7 @@
 #define _OUTLINEVIEWITEM_H_
 
 #import <Foundation/NSObject.h>
+#include <stddef.h>
 
 @class NSObject;
 @class NSArray;
@@ -30,9 +31,9 @@
 
 @protocol OutlineViewItem <NSObject>
 - (BOOL)expandable;
-- (unsigned int)numberOfChildren;
+- (size_t)numberOfChildren;
 - (id)childAtIndex:(int)fieldIndex;
-- (unsigned int)numberOfValues;
+- (size_t)numberOfValues;
 - (id)valueAtIndex:(int)anIndex;
 @end
 
@@ -46,7 +47,6 @@
 - (void)addObject:(id)anObject;
 - (void)removeChild:(id)anObject;
 - (void)addChild:(id)anObject;
-- (unsigned int)indexOfChild:(id)anObject;
 - (void)insertChild:(id)anObject atIndex:(unsigned int)index;
 - (void)addChildWithCallback:(id)aTarget selector:(SEL)aSelector data:(void *)ptr;
 - (void)addChildWithObjects:(id)firstObj, ...;
