@@ -78,8 +78,7 @@
 
 - (IBAction)dismissButtonPressed:(id)sender
 {
-	[[self window] orderOut:sender];
-	[NSApp endSheet:[self window] returnCode:0];
+    [[[self window] sheetParent] endSheet:[self window] returnCode:NSModalResponseCancel];
 }
 
 - (IBAction)nextButtonPressed:(id)sender

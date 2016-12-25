@@ -554,8 +554,7 @@ err:
 - (void)closeProgressSheet
 {
 	if(progressWindowController != nil) {
-		[[progressWindowController window] orderOut:self];
-		[NSApp endSheet:[progressWindowController window] returnCode:0];
+        [[self windowForSheet] endSheet:[progressWindowController window] returnCode:NSModalResponseOK];
 		[self removeWindowController:progressWindowController];
 		[progressWindowController release];
 		progressWindowController = nil;
@@ -599,7 +598,7 @@ err:
         completionHandler:
             ^(NSModalResponse result)
             {
-                [filterWindowController sheetDidEnd:[self windowForSheet] returnCode:result contextInfo:NULL];
+                [filterWindowController sheetDidEnd:[filterWindowController window] returnCode:result contextInfo:NULL];
             }];
 
 	[filterWindowController release];
@@ -618,7 +617,7 @@ err:
         completionHandler:
             ^(NSModalResponse result)
             {
-                [setupWindowController sheetDidEnd:[self windowForSheet] returnCode:result contextInfo:NULL];
+                [setupWindowController sheetDidEnd:[setupWindowController window] returnCode:result contextInfo:NULL];
             }];
 
 	[setupWindowController release];
@@ -1002,7 +1001,7 @@ err:
         completionHandler:
             ^(NSModalResponse result)
             {
-                [self sheetDidEnd:[self windowForSheet]
+                [self sheetDidEnd:[errorReportWindowController window]
                       returnCode:result
                       contextInfo:(void*)((intptr_t)closeDocument) /* disgust, intptr is to suppress warning... */];
             }];
@@ -1322,7 +1321,6 @@ err:
 err:
 	[self closeProgressSheet];
 	[self displayErrorStack:nil close:NO];
-
 }
 
 - (void)dealloc

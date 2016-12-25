@@ -80,11 +80,8 @@
 
 - (void)sheetDidEnd:(NSWindow *)sheet returnCode:(NSModalResponse)returnCode contextInfo:(void *)contextInfo
 {
-	if(returnCode) {
+	if(returnCode == NSModalResponseOK)
 		[[self document] setCaptureFilter:[self filter]];
-	}
-
-	[[self window] orderOut:self];
 	[[self document] removeWindowController:self];
 }
 
@@ -203,14 +200,12 @@
 
 - (IBAction)applyButtonPressed:(id)sender
 {
-    [[self window] orderOut:sender];
-    [NSApp endSheet:[self window] returnCode:1];
+    [[[self window] sheetParent] endSheet:[self window] returnCode:NSModalResponseOK];
 }
 
 - (IBAction)cancelButtonPressed:(id)sender
 {
-	[[self window] orderOut:sender];
-	[NSApp endSheet:[self window] returnCode:0];
+    [[[self window] sheetParent] endSheet:[self window] returnCode:NSModalResponseCancel];
 }
 
 - (void)dealloc
@@ -220,3 +215,4 @@
 }
 
 @end
+

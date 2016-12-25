@@ -196,14 +196,14 @@
 - (IBAction)startButtonPressed:(id)sender
 {
     [[[self window] sheetParent] endSheet:[self window] returnCode:NSModalResponseOK];
-    // window controller has now been dealloced--not sure if this is the
+    // Window controller has now been dealloced--not sure if this is the
     // correct approach, possibly the completionHandler block should autorelease?
 }
 
 - (IBAction)cancelButtonPressed:(id)sender
 {
     [[[self window] sheetParent] endSheet:[self window] returnCode:NSModalResponseCancel];
-    // window controller has now been dealloced--see above
+    // Window controller has now been dealloced--see above
 }
 
 - (IBAction)stopConditionCheckBox:(id)sender
