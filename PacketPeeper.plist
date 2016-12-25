@@ -72,9 +72,9 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>2014-05-11</string>
+	<string>BUNDLE_VERSION_PLACEHOLDER</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>Copyright 2006, 2007, 2008, 2014 Chris E. Holloway</string>
+	<string>Copyright 2006, 2007, 2008, 2014, 2016 Chris E. Holloway</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
