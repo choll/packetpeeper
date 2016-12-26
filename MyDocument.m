@@ -75,9 +75,7 @@
 #include "PPTCPStreamController.h"
 #include "PPTCPStreamReassembler.h"
 #include "PPTCPStream.h"
-/*#include "PPNodeGraphController.h"*/
 #include "PacketCaptureWindowController.h"
-#include "PPNodeGraphWindowController.h"
 #include "PPTCPStreamWindowController.h"
 #include "PPStreamsWindowController.h"
 #include "PPArpSpoofingWindowController.h"
@@ -676,16 +674,6 @@ err:
 	[controller release];
 }
 
-- (void)displayNodeGraphWindow
-{
-//	PPNodeGraphWindowController *controller;
-//
-//	controller = [[PPNodeGraphWindowController alloc] initWithNodeGraphController:nodeGraphController];
-//	[self addWindowController:controller];
-//	[controller showWindow:self];
-//	[controller release];
-}
-
 - (void)displayStreamsWindow
 {
 	if(streamsWindowController == nil) {
@@ -717,11 +705,6 @@ err:
 {
 	return captureWindowController;
 }
-
-//- (void)setNodeGraphController:(PPNodeGraphController *)aNodeGraphController
-//{
-//	nodeGraphController = aNodeGraphController;
-//}
 
 - (BOOL)isSaveOperationInProgress
 {

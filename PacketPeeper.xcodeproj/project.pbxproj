@@ -84,7 +84,6 @@
 		832D5B490AFFF00B007D1E56 /* ErrorReportSheet.nib in Resources */ = {isa = PBXBuildFile; fileRef = 83C4565D076F469C00050832 /* ErrorReportSheet.nib */; };
 		832D5B4B0AFFF00B007D1E56 /* IndividualPacket.nib in Resources */ = {isa = PBXBuildFile; fileRef = 839C2C280783230E006BA02E /* IndividualPacket.nib */; };
 		832D5B4D0AFFF00B007D1E56 /* PPTCPStreamWindow.nib in Resources */ = {isa = PBXBuildFile; fileRef = 83FE245B082051F8006CA5C5 /* PPTCPStreamWindow.nib */; };
-		832D5B4E0AFFF00B007D1E56 /* PPNodeGraphPanel.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8352967C08B10AB100E175FD /* PPNodeGraphPanel.nib */; };
 		832D5B4F0AFFF00B007D1E56 /* PPStreamsWindow.nib in Resources */ = {isa = PBXBuildFile; fileRef = 83B5C8D30948E49100C46868 /* PPStreamsWindow.nib */; };
 		832D5B510AFFF00B007D1E56 /* port-numbers-tcp.port in Resources */ = {isa = PBXBuildFile; fileRef = 837BC1790AF522300004A36E /* port-numbers-tcp.port */; };
 		832D5B520AFFF00B007D1E56 /* port-numbers-udp.port in Resources */ = {isa = PBXBuildFile; fileRef = 837BC17A0AF522310004A36E /* port-numbers-udp.port */; };
@@ -409,7 +408,6 @@
 		835236D40858D87E005F0D73 /* PPNodeGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPNodeGraphView.m; sourceTree = "<group>"; };
 		83524279085B6E4A005F0D73 /* quartzgen.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = quartzgen.m; sourceTree = "<group>"; };
 		8352427D085B6EE3005F0D73 /* quartzgen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = quartzgen.h; sourceTree = "<group>"; };
-		8352967D08B10AB100E175FD /* en */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = en; path = en.lproj/PPNodeGraphPanel.nib; sourceTree = "<group>"; };
 		835296D108B13CF200E175FD /* PPNodeGraphWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPNodeGraphWindowController.h; sourceTree = "<group>"; };
 		835296D208B13CF200E175FD /* PPNodeGraphWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPNodeGraphWindowController.m; sourceTree = "<group>"; };
 		835297E508B265F300E175FD /* PPCenteredClipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPCenteredClipView.h; sourceTree = "<group>"; };
@@ -684,7 +682,6 @@
 				83C4565D076F469C00050832 /* ErrorReportSheet.nib */,
 				839C2C280783230E006BA02E /* IndividualPacket.nib */,
 				83FE245B082051F8006CA5C5 /* PPTCPStreamWindow.nib */,
-				8352967C08B10AB100E175FD /* PPNodeGraphPanel.nib */,
 				83B5C8D30948E49100C46868 /* PPStreamsWindow.nib */,
 			);
 			name = Resources;
@@ -1143,7 +1140,6 @@
 				832D5B490AFFF00B007D1E56 /* ErrorReportSheet.nib in Resources */,
 				832D5B4B0AFFF00B007D1E56 /* IndividualPacket.nib in Resources */,
 				832D5B4D0AFFF00B007D1E56 /* PPTCPStreamWindow.nib in Resources */,
-				832D5B4E0AFFF00B007D1E56 /* PPNodeGraphPanel.nib in Resources */,
 				83D22BD119217B5D00DA0745 /* PPArpSpoofingWindow.xib in Resources */,
 				83D22BCD191FEA4B00DA0745 /* DataInspectorView.xib in Resources */,
 				832D5B4F0AFFF00B007D1E56 /* PPStreamsWindow.nib in Resources */,
@@ -1389,14 +1385,6 @@
 				830C23F718E22FC400ACBD55 /* en */,
 			);
 			name = ProgressSheet.nib;
-			sourceTree = "<group>";
-		};
-		8352967C08B10AB100E175FD /* PPNodeGraphPanel.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				8352967D08B10AB100E175FD /* en */,
-			);
-			name = PPNodeGraphPanel.nib;
 			sourceTree = "<group>";
 		};
 		839C2C280783230E006BA02E /* IndividualPacket.nib */ = {

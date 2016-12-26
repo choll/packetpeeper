@@ -58,7 +58,6 @@ typedef enum _bufsize bufsize;
 @class PacketCaptureWindowController;
 @class PPCaptureFilterWindowController;
 @class PPProgressWindowController;
-@class PPNodeGraphController;
 @class ObjectIO;
 @class Packet;
 @class PPTCPStreamController;
@@ -118,13 +117,10 @@ struct thread_args;
 - (void)displaySetupSheet;
 - (void)displayIndividualWindow:(Packet *)aPacket;
 - (void)displayReassemblyWindowForPacket:(Packet *)aPacket;
-- (void)displayNodeGraphWindow;
 - (void)displayStreamsWindow;
 - (void)displayArpSpoofingWindow;
 
 - (PacketCaptureWindowController *)packetCaptureWindowController;
-
-//- (void)setNodeGraphController:(PPNodeGraphController *)aNodeGraphController;
 
 - (BOOL)isSaveOperationInProgress;
 - (BOOL)isLive;

@@ -725,11 +725,6 @@
 	[[self document] displayArpSpoofingWindow];
 }
 
-- (IBAction)nodeGraphButton:(id)sender
-{
-	[[self document] displayNodeGraphWindow];
-}
-
 - (IBAction)cancelEndingButton:(id)sender
 {
 	[[self document] cancelEndingConditions];

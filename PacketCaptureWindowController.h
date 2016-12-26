@@ -95,7 +95,6 @@
 - (IBAction)individualPacketButton:(id)sender;
 - (IBAction)flushHostnamesButton:(id)sender;
 - (IBAction)reassembleStreamButton:(id)sender;
-- (IBAction)nodeGraphButton:(id)sender;
 - (IBAction)streamsWindowButton:(id)sender;
 - (IBAction)arpSpoofingWindowButton:(id)sender;
 - (IBAction)cancelEndingButton:(id)sender;
