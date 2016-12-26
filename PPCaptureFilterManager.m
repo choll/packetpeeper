@@ -63,11 +63,13 @@ static PPCaptureFilterManager *sharedCaptureFilterManager = nil;
 - (void)addFilter:(PPCaptureFilter *)filter
 {
 	[m_filters setObject:filter forKey:[filter name]];
+	[self saveFilters]; // save to disk immediately
 }
 
 - (void)removeFilter:(PPCaptureFilter *)filter
 {
 	[m_filters removeObjectForKey:[filter name]];
+	[self saveFilters]; // save to disk immediately
 }
 
 - (void)saveFilters
@@ -86,7 +88,6 @@ static PPCaptureFilterManager *sharedCaptureFilterManager = nil;
 
 - (void)dealloc
 {
-	[self saveFilters];
 	[m_filters release];
 	[super dealloc];
 }

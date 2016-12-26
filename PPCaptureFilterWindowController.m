@@ -131,6 +131,7 @@
 
 	[filterTextField setObjectValue:[filters objectAtIndex:itemIndex]];
 	[filterNetmaskTextField setObjectValue:[NSNumber numberWithUnsignedLong:[[filters objectAtIndex:itemIndex] netmask]]];
+    [self controlTextDidChange:notification];
 }
 
 - (IBAction)saveFilterButtonPressed:(id)sender

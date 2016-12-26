@@ -118,6 +118,11 @@
                                     <action selector="copy:" target="-1" id="617"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title="Paste" keyEquivalent="v" id="QyU-sU-Iq1">
+                                <connections>
+                                    <action selector="pasteAsPlainText:" target="-1" id="Trn-hZ-hV1"/>
+                                </connections>
+                            </menuItem>
                             <menuItem title="Delete Packet" id="541">
                                 <string key="keyEquivalent" base64-UTF8="YES">
 CA
