@@ -34,7 +34,7 @@
 #define PPDocumentSaveOperationSucceededNotification	@"PPSaveSucceeded"
 #define PPDocumentSaveOperationFailedNotification		@"PPSaveFailed"
 
-/* note that BS_HUGE is chosen as default, 
+/* note that BS_HUGE is chosen as default,
    as the bpf device chooses the largest buffer
    itself if unspecified by the user */
 

@@ -257,7 +257,7 @@ err:
         *outError = [[NSError alloc] initWithDomain:@"PacketPeeperErrorDomain" code:noErr userInfo:errDict];
         [*outError autorelease];
     }
-    
+
 	return NO;
 }
 
