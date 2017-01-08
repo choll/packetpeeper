@@ -257,13 +257,6 @@ static BreakpadRef InitBreakpad(void);
 	NSTableColumn *column;
 	unsigned int i;
 
-	/* delete the users preferences to avoid incompatibility issues between release 1 and 2 */
-	if([[NSUserDefaults standardUserDefaults] floatForKey:PP_PREFS_VERSION_NUMBER_KEY] < PP_VERSION_NUMBER) {
-		[[NSUserDefaults standardUserDefaults] removePersistentDomainForName:@"Packet Peeper"];
-		[[NSUserDefaults standardUserDefaults] setFloat:PP_VERSION_NUMBER forKey:PP_PREFS_VERSION_NUMBER_KEY];
-		[[NSUserDefaults standardUserDefaults] synchronize];
-	}
-
 	/* using the information from the menu is kind of ugly, ought to be better than this. */
 
 	if((defaultValues = [[NSMutableDictionary alloc] init]) == nil)
@@ -297,14 +290,12 @@ static BreakpadRef InitBreakpad(void);
 		column = [[NSTableColumn alloc] initWithIdentifier:currentIdentifier];
 #pragma clang diagnostic pop
 
-		[[column headerCell] takeStringValueFrom:[currentIdentifier shortName]];
+		[[column headerCell] setStringValue:[currentIdentifier shortName]];
 		[column setEditable:NO];
 		[packetTableColumnArray addObject:column];
 		[column release];
 		[menuItem setState:NSOnState];
 	}
-
-	/* XXX todo: add TCPDecode @"Source Hostname" and @"Destination Hostname" to the defaults */
 
 	menu = [PPStreamsWindowController createStreamTableMenu];
 
@@ -313,7 +304,7 @@ static BreakpadRef InitBreakpad(void);
 		menuItem = [menu itemAtIndex:[menu indexOfItemWithRepresentedObject:column_id_stream_table[i]]];
 		column = [[NSTableColumn alloc] initWithIdentifier:column_id_stream_table[i]];
 
-		[[column headerCell] takeStringValueFrom:[menuItem title]];
+		[[column headerCell] setStringValue:[menuItem title]];
 
 		[column setEditable:NO];
 		[streamTableColumnArray addObject:column];

@@ -189,9 +189,9 @@
 		column = [[NSTableColumn alloc] initWithIdentifier:identifier];
 
 		if([identifier isMemberOfClass:[ColumnIdentifier class]])
-			[[column headerCell] takeStringValueFrom:[identifier shortName]];
+			[[column headerCell] setStringValue:[identifier shortName]];
 		else if([identifier isKindOfClass:[NSString class]])
-			[[column headerCell] takeStringValueFrom:[sender title]];
+			[[column headerCell] setStringValue:[sender title]];
 		else
 			return;
 
