@@ -731,6 +731,18 @@
 	[cancelEndingButton setHidden:YES];
 }
 
+- (void)displaySavingIndicator
+{
+    [saveProgressIndicator startAnimation:nil];
+    [saveTextField setHidden:NO];
+}
+
+- (void)hideSavingIndicator
+{
+    [saveProgressIndicator stopAnimation:nil];
+    [saveTextField setHidden:YES];
+}
+
 - (void)dealloc
 {
 	[lastColumn release];

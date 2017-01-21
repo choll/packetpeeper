@@ -22,6 +22,8 @@
 
 #import <AppKit/NSTableView.h>
 #import <AppKit/NSToolbar.h>
+#import <AppKit/NSTextField.h>
+#import <AppKit/NSProgressIndicator.h>
 #include "IndividualPacketWindowController.h"
 
 @class NSToolbar;
@@ -42,6 +44,8 @@
 	IBOutlet NSTextField *statusTextField;
 	IBOutlet NSButton *cancelEndingButton;
 	NSTableColumn *lastColumn;
+	IBOutlet NSTextField *saveTextField;
+	IBOutlet NSProgressIndicator *saveProgressIndicator;
 	BOOL autoScrolling;
 }
 
@@ -98,6 +102,9 @@
 - (IBAction)streamsWindowButton:(id)sender;
 - (IBAction)arpSpoofingWindowButton:(id)sender;
 - (IBAction)cancelEndingButton:(id)sender;
+
+- (void)displaySavingIndicator;
+- (void)hideSavingIndicator;
 
 @end
 

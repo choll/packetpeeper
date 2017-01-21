@@ -231,8 +231,6 @@
 		83566B340D4E87C90037485E /* PPCaptureFilterWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83566B320D4E87C90037485E /* PPCaptureFilterWindowController.m */; };
 		835B0B8E0D947E2B0034E32D /* clear_filters.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 835B0B8C0D947E2B0034E32D /* clear_filters.tiff */; };
 		835B0B8F0D947E2B0034E32D /* filters.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 835B0B8D0D947E2B0034E32D /* filters.tiff */; };
-		835B0FC40DAD703F0034E32D /* PPApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = 835B0FC20DAD703F0034E32D /* PPApplication.h */; };
-		835B0FC50DAD703F0034E32D /* PPApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 835B0FC30DAD703F0034E32D /* PPApplication.m */; };
 		835F0BCA0C70C498003B6A65 /* in_cksum.c in Sources */ = {isa = PBXBuildFile; fileRef = 835F0BC80C70C498003B6A65 /* in_cksum.c */; };
 		835F0BCB0C70C499003B6A65 /* in_cksum.h in Headers */ = {isa = PBXBuildFile; fileRef = 835F0BC90C70C498003B6A65 /* in_cksum.h */; };
 		835F14660C73AEBD003B6A65 /* in_cksum.c in Sources */ = {isa = PBXBuildFile; fileRef = 835F0BC80C70C498003B6A65 /* in_cksum.c */; };
@@ -432,8 +430,6 @@
 		83566B320D4E87C90037485E /* PPCaptureFilterWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPCaptureFilterWindowController.m; sourceTree = "<group>"; };
 		835B0B8C0D947E2B0034E32D /* clear_filters.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = clear_filters.tiff; sourceTree = "<group>"; };
 		835B0B8D0D947E2B0034E32D /* filters.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = filters.tiff; sourceTree = "<group>"; };
-		835B0FC20DAD703F0034E32D /* PPApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPApplication.h; sourceTree = "<group>"; };
-		835B0FC30DAD703F0034E32D /* PPApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPApplication.m; sourceTree = "<group>"; };
 		835F0BC80C70C498003B6A65 /* in_cksum.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = in_cksum.c; sourceTree = "<group>"; };
 		835F0BC90C70C498003B6A65 /* in_cksum.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = in_cksum.h; sourceTree = "<group>"; };
 		83620A1E06E08B8A00336558 /* strfuncs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = strfuncs.m; sourceTree = "<group>"; };
@@ -772,8 +768,6 @@
 				83B8AFDF095F66B300027F4E /* oui2pp.py */,
 				83B8B01709600F7500027F4E /* services2pp.py */,
 				8332D413069EDC6300F35800 /* main.m */,
-				835B0FC20DAD703F0034E32D /* PPApplication.h */,
-				835B0FC30DAD703F0034E32D /* PPApplication.m */,
 				83A6398506F3BC5B00E8CF04 /* AppController.h */,
 				83A6398606F3BC5B00E8CF04 /* AppController.m */,
 				83CD8FD90773B2790012C1CD /* Describe.h */,
@@ -986,7 +980,6 @@
 				835666CC0D43EB300037485E /* bpf_filter.h in Headers */,
 				83700F5319428FE8005BE7DB /* PPRVIDecode.h in Headers */,
 				83566B330D4E87C90037485E /* PPCaptureFilterWindowController.h in Headers */,
-				835B0FC40DAD703F0034E32D /* PPApplication.h in Headers */,
 				83FA84D60DC3507D004C66C3 /* PacketCaptureWindowController.h in Headers */,
 				83FA8A800DC67AAD004C66C3 /* IndividualPacketWindowController.h in Headers */,
 				838EAD550E2A91940003F920 /* PPDecoderParent.h in Headers */,
@@ -1250,7 +1243,6 @@
 				8369ADDD191857B5002966D9 /* async.cpp in Sources */,
 				835666BF0D43EAEC0037485E /* bpf_filter.c in Sources */,
 				83566B340D4E87C90037485E /* PPCaptureFilterWindowController.m in Sources */,
-				835B0FC50DAD703F0034E32D /* PPApplication.m in Sources */,
 				83700F5519428FE8005BE7DB /* PPRVIDecode.m in Sources */,
 				83FA8A7F0DC67AAC004C66C3 /* IndividualPacketWindowController.m in Sources */,
 				83D22BC1191ABDDF00DA0745 /* HostCache.mm in Sources */,

@@ -60,6 +60,6 @@
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
-	<string>PPApplication</string>
+	<string>NSApplication</string>
 </dict>
 </plist>

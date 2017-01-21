@@ -93,17 +93,10 @@
 
 static void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef address, const void *data, void *info);
 static void *read_from_url_thread(void *args);
-static void *write_to_url_thread(void *args);
 static void *filter_packets_thread(void *args);
-static NSString *make_temp_path(NSString *path);
 
 struct thread_args {
-	enum {THREAD_OP_DOC_READ,
-		  THREAD_OP_DOC_SAVE,
-		  THREAD_OP_DOC_SAVE_AS,
-		  THREAD_OP_DOC_SAVE_TO,
-		  THREAD_OP_DOC_SAVE_AUTO,
-		  THREAD_OP_DOC_FILTER} op;
+	enum {THREAD_OP_DOC_READ, THREAD_OP_DOC_FILTER} op;
 	id input[3];
 	volatile id output[2];
 	NSTimer *timer;
@@ -168,113 +161,101 @@ struct thread_args {
 	return linkType;
 }
 
-- (IBAction)saveDocument:(id)sender
+- (BOOL)canAsynchronouslyWriteToURL:(NSURL *)url ofType:(NSString *)typeName forSaveOperation:(NSSaveOperationType)saveOperation
 {
-	[super saveDocument:sender];
-
+    return YES;
 }
 
-- (BOOL)writeSafelyToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName forSaveOperation:(NSSaveOperationType)saveOperation error:(NSError **)outError
+- (void)saveToURL:(NSURL *)url ofType:(NSString *)typeName forSaveOperation:(NSSaveOperationType)saveOperation completionHandler:(void (^)(NSError *errorOrNil))completionHandler
 {
-	if(![typeName isEqualToString:@"tcpdump"] && ![typeName isEqualToString:@"tcpdump_import_all"])
-		return NO;
-
-	return [self writeToURL:absoluteURL ofType:typeName forSaveOperation:saveOperation originalContentsURL:[self fileURL] error:outError];
+    [captureWindowController displaySavingIndicator];
+    [super
+        saveToURL:url
+        ofType:typeName
+        forSaveOperation:saveOperation
+        completionHandler:
+            ^(NSError *errorOrNil)
+            {
+                [captureWindowController hideSavingIndicator];
+                completionHandler(errorOrNil);
+            }];
 }
 
-- (BOOL)writeToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName forSaveOperation:(NSSaveOperationType)saveOperation originalContentsURL:(NSURL *)absoluteOriginalContentsURL error:(NSError **)outError
+- (BOOL)writeToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outError
 {
+    // Note that this function is not invoked on the main thread as canAsynchronouslyWriteToURL returns YES
 	NSString *errorString;
 	NSDictionary *errDict;
-	int ret;
 
-    if (outError != NULL)
-        *outError = nil;
+    if(![typeName isEqualToString:@"tcpdump"])
+        return NO;
 
-	if(thread_args != NULL) {
-		errorString = @"File loading or saving operation already in progress";
-		goto err;
-	}
+    NSMutableArray* savePackets = [NSMutableArray arrayWithArray:allPackets != nil ? allPackets : packets]; // autoreleased
 
-	if(![typeName isEqualToString:@"tcpdump"] && ![typeName isEqualToString:@"tcpdump_import_all"])
-		return NO;
+    [self unblockUserInteraction];
 
-	if((thread_args = malloc(sizeof(struct thread_args))) == NULL) {
-		errorString = [NSString stringWithFormat:@"Error: malloc failed: %s", strerror(errno)];
-		goto err;
-	}
+    [savePackets sortUsingFunction:pkt_compare context:nil];
 
-	[self displayProgressSheetWithMessage:@"Saving" cancelSelector:@selector(cancelSavingFile)];
+    // If we have an RVI/PKTAP capture that was captured live then strip off the
+    // pktap header to keep compatibility with other sniffers. This is needed
+    // because Apple used a DLT_USER value for the DLT instead of getting a
+    // proper DLT value assigned. Technically Packet Peeper is incorrect for
+    // assuming that a DLT of 149 is RVI/PKTAP.
+    const BOOL stripPkTap =
+        [[savePackets objectAtIndex:0] linkType] == DLT_PKTAP &&
+        [[[[savePackets objectAtIndex:0] decoders] objectAtIndex:0] class] == [PPRVIDecode class] &&
+        ![interface isEqualToString:@"pcap"]; // interface is pcap if capture was loaded from disk
 
-	switch(saveOperation) {
-		case NSSaveOperation:
-			thread_args->op = THREAD_OP_DOC_SAVE;
-			break;
-		case NSSaveToOperation:
-			thread_args->op = THREAD_OP_DOC_SAVE_TO;
-			break;
-		case NSAutosaveElsewhereOperation:
-			thread_args->op = THREAD_OP_DOC_SAVE_AUTO;
-			break;
-		case NSSaveAsOperation:
-		default:
-			thread_args->op = THREAD_OP_DOC_SAVE_AS;
-			break;
-	}
+    int saveLinkType;
 
-	thread_args->input[0] = [absoluteURL retain];
-	thread_args->input[1] = [[self packetsSortedByNumber] retain];
-	thread_args->input[2] = [[self interface] retain];
-	thread_args->output[0] = nil;
-	thread_args->output[1] = nil;
-	thread_args->cancel = 0;
-	thread_args->failure = 0;
-	thread_args->success = 0;
-	thread_args->units_current = 0;
-	thread_args->units_total = 0;
-
-	if((ret = pthread_create(&thread_args->thread_id, NULL, write_to_url_thread, thread_args)) != 0) {
-		errorString = [NSString stringWithFormat:@"Error: failed to create thread: %s", strerror(ret)];
-		[thread_args->input[0] release];
-		[thread_args->input[1] release];
-		[thread_args->input[2] release];
-		free(thread_args);
-        goto err;
-	}
-
-	thread_args->timer = [[NSTimer scheduledTimerWithTimeInterval:DEFAULT_PROGRESSBAR_UPDATE_FREQUENCY target:self selector:@selector(workerThreadTimer) userInfo:nil repeats:YES] retain];
-
-	return YES;
-
-err:
-	[self closeProgressSheet];
-	errDict = [NSDictionary dictionaryWithObject:errorString forKey:NSLocalizedFailureReasonErrorKey];
-
-    if (outError != NULL)
-    {
-        *outError = [[NSError alloc] initWithDomain:@"PacketPeeperErrorDomain" code:noErr userInfo:errDict];
-        [*outError autorelease];
+    if(stripPkTap) {
+        saveLinkType = [[[[savePackets objectAtIndex:0] decoders] objectAtIndex:0] dlt];
+    } else {
+        saveLinkType = [[savePackets objectAtIndex:0] linkType];
     }
 
-	return NO;
-}
+    pcap_t *pcap;
+    if((pcap = pcap_open_dead(saveLinkType, BPF_MAXBUFSIZE)) == NULL) {
+        errorString = @"pcap_open_dead failed";
+        goto err;
+    }
 
-- (BOOL)revertToContentsOfURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outError
-{
-	if([typeName isEqualToString:@"tcpdump"] || [typeName isEqualToString:@"tcpdump_import_all"]) {
-		NSArray *windowControllers;
-		NSWindowController *current;
-		unsigned int i;
+    pcap_dumper_t *dump;
+    if((dump = pcap_dump_open(pcap, [[absoluteURL path] UTF8String])) == NULL) {
+        errorString = [NSString stringWithUTF8String:pcap_geterr(pcap)];
+        goto err;
+    }
 
-		windowControllers = [self windowControllers];
+    for(Packet* pkt in savePackets)
+    {
+        struct pcap_pkthdr hdr;
+        double seconds;
 
-		for(i = 0; i < [windowControllers count]; ++i) {
-			current = [windowControllers objectAtIndex:i];
-			[[current window] orderOut:self];
-		}
-	}
+        hdr.ts.tv_usec = (suseconds_t)(modf([[pkt date] timeIntervalSince1970], &seconds) * 1000000.0);
+        hdr.ts.tv_sec = (time_t)seconds;
 
-    return [super revertToContentsOfURL:absoluteURL ofType:typeName error:outError];
+        hdr.len = [pkt actualLength];
+        hdr.caplen = [pkt captureLength];
+
+        if(stripPkTap && [[[pkt decoders] objectAtIndex:0] class] == [PPRVIDecode class]) {
+            // If the decoder at index 0 is a PPRVIDecoder then we know we got a complete
+            // pktap header
+            const size_t offset = [[[pkt decoders] objectAtIndex:0] frontSize];
+            hdr.len -= offset;
+            hdr.caplen -= offset;
+            pcap_dump((unsigned char *)dump, &hdr, (unsigned char *)[[pkt packetData] bytes] + offset);
+        } else {
+            pcap_dump((unsigned char *)dump, &hdr, (unsigned char *)[[pkt packetData] bytes]);
+        }
+    }
+
+    return YES;
+
+err:
+    errDict = [NSDictionary dictionaryWithObject:errorString forKey:NSLocalizedFailureReasonErrorKey];
+    *outError = [[NSError alloc] initWithDomain:@"PacketPeeperErrorDomain" code:noErr userInfo:errDict];
+    [*outError autorelease];
+    return NO;
 }
 
 - (BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outError
@@ -291,7 +272,7 @@ err:
 		goto err;
 	}
 
-	if((![typeName isEqualToString:@"tcpdump"] && ![typeName isEqualToString:@"tcpdump_import_all"]) || ![absoluteURL isFileURL])
+	if(![typeName isEqualToString:@"tcpdump"] || ![absoluteURL isFileURL])
 		return NO;
 
 	if((thread_args = malloc(sizeof(struct thread_args))) == NULL) {
@@ -425,11 +406,6 @@ err:
 
 				[[captureWindowController window] makeKeyAndOrderFront:self];
                 [captureWindowController selectPacketAtIndex:0];
-			} else if(thread_args->op == THREAD_OP_DOC_SAVE || thread_args->op == THREAD_OP_DOC_SAVE_AS ||
-					  thread_args->op == THREAD_OP_DOC_SAVE_TO || thread_args->op == THREAD_OP_DOC_SAVE_AUTO) {
-				/* stop NSDocument complaining about not being able to find the document */
-				[self setFileURL:(NSURL *)thread_args->input[0]];
-				[[NSNotificationCenter defaultCenter] postNotificationName:PPDocumentSaveOperationSucceededNotification object:self];
 			} else if(thread_args->op == THREAD_OP_DOC_FILTER) {
 				if(allPackets == nil)
 					allPackets = packets;
@@ -455,11 +431,6 @@ err:
 				[[captureWindowController window] makeKeyAndOrderFront:self];
 				[[ErrorStack sharedErrorStack] pushError:[NSString stringWithFormat:@"Loading capture file failed: %@", thread_args->output[0]] lookup:Nil code:0 severity:ERRS_ERROR];
 				[self displayErrorStack:nil close:YES];
-			} else if(thread_args->op == THREAD_OP_DOC_SAVE || thread_args->op == THREAD_OP_DOC_SAVE_AS ||
-					  thread_args->op == THREAD_OP_DOC_SAVE_TO || thread_args->op == THREAD_OP_DOC_SAVE_AUTO) {
-				[self updateChangeCount:NSChangeUndone];
-				[[ErrorStack sharedErrorStack] pushError:[NSString stringWithFormat:@"Saving capture file failed: %@", thread_args->output[0]] lookup:Nil code:0 severity:ERRS_ERROR];
-				[self displayErrorStack:nil close:NO];
 			} else if(thread_args->op == THREAD_OP_DOC_FILTER) {
 				unsigned int i;
 
@@ -540,13 +511,6 @@ err:
 	[self closeProgressSheet];
 	[self cancelWorkerThread];
 	[self close];
-}
-
-- (void)cancelSavingFile
-{
-	[[NSNotificationCenter defaultCenter] postNotificationName:PPDocumentSaveOperationFailedNotification object:self];
-	[self closeProgressSheet];
-	[self cancelWorkerThread];
 }
 
 - (void)closeProgressSheet
@@ -704,14 +668,6 @@ err:
 - (PacketCaptureWindowController *)packetCaptureWindowController
 {
 	return captureWindowController;
-}
-
-- (BOOL)isSaveOperationInProgress
-{
-	return (thread_args != NULL && (thread_args->op == THREAD_OP_DOC_SAVE ||
-									thread_args->op == THREAD_OP_DOC_SAVE_AS ||
-									thread_args->op == THREAD_OP_DOC_SAVE_TO ||
-									thread_args->op == THREAD_OP_DOC_SAVE_AUTO));
 }
 
 - (BOOL)isLive
@@ -1435,123 +1391,6 @@ err:
 	return thread_args->output[0];
 }
 
-static void *write_to_url_thread(void *args)
-{
-    NSString *savePath;
-    NSAutoreleasePool *autoreleasePool;
-    pcap_t *pcap;
-    pcap_dumper_t *dump;
-    struct thread_args *thread_args;
-    struct pcap_pkthdr hdr;
-
-    pcap = NULL;
-    dump = NULL;
-    thread_args = args;
-
-    autoreleasePool = [[NSAutoreleasePool alloc] init];
-
-    // If we have an RVI/PKTAP capture that was captured live then strip off the
-    // pktap header to keep compatibility with other sniffers. This is needed
-    // because Apple used a DLT_USER value for the DLT instead of getting a
-    // proper DLT value assigned. Technically Packet Peeper is incorrect for
-    // assuming that a DLT of 149 is RVI/PKTAP.
-    const BOOL stripPkTap =
-        [[(NSArray *)thread_args->input[1] objectAtIndex:0] linkType] == DLT_PKTAP &&
-        [[[[(NSArray *)thread_args->input[1] objectAtIndex:0] decoders] objectAtIndex:0] class] == [PPRVIDecode class] &&
-        ![(NSString *)thread_args->input[2] isEqualToString:@"pcap"];
-
-    int linkType;
-
-    if(stripPkTap) {
-        linkType = [[[[(NSArray *)thread_args->input[1] objectAtIndex:0] decoders] objectAtIndex:0] dlt];
-    } else {
-        linkType = [[(NSArray *)thread_args->input[1] objectAtIndex:0] linkType];
-    }
-
-    if(thread_args->op == THREAD_OP_DOC_SAVE)
-        savePath = make_temp_path([(NSURL *)thread_args->input[0] path]);
-    else
-        savePath = [(NSURL *)thread_args->input[0] path];
-
-    if((pcap = pcap_open_dead(linkType, BPF_MAXBUFSIZE)) == NULL) {
-        thread_args->output[0] = @"pcap_open_dead failed";
-        goto err;
-    }
-
-    if((dump = pcap_dump_open(pcap, [savePath UTF8String])) == NULL) {
-        thread_args->output[0] = [[NSString alloc] initWithUTF8String:pcap_geterr(pcap)];
-        goto err;
-    }
-
-    thread_args->units_total = [(NSArray *)thread_args->input[1] count];
-    thread_args->output[0] = nil;
-    thread_args->output[1] = nil;
-
-    for(thread_args->units_current = 0; thread_args->units_current < thread_args->units_total; ++thread_args->units_current) {
-        Packet *pkt;
-        NSTimeInterval timeInterval;
-        double seconds;
-        suseconds_t mseconds;
-
-        pkt = [(NSArray *)thread_args->input[1] objectAtIndex:thread_args->units_current];
-
-        hdr.len = [pkt actualLength];
-        hdr.caplen = [pkt captureLength];
-
-        timeInterval = [[pkt date] timeIntervalSince1970];
-
-        mseconds = (suseconds_t)(modf(timeInterval, &seconds) * 1000000.0);
-
-        hdr.ts.tv_sec = (time_t)seconds;
-        hdr.ts.tv_usec = mseconds;
-
-        if(stripPkTap && [[[pkt decoders] objectAtIndex:0] class] == [PPRVIDecode class]) {
-            // If the decoder at index 0 is a PPRVIDecoder then we know we got a complete
-            // pktap header
-            const size_t offset = [[[pkt decoders] objectAtIndex:0] frontSize];
-            hdr.len -= offset;
-            hdr.caplen -= offset;
-            pcap_dump((unsigned char *)dump, &hdr, (unsigned char *)[[pkt packetData] bytes] + offset);
-        } else {
-            pcap_dump((unsigned char *)dump, &hdr, (unsigned char *)[[pkt packetData] bytes]);
-        }
-
-        if(thread_args->cancel != 0)
-            goto cleanup;
-    }
-
-    if(thread_args->op == THREAD_OP_DOC_SAVE) {
-        if(rename([savePath UTF8String], [[(NSURL *)thread_args->input[0] path] UTF8String]) != 0) {
-            thread_args->output[0] = [[NSString alloc] initWithFormat:@"Failed to rename temporary file: %s", strerror(errno)];
-            goto err;
-        }
-    }
-
-    /* no memory barrier required */
-    thread_args->success = 1;
-
-cleanup:
-    [autoreleasePool release];
-    pcap_dump_flush(dump);
-    pcap_dump_close(dump);
-    pcap_close(pcap);
-    return NULL;
-
-err:
-    [autoreleasePool release];
-
-    if(dump != NULL)
-        pcap_dump_close(dump);
-    if(pcap != NULL)
-        pcap_close(pcap);
-
-    OSMemoryBarrier();
-    thread_args->failure = 1;
-
-    /* the document is responsible for releasing thread_args->output */
-    return thread_args->output[0];
-}
-
 static void *filter_packets_thread(void *args)
 {
 	NSAutoreleasePool *autoreleasePool;
@@ -1607,26 +1446,5 @@ static void *filter_packets_thread(void *args)
 cleanup:
 	[autoreleasePool release];
 	return thread_args->output[0];
-}
-
-static NSString *make_temp_path(NSString *path)
-{
-	NSMutableString *temp;
-	NSUInteger i = [path length];
-
-	while(i-- > 0) {
-		if([path characterAtIndex:i] == '/')
-			break;
-	}
-
-	if([path characterAtIndex:i] != '/' || i == [path length] - 1)
-		return nil;
-
-	if((temp = [[NSMutableString alloc] initWithString:path]) == nil)
-		return nil;
-
-	[temp insertString:@"." atIndex:i + 1];
-
-	return [temp autorelease];
 }
 

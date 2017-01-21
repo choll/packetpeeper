@@ -31,9 +31,6 @@
 
 #define CAPTURE_FILE_LOADING_ARRAY_SZ	1024
 
-#define PPDocumentSaveOperationSucceededNotification	@"PPSaveSucceeded"
-#define PPDocumentSaveOperationFailedNotification		@"PPSaveFailed"
-
 /* note that BS_HUGE is chosen as default,
    as the bpf device chooses the largest buffer
    itself if unspecified by the user */
@@ -109,7 +106,6 @@ struct thread_args;
 - (void)cancelWorkerThread;
 - (void)cancelCaptureFilterExecution;
 - (void)cancelLoadingFile;
-- (void)cancelSavingFile;
 - (void)closeProgressSheet;
 - (void)displayFileLoadingProgressSheet;
 - (void)displayProgressSheetWithMessage:(NSString *)message cancelSelector:(SEL)cancelSelector;
@@ -122,7 +118,6 @@ struct thread_args;
 
 - (PacketCaptureWindowController *)packetCaptureWindowController;
 
-- (BOOL)isSaveOperationInProgress;
 - (BOOL)isLive;
 - (int)linkType;
 - (void)setHostCache:(HostCache *)hostCache;
