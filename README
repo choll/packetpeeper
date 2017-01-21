@@ -1,2 +1,4 @@
+# BUILD INSTRUCTIONS #
+
 Packet Peeper depends on BreakPad and HexFiend frameworks, to download and build them
 run `fetch_and_build_dependencies.sh`. Then to build a DMG file run `make_dmg.sh`.
