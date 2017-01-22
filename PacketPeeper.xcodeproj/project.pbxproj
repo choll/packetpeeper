@@ -402,12 +402,6 @@
 		834C84E70796A98500C0235D /* Cache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cache.h; sourceTree = "<group>"; };
 		834F0425097EEA8300647E3C /* syncmenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = syncmenu.h; sourceTree = "<group>"; };
 		834F0426097EEA8300647E3C /* syncmenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = syncmenu.m; sourceTree = "<group>"; };
-		835236D30858D87E005F0D73 /* PPNodeGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPNodeGraphView.h; sourceTree = "<group>"; };
-		835236D40858D87E005F0D73 /* PPNodeGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPNodeGraphView.m; sourceTree = "<group>"; };
-		83524279085B6E4A005F0D73 /* quartzgen.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = quartzgen.m; sourceTree = "<group>"; };
-		8352427D085B6EE3005F0D73 /* quartzgen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = quartzgen.h; sourceTree = "<group>"; };
-		835296D108B13CF200E175FD /* PPNodeGraphWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPNodeGraphWindowController.h; sourceTree = "<group>"; };
-		835296D208B13CF200E175FD /* PPNodeGraphWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPNodeGraphWindowController.m; sourceTree = "<group>"; };
 		835297E508B265F300E175FD /* PPCenteredClipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPCenteredClipView.h; sourceTree = "<group>"; };
 		835297E608B265F300E175FD /* PPCenteredClipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPCenteredClipView.m; sourceTree = "<group>"; };
 		8352BE840C82B9FC00284D91 /* PPProgressWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPProgressWindowController.h; sourceTree = "<group>"; };
@@ -488,8 +482,6 @@
 		83B5CD64094F77EE00C46868 /* PPTCPStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPTCPStream.m; sourceTree = "<group>"; };
 		83B8AFDF095F66B300027F4E /* oui2pp.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = oui2pp.py; sourceTree = "<group>"; };
 		83B8B01709600F7500027F4E /* services2pp.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = services2pp.py; sourceTree = "<group>"; };
-		83BA8BA508BDEEC600AC7EF3 /* PPNodeGraphController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPNodeGraphController.h; sourceTree = "<group>"; };
-		83BA8BA608BDEEC600AC7EF3 /* PPNodeGraphController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPNodeGraphController.m; sourceTree = "<group>"; };
 		83BDB4B50B65676600D635E2 /* PPIPDefragger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPIPDefragger.h; sourceTree = "<group>"; };
 		83BDB4B60B65676600D635E2 /* PPIPDefragger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPIPDefragger.m; sourceTree = "<group>"; };
 		83C4565E076F469C00050832 /* ErrorReportSheet.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = ErrorReportSheet.nib; path = en.lproj/ErrorReportSheet.nib; sourceTree = "<group>"; };
@@ -628,7 +620,6 @@
 				83C45661076F49C900050832 /* ErrorReportWindowController.m */,
 				83AD23090994C6860048B019 /* PPDataQuantityFormatter.h */,
 				83AD230A0994C6860048B019 /* PPDataQuantityFormatter.m */,
-				83B4CB01093E58D000664C90 /* Graph View */,
 				83A6397D06F3A0F400E8CF04 /* MyDocumentController.h */,
 				83A6397E06F3A0F400E8CF04 /* MyDocumentController.m */,
 				2A37F4AEFDCFA73011CA2CEA /* MyDocument.h */,
@@ -806,21 +797,6 @@
 				8321A4F906E54C2D00D96BA4 /* PacketPeeper.h */,
 			);
 			name = Shared;
-			sourceTree = "<group>";
-		};
-		83B4CB01093E58D000664C90 /* Graph View */ = {
-			isa = PBXGroup;
-			children = (
-				835296D108B13CF200E175FD /* PPNodeGraphWindowController.h */,
-				835296D208B13CF200E175FD /* PPNodeGraphWindowController.m */,
-				83BA8BA508BDEEC600AC7EF3 /* PPNodeGraphController.h */,
-				83BA8BA608BDEEC600AC7EF3 /* PPNodeGraphController.m */,
-				835236D30858D87E005F0D73 /* PPNodeGraphView.h */,
-				835236D40858D87E005F0D73 /* PPNodeGraphView.m */,
-				8352427D085B6EE3005F0D73 /* quartzgen.h */,
-				83524279085B6E4A005F0D73 /* quartzgen.m */,
-			);
-			name = "Graph View";
 			sourceTree = "<group>";
 		};
 		83B5CD57094F776D00C46868 /* TCPStreams */ = {
