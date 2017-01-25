@@ -126,9 +126,6 @@
                             <customView id="Liu-cU-4B5" customClass="HFTextView">
                                 <rect key="frame" x="0.0" y="169" width="681" height="300"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <connections>
-                                    <outlet property="menu" destination="SpE-ka-ye0" id="eKX-S2-nan"/>
-                                </connections>
                             </customView>
                         </subviews>
                         <holdingPriorities>
@@ -196,16 +193,6 @@
                 <menuItem title="Delete" tag="1" id="517">
                     <connections>
                         <action selector="deleteButton:" target="-2" id="529"/>
-                    </connections>
-                </menuItem>
-            </items>
-        </menu>
-        <menu id="SpE-ka-ye0">
-            <items>
-                <menuItem title="Copy" id="9oh-6z-FZL">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="copy:" target="-1" id="MkP-J1-I6U"/>
                     </connections>
                 </menuItem>
             </items>
