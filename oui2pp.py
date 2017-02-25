@@ -57,7 +57,7 @@ datfile.write(bytes)
 bytes = struct.pack(">HH", maxlen + 2 + 4, len(slist)) # record size, number of records
 datfile.write(bytes)
 
-slist.sort
+slist.sort()
 
 for oui in slist:
 	bytes = struct.pack(">LH" + ('%u' % maxlen) + "s", oui[0], len(oui[1]), oui[1])
