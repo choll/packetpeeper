@@ -1,4 +1,5 @@
 # BUILD INSTRUCTIONS #
 
-Packet Peeper depends on BreakPad and HexFiend frameworks, to download and build them
-run `fetch_and_build_dependencies.sh`. Then to build a DMG file run `make_dmg.sh`.
+Packet Peeper depends on BreakPad and HexFiend frameworks, to download and build them run `fetch_and_build_dependencies.sh`
+
+To build a dmg file for release run `make_dmg.sh`. This will invoke fetch_and_build_dependencies.sh. The dmg file will be placed into build/Release.
