@@ -28,7 +28,7 @@
 */
 typedef unsigned int (*key_hash_fptr)(const void *key);
 
-@interface Cache : NSObject <NSCoding>
+@interface Cache : NSObject
 {
 	/* the hash table */
 	struct rb_node **htable;

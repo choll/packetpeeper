@@ -268,19 +268,6 @@ struct datfile_rec {
 	return (str == [NSNull null]) ? nil : str;
 }
 
-- (void)encodeWithCoder:(NSCoder *)coder
-{
-	[super encodeWithCoder:coder];
-}
-
-- (id)initWithCoder:(NSCoder *)coder
-{
-	[super setHashFunction:port_hash];
-	[super setComparisonFunction:port_comp];
-
-	return [super initWithCoder:coder];
-}
-
 - (void)dealloc
 {
 	if(tcp_fd != -1)

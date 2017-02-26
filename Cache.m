@@ -20,10 +20,8 @@
 #include <stdlib.h>
 #include <string.h>
 #import <Foundation/NSString.h>
-#import <Foundation/NSArchiver.h>
 #include "Cache.h"
 
-static void encode_tree(NSCoder *coder, struct rb_node *root, unsigned int key_sz);
 static void rb_node_free(struct rb_node *node);
 
 @implementation Cache
@@ -91,65 +89,6 @@ static void rb_node_free(struct rb_node *node);
 	return YES;
 }
 
-- (void)encodeWithCoder:(NSCoder *)coder
-{
-	unsigned int i;
-	unsigned int sum;	/* total sum of the sizes of the red-black trees */
-
-	sum = 0;
-
-	for(i = 0; i < nslots; ++i)
-		sum += rb_count_tree(htable[i]);
-
-	[coder encodeValueOfObjCType:@encode(unsigned int) at:&nslots];
-	[coder encodeValueOfObjCType:@encode(unsigned int) at:&sum];
-	[coder encodeValueOfObjCType:@encode(unsigned int) at:&node_sz];
-
-	for(i = 0; i < nslots; ++i)
-		encode_tree(coder, htable[i], node_sz - sizeof(struct rb_node));
-}
-
-- (id)initWithCoder:(NSCoder *)coder
-{
-	unsigned int i, sum, hval;
-	struct rb_node *node;
-
-	/* This is potentially dangerous, in that we trust the input from the
-	   serialized data, when perhaps we should not trust it. This may result
-	   in us reading in too much or too little data. However, NSCoder doesnt
-	   seem to contain any features to allow this to be avoided. */
-
-	if((self = [super init]) != nil) {
-		[coder decodeValueOfObjCType:@encode(unsigned int) at:&nslots];
-		[coder decodeValueOfObjCType:@encode(unsigned int) at:&sum];
-		[coder decodeValueOfObjCType:@encode(unsigned int) at:&node_sz];
-
-		if(nslots == 0 || node_sz == 0 || (htable = malloc(nslots * sizeof(struct rb_node *))) == NULL) {
-			[super dealloc];
-			return nil;
-		}
-
-		for(i = 0; i < nslots; ++i)
-			htable[i] = NULL;
-
-		while(sum--) {
-			/* yes, a malloc for every node is highly inefficient, but allocating
-			   the memory all at once is not workable. A possible solution would be
-			   for Cache to have its own custom memory allocator, but for now
-			   it's a malloc for every node. */
-			if((node = malloc(node_sz)) == NULL) {
-				[self dealloc];
-				return nil;
-			}
-			node->data = [[coder decodeObject] retain];
-			[coder decodeArrayOfObjCType:@encode(unsigned char) count:node_sz - sizeof(struct rb_node) at:node->key];
-			hval = key_hash(node->key);
-			htable[hval] = rb_insert(htable[hval], node, key_comp);
-		}
-	}
-	return self;
-}
-
 - (void)flush
 {
 	unsigned int i;
@@ -169,20 +108,9 @@ static void rb_node_free(struct rb_node *node);
 
 @end
 
-static void encode_tree(NSCoder *coder, struct rb_node *root, unsigned int key_sz)
-{
-	if(root == NULL)
-		return;
-
-	[coder encodeObject:root->data];
-	[coder encodeArrayOfObjCType:@encode(unsigned char) count:key_sz at:root->key];
-
-	encode_tree(coder, root->left, key_sz);
-	encode_tree(coder, root->right, key_sz);
-}
-
 static void rb_node_free(struct rb_node *node)
 {
 	[(id)node->data release];
 	free(node);
 }
+

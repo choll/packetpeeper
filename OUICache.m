@@ -115,7 +115,7 @@ struct datfile_rec {
 	id str;
 
     oui = ntohl(*(uint32_t *)addr) >> 8;
-    
+
 	ret = read_oui(fd, oui, recsz, nrecs, manufacturer, manufacturer_sz);
 
 	if(ret == OUICACHE_RECORD_NULL)
@@ -145,19 +145,6 @@ struct datfile_rec {
 	}
 
 	return (str == [NSNull null]) ? nil : str;
-}
-
-- (void)encodeWithCoder:(NSCoder *)coder
-{
-	[super encodeWithCoder:coder];
-}
-
-- (id)initWithCoder:(NSCoder *)coder
-{
-	[super setHashFunction:oui_hash];
-	[super setComparisonFunction:oui_comp];
-
-	return [super initWithCoder:coder];
 }
 
 - (void)dealloc

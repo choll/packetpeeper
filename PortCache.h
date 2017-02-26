@@ -29,7 +29,7 @@
 #define PC_PROTO_TCP		0
 #define PC_PROTO_UDP		1
 
-@interface PortCache : Cache <NSCoding>
+@interface PortCache : Cache
 {
 	char *service_description;
 	size_t service_description_sz;

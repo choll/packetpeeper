@@ -25,7 +25,7 @@
 #define OC_HASHMASK			(OC_HASHTABLE_SZ - 1)
 #define OC_HASHTABLE_SZ		256
 
-@interface OUICache : Cache <NSCoding>
+@interface OUICache : Cache
 {
 	char *manufacturer;
 	size_t manufacturer_sz;
