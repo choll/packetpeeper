@@ -90,43 +90,77 @@ namespace
         sin.sin6_addr = addr;
     }
 
-    // This ought to be a member function of HostCache but
-    template<typename SockAddrType, typename AddrType>
-    void lookup(
+    template<typename SockAddrType, typename AddrType, typename MapType>
+    NSString* lookup(
         HostCache* cache,
         peep::async& async,
         const AddrType& addr,
         int family,
-        cache_entry& entry,
-        std::mutex& mutex)
+        MapType& map,
+        std::mutex& mutex,
+        int* code)
     {
-        auto f = [cache, addr, family, &entry, &mutex] () {
-            int ret;
-            NSString* str;
-            SockAddrType sin; // sockaddr_in or sockaddr_in6
-            char host[NI_MAXHOST];
+        try
+        {
+            std::lock_guard<std::mutex> lock(mutex);
 
-            sockaddr_helper(sin, family, addr);
+            auto result =
+                map.insert(
+                    std::make_pair(addr, cache_entry(HOSTCACHE_ERROR, nsstring_ptr())));
 
-            if ((ret = ::getnameinfo((struct sockaddr *)&sin, sizeof(sin), host, sizeof(host), NULL, 0, NI_NAMEREQD)) != 0)
+            cache_entry& entry(result.first->second);
+
+            if (!result.second)
             {
-                std::lock_guard<std::mutex> lock(mutex);
-                entry.first = (ret == EAI_NONAME) ? HOSTCACHE_NONAME : HOSTCACHE_ERROR;
-            }
-            else if((str = [[NSString alloc] initWithUTF8String:host]) != nil)
-            {
-                std::lock_guard<std::mutex> lock(mutex);
-                entry.first = HOSTCACHE_SUCCESS;
-                entry.second = std::unique_ptr<NSString, release_deleter<NSString>>(str);
+                // element already present (including if a lookup is in progress),
+                // so return immediately...
+                if (code != NULL)
+                    *code = entry.first;
+                return entry.second.get();
             }
 
-            [cache performSelectorOnMainThread:@selector(lookupComplete:) withObject:nil waitUntilDone:NO];
-        };
+            // ...else the map now has ERROR (in case we throw) and a null
+            // string, so schedule a lookup and give it the cache_entry
+            // location to store the result in.
 
-        async.enqueue(f);
+            auto f = [cache, addr, family, &entry, &mutex] () {
+                int ret;
+                NSString* str;
+                SockAddrType sin; // sockaddr_in or sockaddr_in6
+                char host[NI_MAXHOST];
 
-        // Async call dispatched so safe to mark as in-progress now
-        entry.first = HOSTCACHE_INPROG;
+                sockaddr_helper(sin, family, addr);
+
+                if ((ret = ::getnameinfo(reinterpret_cast<struct sockaddr *>(&sin), sizeof(sin), host, sizeof(host), NULL, 0, NI_NAMEREQD)) != 0)
+                {
+                    std::lock_guard<std::mutex> lock2(mutex);
+                    entry.first = (ret == EAI_NONAME) ? HOSTCACHE_NONAME : HOSTCACHE_ERROR;
+                }
+                else if((str = [[NSString alloc] initWithUTF8String:host]) != nil)
+                {
+                    std::lock_guard<std::mutex> lock2(mutex);
+                    entry.first = HOSTCACHE_SUCCESS;
+                    entry.second = std::unique_ptr<NSString, release_deleter<NSString>>(str);
+                }
+
+                [cache performSelectorOnMainThread:@selector(lookupComplete:) withObject:nil waitUntilDone:NO];
+            };
+
+            async.enqueue(f);
+
+            // Async call dispatched so safe to mark as in-progress now
+            entry.first = HOSTCACHE_INPROG;
+
+            if (code != NULL)
+                *code = HOSTCACHE_INPROG;
+        }
+        catch (const std::exception& e)
+        {
+            if (code != NULL)
+                *code = HOSTCACHE_ERROR;
+        }
+
+        return nil;
     }
 }
 
@@ -170,87 +204,23 @@ namespace
 
 - (NSString *)hostWithAddressASync:(const in_addr *)addr returnCode:(int *)code
 {
-    try
-    {
-        std::lock_guard<std::mutex> lock(ip4_mutex_);
-
-        auto result =
-            ip4_addrs_.insert(
-                std::make_pair(*addr, cache_entry(HOSTCACHE_ERROR, nsstring_ptr())));
-
-        if (!result.second)
-        {
-            // element already present (including if a lookup is in progress),
-            // so return immediately...
-            cache_entry& entry(result.first->second);
-            if (code != NULL)
-                *code = entry.first;
-            return entry.second.get();
-        }
-
-        // ...else the map now has ERROR (in case we throw) and a null
-        // string, so schedule a lookup and give it the cache_entry
-        // location to store the result in.
-
-        lookup<struct sockaddr_in>(self, async_, *addr, AF_INET, result.first->second, ip4_mutex_);
-
-        if (code != NULL)
-            *code = HOSTCACHE_INPROG;
-    }
-    catch (const std::exception& e)
-    {
-        if (code != NULL)
-            *code = HOSTCACHE_ERROR;
-    }
-    return nil;
+    return lookup<struct sockaddr_in>(self, async_, *addr, AF_INET, ip4_addrs_, ip4_mutex_, code);
 }
 
 - (NSString *)hostWithIp6AddressASync:(const in6_addr *)addr returnCode:(int *)code
 {
-    try
-    {
-        std::lock_guard<std::mutex> lock(ip6_mutex_);
-
-        auto result =
-            ip6_addrs_.insert(
-                std::make_pair(*addr, cache_entry(HOSTCACHE_ERROR, nsstring_ptr())));
-
-        if (!result.second)
-        {
-            // element already present (including if a lookup is in progress),
-            // so return immediately...
-            cache_entry& entry(result.first->second);
-            if (code != NULL)
-                *code = entry.first;
-            return entry.second.get();
-        }
-
-        // ...else the map now has ERROR (in case we throw) and a null
-        // string, so schedule a lookup and give it the cache_entry
-        // location to store the result in.
-
-        lookup<struct sockaddr_in6>(self, async_, *addr, AF_INET6, result.first->second, ip6_mutex_);
-
-        if (code != NULL)
-            *code = HOSTCACHE_INPROG;
-    }
-    catch (const std::exception& e)
-    {
-        if (code != NULL)
-            *code = HOSTCACHE_ERROR;
-    }
-    return nil;
+    return lookup<struct sockaddr_in6>(self, async_, *addr, AF_INET6, ip6_addrs_, ip6_mutex_, code);
 }
 
 - (void)flush
 {
     {
-        std::lock_guard<std::mutex> lock(self->ip4_mutex_);
-        self->ip4_addrs_.clear();
+        std::lock_guard<std::mutex> lock(ip4_mutex_);
+        ip4_addrs_.clear();
     }
     {
-        std::lock_guard<std::mutex> lock(self->ip6_mutex_);
-        self->ip6_addrs_.clear();
+        std::lock_guard<std::mutex> lock(ip6_mutex_);
+        ip6_addrs_.clear();
     }
 }
 
