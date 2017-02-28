@@ -29,7 +29,6 @@ infile = open(portfile, 'r')
 datfile_tcp = open(datfile_tcp, 'w')
 datfile_udp = open(datfile_udp, 'w')
 
-maxname = 0
 maxdesc = 0
 port2name = {}
 
@@ -45,6 +44,12 @@ for line in infile.readlines():
     proto = toks[2]
     description = toks[3]
 
+    if (description and description[0] == "\"" and description[-1] == "\""):
+        description = description[1:-1]
+
+    if (description and description[-1] == "."):
+        description = description[:-1]
+
     if (proto != "tcp" and proto != "udp"):
         continue
 
@@ -58,8 +63,8 @@ for line in infile.readlines():
     else:
         lport = hport = int(toks[0])
 
-    if (len(name) > maxname):
-        maxname = len(name)
+    if (len(description) > 48):
+        description = name
 
     if (len(description) > maxdesc):
         maxdesc = len(description)
