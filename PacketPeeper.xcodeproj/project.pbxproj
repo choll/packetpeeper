@@ -29,7 +29,7 @@
 		8314CB200CB12E9F003610FD /* ppdocumenticon2.icns in Resources */ = {isa = PBXBuildFile; fileRef = 8314CB1E0CB12E9F003610FD /* ppdocumenticon2.icns */; };
 		8314CB210CB12E9F003610FD /* ppicon2.icns in Resources */ = {isa = PBXBuildFile; fileRef = 8314CB1F0CB12E9F003610FD /* ppicon2.icns */; };
 		83150D78190B3DC200670C34 /* HexFiend.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83150D77190B3DC200670C34 /* HexFiend.framework */; };
-		83150D7B190BDA0500670C34 /* HexFiend.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 83150D77190B3DC200670C34 /* HexFiend.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		83150D7B190BDA0500670C34 /* HexFiend.framework in Copy frameworks */ = {isa = PBXBuildFile; fileRef = 83150D77190B3DC200670C34 /* HexFiend.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		832D5B090AFFF00B007D1E56 /* MyDocument.h in Headers */ = {isa = PBXBuildFile; fileRef = 2A37F4AEFDCFA73011CA2CEA /* MyDocument.h */; };
 		832D5B0A0AFFF00B007D1E56 /* Interface.h in Headers */ = {isa = PBXBuildFile; fileRef = 8332D40F069EDC4900F35800 /* Interface.h */; };
 		832D5B0B0AFFF00B007D1E56 /* socketpath.h in Headers */ = {isa = PBXBuildFile; fileRef = 83124C7F06A149C8008B5F66 /* socketpath.h */; };
@@ -85,8 +85,6 @@
 		832D5B4B0AFFF00B007D1E56 /* IndividualPacket.nib in Resources */ = {isa = PBXBuildFile; fileRef = 839C2C280783230E006BA02E /* IndividualPacket.nib */; };
 		832D5B4D0AFFF00B007D1E56 /* PPTCPStreamWindow.nib in Resources */ = {isa = PBXBuildFile; fileRef = 83FE245B082051F8006CA5C5 /* PPTCPStreamWindow.nib */; };
 		832D5B4F0AFFF00B007D1E56 /* PPStreamsWindow.nib in Resources */ = {isa = PBXBuildFile; fileRef = 83B5C8D30948E49100C46868 /* PPStreamsWindow.nib */; };
-		832D5B510AFFF00B007D1E56 /* port-numbers-tcp.port in Resources */ = {isa = PBXBuildFile; fileRef = 837BC1790AF522300004A36E /* port-numbers-tcp.port */; };
-		832D5B520AFFF00B007D1E56 /* port-numbers-udp.port in Resources */ = {isa = PBXBuildFile; fileRef = 837BC17A0AF522310004A36E /* port-numbers-udp.port */; };
 		832D5B540AFFF00B007D1E56 /* MyDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4ACFDCFA73011CA2CEA /* MyDocument.m */; settings = {ATTRIBUTES = (); }; };
 		832D5B550AFFF00B007D1E56 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8332D413069EDC6300F35800 /* main.m */; };
 		832D5B560AFFF00B007D1E56 /* Interface.m in Sources */ = {isa = PBXBuildFile; fileRef = 8332D410069EDC4900F35800 /* Interface.m */; };
@@ -207,6 +205,10 @@
 		83368DA519300B6000D1CF35 /* PPBPFProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = 83565B670D38E0730037485E /* PPBPFProgram.m */; };
 		83368DA619300B6700D1CF35 /* PPCaptureFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 83565B610D38E0260037485E /* PPCaptureFilter.m */; };
 		83368DA819300B8400D1CF35 /* libpcap.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 83CC8DBF0C9B516300B70DF4 /* libpcap.dylib */; };
+		83383EF91E662649007959C5 /* ethernet-manufacturers.oui in Resources */ = {isa = PBXBuildFile; fileRef = 83383EF81E662649007959C5 /* ethernet-manufacturers.oui */; };
+		83383EFB1E662692007959C5 /* port-numbers-tcp.port in Resources */ = {isa = PBXBuildFile; fileRef = 83383EFA1E662692007959C5 /* port-numbers-tcp.port */; };
+		83383EFD1E6626A1007959C5 /* port-numbers-udp.port in Resources */ = {isa = PBXBuildFile; fileRef = 83383EFC1E6626A1007959C5 /* port-numbers-udp.port */; };
+		83383EFF1E662793007959C5 /* PacketPeeper_x86_64.breakpad in Resources */ = {isa = PBXBuildFile; fileRef = 83383EFE1E662793007959C5 /* PacketPeeper_x86_64.breakpad */; };
 		8352BE860C82B9FC00284D91 /* PPProgressWindowController.h in Headers */ = {isa = PBXBuildFile; fileRef = 8352BE840C82B9FC00284D91 /* PPProgressWindowController.h */; };
 		8352BE870C82B9FC00284D91 /* PPProgressWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8352BE850C82B9FC00284D91 /* PPProgressWindowController.m */; };
 		83565A430D356C7B0037485E /* helper_dummy.h in Headers */ = {isa = PBXBuildFile; fileRef = 83565A3F0D356BFB0037485E /* helper_dummy.h */; };
@@ -245,8 +247,7 @@
 		83700F5619428FE8005BE7DB /* PPRVIDecode.m in Sources */ = {isa = PBXBuildFile; fileRef = 83700F5219428FE8005BE7DB /* PPRVIDecode.m */; };
 		83700F5719428FE8005BE7DB /* PPRVIDecode.m in Sources */ = {isa = PBXBuildFile; fileRef = 83700F5219428FE8005BE7DB /* PPRVIDecode.m */; };
 		83700F791943BF35005BE7DB /* Breakpad.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83700F781943BF35005BE7DB /* Breakpad.framework */; };
-		83700F7A1943C2DA005BE7DB /* Breakpad.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 83700F781943BF35005BE7DB /* Breakpad.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		838B24F20B0387EA00F9CA41 /* ethernet-manufacturers.oui in Resources */ = {isa = PBXBuildFile; fileRef = 838B24F10B0387EA00F9CA41 /* ethernet-manufacturers.oui */; };
+		83700F7A1943C2DA005BE7DB /* Breakpad.framework in Copy frameworks */ = {isa = PBXBuildFile; fileRef = 83700F781943BF35005BE7DB /* Breakpad.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		838B25650B03A07400F9CA41 /* OUICache.h in Headers */ = {isa = PBXBuildFile; fileRef = 8396932607A0570F00E1EDB9 /* OUICache.h */; };
 		838B25660B03A07400F9CA41 /* OUICache.m in Sources */ = {isa = PBXBuildFile; fileRef = 8396932707A0570F00E1EDB9 /* OUICache.m */; };
 		838EAD550E2A91940003F920 /* PPDecoderParent.h in Headers */ = {isa = PBXBuildFile; fileRef = 838EAD540E2A91940003F920 /* PPDecoderParent.h */; };
@@ -306,15 +307,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		83150D7A190BD9E900670C34 /* CopyFiles */ = {
+		83150D7A190BD9E900670C34 /* Copy frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				83700F7A1943C2DA005BE7DB /* Breakpad.framework in CopyFiles */,
-				83150D7B190BDA0500670C34 /* HexFiend.framework in CopyFiles */,
+				83700F7A1943C2DA005BE7DB /* Breakpad.framework in Copy frameworks */,
+				83150D7B190BDA0500670C34 /* HexFiend.framework in Copy frameworks */,
 			);
+			name = "Copy frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		832D5B870AFFF00B007D1E56 /* Copy PacketPeeperHelper */ = {
@@ -392,6 +394,10 @@
 		8332D42C069EE17000F35800 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = /System/Library/Frameworks/Security.framework; sourceTree = "<absolute>"; };
 		83368D82192E77F900D1CF35 /* ArpSpoofingTester */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ArpSpoofingTester; sourceTree = BUILT_PRODUCTS_DIR; };
 		83368D84192E77F900D1CF35 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		83383EF81E662649007959C5 /* ethernet-manufacturers.oui */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ethernet-manufacturers.oui"; path = "build/PacketPeeper.build/Release/PacketPeeper.build/DerivedSources/ethernet-manufacturers.oui"; sourceTree = "<group>"; };
+		83383EFA1E662692007959C5 /* port-numbers-tcp.port */ = {isa = PBXFileReference; lastKnownFileType = file; name = "port-numbers-tcp.port"; path = "build/PacketPeeper.build/Release/PacketPeeper.build/DerivedSources/port-numbers-tcp.port"; sourceTree = "<group>"; };
+		83383EFC1E6626A1007959C5 /* port-numbers-udp.port */ = {isa = PBXFileReference; lastKnownFileType = file; name = "port-numbers-udp.port"; path = "build/PacketPeeper.build/Release/PacketPeeper.build/DerivedSources/port-numbers-udp.port"; sourceTree = "<group>"; };
+		83383EFE1E662793007959C5 /* PacketPeeper_x86_64.breakpad */ = {isa = PBXFileReference; lastKnownFileType = text; name = PacketPeeper_x86_64.breakpad; path = build/PacketPeeper.build/Release/PacketPeeper.build/DerivedSources/PacketPeeper_x86_64.breakpad; sourceTree = "<group>"; };
 		833B81BA07EC520900178219 /* PPTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPTableView.h; sourceTree = "<group>"; };
 		833B81BC07EC521300178219 /* PPTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPTableView.m; sourceTree = "<group>"; };
 		833B81F107F36D5000178219 /* PPTCPStreamWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPTCPStreamWindowController.h; sourceTree = "<group>"; };
@@ -442,11 +448,8 @@
 		83700F5119428FE8005BE7DB /* PPRVIDecode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPRVIDecode.h; sourceTree = "<group>"; };
 		83700F5219428FE8005BE7DB /* PPRVIDecode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPRVIDecode.m; sourceTree = "<group>"; };
 		83700F781943BF35005BE7DB /* Breakpad.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Breakpad.framework; sourceTree = "<group>"; };
-		837BC1790AF522300004A36E /* port-numbers-tcp.port */ = {isa = PBXFileReference; lastKnownFileType = file; path = "port-numbers-tcp.port"; sourceTree = "<group>"; };
-		837BC17A0AF522310004A36E /* port-numbers-udp.port */ = {isa = PBXFileReference; lastKnownFileType = file; path = "port-numbers-udp.port"; sourceTree = "<group>"; };
 		8384E1BC06D660AB001F2BA7 /* IPV4Decode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPV4Decode.h; sourceTree = "<group>"; };
 		8384E1BD06D660AB001F2BA7 /* IPV4Decode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPV4Decode.m; sourceTree = "<group>"; };
-		838B24F10B0387EA00F9CA41 /* ethernet-manufacturers.oui */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ethernet-manufacturers.oui"; sourceTree = "<group>"; };
 		838EAD540E2A91940003F920 /* PPDecoderParent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPDecoderParent.h; sourceTree = "<group>"; };
 		839334640CE2738C00FF58C5 /* stream_compare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stream_compare.h; sourceTree = "<group>"; };
 		839334650CE2738C00FF58C5 /* stream_compare.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = stream_compare.m; sourceTree = "<group>"; };
@@ -482,8 +485,6 @@
 		83B5CD64094F77EE00C46868 /* PPTCPStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPTCPStream.m; sourceTree = "<group>"; };
 		83B8AFDF095F66B300027F4E /* oui2pp.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = oui2pp.py; sourceTree = "<group>"; };
 		83B8B01709600F7500027F4E /* services2pp.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = services2pp.py; sourceTree = "<group>"; };
-		83BDB4B50B65676600D635E2 /* PPIPDefragger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPIPDefragger.h; sourceTree = "<group>"; };
-		83BDB4B60B65676600D635E2 /* PPIPDefragger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPIPDefragger.m; sourceTree = "<group>"; };
 		83C4565E076F469C00050832 /* ErrorReportSheet.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = ErrorReportSheet.nib; path = en.lproj/ErrorReportSheet.nib; sourceTree = "<group>"; };
 		83C45660076F49C900050832 /* ErrorReportWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorReportWindowController.h; sourceTree = "<group>"; };
 		83C45661076F49C900050832 /* ErrorReportWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorReportWindowController.m; sourceTree = "<group>"; };
@@ -645,9 +646,10 @@
 		2A37F4B8FDCFA73011CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				837BC1790AF522300004A36E /* port-numbers-tcp.port */,
-				837BC17A0AF522310004A36E /* port-numbers-udp.port */,
-				838B24F10B0387EA00F9CA41 /* ethernet-manufacturers.oui */,
+				83383EFE1E662793007959C5 /* PacketPeeper_x86_64.breakpad */,
+				83383EFC1E6626A1007959C5 /* port-numbers-udp.port */,
+				83383EFA1E662692007959C5 /* port-numbers-tcp.port */,
+				83383EF81E662649007959C5 /* ethernet-manufacturers.oui */,
 				8314CB1E0CB12E9F003610FD /* ppdocumenticon2.icns */,
 				8314CB1F0CB12E9F003610FD /* ppicon2.icns */,
 				835B0B8C0D947E2B0034E32D /* clear_filters.tiff */,
@@ -772,8 +774,6 @@
 				8396932307A056CC00E1EDB9 /* PortCache.m */,
 				8396932607A0570F00E1EDB9 /* OUICache.h */,
 				8396932707A0570F00E1EDB9 /* OUICache.m */,
-				83BDB4B50B65676600D635E2 /* PPIPDefragger.h */,
-				83BDB4B60B65676600D635E2 /* PPIPDefragger.m */,
 				83B5CD57094F776D00C46868 /* TCPStreams */,
 				834C84E70796A98500C0235D /* Cache.h */,
 				834C84E50796A97300C0235D /* Cache.m */,
@@ -1011,13 +1011,15 @@
 			buildConfigurationList = 832D5B890AFFF00B007D1E56 /* Build configuration list for PBXNativeTarget "PacketPeeper" */;
 			buildPhases = (
 				832D5B080AFFF00B007D1E56 /* Headers */,
-				832D5B3C0AFFF00B007D1E56 /* Resources */,
+				83383EE91E660C03007959C5 /* Generate TCP/UDP services database */,
+				83383EEA1E660C95007959C5 /* Generate ethernet OUI database */,
 				832D5B530AFFF00B007D1E56 /* Sources */,
 				832D5B840AFFF00B007D1E56 /* Frameworks */,
+				83700F7B1943D28E005BE7DB /* Generate BreakPad symbols */,
+				832D5B3C0AFFF00B007D1E56 /* Resources */,
 				832D5B870AFFF00B007D1E56 /* Copy PacketPeeperHelper */,
 				83D7F5AD0D25CC6700229DB3 /* Copy Plugins */,
-				83150D7A190BD9E900670C34 /* CopyFiles */,
-				83700F7B1943D28E005BE7DB /* ShellScript */,
+				83150D7A190BD9E900670C34 /* Copy frameworks */,
 			);
 			buildRules = (
 			);
@@ -1096,6 +1098,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83383EFF1E662793007959C5 /* PacketPeeper_x86_64.breakpad in Resources */,
+				83383EFD1E6626A1007959C5 /* port-numbers-udp.port in Resources */,
+				83383EFB1E662692007959C5 /* port-numbers-tcp.port in Resources */,
+				83383EF91E662649007959C5 /* ethernet-manufacturers.oui in Resources */,
 				832D5B3D0AFFF00B007D1E56 /* Credits.rtf in Resources */,
 				832D5B3E0AFFF00B007D1E56 /* MainMenu.nib in Resources */,
 				832D5B3F0AFFF00B007D1E56 /* MyDocument.nib in Resources */,
@@ -1113,9 +1119,6 @@
 				83D22BCD191FEA4B00DA0745 /* DataInspectorView.xib in Resources */,
 				832D5B4F0AFFF00B007D1E56 /* PPStreamsWindow.nib in Resources */,
 				830C23F618E22FC400ACBD55 /* ProgressSheet.nib in Resources */,
-				832D5B510AFFF00B007D1E56 /* port-numbers-tcp.port in Resources */,
-				832D5B520AFFF00B007D1E56 /* port-numbers-udp.port in Resources */,
-				838B24F20B0387EA00F9CA41 /* ethernet-manufacturers.oui in Resources */,
 				8314CB200CB12E9F003610FD /* ppdocumenticon2.icns in Resources */,
 				8314CB210CB12E9F003610FD /* ppicon2.icns in Resources */,
 				83565A640D356CE30037485E /* dns.py in Resources */,
@@ -1138,18 +1141,56 @@
 /* End PBXRezBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		83700F7B1943D28E005BE7DB /* ShellScript */ = {
+		83383EE91E660C03007959C5 /* Generate TCP/UDP services database */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
+				"$(SRCROOT)/service-names-port-numbers.csv",
 			);
+			name = "Generate TCP/UDP services database";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/port-numbers-tcp.port",
+				"$(DERIVED_FILE_DIR)/port-numbers-udp.port",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nPROD=$TARGET_BUILD_DIR/$EXECUTABLE_PATH\n\n\"$PROJECT_DIR/third_party_repos/breakpad/src/tools/mac/dump_syms/build/Release/dump_syms\" -a x86_64 \"$PROD\" > $TARGET_NAME\"_x86_64.breakpad\"\n";
+			shellScript = "./services2pp.py $SRCROOT/service-names-port-numbers.csv $DERIVED_FILE_DIR/port-numbers-tcp.port $DERIVED_FILE_DIR/port-numbers-udp.port";
+			showEnvVarsInLog = 0;
+		};
+		83383EEA1E660C95007959C5 /* Generate ethernet OUI database */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/oui.txt",
+			);
+			name = "Generate ethernet OUI database";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/ethernet-manufacturers.oui",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./oui2pp.py $SRCROOT/oui.txt $DERIVED_FILE_DIR/ethernet-manufacturers.oui";
+			showEnvVarsInLog = 0;
+		};
+		83700F7B1943D28E005BE7DB /* Generate BreakPad symbols */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				$TARGET_BUILD_DIR/$EXECUTABLE_PATH,
+			);
+			name = "Generate BreakPad symbols";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/$TARGET_NAME\"_x86_64.breakpad\"",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/sh\n\nPROD=$TARGET_BUILD_DIR/$EXECUTABLE_PATH\n\n\"$PROJECT_DIR/third_party_repos/breakpad/src/tools/mac/dump_syms/build/Release/dump_syms\" -a x86_64 \"$PROD\" > $DERIVED_FILE_DIR/$TARGET_NAME\"_x86_64.breakpad\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

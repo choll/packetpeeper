@@ -20,14 +20,9 @@
 import struct
 import sys
 
-datfile_tcp = "port-numbers-tcp.port"
-datfile_udp = "port-numbers-udp.port"
-porturl = "http://www.iana.org/assignments/port-numbers"
-portfile = "service-names-port-numbers.csv"
-
-infile = open(portfile, 'r')
-datfile_tcp = open(datfile_tcp, 'w')
-datfile_udp = open(datfile_udp, 'w')
+infile = open(sys.argv[1], 'r')
+datfile_tcp = open(sys.argv[2], 'w')
+datfile_udp = open(sys.argv[3], 'w')
 
 maxdesc = 0
 port2name = {}

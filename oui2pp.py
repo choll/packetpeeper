@@ -20,9 +20,10 @@
 # http://standards.ieee.org/regauth/oui/oui.txt
 
 import struct
+import sys
 
-datfile = open('ethernet-manufacturers.oui', 'w')
-infile = open('oui.txt', 'r')
+infile = open(sys.argv[1], 'r')
+datfile = open(sys.argv[2], 'w')
 maxlen = 0
 slist = []
 oui2manufacturer = {}
@@ -46,10 +47,6 @@ for line in infile.readlines():
 # 2 bytes magic, 2 bytes record size, 2 bytes number of records
 # records are 2 bytes of string length, then <string length> of text, followed
 # by dead space up until <record size>
-
-print "Max = %d" % maxlen
-print "slist len = %u" % len(slist)
-print "dict len = %u" % len(oui2manufacturer)
 
 bytes = struct.pack("H", 0x1C0D) # magic
 datfile.write(bytes)
