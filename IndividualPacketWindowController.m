@@ -31,6 +31,7 @@
 #import <AppKit/NSScrollView.h>
 #import <AppKit/NSClipView.h>
 #import <AppKit/NSTableColumn.h>
+#import <AppKit/NSProgressIndicator.h> // For HexFiend
 #import <HexFiend/HexFiend.h>
 #import "DataInspectorRepresenter.h"
 #include "PacketPeeper.h"

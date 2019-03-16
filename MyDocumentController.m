@@ -84,9 +84,11 @@
 	[super removeDocument:document];
 }
 
-- (id)openDocumentWithContentsOfURL:(NSURL *)absoluteURL display:(BOOL)displayDocument error:(NSError **)outError
+- (void)openDocumentWithContentsOfURL:(NSURL *)url
+                              display:(BOOL)displayDocument
+                    completionHandler:(void (^)(NSDocument *document, BOOL documentWasAlreadyOpen, NSError *error))completionHandler
 {
-	return [super openDocumentWithContentsOfURL:absoluteURL display:displayDocument error:outError];
+    [super openDocumentWithContentsOfURL:url display:displayDocument completionHandler:completionHandler];
 }
 
 - (IBAction)newDocument:(id)sender

@@ -1,8 +1,10 @@
 #!/bin/sh -e
 
 target_dir="third_party_repos"
-breakpad_branch="chrome_55"
-hexfiend_tag="v2.4.0"
+#breakpad_branch="chrome_64"
+breakpad_branch="chrome_58"
+#hexfiend_tag="v2.4.0"
+hexfiend_tag="v2.10b5"
 
 mkdir -p ${target_dir}
 cd ${target_dir}
