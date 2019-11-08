@@ -22,53 +22,55 @@
 
 #import <Foundation/NSObject.h>
 
-#define ERRS_ERROR		0
-#define ERRS_WARNING	1
+#define ERRS_ERROR   0
+#define ERRS_WARNING 1
 
 // XXX config.h
 
-#define ERRORSTACK_SZ	5
+#define ERRORSTACK_SZ 5
 
 @class NSString;
 @protocol ErrorStack;
 
-struct es_elem {
-/*	id selfVar;
+struct es_elem
+{
+    /*	id selfVar;
 	NSString *file;
 	NSString *function;*/
-	NSString *description;
-	Class lookup;
-/*	unsigned int line;*/
-	unsigned int code;
-	unsigned int severity;
+    NSString* description;
+    Class lookup;
+    /*	unsigned int line;*/
+    unsigned int code;
+    unsigned int severity;
 };
 
 @protocol ErrorStack <NSObject>
 
-+ (NSString *)stringForErrorCode:(unsigned int)code;
-+ (NSString *)errorDomain;
++ (NSString*)stringForErrorCode:(unsigned int)code;
++ (NSString*)errorDomain;
 
 @end
 
 @interface ErrorStack : NSObject <NSCoding>
 {
-	struct es_elem *elems;	/* array of error elements */
-	unsigned int index;		/* index of next free slot in elems */
-	unsigned int size;		/* size of elems */
+    struct es_elem* elems; /* array of error elements */
+    unsigned int index;    /* index of next free slot in elems */
+    unsigned int size;     /* size of elems */
 }
 
 /* Returns the single instance of ErrorStack, creating it first if it doesnt exist */
-+ (ErrorStack *)sharedErrorStack;
++ (ErrorStack*)sharedErrorStack;
 
 /* Does actual work for adding an error to the stack, private method */
 - (void)pushError:/*(id)selfVar
 				   file:(NSString *)file
 				   function:(NSString *)function
 				   line:(unsigned int)line
-				   description:*/(NSString *)description
-				   lookup:(Class)lookup
-				   code:(unsigned int)code
-				   severity:(unsigned int)severity;
+				   description:*/
+            (NSString*)description
+           lookup:(Class)lookup
+             code:(unsigned int)code
+         severity:(unsigned int)severity;
 
 /* remove the last Error from the stack */
 - (void)pop;
@@ -80,16 +82,16 @@ struct es_elem {
 - (unsigned int)size;
 
 /* return the string resulting from looking up the errors code with the lookup class */
-- (NSString *)lookupString;
+- (NSString*)lookupString;
 
 /* returns the description string at the top of the stack */
-- (NSString *)descriptionString;
+- (NSString*)descriptionString;
 
 /* returns the class variable used for lookups at the top of the stack, for a class error */
 - (Class)lookup;
 
 /* returns the domain of the error at the top of the stack */
-- (NSString *)domain;
+- (NSString*)domain;
 
 /* return the code of the error at the top of the stack */
 - (unsigned int)code;

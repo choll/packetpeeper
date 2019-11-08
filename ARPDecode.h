@@ -20,51 +20,54 @@
 #ifndef _ARPDECODE_H_
 #define _ARPDECODE_H_
 
-#include <stdint.h>
-#include <net/ethernet.h>
-#include <netinet/in.h>
-#import <Foundation/NSObject.h>
+#include "ColumnIdentifier.h"
 #include "Decode.h"
 #include "Describe.h"
-#include "ColumnIdentifier.h"
 #include "OutlineViewItem.h"
+#import <Foundation/NSObject.h>
+#include <net/ethernet.h>
+#include <netinet/in.h>
+#include <stdint.h>
 
-#define ARP_FIELD_SZ		8	/* sum of the sizes of the first 5 fields */
-#define ARPDECODE_HDR_MIN	(sizeof(struct arphdr) + (ETHER_ADDR_LEN * 2) + (sizeof(struct in_addr) * 2))
+#define ARP_FIELD_SZ 8 /* sum of the sizes of the first 5 fields */
+#define ARPDECODE_HDR_MIN                           \
+    (sizeof(struct arphdr) + (ETHER_ADDR_LEN * 2) + \
+     (sizeof(struct in_addr) * 2))
 
 @class NSData;
 @class NSString;
 @class HostCache;
 
-@interface ARPDecode : NSObject <Decode, Describe, NSCoding, OutlineViewItem, ColumnIdentifier>
+@interface ARPDecode
+    : NSObject <Decode, Describe, NSCoding, OutlineViewItem, ColumnIdentifier>
 {
-	id <PPDecoderParent> parent;
-	uint16_t hardtype;	/* hardware addr type, 1 for ethernet */
-	uint16_t prottype;	/* proto addr type, 0x0800 for IP */
-	uint8_t hardsz;		/* hardware addr size, 6 for ether */
-	uint8_t protsz;		/* proto addr size, 4 for IP */
-	uint16_t op;		/* operation; request, reply, etc */
+    id<PPDecoderParent> parent;
+    uint16_t hardtype; /* hardware addr type, 1 for ethernet */
+    uint16_t prottype; /* proto addr type, 0x0800 for IP */
+    uint8_t hardsz;    /* hardware addr size, 6 for ether */
+    uint8_t protsz;    /* proto addr size, 4 for IP */
+    uint16_t op;       /* operation; request, reply, etc */
 
-	/* ethernet and ipv4 only for now, ipv6 will be implemented
+    /* ethernet and ipv4 only for now, ipv6 will be implemented
 	   sometime, but other hardware addresses are unlikely */
 
-	uint8_t ethsender[ETHER_ADDR_LEN];
-	struct in_addr ipsender;
-	uint8_t ethtarget[ETHER_ADDR_LEN];
-	struct in_addr iptarget;
+    uint8_t ethsender[ETHER_ADDR_LEN];
+    struct in_addr ipsender;
+    uint8_t ethtarget[ETHER_ADDR_LEN];
+    struct in_addr iptarget;
 }
 
-- (NSString *)sender;
-- (NSString *)target;
-- (NSString *)senderEther;
-- (NSString *)targetEther;
-- (NSString *)senderIP;
-- (NSString *)targetIP;
-- (NSString *)resolvSender;
-- (NSString *)resolvTarget;
-- (id <OutlineViewItem>)resolvCallback:(void *)data;
-- (NSString *)operationString;
-- (id <OutlineViewItem>)operationStringCallback:(void *)data;
+- (NSString*)sender;
+- (NSString*)target;
+- (NSString*)senderEther;
+- (NSString*)targetEther;
+- (NSString*)senderIP;
+- (NSString*)targetIP;
+- (NSString*)resolvSender;
+- (NSString*)resolvTarget;
+- (id<OutlineViewItem>)resolvCallback:(void*)data;
+- (NSString*)operationString;
+- (id<OutlineViewItem>)operationStringCallback:(void*)data;
 
 @end
 

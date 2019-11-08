@@ -20,17 +20,17 @@
 #ifndef _MYDOCUMENTCONTROLLER_H_
 #define _MYDOCUMENTCONTROLLER_H_
 
-#include <sys/un.h>
-#include <Security/Authorization.h>
 #import <AppKit/NSDocumentController.h>
+#include <Security/Authorization.h>
+#include <sys/un.h>
 
 @interface MyDocumentController : NSDocumentController
 {
-	AuthorizationRef auth_ref;
-	struct sockaddr_un servaddr;
-	unsigned int ndocs;
-	int listenfd;
-	BOOL sighand; /* records if the signal handler has been installed */
+    AuthorizationRef auth_ref;
+    struct sockaddr_un servaddr;
+    unsigned int ndocs;
+    int listenfd;
+    BOOL sighand; /* records if the signal handler has been installed */
 }
 
 - (IBAction)terminate:(id)sender;

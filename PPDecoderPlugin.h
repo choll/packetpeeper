@@ -29,18 +29,20 @@
 
 @protocol PPDecoderPlugin <NSObject>
 
-- (id)initWithModule:(NSString *)moduleName;
-- (BOOL)loadModule:(NSString *)moduleName;
-- (BOOL)canDecodeProtocol:(NSString *)protocol port:(unsigned int)port;
-- (NSArray *)columnIdentifiers;
-- (NSString *)columnStringForIndex:(unsigned int)fieldIndex data:(NSData *)data;
+- (id)initWithModule:(NSString*)moduleName;
+- (BOOL)loadModule:(NSString*)moduleName;
+- (BOOL)canDecodeProtocol:(NSString*)protocol port:(unsigned int)port;
+- (NSArray*)columnIdentifiers;
+- (NSString*)columnStringForIndex:(unsigned int)fieldIndex data:(NSData*)data;
 /* comp_data is the packet to compare against, data is 'self' */
-- (NSComparisonResult)compareWith:(NSData *)comp_data atIndex:(unsigned int)fieldIndex data:(NSData *)data;
-- (OutlineViewItem *)outlineViewItemTreeForData:(NSData *)data;
-- (BOOL)isValidData:(NSData *)data;
-- (NSString *)shortName;
-- (NSString *)longName;
-- (NSString *)infoForData:(NSData *)data;
+- (NSComparisonResult)compareWith:(NSData*)comp_data
+                          atIndex:(unsigned int)fieldIndex
+                             data:(NSData*)data;
+- (OutlineViewItem*)outlineViewItemTreeForData:(NSData*)data;
+- (BOOL)isValidData:(NSData*)data;
+- (NSString*)shortName;
+- (NSString*)longName;
+- (NSString*)infoForData:(NSData*)data;
 - (stacklev)level;
 
 @end

@@ -27,16 +27,18 @@
 
 @interface PPProgressWindowController : NSWindowController
 {
-	IBOutlet NSTextField *m_loadingMessage;
-	IBOutlet NSProgressIndicator *m_progressIndicator;
-	NSString *m_initialLoadingMessage;
-	id m_delegate;
-	SEL m_cancelSelector;
+    IBOutlet NSTextField* m_loadingMessage;
+    IBOutlet NSProgressIndicator* m_progressIndicator;
+    NSString* m_initialLoadingMessage;
+    id m_delegate;
+    SEL m_cancelSelector;
 }
 
-- (id)initWithLoadingMessage:(NSString *)loadingMessage delegate:(id)delegate cancelSelector:(SEL)cancelSelector;
+- (id)initWithLoadingMessage:(NSString*)loadingMessage
+                    delegate:(id)delegate
+              cancelSelector:(SEL)cancelSelector;
 - (IBAction)cancelButtonPressed:(id)sender;
-- (void)setLoadingMessage:(NSString *)loadingMessage;
+- (void)setLoadingMessage:(NSString*)loadingMessage;
 - (void)setPercentLoaded:(double)loadedPercent;
 
 @end

@@ -38,27 +38,28 @@
 
 @interface Packet : NSObject <PPDecoderParent, NSCoding>
 {
-    MyDocument *document;
+    MyDocument* document;
     /* the following variables are archived */
-    NSDate *date;                   /* date the packet was recieved */
-    NSMutableArray *decoders;       /* array of decoder objects */
-    uint32_t captureLength;         /* length of this packet that was captured */
-    uint32_t actualLength;          /* original length of this packet ``off the wire''  */
+    NSDate* date;             /* date the packet was recieved */
+    NSMutableArray* decoders; /* array of decoder objects */
+    uint32_t captureLength;   /* length of this packet that was captured */
+    uint32_t
+        actualLength; /* original length of this packet ``off the wire''  */
     unsigned long number;
     BOOL pendingDeletion;
-    NSData *data;                   /* packet data */
+    NSData* data; /* packet data */
     BOOL processedPlugins;
 }
 
-- (id)initWithData:(NSData *)dataVal
-    captureLength:(uint32_t)aCaptureLength
-    actualLength:(uint32_t)anActualLength
-    timestamp:(NSDate *)timestamp
-    linkLayer:(Class)linkLayer;
+- (id)initWithData:(NSData*)dataVal
+     captureLength:(uint32_t)aCaptureLength
+      actualLength:(uint32_t)anActualLength
+         timestamp:(NSDate*)timestamp
+         linkLayer:(Class)linkLayer;
 - (void)setNumber:(unsigned long)aNumber;
 - (unsigned long)number;
-- (MyDocument *)document;
-- (void)setDocument:(MyDocument *)aDocument;
+- (MyDocument*)document;
+- (void)setDocument:(MyDocument*)aDocument;
 - (BOOL)isPendingDeletion;
 - (void)setPendingDeletion;
 - (int)linkType;
@@ -66,4 +67,3 @@
 @end
 
 #endif
-

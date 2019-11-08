@@ -20,14 +20,14 @@
 #ifndef _TCPDECODE_H_
 #define _TCPDECODE_H_
 
-#include <stdint.h>
-#import <Foundation/NSObject.h>
+#include "ColumnIdentifier.h"
 #include "Decode.h"
 #include "Describe.h"
-#include "ColumnIdentifier.h"
 #include "OutlineViewItem.h"
+#import <Foundation/NSObject.h>
+#include <stdint.h>
 
-#define TCPDECODE_HDR_MIN		(sizeof(struct tcphdr))
+#define TCPDECODE_HDR_MIN (sizeof(struct tcphdr))
 
 @class NSData;
 @class NSDate;
@@ -35,27 +35,28 @@
 @class Packet;
 @class IPV4Decode;
 
-@interface TCPDecode : NSObject <Decode, Describe, NSCoding, OutlineViewItem, ColumnIdentifier>
+@interface TCPDecode
+    : NSObject <Decode, Describe, NSCoding, OutlineViewItem, ColumnIdentifier>
 {
-	id <PPDecoderParent> parent;
-	void *back_ptr;
-	uint32_t seq_no;
-	uint32_t ack_no;
-	uint32_t size;
-	uint16_t sport;
-	uint16_t dport;
-	uint16_t win_sz;
-	uint16_t sum;
-	uint16_t urg_ptr;
-	uint16_t calced_sum;
-	uint8_t hlen;
-	uint8_t flags;
-	BOOL inOrder;
+    id<PPDecoderParent> parent;
+    void* back_ptr;
+    uint32_t seq_no;
+    uint32_t ack_no;
+    uint32_t size;
+    uint16_t sport;
+    uint16_t dport;
+    uint16_t win_sz;
+    uint16_t sum;
+    uint16_t urg_ptr;
+    uint16_t calced_sum;
+    uint8_t hlen;
+    uint8_t flags;
+    BOOL inOrder;
 }
 
-- (NSString *)flagsStr;
-- (NSString *)srcPortName;
-- (NSString *)dstPortName;
+- (NSString*)flagsStr;
+- (NSString*)srcPortName;
+- (NSString*)dstPortName;
 - (BOOL)isChecksumValid;
 - (uint16_t)computedChecksum;
 - (uint32_t)seqNo;
@@ -72,21 +73,21 @@
 - (BOOL)synFlag;
 - (BOOL)finFlag;
 - (uint32_t)size;
-- (NSData *)payload;
-- (IPV4Decode *)ip;
-- (id <PPDecoderParent>)parent;
-- (NSDate *)date;
+- (NSData*)payload;
+- (IPV4Decode*)ip;
+- (id<PPDecoderParent>)parent;
+- (NSDate*)date;
 - (BOOL)isInOrder;
 - (void)setInOrder:(BOOL)flag;
-- (void)setBackPointer:(void *)ptr;
-- (void *)backPointer;
-- (BOOL)isEqualToSegment:(TCPDecode *)segment;
+- (void)setBackPointer:(void*)ptr;
+- (void*)backPointer;
+- (BOOL)isEqualToSegment:(TCPDecode*)segment;
 
 @end
 
-BOOL tcpdecode_rstFlag(TCPDecode *segment);
-BOOL tcpdecode_ackFlag(TCPDecode *segment);
-BOOL tcpdecode_synFlag(TCPDecode *segment);
-BOOL tcpdecode_finFlag(TCPDecode *segment);
+BOOL tcpdecode_rstFlag(TCPDecode* segment);
+BOOL tcpdecode_ackFlag(TCPDecode* segment);
+BOOL tcpdecode_synFlag(TCPDecode* segment);
+BOOL tcpdecode_finFlag(TCPDecode* segment);
 
 #endif /* _TCPDECODE_H_ */

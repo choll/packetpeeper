@@ -20,43 +20,46 @@
 #ifndef _CACHE_H_
 #define _CACHE_H_
 
-#import <Foundation/NSObject.h>
 #include "rb_tree.h"
+#import <Foundation/NSObject.h>
 
 /*
 	returns an index into the hash table, from 0 to the specified number of slots - 1
 */
-typedef unsigned int (*key_hash_fptr)(const void *key);
+typedef unsigned int (*key_hash_fptr)(const void* key);
 
 @interface Cache : NSObject
 {
-	/* the hash table */
-	struct rb_node **htable;
+    /* the hash table */
+    struct rb_node** htable;
 
-	/* given a pointer to the supplied key data, returns an integer between 0 and table_sz - 1 */
-	key_hash_fptr key_hash;
+    /* given a pointer to the supplied key data, returns an integer between 0 and table_sz - 1 */
+    key_hash_fptr key_hash;
 
-	/* given a pointer to the supplied key data, returns a value to be used in testing for equality */
-	rb_key_comp_fptr key_comp;
+    /* given a pointer to the supplied key data, returns a value to be used in testing for equality */
+    rb_key_comp_fptr key_comp;
 
-	/* the size in bytes of a node */
-	unsigned int node_sz;
+    /* the size in bytes of a node */
+    unsigned int node_sz;
 
-	/* the number of hash table slots */
-	unsigned int nslots;
+    /* the number of hash table slots */
+    unsigned int nslots;
 }
 
-- (id)initWithKeySize:(unsigned int)key_sz hashSlots:(unsigned int)islots hashFunction:(key_hash_fptr)hashFunc comparisonFunction:(rb_key_comp_fptr)compFunc;
+- (id)initWithKeySize:(unsigned int)key_sz
+             hashSlots:(unsigned int)islots
+          hashFunction:(key_hash_fptr)hashFunc
+    comparisonFunction:(rb_key_comp_fptr)compFunc;
 
 - (void)setHashFunction:(key_hash_fptr)hashFunc;
 
 - (void)setComparisonFunction:(rb_key_comp_fptr)compFunc;
 
 /* returns the object corresponding to the given key */
-- (id)objectForKey:(const void *)key;
+- (id)objectForKey:(const void*)key;
 
 /* inserts object using the value for key, key must not already have been added */
-- (BOOL)insertObject:(id)object forKey:(const void *)key;
+- (BOOL)insertObject:(id)object forKey:(const void*)key;
 
 - (void)flush;
 

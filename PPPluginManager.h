@@ -27,17 +27,17 @@
 
 @interface PPPluginManager : NSObject
 {
-	NSMutableArray *plugins;
+    NSMutableArray* plugins;
 }
 
-+ (PPPluginManager *)sharedPluginManager;
-- (NSArray *)pluginsList;
-- (id <PPDecoderPlugin>)pluginWithLongName:(NSString *)longName;
-- (id <PPDecoderPlugin>)pluginDecoderForDecoder:(id <Describe>)decoder;
-- (void)addPluginDecoder:(id <PPDecoderPlugin>)plugin;
++ (PPPluginManager*)sharedPluginManager;
+- (NSArray*)pluginsList;
+- (id<PPDecoderPlugin>)pluginWithLongName:(NSString*)longName;
+- (id<PPDecoderPlugin>)pluginDecoderForDecoder:(id<Describe>)decoder;
+- (void)addPluginDecoder:(id<PPDecoderPlugin>)plugin;
 - (void)loadPluginDecoders;
-+ (id <PPDecoderPlugin>)pluginDecoderForFile:(NSString *)path;
-- (BOOL)addPluginDecoderForFile:(NSString *)path;
++ (id<PPDecoderPlugin>)pluginDecoderForFile:(NSString*)path;
+- (BOOL)addPluginDecoderForFile:(NSString*)path;
 
 @end
 

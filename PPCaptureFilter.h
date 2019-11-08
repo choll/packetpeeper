@@ -30,21 +30,21 @@
 
 @interface PPCaptureFilter : NSObject <NSCopying, NSCoding>
 {
-	NSString *m_filter;
-	NSString *m_name;
-	uint32_t m_netmask;
-	NSString *m_compileError;
+    NSString* m_filter;
+    NSString* m_name;
+    uint32_t m_netmask;
+    NSString* m_compileError;
 }
 
-- (id)initWithTCPDumpFilter:(NSString *)filter name:(NSString *)name;
-- (id)initWithTCPDumpFilter:(NSString *)filter;
-- (PPBPFProgram *)filterProgramForLinkType:(int)linkType;
-- (NSString *)errorString;
-- (NSString *)name;
-- (void)setName:(NSString *)name;
+- (id)initWithTCPDumpFilter:(NSString*)filter name:(NSString*)name;
+- (id)initWithTCPDumpFilter:(NSString*)filter;
+- (PPBPFProgram*)filterProgramForLinkType:(int)linkType;
+- (NSString*)errorString;
+- (NSString*)name;
+- (void)setName:(NSString*)name;
 - (uint32_t)netmask;
 - (void)setNetmask:(uint32_t)netmask;
-- (NSString *)filterText;
+- (NSString*)filterText;
 
 @end
 

@@ -17,143 +17,154 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include <Python.h>
-#import <Foundation/NSObject.h>
-#import <Foundation/NSBundle.h>
-#import <Foundation/NSFileManager.h>
-#import <Foundation/NSString.h>
-#import <Foundation/NSPathUtilities.h>
-#import <Foundation/NSArray.h>
+#include "PPPluginManager.h"
+#include "Describe.h"
+#include "PPDecoderPlugin.h"
+#include "PPPyDecoderPlugin.h"
 #include "TCPDecode.h"
 #include "UDPDecode.h"
-#include "Describe.h"
-#include "PPPyDecoderPlugin.h"
-#include "PPDecoderPlugin.h"
-#include "PPPluginManager.h"
+#import <Foundation/NSArray.h>
+#import <Foundation/NSBundle.h>
+#import <Foundation/NSFileManager.h>
+#import <Foundation/NSObject.h>
+#import <Foundation/NSPathUtilities.h>
+#import <Foundation/NSString.h>
+#include <Python.h>
 
-static PPPluginManager *sharedPluginManager = nil;
+static PPPluginManager* sharedPluginManager = nil;
 
 @implementation PPPluginManager
 
 - (id)init
 {
-	if((self = [super init]) != nil) {
-		plugins = [[NSMutableArray alloc] init];
-		[self loadPluginDecoders];
-	}
-	return self;
+    if ((self = [super init]) != nil)
+    {
+        plugins = [[NSMutableArray alloc] init];
+        [self loadPluginDecoders];
+    }
+    return self;
 }
 
-+ (PPPluginManager *)sharedPluginManager
++ (PPPluginManager*)sharedPluginManager
 {
-	if(sharedPluginManager == nil)
-		sharedPluginManager = [[PPPluginManager alloc] init];
+    if (sharedPluginManager == nil)
+        sharedPluginManager = [[PPPluginManager alloc] init];
 
-	return sharedPluginManager;
+    return sharedPluginManager;
 }
 
-- (NSArray *)pluginsList
+- (NSArray*)pluginsList
 {
-	return plugins;
+    return plugins;
 }
 
-- (id <PPDecoderPlugin>)pluginWithLongName:(NSString *)longName
+- (id<PPDecoderPlugin>)pluginWithLongName:(NSString*)longName
 {
-	unsigned int i;
+    unsigned int i;
 
-	for(i = 0; i < [plugins count]; ++i) {
-		if([longName isEqualToString:[[plugins objectAtIndex:i] longName]])
-			return [plugins objectAtIndex:i];
-	}
+    for (i = 0; i < [plugins count]; ++i)
+    {
+        if ([longName isEqualToString:[[plugins objectAtIndex:i] longName]])
+            return [plugins objectAtIndex:i];
+    }
 
-	return nil;
+    return nil;
 }
 
-- (id <PPDecoderPlugin>)pluginDecoderForDecoder:(id <Describe>)decoder
+- (id<PPDecoderPlugin>)pluginDecoderForDecoder:(id<Describe>)decoder
 {
-	unsigned int srcPort;
-	unsigned int dstPort;
-	NSString *shortName;
-	unsigned int i;
+    unsigned int srcPort;
+    unsigned int dstPort;
+    NSString* shortName;
+    unsigned int i;
 
-	/* srcPort/dstPort methods should probably be part of a protocol... */
+    /* srcPort/dstPort methods should probably be part of a protocol... */
 
-	if(decoder == nil)
-		return nil;
+    if (decoder == nil)
+        return nil;
 
-	if([decoder isMemberOfClass:[TCPDecode class]]) {
-		srcPort = [(TCPDecode *)decoder srcPort];
-		dstPort = [(TCPDecode *)decoder dstPort];
-	} else if([decoder isMemberOfClass:[UDPDecode class]]) {
-		srcPort = [(UDPDecode *)decoder srcPort];
-		dstPort = [(UDPDecode *)decoder dstPort];
-	} else
-		return nil;
+    if ([decoder isMemberOfClass:[TCPDecode class]])
+    {
+        srcPort = [(TCPDecode*)decoder srcPort];
+        dstPort = [(TCPDecode*)decoder dstPort];
+    }
+    else if ([decoder isMemberOfClass:[UDPDecode class]])
+    {
+        srcPort = [(UDPDecode*)decoder srcPort];
+        dstPort = [(UDPDecode*)decoder dstPort];
+    }
+    else
+        return nil;
 
-	shortName = [[decoder class] shortName];
+    shortName = [[decoder class] shortName];
 
-	for(i = 0; i < [plugins count]; ++i) {
-		id <PPDecoderPlugin> plugin;
+    for (i = 0; i < [plugins count]; ++i)
+    {
+        id<PPDecoderPlugin> plugin;
 
-		plugin = [plugins objectAtIndex:i];
+        plugin = [plugins objectAtIndex:i];
 
-		if([plugin canDecodeProtocol:shortName port:srcPort] ||
-		   [plugin canDecodeProtocol:shortName port:dstPort])
-			return plugin;
-	}
+        if ([plugin canDecodeProtocol:shortName port:srcPort] ||
+            [plugin canDecodeProtocol:shortName port:dstPort])
+            return plugin;
+    }
 
-	return nil;
+    return nil;
 }
 
-- (void)addPluginDecoder:(id <PPDecoderPlugin>)plugin
+- (void)addPluginDecoder:(id<PPDecoderPlugin>)plugin
 {
-	[plugins addObject:plugin];
+    [plugins addObject:plugin];
 }
 
 - (void)loadPluginDecoders
 {
-	NSArray *files;
-	unsigned int i;
+    NSArray* files;
+    unsigned int i;
 
-	files = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[[NSBundle mainBundle] builtInPlugInsPath] error:nil];
+    files = [[NSFileManager defaultManager]
+        contentsOfDirectoryAtPath:[[NSBundle mainBundle] builtInPlugInsPath]
+                            error:nil];
 
-	for(i = 0; i < [files count]; ++i) {
-		NSString *path;
+    for (i = 0; i < [files count]; ++i)
+    {
+        NSString* path;
 
-		path = [files objectAtIndex:i];
-		[self addPluginDecoderForFile:path];
-	}
+        path = [files objectAtIndex:i];
+        [self addPluginDecoderForFile:path];
+    }
 }
 
-+ (id <PPDecoderPlugin>)pluginDecoderForFile:(NSString *)path
++ (id<PPDecoderPlugin>)pluginDecoderForFile:(NSString*)path
 {
-	NSString *relativePath;
-	id <PPDecoderPlugin> ret;
+    NSString* relativePath;
+    id<PPDecoderPlugin> ret;
 
-	relativePath = [path lastPathComponent];
-	ret = nil;
+    relativePath = [path lastPathComponent];
+    ret = nil;
 
-	if([[relativePath pathExtension] isEqualToString:@"py"])
-		ret = [[PPPyDecoderPlugin alloc] initWithModule:[relativePath stringByDeletingPathExtension]];
+    if ([[relativePath pathExtension] isEqualToString:@"py"])
+        ret = [[PPPyDecoderPlugin alloc]
+            initWithModule:[relativePath stringByDeletingPathExtension]];
 
-	return [ret autorelease];
+    return [ret autorelease];
 }
 
-- (BOOL)addPluginDecoderForFile:(NSString *)path
+- (BOOL)addPluginDecoderForFile:(NSString*)path
 {
-	id <PPDecoderPlugin> plugin;
+    id<PPDecoderPlugin> plugin;
 
-	if((plugin = [PPPluginManager pluginDecoderForFile:path]) == nil)
-		return NO;
+    if ((plugin = [PPPluginManager pluginDecoderForFile:path]) == nil)
+        return NO;
 
-	[self addPluginDecoder:plugin];
-	return YES;
+    [self addPluginDecoder:plugin];
+    return YES;
 }
 
 - (void)dealloc
 {
-	[plugins release];
-	[super dealloc];
+    [plugins release];
+    [super dealloc];
 }
 
 @end

@@ -20,35 +20,35 @@
 #ifndef PACKETPEEPER_IPV6DECODE_H
 #define PACKETPEEPER_IPV6DECODE_H
 
-#include <stdint.h>
-#include <netinet/in.h>
-#import <Foundation/NSObject.h>
+#include "ColumnIdentifier.h"
 #include "Decode.h"
 #include "Describe.h"
 #include "OutlineViewItem.h"
-#include "ColumnIdentifier.h"
+#import <Foundation/NSObject.h>
+#include <netinet/in.h>
+#include <stdint.h>
 
-@interface IPV6Decode : NSObject <Decode, Describe, NSCoding, OutlineViewItem, ColumnIdentifier>
+@interface IPV6Decode
+    : NSObject <Decode, Describe, NSCoding, OutlineViewItem, ColumnIdentifier>
 {
-    struct ip6_hdr *m_hdr;
-    id <PPDecoderParent> m_parent;
+    struct ip6_hdr* m_hdr;
+    id<PPDecoderParent> m_parent;
 }
 
-- (NSString *)addrTo;
-- (NSString *)addrFrom;
-- (NSString *)resolvTo;
-- (NSString *)resolvFrom;
-- (NSString *)to;
-- (NSString *)from;
+- (NSString*)addrTo;
+- (NSString*)addrFrom;
+- (NSString*)resolvTo;
+- (NSString*)resolvFrom;
+- (NSString*)to;
+- (NSString*)from;
 - (size_t)length;
 - (size_t)headerLength;
 - (struct in6_addr)in6_addrSrc;
 - (struct in6_addr)in6_addrDst;
 
 /* private method */
-- (id <OutlineViewItem>)resolvCallback:(void *)data;
+- (id<OutlineViewItem>)resolvCallback:(void*)data;
 
 @end
 
 #endif
-

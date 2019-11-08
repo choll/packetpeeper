@@ -27,18 +27,23 @@
 
 @interface Interface : NSObject
 {
-	NSString *shortName;	/* interfaces short name, eg en0 */
-	NSString *longName;		/* place holder for the interfaces long name */
-	BOOL promisc;			/* is promiscuous mode enabled */
-	BOOL loopback;			/* is the interface a loopback net */
-	uint32_t netmask;		/* netmask of interface */
-	int linkType;
+    NSString* shortName; /* interfaces short name, eg en0 */
+    NSString* longName;  /* place holder for the interfaces long name */
+    BOOL promisc;        /* is promiscuous mode enabled */
+    BOOL loopback;       /* is the interface a loopback net */
+    uint32_t netmask;    /* netmask of interface */
+    int linkType;
 }
 
-+ (NSArray *)liveInterfaces;
-- (id)initWithShortName:(NSString *)shortNameVal longName:(NSString *)longNameVal promisc:(BOOL)promiscVal loopback:(BOOL)loopbackVal netmask:(uint32_t)netmaskVal linkType:(int)linkTypeVal;
-- (NSString *)shortName;
-- (NSString *)longName;
++ (NSArray*)liveInterfaces;
+- (id)initWithShortName:(NSString*)shortNameVal
+               longName:(NSString*)longNameVal
+                promisc:(BOOL)promiscVal
+               loopback:(BOOL)loopbackVal
+                netmask:(uint32_t)netmaskVal
+               linkType:(int)linkTypeVal;
+- (NSString*)shortName;
+- (NSString*)longName;
 - (BOOL)promisc;
 - (BOOL)loopback;
 - (uint32_t)netmask;

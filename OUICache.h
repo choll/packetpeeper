@@ -22,22 +22,22 @@
 
 #include "Cache.h"
 
-#define OC_HASHMASK			(OC_HASHTABLE_SZ - 1)
-#define OC_HASHTABLE_SZ		256
+#define OC_HASHMASK     (OC_HASHTABLE_SZ - 1)
+#define OC_HASHTABLE_SZ 256
 
 @interface OUICache : Cache
 {
-	char *manufacturer;
-	size_t manufacturer_sz;
-	int fd;
-	unsigned int recsz;
-	unsigned int nrecs;
+    char* manufacturer;
+    size_t manufacturer_sz;
+    int fd;
+    unsigned int recsz;
+    unsigned int nrecs;
 }
 
-+ (OUICache *)sharedOUICache;
++ (OUICache*)sharedOUICache;
 + (void)releaseSharedOUICache;
-- (NSString *)readManufacturerForEthernetAddress:(void *)addr;
-- (NSString *)manufacturerForEthernetAddress:(void *)addr;
+- (NSString*)readManufacturerForEthernetAddress:(void*)addr;
+- (NSString*)manufacturerForEthernetAddress:(void*)addr;
 
 @end
 

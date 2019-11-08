@@ -20,9 +20,9 @@
 #ifndef _INVIDIVIDUALPACKETWINDOWCONTROLLER_H_
 #define _INVIDIVIDUALPACKETWINDOWCONTROLLER_H_
 
+#include "PacketPeeper.h"
 #import <AppKit/NSOutlineView.h>
 #import <AppKit/NSWindowController.h>
-#include "PacketPeeper.h"
 
 @class NSMutableArray;
 @class NSOutlineView;
@@ -33,30 +33,36 @@
 @class OutlineViewItem;
 @class DataInspectorRepresenter;
 
-@interface IndividualPacketWindowController : NSWindowController <NSOutlineViewDataSource> {
-	IBOutlet NSOutlineView *packetOutlineView;
-	IBOutlet HFTextView *packetHexView;
-	OutlineViewItem *packetItems;
-	Packet *packet;
-	NSMutableDictionary *expandedItems;
-    DataInspectorRepresenter *dataInspectorRepresenter;
+@interface IndividualPacketWindowController
+    : NSWindowController <NSOutlineViewDataSource>
+{
+    IBOutlet NSOutlineView* packetOutlineView;
+    IBOutlet HFTextView* packetHexView;
+    OutlineViewItem* packetItems;
+    Packet* packet;
+    NSMutableDictionary* expandedItems;
+    DataInspectorRepresenter* dataInspectorRepresenter;
 }
 
-- (id)initWithPacket:(Packet *)aPacket;
-- (void)setPacket:(Packet *)aPacket;
-- (Packet *)packet;
-- (void)hostNameLookupCompletedNotification:(NSNotification *)note;
+- (id)initWithPacket:(Packet*)aPacket;
+- (void)setPacket:(Packet*)aPacket;
+- (Packet*)packet;
+- (void)hostNameLookupCompletedNotification:(NSNotification*)note;
 
 /* NSOutlineView data-source methods */
 
-- (BOOL)outlineView:(NSOutlineView *)outlineView isItemExpandable:(id)item;
-- (NSInteger)outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(id)item;
-- (id)outlineView:(NSOutlineView *)outlineView child:(int)anIndex ofItem:(id)item;
-- (id)outlineView:(NSOutlineView *)outlineView objectValueForTableColumn:(NSTableColumn *)tableColumn byItem:(id)item;
+- (BOOL)outlineView:(NSOutlineView*)outlineView isItemExpandable:(id)item;
+- (NSInteger)outlineView:(NSOutlineView*)outlineView
+    numberOfChildrenOfItem:(id)item;
+- (id)outlineView:(NSOutlineView*)outlineView
+            child:(int)anIndex
+           ofItem:(id)item;
+- (id)outlineView:(NSOutlineView*)outlineView
+    objectValueForTableColumn:(NSTableColumn*)tableColumn
+                       byItem:(id)item;
 
 - (IBAction)toggleDataInspectorView:(id)sender;
 - (bool)isDataInspectorViewVisible;
 @end
 
 #endif
-

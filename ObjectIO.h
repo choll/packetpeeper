@@ -20,43 +20,44 @@
 #ifndef _OBJECTIO_H_
 #define _OBJECTIO_H_
 
+#include "ErrorStack.h"
+#import <Foundation/NSObject.h>
 #include <stdint.h>
 #include <sys/types.h>
 #include <sys/uio.h>
-#import <Foundation/NSObject.h>
-#include "ErrorStack.h"
 
 // XXX config.h
-#define READOBJ_BUFSIZ	(32*1024)		/* initial buffer size used by readobj, 32k */
-#define LEN_MAX 		(1024*1024*16)	/* maximum allowable object length, 16MB */
+#define READOBJ_BUFSIZ \
+    (32 * 1024) /* initial buffer size used by readobj, 32k */
+#define LEN_MAX (1024 * 1024 * 16) /* maximum allowable object length, 16MB */
 
 #if (LEN_MAX > SIZE_MAX)
-	#error "LEN_MAX is greater than the maximum value of len_t"
+#error "LEN_MAX is greater than the maximum value of len_t"
 #endif
 
 /* Error stack codes */
-#define EOBJIO_BADMD	1	/* Failed to create NSMutableData */
-#define EOBJIO_BADLEN	2	/* Object too large */
+#define EOBJIO_BADMD  1 /* Failed to create NSMutableData */
+#define EOBJIO_BADLEN 2 /* Object too large */
 
 @class NSMutableData;
 @class NSSocketPort;
 
 @interface ObjectIO : NSObject <ErrorStack>
 {
-	int				fd;
-	NSMutableData	*writeData;	/* belongs to write method */
-	void			*buf;		/* belongs to read method */
-	size_t			buflen;		/* belongs to read method */
-	struct iovec 	riov[2];	/* belongs to read method */
-	size_t 			rlen;		/* belongs to read method */
-	ssize_t			nread;		/* belongs to read method */
-	BOOL			more;
+    int fd;
+    NSMutableData* writeData; /* belongs to write method */
+    void* buf;                /* belongs to read method */
+    size_t buflen;            /* belongs to read method */
+    struct iovec riov[2];     /* belongs to read method */
+    size_t rlen;              /* belongs to read method */
+    ssize_t nread;            /* belongs to read method */
+    BOOL more;
 }
 
 - (id)initWithFileDescriptor:(int)fdVal;
-- (id)initWithSocketPort:(NSSocketPort *)socketPort;
-- (ssize_t)write:(id <NSCoding>)obj;
-- (id <NSCoding>)read;
+- (id)initWithSocketPort:(NSSocketPort*)socketPort;
+- (ssize_t)write:(id<NSCoding>)obj;
+- (id<NSCoding>)read;
 - (BOOL)moreAvailable;
 
 @end

@@ -27,14 +27,14 @@
 @interface NSTableView (PPTableViewAdditions)
 
 - (NSInteger)eventRow;
-- (void)setEventRow:(NSEvent *)event;
-- (void)selectRowsForEvent:(NSEvent *)event;
+- (void)setEventRow:(NSEvent*)event;
+- (void)selectRowsForEvent:(NSEvent*)event;
 
 @end
 
 @interface PPTableView : NSTableView
 
-- (NSMenu *)menuForEvent:(NSEvent *)event;
+- (NSMenu*)menuForEvent:(NSEvent*)event;
 
 @end
 

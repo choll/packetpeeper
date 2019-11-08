@@ -17,35 +17,34 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include <sys/types.h>
-#include <netinet/in.h>
-#include <netinet/ip6.h>
-#include <arpa/inet.h>
-#include <stddef.h>
+#include "IPV6Decode.h"
+#include "ColumnIdentifier.h"
+#include "HostCache.hh"
+#include "Packet.h"
+#include "TCPDecode.h"
+#include "UDPDecode.h"
+#include "pkt_compare.h"
+#include "strfuncs.h"
+#import <Foundation/NSArchiver.h>
+#import <Foundation/NSArray.h>
 #import <Foundation/NSData.h>
 #import <Foundation/NSString.h>
-#import <Foundation/NSArray.h>
-#import <Foundation/NSArchiver.h>
-#include "Packet.h"
-#include "UDPDecode.h"
-#include "TCPDecode.h"
-#include "HostCache.hh"
-#include "ColumnIdentifier.h"
-#include "strfuncs.h"
-#include "pkt_compare.h"
-#include "IPV6Decode.h"
+#include <arpa/inet.h>
+#include <netinet/in.h>
+#include <netinet/ip6.h>
+#include <stddef.h>
+#include <sys/types.h>
 
-static NSString *names[][2] =
-    {{@"Version", @"IPv6 Ver"},
-    {@"Traffic class", @"IPv6 T.Class"},
-    {@"Flow label", @"IPv6 Flow ID"},
-    {@"Payload length", @"IPv6 Pay. Len"},
-    {@"Next header", @"IPv6 Next Hdr"},
-    {@"Hop limit", @"IPv6 Hop Lim"},
-    {@"Source IP6 Address", @"Src IP6"},
-    {@"Destination IP6 Address", @"Dst IP6"},
-    {@"Source Hostname", @"Src Host IP6"},
-    {@"Destination Hostname", @"Dst Host IP6"}};
+static NSString* names[][2] = {{@"Version", @"IPv6 Ver"},
+                               {@"Traffic class", @"IPv6 T.Class"},
+                               {@"Flow label", @"IPv6 Flow ID"},
+                               {@"Payload length", @"IPv6 Pay. Len"},
+                               {@"Next header", @"IPv6 Next Hdr"},
+                               {@"Hop limit", @"IPv6 Hop Lim"},
+                               {@"Source IP6 Address", @"Src IP6"},
+                               {@"Destination IP6 Address", @"Dst IP6"},
+                               {@"Source Hostname", @"Src Host IP6"},
+                               {@"Destination Hostname", @"Dst Host IP6"}};
 
 static inline unsigned int ip6_get_version(const struct ip6_hdr* hdr)
 {
@@ -79,9 +78,10 @@ static inline unsigned int ip6_get_hop_limit(const struct ip6_hdr* hdr)
 
 @implementation IPV6Decode
 
-- (id)initWithData:(NSData *)data parent:(id <PPDecoderParent>)parent
+- (id)initWithData:(NSData*)data parent:(id<PPDecoderParent>)parent
 {
-    if(data == nil || [data length] < sizeof(struct ip6_hdr) || (self = [super init]) == nil)
+    if (data == nil || [data length] < sizeof(struct ip6_hdr) ||
+        (self = [super init]) == nil)
         return nil;
 
     m_hdr = (struct ip6_hdr*)[data bytes];
@@ -90,12 +90,12 @@ static inline unsigned int ip6_get_hop_limit(const struct ip6_hdr* hdr)
     return self;
 }
 
-- (void)setParent:(id <PPDecoderParent>)parent
+- (void)setParent:(id<PPDecoderParent>)parent
 {
     m_parent = parent;
     m_hdr =
-        (struct ip6_hdr*)((char*)[[m_parent packetData] bytes] +
-            [m_parent byteOffsetForDecoder:self]);
+        (struct
+         ip6_hdr*)((char*)[[m_parent packetData] bytes] + [m_parent byteOffsetForDecoder:self]);
 }
 
 - (size_t)frontSize
@@ -114,71 +114,76 @@ static inline unsigned int ip6_get_hop_limit(const struct ip6_hdr* hdr)
 
 - (size_t)rearSize
 {
-	return 0;
+    return 0;
 }
 
 - (Class)nextLayer
 {
-    switch(m_hdr->ip6_ctlun.ip6_un1.ip6_un1_nxt)
+    switch (m_hdr->ip6_ctlun.ip6_un1.ip6_un1_nxt)
     {
-        case IPPROTO_TCP:
-            return [TCPDecode class];
-        case IPPROTO_UDP:
-            return [UDPDecode class];
+    case IPPROTO_TCP:
+        return [TCPDecode class];
+    case IPPROTO_UDP:
+        return [UDPDecode class];
     }
     return Nil;
 }
 
-+ (NSString *)shortName
++ (NSString*)shortName
 {
     return @"IPv6";
 }
 
-+ (NSString *)longName
++ (NSString*)longName
 {
     return @"IP Version 6";
 }
 
-- (NSString *)info
+- (NSString*)info
 {
-    return [NSString stringWithFormat:@"%@ to %@, %zuB total", [self from], [self to], [self length]];
+    return [NSString stringWithFormat:@"%@ to %@, %zuB total",
+                                      [self from],
+                                      [self to],
+                                      [self length]];
 }
 
-- (NSString *)addrTo
+- (NSString*)addrTo
 {
     return ipaddrstr(&m_hdr->ip6_dst, sizeof(struct in6_addr));
 }
 
-- (NSString *)addrFrom
+- (NSString*)addrFrom
 {
     return ipaddrstr(&m_hdr->ip6_src, sizeof(struct in6_addr));
 }
 
-- (NSString *)resolvTo
+- (NSString*)resolvTo
 {
-    return [[m_parent hostCache] hostWithIp6AddressASync:&m_hdr->ip6_dst returnCode:NULL];
+    return [[m_parent hostCache] hostWithIp6AddressASync:&m_hdr->ip6_dst
+                                              returnCode:NULL];
 }
 
-- (NSString *)resolvFrom
+- (NSString*)resolvFrom
 {
-    return [[m_parent hostCache] hostWithIp6AddressASync:&m_hdr->ip6_src returnCode:NULL];
+    return [[m_parent hostCache] hostWithIp6AddressASync:&m_hdr->ip6_src
+                                              returnCode:NULL];
 }
 
-- (NSString *)to
+- (NSString*)to
 {
-    NSString *ret;
+    NSString* ret;
 
-    if((ret = [self resolvTo]) == nil)
+    if ((ret = [self resolvTo]) == nil)
         ret = [self addrTo];
 
     return ret;
 }
 
-- (NSString *)from
+- (NSString*)from
 {
-    NSString *ret;
+    NSString* ret;
 
-    if((ret = [self resolvFrom]) == nil)
+    if ((ret = [self resolvFrom]) == nil)
         ret = [self addrFrom];
 
     return ret;
@@ -191,7 +196,7 @@ static inline unsigned int ip6_get_hop_limit(const struct ip6_hdr* hdr)
 
 - (size_t)headerLength
 {
-	return [self frontSize];
+    return [self frontSize];
 }
 
 - (struct in6_addr)in6_addrSrc
@@ -204,34 +209,39 @@ static inline unsigned int ip6_get_hop_limit(const struct ip6_hdr* hdr)
     return m_hdr->ip6_dst;
 }
 
-- (id <OutlineViewItem>)resolvCallback:(void *)data
+- (id<OutlineViewItem>)resolvCallback:(void*)data
 {
-	OutlineViewItem *ret;
-	NSString *resolved;
-	int retcode;
+    OutlineViewItem* ret;
+    NSString* resolved;
+    int retcode;
 
-	ret = [[OutlineViewItem alloc] init];
+    ret = [[OutlineViewItem alloc] init];
 
-	[ret addObject:@"Hostname"];
+    [ret addObject:@"Hostname"];
 
-	if((resolved = [[m_parent hostCache] hostWithIp6AddressASync:data returnCode:&retcode]) == nil) {
-		switch(retcode) {
-			case HOSTCACHE_NONAME:
-				[ret addObject:@"Lookup failed"];
-				break;
+    if ((resolved = [[m_parent hostCache] hostWithIp6AddressASync:data
+                                                       returnCode:&retcode]) ==
+        nil)
+    {
+        switch (retcode)
+        {
+        case HOSTCACHE_NONAME:
+            [ret addObject:@"Lookup failed"];
+            break;
 
-			case HOSTCACHE_INPROG:
-				[ret addObject:@"Lookup in progress"];
-				break;
+        case HOSTCACHE_INPROG:
+            [ret addObject:@"Lookup in progress"];
+            break;
 
-			default:
-				[ret addObject:@"Lookup error"];
-				break;
-		}
-	} else
-		[ret addObject:resolved];
+        default:
+            [ret addObject:@"Lookup error"];
+            break;
+        }
+    }
+    else
+        [ret addObject:resolved];
 
-	return [ret autorelease];
+    return [ret autorelease];
 }
 
 - (stacklev)level
@@ -239,23 +249,29 @@ static inline unsigned int ip6_get_hop_limit(const struct ip6_hdr* hdr)
     return SL_NETWORK;
 }
 
-- (NSString *)description
+- (NSString*)description
 {
-    return [NSString stringWithFormat:@"[IP6: %@ to %@]", [self from], [self to]];
+    return
+        [NSString stringWithFormat:@"[IP6: %@ to %@]", [self from], [self to]];
 }
 
 /* ColumnIdentifier protocol methods */
 
-+ (NSArray *)columnIdentifiers
++ (NSArray*)columnIdentifiers
 {
-    ColumnIdentifier *colIdent;
-    NSMutableArray *ret;
+    ColumnIdentifier* colIdent;
+    NSMutableArray* ret;
     unsigned int i;
 
-    ret = [[NSMutableArray alloc] initWithCapacity:sizeof(names) / sizeof(names[0])];
+    ret = [[NSMutableArray alloc]
+        initWithCapacity:sizeof(names) / sizeof(names[0])];
 
-    for(i = 0; i < sizeof(names) / sizeof(names[0]) ; ++i) {
-        colIdent = [[ColumnIdentifier alloc] initWithDecoder:[self class] index:i longName:names[i][0] shortName:names[i][1]];
+    for (i = 0; i < sizeof(names) / sizeof(names[0]); ++i)
+    {
+        colIdent = [[ColumnIdentifier alloc] initWithDecoder:[self class]
+                                                       index:i
+                                                    longName:names[i][0]
+                                                   shortName:names[i][1]];
         [ret addObject:colIdent];
         [colIdent release];
     }
@@ -263,58 +279,66 @@ static inline unsigned int ip6_get_hop_limit(const struct ip6_hdr* hdr)
     return [ret autorelease];
 }
 
-- (NSString *)columnStringForIndex:(unsigned int)fieldIndex
+- (NSString*)columnStringForIndex:(unsigned int)fieldIndex
 {
-    switch(fieldIndex) {
-        case 0:
-            return [NSString stringWithFormat:@"%u", ip6_get_version(m_hdr)];
-        case 1:
-            return [NSString stringWithFormat:@"%u", ip6_get_traffic_class(m_hdr)];
-        case 2:
-            return [NSString stringWithFormat:@"%u", ip6_get_flow_label(m_hdr)];
-        case 3:
-            return [NSString stringWithFormat:@"%u", ip6_get_payload_length(m_hdr)];
-        case 4:
-            return [NSString stringWithFormat:@"%u", ip6_get_next_header(m_hdr)];
-        case 5:
-            return [NSString stringWithFormat:@"%u", ip6_get_hop_limit(m_hdr)];
-        case 6:
-            return ipaddrstr(&m_hdr->ip6_src, sizeof(struct in6_addr));
-        case 7:
-            return ipaddrstr(&m_hdr->ip6_dst, sizeof(struct in6_addr));
-        case 8:
-            return ipaddrstr(&m_hdr->ip6_src, sizeof(struct in6_addr));
-        case 9:
-            return ipaddrstr(&m_hdr->ip6_dst, sizeof(struct in6_addr));
+    switch (fieldIndex)
+    {
+    case 0:
+        return [NSString stringWithFormat:@"%u", ip6_get_version(m_hdr)];
+    case 1:
+        return [NSString stringWithFormat:@"%u", ip6_get_traffic_class(m_hdr)];
+    case 2:
+        return [NSString stringWithFormat:@"%u", ip6_get_flow_label(m_hdr)];
+    case 3:
+        return [NSString stringWithFormat:@"%u", ip6_get_payload_length(m_hdr)];
+    case 4:
+        return [NSString stringWithFormat:@"%u", ip6_get_next_header(m_hdr)];
+    case 5:
+        return [NSString stringWithFormat:@"%u", ip6_get_hop_limit(m_hdr)];
+    case 6:
+        return ipaddrstr(&m_hdr->ip6_src, sizeof(struct in6_addr));
+    case 7:
+        return ipaddrstr(&m_hdr->ip6_dst, sizeof(struct in6_addr));
+    case 8:
+        return ipaddrstr(&m_hdr->ip6_src, sizeof(struct in6_addr));
+    case 9:
+        return ipaddrstr(&m_hdr->ip6_dst, sizeof(struct in6_addr));
     }
     return nil;
 }
 
 - (NSComparisonResult)compareWith:(id)obj atIndex:(unsigned int)fieldIndex
 {
-    const struct ip6_hdr *other = ((IPV6Decode *)obj)->m_hdr;
+    const struct ip6_hdr* other = ((IPV6Decode*)obj)->m_hdr;
 
-    switch(fieldIndex) {
-        case 0:
-            return val_compare(ip6_get_version(m_hdr), ip6_get_version(other));
-        case 1:
-            return val_compare(ip6_get_traffic_class(m_hdr), ip6_get_traffic_class(other));
-        case 2:
-            return val_compare(ip6_get_flow_label(m_hdr), ip6_get_flow_label(other));
-        case 3:
-            return val_compare(ip6_get_payload_length(m_hdr), ip6_get_payload_length(other));
-        case 4:
-            return val_compare(ip6_get_next_header(m_hdr), ip6_get_next_header(other));
-        case 5:
-            return val_compare(ip6_get_version(m_hdr), ip6_get_version(other));
-        case 6:
-            return mem_compare(&m_hdr->ip6_src, &other->ip6_src, sizeof(struct in6_addr));
-        case 7:
-            return mem_compare(&m_hdr->ip6_dst, &other->ip6_dst, sizeof(struct in6_addr));
-        case 8:
-           return [[self resolvFrom] compare:[obj resolvFrom]];
-        case 9:
-           return [[self resolvTo] compare:[obj resolvTo]];
+    switch (fieldIndex)
+    {
+    case 0:
+        return val_compare(ip6_get_version(m_hdr), ip6_get_version(other));
+    case 1:
+        return val_compare(
+            ip6_get_traffic_class(m_hdr), ip6_get_traffic_class(other));
+    case 2:
+        return val_compare(
+            ip6_get_flow_label(m_hdr), ip6_get_flow_label(other));
+    case 3:
+        return val_compare(
+            ip6_get_payload_length(m_hdr), ip6_get_payload_length(other));
+    case 4:
+        return val_compare(
+            ip6_get_next_header(m_hdr), ip6_get_next_header(other));
+    case 5:
+        return val_compare(ip6_get_version(m_hdr), ip6_get_version(other));
+    case 6:
+        return mem_compare(
+            &m_hdr->ip6_src, &other->ip6_src, sizeof(struct in6_addr));
+    case 7:
+        return mem_compare(
+            &m_hdr->ip6_dst, &other->ip6_dst, sizeof(struct in6_addr));
+    case 8:
+        return [[self resolvFrom] compare:[obj resolvFrom]];
+    case 9:
+        return [[self resolvTo] compare:[obj resolvTo]];
     }
 
     return NSOrderedSame;
@@ -334,57 +358,66 @@ static inline unsigned int ip6_get_hop_limit(const struct ip6_hdr* hdr)
 
 - (id)childAtIndex:(int)fieldIndex
 {
-    OutlineViewItem *ret;
-    NSString *str;
+    OutlineViewItem* ret;
+    NSString* str;
 
     ret = [[OutlineViewItem alloc] init];
     [ret addObject:names[fieldIndex][0]];
 
-    switch(fieldIndex) {
-        case 0:
-            str = [[NSString alloc] initWithFormat:@"%u", ip6_get_version(m_hdr)];
-            [ret addObject:str];
-            [str release];
-            break;
-        case 1:
-            str = [[NSString alloc] initWithFormat:@"%u", ip6_get_traffic_class(m_hdr)];
-            [ret addObject:str];
-            [str release];
-            break;
-        case 2:
-            str = [[NSString alloc] initWithFormat:@"%u", ip6_get_flow_label(m_hdr)];
-            [ret addObject:str];
-            [str release];
-            break;
-        case 3:
-            str = [[NSString alloc] initWithFormat:@"%u", ip6_get_payload_length(m_hdr)];
-            [ret addObject:str];
-            [str release];
-            break;
-        case 4:
-            str = [[NSString alloc] initWithFormat:@"%u", ip6_get_next_header(m_hdr)];
-            [ret addObject:str];
-            [str release];
-            break;
-        case 5:
-            str = [[NSString alloc] initWithFormat:@"%u", ip6_get_hop_limit(m_hdr)];
-            [ret addObject:str];
-            [str release];
-            break;
-		case 6:
-			[ret addObject:[self addrFrom]];
-			[ret addChildWithCallback:self selector:@selector(resolvCallback:) data:&m_hdr->ip6_src];
-			break;
-		case 7:
-			[ret addObject:[self addrTo]];
-			[ret addChildWithCallback:self selector:@selector(resolvCallback:) data:&m_hdr->ip6_dst];
-			break;
-		default:
-			[ret release];
-			return nil;
+    switch (fieldIndex)
+    {
+    case 0:
+        str = [[NSString alloc] initWithFormat:@"%u", ip6_get_version(m_hdr)];
+        [ret addObject:str];
+        [str release];
+        break;
+    case 1:
+        str = [[NSString alloc]
+            initWithFormat:@"%u", ip6_get_traffic_class(m_hdr)];
+        [ret addObject:str];
+        [str release];
+        break;
+    case 2:
+        str =
+            [[NSString alloc] initWithFormat:@"%u", ip6_get_flow_label(m_hdr)];
+        [ret addObject:str];
+        [str release];
+        break;
+    case 3:
+        str = [[NSString alloc]
+            initWithFormat:@"%u", ip6_get_payload_length(m_hdr)];
+        [ret addObject:str];
+        [str release];
+        break;
+    case 4:
+        str =
+            [[NSString alloc] initWithFormat:@"%u", ip6_get_next_header(m_hdr)];
+        [ret addObject:str];
+        [str release];
+        break;
+    case 5:
+        str = [[NSString alloc] initWithFormat:@"%u", ip6_get_hop_limit(m_hdr)];
+        [ret addObject:str];
+        [str release];
+        break;
+    case 6:
+        [ret addObject:[self addrFrom]];
+        [ret addChildWithCallback:self
+                         selector:@selector(resolvCallback:)
+                             data:&m_hdr->ip6_src];
+        break;
+    case 7:
+        [ret addObject:[self addrTo]];
+        [ret addChildWithCallback:self
+                         selector:@selector(resolvCallback:)
+                             data:&m_hdr->ip6_dst];
+        break;
+    default:
+        [ret release];
+        return nil;
     }
 
-	return [ret autorelease];
+    return [ret autorelease];
 }
 
 - (size_t)numberOfValues
@@ -397,13 +430,14 @@ static inline unsigned int ip6_get_hop_limit(const struct ip6_hdr* hdr)
     return [[self class] longName];
 }
 
-- (void)encodeWithCoder:(NSCoder *)coder
+- (void)encodeWithCoder:(NSCoder*)coder
 {
 }
 
-- (id)initWithCoder:(NSCoder *)coder
+- (id)initWithCoder:(NSCoder*)coder
 {
-    if((self = [super init]) != nil) {
+    if ((self = [super init]) != nil)
+    {
         m_parent = nil;
         m_hdr = NULL;
     }
@@ -411,4 +445,3 @@ static inline unsigned int ip6_get_hop_limit(const struct ip6_hdr* hdr)
 }
 
 @end
-

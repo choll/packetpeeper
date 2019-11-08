@@ -17,19 +17,19 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#import <Foundation/NSArray.h>
 #include "NSMutableArrayExtensions.h"
+#import <Foundation/NSArray.h>
 
 @implementation NSMutableArray (NSMutableArrayExtensions)
 
 - (void)removeFirstObjectIdenticalTo:(id)anObject
 {
-	NSUInteger index;
+    NSUInteger index;
 
-	if((index = [self indexOfObjectIdenticalTo:anObject]) == NSNotFound)
-		return;
+    if ((index = [self indexOfObjectIdenticalTo:anObject]) == NSNotFound)
+        return;
 
-	[self removeObjectAtIndex:index];
+    [self removeObjectAtIndex:index];
 }
 
 @end

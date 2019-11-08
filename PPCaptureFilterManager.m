@@ -17,79 +17,86 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+#include "PPCaptureFilterManager.h"
+#include "PPCaptureFilter.h"
+#include "PacketPeeper.h"
+#import <Foundation/NSArchiver.h>
+#import <Foundation/NSData.h>
 #import <Foundation/NSDictionary.h>
 #import <Foundation/NSString.h>
 #import <Foundation/NSUserDefaults.h>
-#import <Foundation/NSArchiver.h>
-#import <Foundation/NSData.h>
-#include "PacketPeeper.h"
-#include "PPCaptureFilter.h"
-#include "PPCaptureFilterManager.h"
 
-static PPCaptureFilterManager *sharedCaptureFilterManager = nil;
+static PPCaptureFilterManager* sharedCaptureFilterManager = nil;
 
 @implementation PPCaptureFilterManager
 
 - (id)init
 {
-	NSDictionary *savedFilters;
-	NSData *savedFiltersData;
+    NSDictionary* savedFilters;
+    NSData* savedFiltersData;
 
-	if((self = [super init]) != nil) {
-		m_filters = [[NSMutableDictionary alloc] init];
+    if ((self = [super init]) != nil)
+    {
+        m_filters = [[NSMutableDictionary alloc] init];
 
-		if((savedFiltersData = [[NSUserDefaults standardUserDefaults] objectForKey:PPCAPTUREFILTERMANAGER_SAVED_FILTERS]) != nil) {
-			if((savedFilters = [NSUnarchiver unarchiveObjectWithData:savedFiltersData]) != nil) {
-				[m_filters addEntriesFromDictionary:savedFilters];
-			}
-		}
-	}
-	return self;
+        if ((savedFiltersData = [[NSUserDefaults standardUserDefaults]
+                 objectForKey:PPCAPTUREFILTERMANAGER_SAVED_FILTERS]) != nil)
+        {
+            if ((savedFilters = [NSUnarchiver
+                     unarchiveObjectWithData:savedFiltersData]) != nil)
+            {
+                [m_filters addEntriesFromDictionary:savedFilters];
+            }
+        }
+    }
+    return self;
 }
 
-+ (PPCaptureFilterManager *)sharedCaptureFilterManager
++ (PPCaptureFilterManager*)sharedCaptureFilterManager
 {
-	if(sharedCaptureFilterManager == nil)
-		sharedCaptureFilterManager = [[PPCaptureFilterManager alloc] init];
+    if (sharedCaptureFilterManager == nil)
+        sharedCaptureFilterManager = [[PPCaptureFilterManager alloc] init];
 
-	return sharedCaptureFilterManager;
+    return sharedCaptureFilterManager;
 }
 
-- (PPCaptureFilter *)filterForName:(NSString *)name
+- (PPCaptureFilter*)filterForName:(NSString*)name
 {
-	return [m_filters objectForKey:name];
+    return [m_filters objectForKey:name];
 }
 
-- (void)addFilter:(PPCaptureFilter *)filter
+- (void)addFilter:(PPCaptureFilter*)filter
 {
-	[m_filters setObject:filter forKey:[filter name]];
-	[self saveFilters]; // save to disk immediately
+    [m_filters setObject:filter forKey:[filter name]];
+    [self saveFilters]; // save to disk immediately
 }
 
-- (void)removeFilter:(PPCaptureFilter *)filter
+- (void)removeFilter:(PPCaptureFilter*)filter
 {
-	[m_filters removeObjectForKey:[filter name]];
-	[self saveFilters]; // save to disk immediately
+    [m_filters removeObjectForKey:[filter name]];
+    [self saveFilters]; // save to disk immediately
 }
 
 - (void)saveFilters
 {
-	NSDictionary *temp;
+    NSDictionary* temp;
 
-	temp = [[NSDictionary alloc] initWithDictionary:m_filters];
-	[[NSUserDefaults standardUserDefaults] setObject:[NSArchiver archivedDataWithRootObject:temp] forKey:PPCAPTUREFILTERMANAGER_SAVED_FILTERS];
-	[temp release];
+    temp = [[NSDictionary alloc] initWithDictionary:m_filters];
+    [[NSUserDefaults standardUserDefaults]
+        setObject:[NSArchiver archivedDataWithRootObject:temp]
+           forKey:PPCAPTUREFILTERMANAGER_SAVED_FILTERS];
+    [temp release];
 }
 
-- (NSArray *)allFilters
+- (NSArray*)allFilters
 {
-	return [m_filters allValues];
+    return [m_filters allValues];
 }
 
 - (void)dealloc
 {
-	[m_filters release];
-	[super dealloc];
+    [m_filters release];
+    [super dealloc];
 }
 
 @end

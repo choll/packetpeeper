@@ -24,7 +24,6 @@
 
 @interface PPCaptureFilterFormatter : NSFormatter
 {
-
 }
 
 @end

@@ -20,14 +20,16 @@
 #ifndef _PPTCPSTREAMCONTROLLER_H_
 #define _PPTCPSTREAMCONTROLLER_H_
 
-#include <netinet/in.h>
-#import <Foundation/NSObject.h>
 #include "rb_tree.h"
+#import <Foundation/NSObject.h>
+#include <netinet/in.h>
 
-#define PPTCPSTREAMS_PORT_HASHMASK	0x7
-#define PPTCPSTREAMS_ADDR_HASHMASK	0xF
+#define PPTCPSTREAMS_PORT_HASHMASK 0x7
+#define PPTCPSTREAMS_ADDR_HASHMASK 0xF
 
-#define PPTCPSTREAMS_HTABLE_SZ		(((PPTCPSTREAMS_PORT_HASHMASK + 1) * 2) + ((PPTCPSTREAMS_ADDR_HASHMASK + 1) * 2))
+#define PPTCPSTREAMS_HTABLE_SZ                \
+    (((PPTCPSTREAMS_PORT_HASHMASK + 1) * 2) + \
+     ((PPTCPSTREAMS_ADDR_HASHMASK + 1) * 2))
 
 @class NSMutableArray;
 @class NSIndexSet;
@@ -38,31 +40,32 @@
 
 @interface PPTCPStreamController : NSObject
 {
-	struct rb_node *htable[PPTCPSTREAMS_HTABLE_SZ];
-	NSMutableArray *streams; /* array of PPTCPStream objects */
-	unsigned int sortIndex;
-	BOOL dropBadIPChecksums;
-	BOOL dropBadTCPChecksums;
-	BOOL reverseOrder; /* is the streams array currently in reverse order? */
+    struct rb_node* htable[PPTCPSTREAMS_HTABLE_SZ];
+    NSMutableArray* streams; /* array of PPTCPStream objects */
+    unsigned int sortIndex;
+    BOOL dropBadIPChecksums;
+    BOOL dropBadTCPChecksums;
+    BOOL reverseOrder; /* is the streams array currently in reverse order? */
 }
 
-- (void)streamReassemblerRemovedForStream:(PPTCPStream *)stream;
-- (PPTCPStreamReassembler *)streamReassemblerForPacket:(Packet *)packet;
-- (void)removePacket:(Packet *)packet;
-- (PPTCPStream *)tcpStreamForPacket:(Packet *)packet;
-- (void)removePacketsAtIndexes:(NSIndexSet *)indexSet forStream:(PPTCPStream *)stream;
-- (void)removeStream:(PPTCPStream *)stream;
-- (void)removeStreamFromMap:(PPTCPStream *)stream; /* private method */
+- (void)streamReassemblerRemovedForStream:(PPTCPStream*)stream;
+- (PPTCPStreamReassembler*)streamReassemblerForPacket:(Packet*)packet;
+- (void)removePacket:(Packet*)packet;
+- (PPTCPStream*)tcpStreamForPacket:(Packet*)packet;
+- (void)removePacketsAtIndexes:(NSIndexSet*)indexSet
+                     forStream:(PPTCPStream*)stream;
+- (void)removeStream:(PPTCPStream*)stream;
+- (void)removeStreamFromMap:(PPTCPStream*)stream; /* private method */
 - (void)removeStreamAtIndex:(NSInteger)index;
-- (void)addPacket:(Packet *)packet;
-- (void)addPacketArray:(NSArray *)array;
+- (void)addPacket:(Packet*)packet;
+- (void)addPacketArray:(NSArray*)array;
 - (void)flush;
 - (void)sortStreams:(unsigned int)index;
 - (void)setReversePacketOrder:(BOOL)reverse;
 - (BOOL)isReverseOrder;
-- (NSInteger)indexForStream:(PPTCPStream *)stream;
+- (NSInteger)indexForStream:(PPTCPStream*)stream;
 - (size_t)numberOfStreams;
-- (PPTCPStream *)streamAtIndex:(NSInteger)index;
+- (PPTCPStream*)streamAtIndex:(NSInteger)index;
 
 @end
 

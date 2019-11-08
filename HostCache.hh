@@ -25,23 +25,24 @@
 
 #define PPHostCacheHostNameLookupCompleteNotification @"PPHostCache.LComp"
 
-#define HOSTCACHE_SUCCESS   1   /* successful lookup */
-#define HOSTCACHE_NONAME    2   /* lookup failed */
-#define HOSTCACHE_INPROG    3   /* lookup in progress */
-#define HOSTCACHE_ERROR	    4   /* error occured */
+#define HOSTCACHE_SUCCESS 1 /* successful lookup */
+#define HOSTCACHE_NONAME  2 /* lookup failed */
+#define HOSTCACHE_INPROG  3 /* lookup in progress */
+#define HOSTCACHE_ERROR   4 /* error occured */
 
 @interface HostCache : NSObject
 {
 }
 
-+ (HostCache *)sharedHostCache;
++ (HostCache*)sharedHostCache;
 + (void)releaseSharedHostCache;
 - (void)lookupComplete:(id)sender;
 - (void)flush;
-- (NSString *)hostWithAddressASync:(const struct in_addr *)addr returnCode:(int *)code;
-- (NSString *)hostWithIp6AddressASync:(const struct in6_addr *)addr returnCode:(int *)code;
+- (NSString*)hostWithAddressASync:(const struct in_addr*)addr
+                       returnCode:(int*)code;
+- (NSString*)hostWithIp6AddressASync:(const struct in6_addr*)addr
+                          returnCode:(int*)code;
 
 @end
 
 #endif
-

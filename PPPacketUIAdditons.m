@@ -17,330 +17,360 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include <sys/types.h>
-#include <stdlib.h>
-#import <Foundation/NSArray.h>
-#import <Foundation/NSData.h>
-#import <Foundation/NSString.h>
-#import <Foundation/NSDate.h>
-#include "bpf_filter.h"
+#include "PPPacketUIAdditons.h"
+#include "ColumnIdentifier.h"
+#include "DateFormat.h"
+#include "Decode.h"
+#include "OutlineViewItem.h"
+#include "PPBPFProgram.h"
 #include "PPDecoderPlugin.h"
 #include "PPPluginManager.h"
 #include "PPPluginWrapper.h"
-#include "Decode.h"
-#include "ColumnIdentifier.h"
-#include "OutlineViewItem.h"
-#include "pkt_compare.h"
-#include "DateFormat.h"
-#include "PPBPFProgram.h"
-#include "PacketPeeper.h"
 #include "Packet.h"
-#include "PPPacketUIAdditons.h"
+#include "PacketPeeper.h"
+#include "bpf_filter.h"
+#include "pkt_compare.h"
+#import <Foundation/NSArray.h>
+#import <Foundation/NSData.h>
+#import <Foundation/NSDate.h>
+#import <Foundation/NSString.h>
+#include <stdlib.h>
+#include <sys/types.h>
 
-static NSString *names[][2] = {{@"Packet number", @"#"},
-							   {@"Date received", @"Date received"},
-							   {@"Protocols", @"Protocols"},
-							   {@"Information", @"Information"},
-							   {@"Captured Length", @"Captured Length"},
-							   {@"Actual Length", @"Actual Length"}};
+static NSString* names[][2] = {{@"Packet number", @"#"},
+                               {@"Date received", @"Date received"},
+                               {@"Protocols", @"Protocols"},
+                               {@"Information", @"Information"},
+                               {@"Captured Length", @"Captured Length"},
+                               {@"Actual Length", @"Actual Length"}};
 
 @implementation Packet (PacketUIAdditons)
 
 - (void)processPlugins
 {
-	id <PPDecoderPlugin> plugin;
-	id <Decode, Describe> decoder;
-	NSData *pluginData;
-	PPPluginWrapper *pluginWrapper;
-	void *ptr;
-	unsigned int i;
-	size_t nbytes;
-	size_t front;
-	size_t rear;
+    id<PPDecoderPlugin> plugin;
+    id<Decode, Describe> decoder;
+    NSData* pluginData;
+    PPPluginWrapper* pluginWrapper;
+    void* ptr;
+    unsigned int i;
+    size_t nbytes;
+    size_t front;
+    size_t rear;
 
-	if(processedPlugins)
-		return;
+    if (processedPlugins)
+        return;
 
-	processedPlugins = YES;
-	decoder = nil;
-	front = 0;
-	rear = 0;
+    processedPlugins = YES;
+    decoder = nil;
+    front = 0;
+    rear = 0;
 
-	for(i = 0; i < [decoders count]; ++i) {
-		decoder = [decoders objectAtIndex:i];
-		front += [decoder frontSize];
-		rear += [decoder rearSize];
-	}
+    for (i = 0; i < [decoders count]; ++i)
+    {
+        decoder = [decoders objectAtIndex:i];
+        front += [decoder frontSize];
+        rear += [decoder rearSize];
+    }
 
-	if((plugin = [[PPPluginManager sharedPluginManager] pluginDecoderForDecoder:decoder]) == nil)
-		return;
+    if ((plugin = [[PPPluginManager sharedPluginManager]
+             pluginDecoderForDecoder:decoder]) == nil)
+        return;
 
-	if(front + rear >= [data length])
-		return;
+    if (front + rear >= [data length])
+        return;
 
-	ptr = (uint8_t *)[data bytes] + front;
-	nbytes = [data length] - (front + rear);
+    ptr = (uint8_t*)[data bytes] + front;
+    nbytes = [data length] - (front + rear);
 
-	pluginData = [[NSData alloc] initWithBytesNoCopy:ptr length:nbytes freeWhenDone:NO];
+    pluginData = [[NSData alloc] initWithBytesNoCopy:ptr
+                                              length:nbytes
+                                        freeWhenDone:NO];
 
-	if(![plugin isValidData:pluginData]) {
-		[pluginData release];
-		return;
-	}
+    if (![plugin isValidData:pluginData])
+    {
+        [pluginData release];
+        return;
+    }
 
-	pluginWrapper = [[PPPluginWrapper alloc] initWithData:pluginData plugin:plugin];
-	[decoders addObject:pluginWrapper];
-	[pluginData release];
-	[pluginWrapper release];
+    pluginWrapper = [[PPPluginWrapper alloc] initWithData:pluginData
+                                                   plugin:plugin];
+    [decoders addObject:pluginWrapper];
+    [pluginData release];
+    [pluginWrapper release];
 }
 
 /* Protocol short names in rev. order, (not including link-layer) eg @"UDP, IPv4" */
-- (NSString *)protocols
+- (NSString*)protocols
 {
-	NSMutableString *ret;
-	NSUInteger n;
+    NSMutableString* ret;
+    NSUInteger n;
 
-	[self processPlugins];
+    [self processPlugins];
 
-	n = [decoders count];
+    n = [decoders count];
 
-	if(n < 1)
-		return nil;
+    if (n < 1)
+        return nil;
 
-	ret = [[NSMutableString alloc] init];
+    ret = [[NSMutableString alloc] init];
 
-	if(n == 1)
-		[ret appendString:[[[decoders objectAtIndex:0] class] shortName]];
+    if (n == 1)
+        [ret appendString:[[[decoders objectAtIndex:0] class] shortName]];
 
-	while(n-- > 1) {
+    while (n-- > 1)
+    {
 
-		if(n == [decoders count] - 1 && [[decoders objectAtIndex:n] isMemberOfClass:[PPPluginWrapper class]])
-			[ret appendString:[[decoders objectAtIndex:n] shortName]];
-		else
-			[ret appendString:[[[decoders objectAtIndex:n] class] shortName]];
+        if (n == [decoders count] - 1 &&
+            [[decoders objectAtIndex:n]
+                isMemberOfClass:[PPPluginWrapper class]])
+            [ret appendString:[[decoders objectAtIndex:n] shortName]];
+        else
+            [ret appendString:[[[decoders objectAtIndex:n] class] shortName]];
 
-		if(n != 1)
-			[ret appendString:@", "];
-	}
+        if (n != 1)
+            [ret appendString:@", "];
+    }
 
-	return [ret autorelease];
+    return [ret autorelease];
 }
 
 /* Show the last information string */
-- (NSString *)info
+- (NSString*)info
 {
-	NSString *ret;
-	NSUInteger n;
+    NSString* ret;
+    NSUInteger n;
 
-	[self processPlugins];
+    [self processPlugins];
 
-	n = [decoders count] - 1;
+    n = [decoders count] - 1;
 
-	do {
-		if((ret = [[decoders objectAtIndex:n] info]) != nil)
-			return ret;
-	} while(n--);
+    do
+    {
+        if ((ret = [[decoders objectAtIndex:n] info]) != nil)
+            return ret;
+    } while (n--);
 
-	return nil;
+    return nil;
 }
 
-- (NSComparisonResult)compare:(Packet *)packet withColumn:(ColumnIdentifier *)column
+- (NSComparisonResult)compare:(Packet*)packet
+                   withColumn:(ColumnIdentifier*)column
 {
-	id decoder_a;
-	id decoder_b;
+    id decoder_a;
+    id decoder_b;
 
-	if(column == nil)
-		return val_compare(number, (packet)->number);
+    if (column == nil)
+        return val_compare(number, (packet)->number);
 
-	if([column decoder] == [self class])
-		return [self compareWith:packet atIndex:[column index]];
+    if ([column decoder] == [self class])
+        return [self compareWith:packet atIndex:[column index]];
 
-	decoder_a = nil;
-	decoder_b = nil;
+    decoder_a = nil;
+    decoder_b = nil;
 
-	if([column decoder] != Nil) {
-		decoder_a = [self decoderForClass:[column decoder]];
-		decoder_b = [packet decoderForClass:[column decoder]];
-	} else if([column plugin] != nil) {
-		[self processPlugins];
-		decoder_a = [self decoderForPlugin:[column plugin]];
-		decoder_b = [packet decoderForPlugin:[column plugin]];
-	}
+    if ([column decoder] != Nil)
+    {
+        decoder_a = [self decoderForClass:[column decoder]];
+        decoder_b = [packet decoderForClass:[column decoder]];
+    }
+    else if ([column plugin] != nil)
+    {
+        [self processPlugins];
+        decoder_a = [self decoderForPlugin:[column plugin]];
+        decoder_b = [packet decoderForPlugin:[column plugin]];
+    }
 
-	if(decoder_a == nil && decoder_b == nil)
-		return NSOrderedSame;
+    if (decoder_a == nil && decoder_b == nil)
+        return NSOrderedSame;
 
-	if(decoder_a == nil && decoder_b != nil)
-		return NSOrderedAscending;
+    if (decoder_a == nil && decoder_b != nil)
+        return NSOrderedAscending;
 
-	if(decoder_a != nil && decoder_b == nil)
-		return NSOrderedDescending;
+    if (decoder_a != nil && decoder_b == nil)
+        return NSOrderedDescending;
 
-	return [decoder_a compareWith:decoder_b atIndex:[column index]];
+    return [decoder_a compareWith:decoder_b atIndex:[column index]];
 }
 
 /* OutlineViewItem protocol methods */
 
 - (BOOL)expandable
 {
-	return YES;
+    return YES;
 }
 
 - (size_t)numberOfChildren
 {
-	[self processPlugins];
-	return ([decoders count] + 3);
+    [self processPlugins];
+    return ([decoders count] + 3);
 }
 
 - (id)childAtIndex:(int)fieldIndex
 {
-	OutlineViewItem *ret;
-	NSString *str;
+    OutlineViewItem* ret;
+    NSString* str;
 
-	switch(fieldIndex) {
-		case 0:
-			ret = [[OutlineViewItem alloc] init];
-			[ret addObject:@"Date received"];
-			[ret addObject:[date descriptionWithFormat:OUTLINEVIEW_DATE_FORMAT]];
-			return [ret autorelease];
-			/* NOTREACHED */
+    switch (fieldIndex)
+    {
+    case 0:
+        ret = [[OutlineViewItem alloc] init];
+        [ret addObject:@"Date received"];
+        [ret addObject:[date descriptionWithFormat:OUTLINEVIEW_DATE_FORMAT]];
+        return [ret autorelease];
+        /* NOTREACHED */
 
-		case 1:
-			ret = [[OutlineViewItem alloc] init];
-			str = [[NSString alloc] initWithFormat:@"%u Byte(s)", actualLength];
-			[ret addObject:@"Packet length"];
-			[ret addObject:str];
-			[str release];
-			return [ret autorelease];
-			/* NOTREACHED */
+    case 1:
+        ret = [[OutlineViewItem alloc] init];
+        str = [[NSString alloc] initWithFormat:@"%u Byte(s)", actualLength];
+        [ret addObject:@"Packet length"];
+        [ret addObject:str];
+        [str release];
+        return [ret autorelease];
+        /* NOTREACHED */
 
-		case 2:
-			ret = [[OutlineViewItem alloc] init];
-			str = [[NSString alloc] initWithFormat:@"%u Byte(s)", captureLength];
-			[ret addObject:@"Captured portion"];
-			[ret addObject:str];
-			[str release];
-			return [ret autorelease];
-			/* NOTREACHED */
+    case 2:
+        ret = [[OutlineViewItem alloc] init];
+        str = [[NSString alloc] initWithFormat:@"%u Byte(s)", captureLength];
+        [ret addObject:@"Captured portion"];
+        [ret addObject:str];
+        [str release];
+        return [ret autorelease];
+        /* NOTREACHED */
 
-		default:
-			return [decoders objectAtIndex:fieldIndex - 3];
-			/* NOTREACHED */
-	}
+    default:
+        return [decoders objectAtIndex:fieldIndex - 3];
+        /* NOTREACHED */
+    }
 }
 
 - (size_t)numberOfValues
 {
-	return 0;
+    return 0;
 }
 
 - (id)valueAtIndex:(int)anIndex
 {
-	return nil;
+    return nil;
 }
 
 /* ColumnIdentifier protocol methods */
 
-+ (NSArray *)columnIdentifiers
++ (NSArray*)columnIdentifiers
 {
-	ColumnIdentifier *colIdent;
-	NSMutableArray *ret;
-	unsigned int i;
+    ColumnIdentifier* colIdent;
+    NSMutableArray* ret;
+    unsigned int i;
 
-	ret = [[NSMutableArray alloc] initWithCapacity:sizeof(names) / sizeof(names[0])];
+    ret = [[NSMutableArray alloc]
+        initWithCapacity:sizeof(names) / sizeof(names[0])];
 
-	for(i = 0; i < sizeof(names) / sizeof(names[0]) ; ++i) {
-		colIdent = [[ColumnIdentifier alloc] initWithDecoder:[self class] index:i longName:names[i][0] shortName:names[i][1]];
-		[ret addObject:colIdent];
-		[colIdent release];
-	}
+    for (i = 0; i < sizeof(names) / sizeof(names[0]); ++i)
+    {
+        colIdent = [[ColumnIdentifier alloc] initWithDecoder:[self class]
+                                                       index:i
+                                                    longName:names[i][0]
+                                                   shortName:names[i][1]];
+        [ret addObject:colIdent];
+        [colIdent release];
+    }
 
-	return [ret autorelease];
+    return [ret autorelease];
 }
 
-- (NSString *)columnStringForIndex:(unsigned int)fieldIndex
+- (NSString*)columnStringForIndex:(unsigned int)fieldIndex
 {
-	switch(fieldIndex) {
-		case 0:
-			return [NSString stringWithFormat:@"%lu", [self number]];
-		case 1:
-			return [[self date] descriptionWithFormat:TABLEVIEW_DATE_FORMAT];
-		case 2:
-			return [self protocols];
-		case 3:
-			return [self info];
-		case 4:
-			return [NSString stringWithFormat:@"%u", [self captureLength]];
-		case 5:
-			return [NSString stringWithFormat:@"%u", [self actualLength]];
-	}
+    switch (fieldIndex)
+    {
+    case 0:
+        return [NSString stringWithFormat:@"%lu", [self number]];
+    case 1:
+        return [[self date] descriptionWithFormat:TABLEVIEW_DATE_FORMAT];
+    case 2:
+        return [self protocols];
+    case 3:
+        return [self info];
+    case 4:
+        return [NSString stringWithFormat:@"%u", [self captureLength]];
+    case 5:
+        return [NSString stringWithFormat:@"%u", [self actualLength]];
+    }
 
-	return nil;
+    return nil;
 }
 
 - (NSComparisonResult)compareWith:(id)obj atIndex:(unsigned int)fieldIndex
 {
-	switch(fieldIndex) {
-		case 0:
-			return val_compare(number, ((Packet *)obj)->number);
-		case 1:
-			return [date compare:[obj date]];
-		case 2:
-			return [[self protocols] compare:[obj protocols]];
-		case 3:
-			return [[self info] compare:[obj info]];
-		case 4:
-			return val_compare(captureLength, ((Packet *)obj)->captureLength);
-		case 5:
-			return val_compare(actualLength, ((Packet *)obj)->actualLength);
-	}
+    switch (fieldIndex)
+    {
+    case 0:
+        return val_compare(number, ((Packet*)obj)->number);
+    case 1:
+        return [date compare:[obj date]];
+    case 2:
+        return [[self protocols] compare:[obj protocols]];
+    case 3:
+        return [[self info] compare:[obj info]];
+    case 4:
+        return val_compare(captureLength, ((Packet*)obj)->captureLength);
+    case 5:
+        return val_compare(actualLength, ((Packet*)obj)->actualLength);
+    }
 
-	return NSOrderedSame;
+    return NSOrderedSame;
 }
 
-- (NSString *)stringForColumn:(ColumnIdentifier *)column
+- (NSString*)stringForColumn:(ColumnIdentifier*)column
 {
-	id <ColumnIdentifier> decoder;
+    id<ColumnIdentifier> decoder;
 
-	if([column decoder] == [self class])
-		return [self columnStringForIndex:[column index]];
+    if ([column decoder] == [self class])
+        return [self columnStringForIndex:[column index]];
 
-	if((decoder = [self decoderForPlugin:[column plugin]]) == nil &&
-	   (decoder = [self decoderForClass:[column decoder]]) == nil)
-		 return nil;
+    if ((decoder = [self decoderForPlugin:[column plugin]]) == nil &&
+        (decoder = [self decoderForClass:[column decoder]]) == nil)
+        return nil;
 
-	return [decoder columnStringForIndex:[column index]];
+    return [decoder columnStringForIndex:[column index]];
 }
 
-- (id)decoderForPlugin:(id <PPDecoderPlugin>)plugin
+- (id)decoderForPlugin:(id<PPDecoderPlugin>)plugin
 {
-	PPPluginWrapper *pluginWrapper;
-	NSUInteger i;
+    PPPluginWrapper* pluginWrapper;
+    NSUInteger i;
 
-	if(plugin == nil)
-		return nil;
+    if (plugin == nil)
+        return nil;
 
-	i = [decoders count];
+    i = [decoders count];
 
-	while(i-- > 0) {
-		if(![[decoders objectAtIndex:i] isMemberOfClass:[PPPluginWrapper class]])
-			break;
+    while (i-- > 0)
+    {
+        if (![[decoders objectAtIndex:i]
+                isMemberOfClass:[PPPluginWrapper class]])
+            break;
 
-		pluginWrapper = [decoders objectAtIndex:i];
+        pluginWrapper = [decoders objectAtIndex:i];
 
-		if([pluginWrapper plugin] == plugin)
-			return pluginWrapper;
-	}
+        if ([pluginWrapper plugin] == plugin)
+            return pluginWrapper;
+    }
 
-	return nil;
+    return nil;
 }
 
-- (BOOL)runFilterProgram:(PPBPFProgram *)filterProgram
+- (BOOL)runFilterProgram:(PPBPFProgram*)filterProgram
 {
-	if([filterProgram program] == NULL)
-		return YES;
+    if ([filterProgram program] == NULL)
+        return YES;
 
-	return (bpf_filter2([filterProgram program]->bf_insns, (unsigned char *)[data bytes], (unsigned)actualLength, (unsigned)captureLength) != 0) ? YES : NO;
+    return (bpf_filter2(
+                [filterProgram program]->bf_insns,
+                (unsigned char*)[data bytes],
+                (unsigned)actualLength,
+                (unsigned)captureLength) != 0)
+               ? YES
+               : NO;
 }
 
 @end

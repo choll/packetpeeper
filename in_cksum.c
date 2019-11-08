@@ -17,43 +17,44 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include <sys/types.h>
-#include <sys/sysctl.h>
+#include "in_cksum.h"
+#include <inttypes.h>
 #include <machine/endian.h>
 #include <netinet/in.h>
-#include <inttypes.h>
 #include <stdio.h>
-#include "in_cksum.h"
+#include <sys/sysctl.h>
+#include <sys/types.h>
 
-unsigned int in_cksum_partial(const void *data, size_t nbytes, unsigned int sum)
+unsigned int in_cksum_partial(const void* data, size_t nbytes, unsigned int sum)
 {
-	const uint16_t *p;
+    const uint16_t* p;
 
-	p = data;
+    p = data;
 
-	while(nbytes > 1) {
-		sum += *p++;
-		nbytes -= 2;
-	}
+    while (nbytes > 1)
+    {
+        sum += *p++;
+        nbytes -= 2;
+    }
 
-	if(nbytes > 0) {
-		/* add leftover byte with zero pad byte */
+    if (nbytes > 0)
+    {
+        /* add leftover byte with zero pad byte */
 #if (BYTE_ORDER == BIG_ENDIAN)
-		sum += *(uint8_t *)p << 8;
+        sum += *(uint8_t*)p << 8;
 #elif (BYTE_ORDER == LITTLE_ENDIAN)
-		sum += *(uint8_t *)p;
+        sum += *(uint8_t*)p;
 #else
 #error "Unknown byte order"
 #endif
-	}
+    }
 
-	return sum;
+    return sum;
 }
 
 unsigned long in_cksum_fold(unsigned long sum)
 {
-	sum = (sum >> 16) + (sum & 0xFFFF);
-	sum += sum >> 16;
-	return (~sum & 0xFFFF);
+    sum = (sum >> 16) + (sum & 0xFFFF);
+    sum += sum >> 16;
+    return (~sum & 0xFFFF);
 }
-

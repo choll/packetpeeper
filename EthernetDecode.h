@@ -20,26 +20,27 @@
 #ifndef _ETHERNETDECODE_H_
 #define _ETHERNETDECODE_H_
 
-#include <stdint.h>
-#include <sys/types.h>
-#include <net/ethernet.h>
-#import <Foundation/NSObject.h>
+#include "ColumnIdentifier.h"
 #include "Decode.h"
 #include "Describe.h"
-#include "ColumnIdentifier.h"
 #include "OutlineViewItem.h"
+#import <Foundation/NSObject.h>
+#include <net/ethernet.h>
+#include <stdint.h>
+#include <sys/types.h>
 
 /* minimum amount of data required to decode the header (not related to minimum
    ethernet packet length) */
-#define ETHERNETDECODE_HDR_MIN		ETHER_HDR_LEN
+#define ETHERNETDECODE_HDR_MIN ETHER_HDR_LEN
 
 @class NSData;
 
-@interface EthernetDecode : NSObject <Decode, Describe, NSCoding, OutlineViewItem, ColumnIdentifier>
+@interface EthernetDecode
+    : NSObject <Decode, Describe, NSCoding, OutlineViewItem, ColumnIdentifier>
 {
-	uint8_t dst[ETHER_ADDR_LEN];
-	uint8_t src[ETHER_ADDR_LEN];
-	uint16_t type;						/* ETHER_TYPE_LEN = 2 */
+    uint8_t dst[ETHER_ADDR_LEN];
+    uint8_t src[ETHER_ADDR_LEN];
+    uint16_t type; /* ETHER_TYPE_LEN = 2 */
 }
 
 @end

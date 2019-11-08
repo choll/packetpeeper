@@ -20,11 +20,11 @@
 #ifndef PP_STREAM_COMPARE_H_
 #define PP_STREAM_COMPARE_H_
 
-#include <sys/types.h>
 #include <objc/objc.h>
+#include <sys/types.h>
 
 #include "pkt_compare.h" /* XXX mem_compare needs its own header */
 
-NSComparisonResult stream_compare(id stream1, id stream2, void *context);
+NSComparisonResult stream_compare(id stream1, id stream2, void* context);
 
 #endif

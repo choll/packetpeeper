@@ -20,21 +20,21 @@
 #ifndef PPBPFPROGRAM_H_
 #define PPBPFPROGRAM_H_
 
-#include <sys/types.h>
-#include <sys/time.h>
-#include <sys/ioctl.h>
 #include <net/bpf.h>
+#include <sys/ioctl.h>
+#include <sys/time.h>
+#include <sys/types.h>
 
 @class NSObject;
 @protocol NSCoding;
 
 @interface PPBPFProgram : NSObject <NSCoding>
 {
-	struct bpf_program m_program;
+    struct bpf_program m_program;
 }
 
-- (id)initWithProgram:(struct bpf_program *)program;
-- (const struct bpf_program *)program;
+- (id)initWithProgram:(struct bpf_program*)program;
+- (const struct bpf_program*)program;
 
 @end
 

@@ -17,450 +17,503 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include <stdlib.h>
-#include <sys/types.h>
-#include <netinet/in.h>
-#import <Foundation/NSDate.h>
-#import <Foundation/NSArray.h>
-#import <Foundation/NSString.h>
-#import <Foundation/NSUserDefaults.h>
-#include "Packet.h"
-#include "OutlineViewItem.h"
+#include "PPTCPStreamController.h"
+#include "DateFormat.h"
 #include "IPV4Decode.h"
-#include "TCPDecode.h"
+#include "NSMutableArrayExtensions.h"
+#include "OutlineViewItem.h"
 #include "PPTCPStream.h"
 #include "PPTCPStreamReassembler.h"
-#include "pkt_compare.h"
-#include "DateFormat.h"
+#include "Packet.h"
 #include "PacketPeeper.h"
-#include "NSMutableArrayExtensions.h"
+#include "TCPDecode.h"
+#include "pkt_compare.h"
 #include "stream_compare.h"
-#include "PPTCPStreamController.h"
+#import <Foundation/NSArray.h>
+#import <Foundation/NSDate.h>
+#import <Foundation/NSString.h>
+#import <Foundation/NSUserDefaults.h>
+#include <netinet/in.h>
+#include <stdlib.h>
+#include <sys/types.h>
 
-struct endpoint {
-	struct in_addr addr;
-	unsigned int port;
+struct endpoint
+{
+    struct in_addr addr;
+    unsigned int port;
 };
 
 /* red-black node key */
-struct stream_id {
-	struct endpoint alpha;
-	struct endpoint beta;
+struct stream_id
+{
+    struct endpoint alpha;
+    struct endpoint beta;
 };
 
-static unsigned int stream_hash(const struct stream_id *s_id);
-static int stream_comp(const void *key_a, const void *key_b);
-static void rb_node_free(struct rb_node *node);
-static void rb_key_copy(void *dst, const void *src);
+static unsigned int stream_hash(const struct stream_id* s_id);
+static int stream_comp(const void* key_a, const void* key_b);
+static void rb_node_free(struct rb_node* node);
+static void rb_key_copy(void* dst, const void* src);
 
 @implementation PPTCPStreamController
 
 - (id)init
 {
-	unsigned int i;
+    unsigned int i;
 
-	if((self = [super init]) != nil) {
-		if((streams = [[NSMutableArray alloc] init]) == nil) {
-			[super dealloc];
-			return nil;
-		}
+    if ((self = [super init]) != nil)
+    {
+        if ((streams = [[NSMutableArray alloc] init]) == nil)
+        {
+            [super dealloc];
+            return nil;
+        }
 
-		for(i = 0; i < PPTCPSTREAMS_HTABLE_SZ; ++i)
-			htable[i] = NULL;
+        for (i = 0; i < PPTCPSTREAMS_HTABLE_SZ; ++i)
+            htable[i] = NULL;
 
-		sortIndex = 0;
-		dropBadIPChecksums = [[NSUserDefaults standardUserDefaults] boolForKey:PPTCPSTREAMCONTROLLER_IP_DROP_BAD_CHECKSUMS];
-		dropBadTCPChecksums = [[NSUserDefaults standardUserDefaults] boolForKey:PPTCPSTREAMCONTROLLER_TCP_DROP_BAD_CHECKSUMS];
-		reverseOrder = NO;
-	}
-	return self;
+        sortIndex = 0;
+        dropBadIPChecksums = [[NSUserDefaults standardUserDefaults]
+            boolForKey:PPTCPSTREAMCONTROLLER_IP_DROP_BAD_CHECKSUMS];
+        dropBadTCPChecksums = [[NSUserDefaults standardUserDefaults]
+            boolForKey:PPTCPSTREAMCONTROLLER_TCP_DROP_BAD_CHECKSUMS];
+        reverseOrder = NO;
+    }
+    return self;
 }
 
-- (void)streamReassemblerRemovedForStream:(PPTCPStream *)stream
+- (void)streamReassemblerRemovedForStream:(PPTCPStream*)stream
 {
-	[stream setStreamReassembler:nil];
+    [stream setStreamReassembler:nil];
 }
 
-- (PPTCPStreamReassembler *)streamReassemblerForPacket:(Packet *)packet
+- (PPTCPStreamReassembler*)streamReassemblerForPacket:(Packet*)packet
 {
-	TCPDecode *tcp;
-	PPTCPStream *stream;
-	PPTCPStreamReassembler *reassembler;
+    TCPDecode* tcp;
+    PPTCPStream* stream;
+    PPTCPStreamReassembler* reassembler;
 
-	if((tcp = [packet decoderForClass:[TCPDecode class]]) == nil)
-		return nil;
+    if ((tcp = [packet decoderForClass:[TCPDecode class]]) == nil)
+        return nil;
 
-	if((stream = [tcp backPointer]) == nil)
-		return nil;
+    if ((stream = [tcp backPointer]) == nil)
+        return nil;
 
-	if((reassembler = [stream streamReassembler]) == nil) {
-		reassembler = [[PPTCPStreamReassembler alloc] initWithStream:stream streamController:self];
-		[stream setStreamReassembler:reassembler];
-		[reassembler autorelease];
-	}
+    if ((reassembler = [stream streamReassembler]) == nil)
+    {
+        reassembler = [[PPTCPStreamReassembler alloc] initWithStream:stream
+                                                    streamController:self];
+        [stream setStreamReassembler:reassembler];
+        [reassembler autorelease];
+    }
 
-	return reassembler;
+    return reassembler;
 }
 
-- (PPTCPStream *)tcpStreamForPacket:(Packet *)packet
+- (PPTCPStream*)tcpStreamForPacket:(Packet*)packet
 {
-	TCPDecode *tcp;
+    TCPDecode* tcp;
 
-	if((tcp = [packet decoderForClass:[TCPDecode class]]) == nil)
-		return nil;
+    if ((tcp = [packet decoderForClass:[TCPDecode class]]) == nil)
+        return nil;
 
-	return [tcp backPointer];
+    return [tcp backPointer];
 }
 
-- (void)removePacket:(Packet *)packet
+- (void)removePacket:(Packet*)packet
 {
-	TCPDecode *tcp;
-	PPTCPStream *stream;
+    TCPDecode* tcp;
+    PPTCPStream* stream;
 
-	if((tcp = [packet decoderForClass:[TCPDecode class]]) == nil)
-		return;
+    if ((tcp = [packet decoderForClass:[TCPDecode class]]) == nil)
+        return;
 
-	if((stream = [tcp backPointer]) == nil)
-		return;
+    if ((stream = [tcp backPointer]) == nil)
+        return;
 
-	[stream removePacket:packet];
+    [stream removePacket:packet];
 
-	if(![stream isValid])
-		[self removeStream:stream];
+    if (![stream isValid])
+        [self removeStream:stream];
 }
 
 /* this method requires all indexes in the gien indexSet to be correct
    (for the fast-path of deleting the whole stream) */
-- (void)removePacketsAtIndexes:(NSIndexSet *)indexSet forStream:(PPTCPStream *)stream
+- (void)removePacketsAtIndexes:(NSIndexSet*)indexSet
+                     forStream:(PPTCPStream*)stream
 {
-	if([indexSet count] < [stream packetsCount]) {
-		[stream removePacketsAtIndexes:indexSet];
-		if(![stream isValid])
-			[self removeStream:stream];
-	} else
-		[self removeStream:stream];
+    if ([indexSet count] < [stream packetsCount])
+    {
+        [stream removePacketsAtIndexes:indexSet];
+        if (![stream isValid])
+            [self removeStream:stream];
+    }
+    else
+        [self removeStream:stream];
 }
 
-- (void)removeStream:(PPTCPStream *)stream
+- (void)removeStream:(PPTCPStream*)stream
 {
-	if(stream == nil)
-		return;
+    if (stream == nil)
+        return;
 
-	[streams removeFirstObjectIdenticalTo:stream];
-	[[stream streamReassembler] invalidateStream];
+    [streams removeFirstObjectIdenticalTo:stream];
+    [[stream streamReassembler] invalidateStream];
 
-	[self removeStreamFromMap:stream];
+    [self removeStreamFromMap:stream];
 }
 
 /* private method */
-- (void)removeStreamFromMap:(PPTCPStream *)stream
+- (void)removeStreamFromMap:(PPTCPStream*)stream
 {
-	IPV4Decode *ip;
-	TCPDecode *tcp;
-	struct rb_node *node;
-	struct stream_id s_id;
-	unsigned int hash_index;
+    IPV4Decode* ip;
+    TCPDecode* tcp;
+    struct rb_node* node;
+    struct stream_id s_id;
+    unsigned int hash_index;
 
-	if(stream == nil)
-		return;
+    if (stream == nil)
+        return;
 
-	if((tcp = [stream segmentAtIndex:0]) == nil)
-		return;
+    if ((tcp = [stream segmentAtIndex:0]) == nil)
+        return;
 
-	if((ip = [[tcp parent] decoderForClass:[IPV4Decode class]]) == nil)
-		return;
+    if ((ip = [[tcp parent] decoderForClass:[IPV4Decode class]]) == nil)
+        return;
 
-	s_id.alpha.addr = [ip in_addrSrc];
-	s_id.alpha.port = [tcp srcPort];
-	s_id.beta.addr = [ip in_addrDst];
-	s_id.beta.port = [tcp dstPort];
+    s_id.alpha.addr = [ip in_addrSrc];
+    s_id.alpha.port = [tcp srcPort];
+    s_id.beta.addr = [ip in_addrDst];
+    s_id.beta.port = [tcp dstPort];
 
-	hash_index = stream_hash(&s_id);
+    hash_index = stream_hash(&s_id);
 
-	if((node = rb_search(htable[hash_index], &s_id, stream_comp)) == NULL)
-		return;
+    if ((node = rb_search(htable[hash_index], &s_id, stream_comp)) == NULL)
+        return;
 
-	htable[hash_index] = rb_node_delete(htable[hash_index], node, rb_key_copy);
-	[stream release];
+    htable[hash_index] = rb_node_delete(htable[hash_index], node, rb_key_copy);
+    [stream release];
 }
 
 - (void)removeStreamAtIndex:(NSInteger)index
 {
-	PPTCPStream *stream;
+    PPTCPStream* stream;
 
-	/* transform the index if we are in reverse order */
-	if(reverseOrder)
-		index = ([streams count] - 1) - index;
+    /* transform the index if we are in reverse order */
+    if (reverseOrder)
+        index = ([streams count] - 1) - index;
 
-	if((stream = [streams objectAtIndex:index]) == nil)
-		return;
+    if ((stream = [streams objectAtIndex:index]) == nil)
+        return;
 
-	[[stream streamReassembler] invalidateStream];
-	[streams removeObjectAtIndex:index];
-	[self removeStreamFromMap:stream];
+    [[stream streamReassembler] invalidateStream];
+    [streams removeObjectAtIndex:index];
+    [self removeStreamFromMap:stream];
 }
 
-- (void)addPacket:(Packet *)packet
+- (void)addPacket:(Packet*)packet
 {
-	struct rb_node *result;
-	PPTCPStream *stream;
-	IPV4Decode *ip;
-	TCPDecode *tcp;
-	unsigned int i;
-	struct stream_id s_id;
+    struct rb_node* result;
+    PPTCPStream* stream;
+    IPV4Decode* ip;
+    TCPDecode* tcp;
+    unsigned int i;
+    struct stream_id s_id;
 
-	if(packet == nil)
-		return;
+    if (packet == nil)
+        return;
 
-	if((ip = [packet decoderForClass:[IPV4Decode class]]) == nil)
-		return;
+    if ((ip = [packet decoderForClass:[IPV4Decode class]]) == nil)
+        return;
 
-	if((tcp = [packet decoderForClass:[TCPDecode class]]) == nil)
-		return;
+    if ((tcp = [packet decoderForClass:[TCPDecode class]]) == nil)
+        return;
 
-	/* ignore bad flags */
-	if(((int)[tcp rstFlag] + (int)[tcp finFlag] + (int)[tcp synFlag]) > 1)
-		return;
+    /* ignore bad flags */
+    if (((int)[tcp rstFlag] + (int)[tcp finFlag] + (int)[tcp synFlag]) > 1)
+        return;
 
-	/* ignore invalid ip/src combinations */
-	if([tcp srcPort] == [tcp dstPort] && [ip in_addrSrc].s_addr == [ip in_addrDst].s_addr)
-		return;
+    /* ignore invalid ip/src combinations */
+    if ([tcp srcPort] == [tcp dstPort] &&
+        [ip in_addrSrc].s_addr == [ip in_addrDst].s_addr)
+        return;
 
-	/*
+    /*
 		Disabled as default because valid packets show up as having invalid checksums in some
 		circumstances, probably due to TCP checksum offloading. I think the benefit of
 		enabling this (stopping TCP insertion attacks) is not enough to justify breaking
 		stream reassembly for these cases.
 	*/
 
-	/* ignore corrupt packets */
-	if(dropBadIPChecksums && ![ip isChecksumValid])
-		return;
+    /* ignore corrupt packets */
+    if (dropBadIPChecksums && ![ip isChecksumValid])
+        return;
 
-	if(dropBadTCPChecksums && ![tcp isChecksumValid])
-		return;
+    if (dropBadTCPChecksums && ![tcp isChecksumValid])
+        return;
 
-	s_id.alpha.addr = [ip in_addrSrc];
-	s_id.alpha.port = [tcp srcPort];
-	s_id.beta.addr = [ip in_addrDst];
-	s_id.beta.port = [tcp dstPort];
+    s_id.alpha.addr = [ip in_addrSrc];
+    s_id.alpha.port = [tcp srcPort];
+    s_id.beta.addr = [ip in_addrDst];
+    s_id.beta.port = [tcp dstPort];
 
-	i = stream_hash(&s_id);
+    i = stream_hash(&s_id);
 
-	if((result = rb_search(htable[i], &s_id, stream_comp)) == NULL) {
-		/* don't bother making a new connection for a stray RST or FIN */
-		if([tcp rstFlag] || [tcp finFlag])
-			return;
+    if ((result = rb_search(htable[i], &s_id, stream_comp)) == NULL)
+    {
+        /* don't bother making a new connection for a stray RST or FIN */
+        if ([tcp rstFlag] || [tcp finFlag])
+            return;
 
-		/* search failed, create and insert a new red-black node */
-		if((result = malloc(sizeof(struct rb_node) + sizeof(struct stream_id))) == NULL)
-			return;
+        /* search failed, create and insert a new red-black node */
+        if ((result = malloc(
+                 sizeof(struct rb_node) + sizeof(struct stream_id))) == NULL)
+            return;
 
-		if((stream = [[PPTCPStream alloc] init]) == nil) {
-			free(result);
-			return;
-		}
+        if ((stream = [[PPTCPStream alloc] init]) == nil)
+        {
+            free(result);
+            return;
+        }
 
-		result->data = stream;
+        result->data = stream;
 
-		*(struct stream_id *)result->key = s_id;
-		htable[i] = rb_insert(htable[i], result, stream_comp);
-	} else
-		stream = result->data;
+        *(struct stream_id*)result->key = s_id;
+        htable[i] = rb_insert(htable[i], result, stream_comp);
+    }
+    else
+        stream = result->data;
 
-	if([stream addPacket:packet]) {
-		/* if we have a valid stream, add it to the streams array */
-		if([stream isValid] && ![stream isDisplayed]) {
-			[stream setDisplayed:YES];
-			[streams addObject:stream];
-		}
-	}
+    if ([stream addPacket:packet])
+    {
+        /* if we have a valid stream, add it to the streams array */
+        if ([stream isValid] && ![stream isDisplayed])
+        {
+            [stream setDisplayed:YES];
+            [streams addObject:stream];
+        }
+    }
 }
 
-- (void)addPacketArray:(NSArray *)packets
+- (void)addPacketArray:(NSArray*)packets
 {
-	unsigned int i;
+    unsigned int i;
 
-	for(i = 0; i < [packets count]; ++i)
-		[self addPacket:[packets objectAtIndex:i]];
+    for (i = 0; i < [packets count]; ++i)
+        [self addPacket:[packets objectAtIndex:i]];
 }
 
 - (void)flush
 {
-	unsigned int i;
+    unsigned int i;
 
-	[streams removeAllObjects];
+    [streams removeAllObjects];
 
-	for(i = 0; i < PPTCPSTREAMS_HTABLE_SZ; ++i) {
-		rb_free_tree(htable[i], rb_node_free);
-		htable[i] = NULL;
-	}
+    for (i = 0; i < PPTCPSTREAMS_HTABLE_SZ; ++i)
+    {
+        rb_free_tree(htable[i], rb_node_free);
+        htable[i] = NULL;
+    }
 }
 
 - (void)sortStreams:(unsigned int)index
 {
-	sortIndex = index;
-	[streams sortUsingFunction:stream_compare context:&sortIndex];
+    sortIndex = index;
+    [streams sortUsingFunction:stream_compare context:&sortIndex];
 }
 
 - (void)setReversePacketOrder:(BOOL)reverse
 {
-	reverseOrder = reverse;
+    reverseOrder = reverse;
 }
 
 - (BOOL)isReverseOrder
 {
-	return reverseOrder;
+    return reverseOrder;
 }
 
-- (NSInteger)indexForStream:(PPTCPStream *)stream
+- (NSInteger)indexForStream:(PPTCPStream*)stream
 {
-	NSInteger upper,
-              lower,
-              current,
-              total;
+    NSInteger upper, lower, current, total;
 
-	if(stream == nil)
-		return -1;
+    if (stream == nil)
+        return -1;
 
-	total = [streams count];
+    total = [streams count];
 
-	upper = total - 1;
-	lower = 0;
+    upper = total - 1;
+    lower = 0;
 
-	for(;;) {
-		current = (upper + lower) / 2;
+    for (;;)
+    {
+        current = (upper + lower) / 2;
 
-		switch(stream_compare([streams objectAtIndex:current], stream, &sortIndex)) {
-			/* current is greater */
-			case NSOrderedDescending:
-				if(upper == lower)
-					return -1;
-				upper = current;
-				continue;
-				/* NOTREACHED */
+        switch (
+            stream_compare([streams objectAtIndex:current], stream, &sortIndex))
+        {
+        /* current is greater */
+        case NSOrderedDescending:
+            if (upper == lower)
+                return -1;
+            upper = current;
+            continue;
+            /* NOTREACHED */
 
-			/* current is smaller */
-			case NSOrderedAscending:
-				if(upper == lower)
-					return -1;
-				lower = current + 1;
-				continue;
-				/* NOTREACHED */
+        /* current is smaller */
+        case NSOrderedAscending:
+            if (upper == lower)
+                return -1;
+            lower = current + 1;
+            continue;
+            /* NOTREACHED */
 
-			case NSOrderedSame:
-			default:
-				/* stream_compare may be inexact, so compare further */
-				for(upper = current; [streams objectAtIndex:upper] != stream; ++upper) {
-					if(upper == total - 1)
-						return -1;
+        case NSOrderedSame:
+        default:
+            /* stream_compare may be inexact, so compare further */
+            for (upper = current; [streams objectAtIndex:upper] != stream;
+                 ++upper)
+            {
+                if (upper == total - 1)
+                    return -1;
 
-					if(stream_compare([streams objectAtIndex:upper + 1], stream, &sortIndex) != NSOrderedSame) {
-						for(upper = current - 1; [streams objectAtIndex:upper] != stream; --upper) {
-							if(upper == 0)
-								return -1;
-							if(stream_compare([streams objectAtIndex:upper - 1], stream, &sortIndex) != NSOrderedSame)
-								return -1;
-						}
-						break;
-					}
-				}
+                if (stream_compare(
+                        [streams objectAtIndex:upper + 1],
+                        stream,
+                        &sortIndex) != NSOrderedSame)
+                {
+                    for (upper = current - 1;
+                         [streams objectAtIndex:upper] != stream;
+                         --upper)
+                    {
+                        if (upper == 0)
+                            return -1;
+                        if (stream_compare(
+                                [streams objectAtIndex:upper - 1],
+                                stream,
+                                &sortIndex) != NSOrderedSame)
+                            return -1;
+                    }
+                    break;
+                }
+            }
 
-				if(reverseOrder)
-					upper = (total - 1) - upper;
+            if (reverseOrder)
+                upper = (total - 1) - upper;
 
-				/* XXX - check upper fits into a signed int? */
-				return upper;
-				/* NOTREACHED */
-		}
-	}
-	/* NOTREACHED */
+            /* XXX - check upper fits into a signed int? */
+            return upper;
+            /* NOTREACHED */
+        }
+    }
+    /* NOTREACHED */
 }
 
 - (size_t)numberOfStreams
 {
-	return [streams count];
+    return [streams count];
 }
 
-- (PPTCPStream *)streamAtIndex:(NSInteger)index
+- (PPTCPStream*)streamAtIndex:(NSInteger)index
 {
-	if(index >= 0 && index < [streams count])	{
-		/* transform the index if we are in reverse order */
-		if(reverseOrder)
-			index = ([streams count] - 1) - index;
-		return [streams objectAtIndex:index];
-	}
+    if (index >= 0 && index < [streams count])
+    {
+        /* transform the index if we are in reverse order */
+        if (reverseOrder)
+            index = ([streams count] - 1) - index;
+        return [streams objectAtIndex:index];
+    }
 
-	return nil;
+    return nil;
 }
 
 - (void)dealloc
 {
-	[self flush];
-	[streams release];
-	[super dealloc];
+    [self flush];
+    [streams release];
+    [super dealloc];
 }
 
 @end
 
-static unsigned int stream_hash(const struct stream_id *s_id)
+static unsigned int stream_hash(const struct stream_id* s_id)
 {
-	return (s_id->alpha.addr.s_addr & PPTCPSTREAMS_ADDR_HASHMASK)
-		 + (s_id->alpha.port & PPTCPSTREAMS_PORT_HASHMASK)
-		 + (s_id->beta.addr.s_addr & PPTCPSTREAMS_ADDR_HASHMASK)
-		 + (s_id->beta.port & PPTCPSTREAMS_PORT_HASHMASK);
+    return (s_id->alpha.addr.s_addr & PPTCPSTREAMS_ADDR_HASHMASK) +
+           (s_id->alpha.port & PPTCPSTREAMS_PORT_HASHMASK) +
+           (s_id->beta.addr.s_addr & PPTCPSTREAMS_ADDR_HASHMASK) +
+           (s_id->beta.port & PPTCPSTREAMS_PORT_HASHMASK);
 }
 
-static int stream_comp(const void *key_a, const void *key_b)
+static int stream_comp(const void* key_a, const void* key_b)
 {
-	struct stream_id *id_a,
-					 *id_b;
+    struct stream_id *id_a, *id_b;
 
-	id_a = (struct stream_id *)key_a;
-	id_b = (struct stream_id *)key_b;
+    id_a = (struct stream_id*)key_a;
+    id_b = (struct stream_id*)key_b;
 
-	if(MAX(id_a->alpha.addr.s_addr, id_a->beta.addr.s_addr) <
-	   MAX(id_b->alpha.addr.s_addr, id_b->beta.addr.s_addr)) {
-		return -1;
-	} else if(MAX(id_a->alpha.addr.s_addr, id_a->beta.addr.s_addr) >
-			  MAX(id_b->alpha.addr.s_addr, id_b->beta.addr.s_addr)) {
-		return 1;
-	} else if(MIN(id_a->alpha.addr.s_addr, id_a->beta.addr.s_addr) <
-			  MIN(id_b->alpha.addr.s_addr, id_b->beta.addr.s_addr)) {
-		return -1;
-	} else if(MIN(id_a->alpha.addr.s_addr, id_a->beta.addr.s_addr) >
-			  MIN(id_b->alpha.addr.s_addr, id_b->beta.addr.s_addr)) {
-		return 1;
-	} else if(MAX(id_a->alpha.port, id_a->beta.port) <
-			  MAX(id_b->alpha.port, id_b->beta.port)) {
-		return -1;
-	} else if(MAX(id_a->alpha.port, id_a->beta.port) >
-			  MAX(id_b->alpha.port, id_b->beta.port)) {
-		return 1;
-	} else if(MIN(id_a->alpha.port, id_a->beta.port) <
-			  MIN(id_b->alpha.port, id_b->beta.port)) {
-		return -1;
-	} else if(MIN(id_a->alpha.port, id_a->beta.port) >
-			  MIN(id_b->alpha.port, id_b->beta.port)) {
-		return 1;
-	}
+    if (MAX(id_a->alpha.addr.s_addr, id_a->beta.addr.s_addr) <
+        MAX(id_b->alpha.addr.s_addr, id_b->beta.addr.s_addr))
+    {
+        return -1;
+    }
+    else if (
+        MAX(id_a->alpha.addr.s_addr, id_a->beta.addr.s_addr) >
+        MAX(id_b->alpha.addr.s_addr, id_b->beta.addr.s_addr))
+    {
+        return 1;
+    }
+    else if (
+        MIN(id_a->alpha.addr.s_addr, id_a->beta.addr.s_addr) <
+        MIN(id_b->alpha.addr.s_addr, id_b->beta.addr.s_addr))
+    {
+        return -1;
+    }
+    else if (
+        MIN(id_a->alpha.addr.s_addr, id_a->beta.addr.s_addr) >
+        MIN(id_b->alpha.addr.s_addr, id_b->beta.addr.s_addr))
+    {
+        return 1;
+    }
+    else if (
+        MAX(id_a->alpha.port, id_a->beta.port) <
+        MAX(id_b->alpha.port, id_b->beta.port))
+    {
+        return -1;
+    }
+    else if (
+        MAX(id_a->alpha.port, id_a->beta.port) >
+        MAX(id_b->alpha.port, id_b->beta.port))
+    {
+        return 1;
+    }
+    else if (
+        MIN(id_a->alpha.port, id_a->beta.port) <
+        MIN(id_b->alpha.port, id_b->beta.port))
+    {
+        return -1;
+    }
+    else if (
+        MIN(id_a->alpha.port, id_a->beta.port) >
+        MIN(id_b->alpha.port, id_b->beta.port))
+    {
+        return 1;
+    }
 
-	return 0;
+    return 0;
 }
 
-static void rb_node_free(struct rb_node *node)
+static void rb_node_free(struct rb_node* node)
 {
-	PPTCPStream *stream;
+    PPTCPStream* stream;
 
-	stream = node->data;
+    stream = node->data;
 
-	[[stream streamReassembler] invalidateStream];
-	[stream release];
+    [[stream streamReassembler] invalidateStream];
+    [stream release];
 
-	free(node);
+    free(node);
 }
 
-static void rb_key_copy(void *dst, const void *src)
+static void rb_key_copy(void* dst, const void* src)
 {
-	*(struct stream_id *)dst = *(struct stream_id *)src;
+    *(struct stream_id*)dst = *(struct stream_id*)src;
 }

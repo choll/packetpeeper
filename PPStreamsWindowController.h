@@ -30,41 +30,47 @@
 @class NSMutableArray;
 @class PPTCPStream;
 
-@interface PPStreamsWindowController : NSWindowController <NSTableViewDataSource, NSTableViewDelegate>
+@interface PPStreamsWindowController
+    : NSWindowController <NSTableViewDataSource, NSTableViewDelegate>
 {
-	IBOutlet NSTableView *streamTableView;
-	IBOutlet NSTableView *packetTableView;
-	PPTCPStream *selectedStream;
-	NSTableColumn *lastPacketTableColumn;
-	NSTableColumn *lastStreamTableColumn;
-	BOOL autoScrolling;
+    IBOutlet NSTableView* streamTableView;
+    IBOutlet NSTableView* packetTableView;
+    PPTCPStream* selectedStream;
+    NSTableColumn* lastPacketTableColumn;
+    NSTableColumn* lastStreamTableColumn;
+    BOOL autoScrolling;
 }
 
-+ (NSMenu *)createStreamTableMenu;
-- (void)hostNameLookupCompletedNotification:(NSNotification *)note;
++ (NSMenu*)createStreamTableMenu;
+- (void)hostNameLookupCompletedNotification:(NSNotification*)note;
 - (void)populatePacketTableView;
 - (void)populateStreamTableView;
 - (void)doubleAction:(id)sender;
 - (IBAction)columnMenuAction:(id)sender;
 - (void)savePacketTableViewColumns;
 - (void)saveStreamTableViewColumns;
-- (NSMutableArray *)tableColumnIdentifierStringsForTableColumns:(NSArray *)tableColumns;
-- (NSMutableArray *)packetTableColumnIdentifierStrings;
-- (NSMutableArray *)streamTableColumnIdentifierStrings;
-- (NSMenu *)packetTableColumnMenu;
-- (NSMenu *)streamTableColumnMenu;
-- (void)tableViewSelectionDidChange:(NSNotification *)aNotification;
-- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView;
+- (NSMutableArray*)tableColumnIdentifierStringsForTableColumns:
+    (NSArray*)tableColumns;
+- (NSMutableArray*)packetTableColumnIdentifierStrings;
+- (NSMutableArray*)streamTableColumnIdentifierStrings;
+- (NSMenu*)packetTableColumnMenu;
+- (NSMenu*)streamTableColumnMenu;
+- (void)tableViewSelectionDidChange:(NSNotification*)aNotification;
+- (NSInteger)numberOfRowsInTableView:(NSTableView*)tableView;
 - (NSInteger)numberOfRowsInPacketTableView;
 - (NSInteger)numberOfRowsInStreamTableView;
-- (id)packetTableObjectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex;
-- (id)streamTableObjectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex;
-- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex;
+- (id)packetTableObjectValueForTableColumn:(NSTableColumn*)tableColumn
+                                       row:(NSInteger)rowIndex;
+- (id)streamTableObjectValueForTableColumn:(NSTableColumn*)tableColumn
+                                       row:(NSInteger)rowIndex;
+- (id)tableView:(NSTableView*)tableView
+    objectValueForTableColumn:(NSTableColumn*)tableColumn
+                          row:(NSInteger)rowIndex;
 - (void)sortStreamTable;
 - (void)updateWithUserScrolling;
 - (void)update:(BOOL)shouldScroll;
 
-- (BOOL)validateMenuItem:(NSMenuItem *)menuItem;
+- (BOOL)validateMenuItem:(NSMenuItem*)menuItem;
 - (IBAction)deleteButton:(id)sender;
 - (void)deleteSelectedPackets;
 - (void)deleteSelectedStreams;

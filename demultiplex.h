@@ -25,6 +25,10 @@
 @protocol PPDecoderParent;
 @protocol Decode;
 
-size_t demultiplex_data(NSData *data, NSMutableArray *outlist, id <PPDecoderParent> parent, Class layer);
+size_t demultiplex_data(
+    NSData* data,
+    NSMutableArray* outlist,
+    id<PPDecoderParent> parent,
+    Class layer);
 
 #endif /* _DEMULTIPLEX_H_ */

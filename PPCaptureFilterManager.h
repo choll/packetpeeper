@@ -27,15 +27,15 @@
 
 @interface PPCaptureFilterManager : NSObject
 {
-	NSMutableDictionary *m_filters;
+    NSMutableDictionary* m_filters;
 }
 
-+ (PPCaptureFilterManager *)sharedCaptureFilterManager;
-- (PPCaptureFilter *)filterForName:(NSString *)name;
-- (void)addFilter:(PPCaptureFilter *)filter;
-- (void)removeFilter:(PPCaptureFilter *)filter;
++ (PPCaptureFilterManager*)sharedCaptureFilterManager;
+- (PPCaptureFilter*)filterForName:(NSString*)name;
+- (void)addFilter:(PPCaptureFilter*)filter;
+- (void)removeFilter:(PPCaptureFilter*)filter;
 - (void)saveFilters;
-- (NSArray *)allFilters;
+- (NSArray*)allFilters;
 
 @end
 

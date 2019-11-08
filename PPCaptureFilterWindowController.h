@@ -20,28 +20,33 @@
 #ifndef PPCAPTUREFILTERWINDOWCONTROLLER_H_
 #define PPCAPTUREFILTERWINDOWCONTROLLER_H_
 
-#import <AppKit/NSWindowController.h>
+#import <AppKit/NSButton.h>
 #import <AppKit/NSComboBox.h>
 #import <AppKit/NSTextField.h>
-#import <AppKit/NSButton.h>
+#import <AppKit/NSWindowController.h>
 
 @class NSArray;
 @class NSProgressIndicator;
 @class PPCaptureFilter;
 
-@interface PPCaptureFilterWindowController : NSWindowController <NSTextFieldDelegate, NSComboBoxDataSource, NSComboBoxDelegate>
+@interface PPCaptureFilterWindowController : NSWindowController <
+                                                 NSTextFieldDelegate,
+                                                 NSComboBoxDataSource,
+                                                 NSComboBoxDelegate>
 {
-	NSArray *filters;
+    NSArray* filters;
 
-	IBOutlet NSTextField *filterTextField;
-	IBOutlet NSComboBox *filterNameComboBox;
-	IBOutlet NSTextField *filterNetmaskTextField;
-	IBOutlet NSTextField *filterErrorTextField;
-	IBOutlet NSButton *applyButton;
+    IBOutlet NSTextField* filterTextField;
+    IBOutlet NSComboBox* filterNameComboBox;
+    IBOutlet NSTextField* filterNetmaskTextField;
+    IBOutlet NSTextField* filterErrorTextField;
+    IBOutlet NSButton* applyButton;
 }
 
-- (PPCaptureFilter *)filter;
-- (void)sheetDidEnd:(NSWindow *)sheet returnCode:(NSModalResponse)returnCode contextInfo:(void *)contextInfo;
+- (PPCaptureFilter*)filter;
+- (void)sheetDidEnd:(NSWindow*)sheet
+         returnCode:(NSModalResponse)returnCode
+        contextInfo:(void*)contextInfo;
 - (IBAction)saveFilterButtonPressed:(id)sender;
 - (IBAction)deleteFilterButtonPressed:(id)sender;
 - (IBAction)applyButtonPressed:(id)sender;

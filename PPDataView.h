@@ -20,8 +20,8 @@
 #ifndef PPDATAVIEW_H_
 #define PPDATAVIEW_H_
 
-#include <inttypes.h>
 #import <AppKit/NSView.h>
+#include <inttypes.h>
 
 @class NSFont;
 @class NSColor;
@@ -30,37 +30,39 @@
 @class PPDataViewASCIIColumn;
 @protocol PPDataViewDataSource;
 
-@interface PPDataViewAbstractBase : NSView {
-	id <PPDataViewDataSource>	m_dataSource;
-	NSFont						*m_font;
-	NSColor						*m_textColor;
+@interface PPDataViewAbstractBase : NSView
+{
+    id<PPDataViewDataSource> m_dataSource;
+    NSFont* m_font;
+    NSColor* m_textColor;
 }
 
-- (void)setDataSource:(id <PPDataViewDataSource>)dataSource;
-- (id <PPDataViewDataSource>)dataSource;
+- (void)setDataSource:(id<PPDataViewDataSource>)dataSource;
+- (id<PPDataViewDataSource>)dataSource;
 - (void)reloadDataSource;
 
-- (void)setFont:(NSFont *)font;
-- (NSFont *)font;
+- (void)setFont:(NSFont*)font;
+- (NSFont*)font;
 
-- (void)setTextColor:(NSColor *)color;
-- (NSColor *)textColor;
+- (void)setTextColor:(NSColor*)color;
+- (NSColor*)textColor;
 
 @end
 
-@interface PPDataView : PPDataViewAbstractBase {
-	PPDataViewOffsetColumn		*m_offsetColumnView;
-	PPDataViewHexColumn			*m_hexDataView;
-	PPDataViewASCIIColumn		*m_asciiDataView;
+@interface PPDataView : PPDataViewAbstractBase
+{
+    PPDataViewOffsetColumn* m_offsetColumnView;
+    PPDataViewHexColumn* m_hexDataView;
+    PPDataViewASCIIColumn* m_asciiDataView;
 }
 
-- (void)setOffsetColumnTextColor:(NSColor *)color;
-- (void)setHexColumnTextColor:(NSColor *)color;
-- (void)setASCIIColumnTextColor:(NSColor *)color;
+- (void)setOffsetColumnTextColor:(NSColor*)color;
+- (void)setHexColumnTextColor:(NSColor*)color;
+- (void)setASCIIColumnTextColor:(NSColor*)color;
 
-- (NSColor *)offsetColumntextColor;
-- (NSColor *)hexColumntextColor;
-- (NSColor *)ASCIIColumntextColor;
+- (NSColor*)offsetColumntextColor;
+- (NSColor*)hexColumntextColor;
+- (NSColor*)ASCIIColumntextColor;
 
 - (void)setOffsetColumnVisible:(BOOL)flag;
 - (void)setShowHexColumnVisible:(BOOL)flag;
@@ -71,20 +73,20 @@
 
 @end
 
-@interface PPDataViewOffsetColumn : PPDataViewAbstractBase {
-
+@interface PPDataViewOffsetColumn : PPDataViewAbstractBase
+{
 }
 
 @end
 
-@interface PPDataViewHexColumn : PPDataViewAbstractBase {
-
+@interface PPDataViewHexColumn : PPDataViewAbstractBase
+{
 }
 
 @end
 
-@interface PPDataViewASCIIColumn : PPDataViewAbstractBase {
-
+@interface PPDataViewASCIIColumn : PPDataViewAbstractBase
+{
 }
 
 @end
@@ -93,8 +95,12 @@
 
 - (unsigned long long)length;
 - (uint8_t)byteAtIndex:(unsigned long long)index;
-- (unsigned long long)bytesAtIndex:(unsigned long long)index nbytes:(unsigned long long)nbytes bytes:(const void **)bytes;
-- (unsigned long long)colorAtIndex:(unsigned long long)index nbytes:(unsigned long long)nbytes color:(NSColor *)color;
+- (unsigned long long)bytesAtIndex:(unsigned long long)index
+                            nbytes:(unsigned long long)nbytes
+                             bytes:(const void**)bytes;
+- (unsigned long long)colorAtIndex:(unsigned long long)index
+                            nbytes:(unsigned long long)nbytes
+                             color:(NSColor*)color;
 
 @end
 

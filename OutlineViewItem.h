@@ -39,16 +39,18 @@
 
 @interface OutlineViewItem : NSObject <OutlineViewItem>
 {
-	NSMutableArray *items;
-	NSMutableArray *children;
+    NSMutableArray* items;
+    NSMutableArray* children;
 }
 
-+ (OutlineViewItem *)outlineViewWithObject:(id)anObject;
++ (OutlineViewItem*)outlineViewWithObject:(id)anObject;
 - (void)addObject:(id)anObject;
 - (void)removeChild:(id)anObject;
 - (void)addChild:(id)anObject;
 - (void)insertChild:(id)anObject atIndex:(unsigned int)index;
-- (void)addChildWithCallback:(id)aTarget selector:(SEL)aSelector data:(void *)ptr;
+- (void)addChildWithCallback:(id)aTarget
+                    selector:(SEL)aSelector
+                        data:(void*)ptr;
 - (void)addChildWithObjects:(id)firstObj, ...;
 @end
 

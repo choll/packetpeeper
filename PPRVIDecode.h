@@ -20,10 +20,10 @@
 #ifndef PACKETPEEPER_RVIDECODE_H
 #define PACKETPEEPER_RVIDECODE_H
 
+#include "ColumnIdentifier.h"
 #include "Decode.h"
 #include "Describe.h"
 #include "OutlineViewItem.h"
-#include "ColumnIdentifier.h"
 
 #import <Foundation/NSObject.h>
 
@@ -31,10 +31,11 @@
 
 struct pp_pktap_header;
 
-@interface PPRVIDecode : NSObject <Decode, Describe, NSCoding, OutlineViewItem, ColumnIdentifier>
+@interface PPRVIDecode
+    : NSObject <Decode, Describe, NSCoding, OutlineViewItem, ColumnIdentifier>
 {
     struct pp_pktap_header* m_hdr;
-    id <PPDecoderParent> m_parent;
+    id<PPDecoderParent> m_parent;
 }
 
 - (uint32_t)dlt;
@@ -42,4 +43,3 @@ struct pp_pktap_header;
 @end
 
 #endif
-

@@ -17,9 +17,9 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#import <Foundation/NSIndexSet.h>
-#import <AppKit/NSEvent.h>
 #include "PPTableView.h"
+#import <AppKit/NSEvent.h>
+#import <Foundation/NSIndexSet.h>
 
 #import <Foundation/NSString.h>
 
@@ -29,29 +29,32 @@ static NSInteger eventRow = -1;
 
 - (NSInteger)eventRow
 {
-	return eventRow;
+    return eventRow;
 }
 
-- (void)setEventRow:(NSEvent *)event
+- (void)setEventRow:(NSEvent*)event
 {
-	eventRow = [self rowAtPoint:[self convertPoint:[event locationInWindow] fromView:nil]];
+    eventRow = [self rowAtPoint:[self convertPoint:[event locationInWindow]
+                                          fromView:nil]];
 }
 
-- (void)selectRowsForEvent:(NSEvent *)event
+- (void)selectRowsForEvent:(NSEvent*)event
 {
-	if([event type] == NSRightMouseDown && ![self isRowSelected:[self eventRow]])
-		[self selectRowIndexes:[NSIndexSet indexSetWithIndex:[self eventRow]] byExtendingSelection:NO];
+    if ([event type] == NSRightMouseDown &&
+        ![self isRowSelected:[self eventRow]])
+        [self selectRowIndexes:[NSIndexSet indexSetWithIndex:[self eventRow]]
+            byExtendingSelection:NO];
 }
 
 @end
 
 @implementation PPTableView
 
-- (NSMenu *)menuForEvent:(NSEvent *)event
+- (NSMenu*)menuForEvent:(NSEvent*)event
 {
-	[self setEventRow:event];
-	[self selectRowsForEvent:event];
-	return [super menuForEvent:event];
+    [self setEventRow:event];
+    [self selectRowsForEvent:event];
+    return [super menuForEvent:event];
 }
 
 @end

@@ -26,16 +26,16 @@
 
 @interface PPPyDecoderPlugin : NSObject <PPDecoderPlugin>
 {
-	PyObject *module;
-	PyObject *canDecodeProtocolFunc;
-	PyObject *shortNameFunc;
-	PyObject *longNameFunc;
-	PyObject *infoFunc;
-	PyObject *descriptionTreeFunc;
-	PyObject *isValidDataFunc;
-	PyObject *columnIdentifiersFunc;
-	PyObject *columnStringForIndexFunc;
-	PyObject *compareColumnForIndex;
+    PyObject* module;
+    PyObject* canDecodeProtocolFunc;
+    PyObject* shortNameFunc;
+    PyObject* longNameFunc;
+    PyObject* infoFunc;
+    PyObject* descriptionTreeFunc;
+    PyObject* isValidDataFunc;
+    PyObject* columnIdentifiersFunc;
+    PyObject* columnStringForIndexFunc;
+    PyObject* compareColumnForIndex;
 }
 
 - (void)clear; /* private method */

@@ -22,8 +22,8 @@
 
 #include "ColumnIdentifier.h"
 
-#define PACKET_COLUMN_INDEX_NUMBER		0
-#define PACKET_COLUMN_INDEX_DATE		1
+#define PACKET_COLUMN_INDEX_NUMBER 0
+#define PACKET_COLUMN_INDEX_DATE   1
 
 @class Packet;
 @class PPBPFProgram;
@@ -32,12 +32,13 @@
 @interface Packet (PPPacketUIAdditions) <OutlineViewItem, ColumnIdentifier>
 
 - (void)processPlugins;
-- (NSString *)protocols; /* protocol short names in reverse order */
-- (NSString *)info; /* information strings in reverse order */
-- (NSComparisonResult)compare:(Packet *)packet withColumn:(ColumnIdentifier *)column;
-- (NSString *)stringForColumn:(ColumnIdentifier *)columnIdentifier;
-- (id)decoderForPlugin:(id <PPDecoderPlugin>)plugin;
-- (BOOL)runFilterProgram:(PPBPFProgram *)filterProgram;
+- (NSString*)protocols; /* protocol short names in reverse order */
+- (NSString*)info;      /* information strings in reverse order */
+- (NSComparisonResult)compare:(Packet*)packet
+                   withColumn:(ColumnIdentifier*)column;
+- (NSString*)stringForColumn:(ColumnIdentifier*)columnIdentifier;
+- (id)decoderForPlugin:(id<PPDecoderPlugin>)plugin;
+- (BOOL)runFilterProgram:(PPBPFProgram*)filterProgram;
 
 @end
 

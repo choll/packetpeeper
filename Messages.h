@@ -20,34 +20,41 @@
 #ifndef _MESSAGES_H_
 #define _MESSAGES_H_
 
-#include <sys/time.h>
-#include <objc/objc.h>
 #import <Foundation/NSObject.h>
+#include <objc/objc.h>
+#include <sys/time.h>
 
 @class NSString;
 @class PPBPFProgram;
 @protocol NSCoding;
 
-@interface MsgQuit : NSObject <NSCoding> {}
+@interface MsgQuit : NSObject <NSCoding>
+{
+}
 @end
 
 @interface MsgSettings : NSObject <NSCoding>
 {
-	NSString		*iface;			/* string of which interface we are to use, eg 'en0' */
-	unsigned int	buflen;			/* buffer length for reads on bpf device */
-	struct timeval	timeout;		/* timeout for reads on the bpf device */
-	BOOL			promisc;		/* enable/disable promiscuous mode on the interface */
-	BOOL			immediate;		/* enable/disable immediate mode on the bpf device */
-	PPBPFProgram	*filterProgram;
+    NSString* iface;     /* string of which interface we are to use, eg 'en0' */
+    unsigned int buflen; /* buffer length for reads on bpf device */
+    struct timeval timeout; /* timeout for reads on the bpf device */
+    BOOL promisc;   /* enable/disable promiscuous mode on the interface */
+    BOOL immediate; /* enable/disable immediate mode on the bpf device */
+    PPBPFProgram* filterProgram;
 }
 
-- (id)initWithInterface:(NSString *)ifaceVal bufLength:(unsigned int)buflenVal timeout:(struct timeval *)timeoutVal promiscuous:(BOOL)promiscVal immediate:(BOOL)immediateVal filterProgram:(PPBPFProgram *)aFilterProgram;
-- (NSString *)interface;
+- (id)initWithInterface:(NSString*)ifaceVal
+              bufLength:(unsigned int)buflenVal
+                timeout:(struct timeval*)timeoutVal
+            promiscuous:(BOOL)promiscVal
+              immediate:(BOOL)immediateVal
+          filterProgram:(PPBPFProgram*)aFilterProgram;
+- (NSString*)interface;
 - (unsigned int)bufLength;
-- (struct timeval *)timeout;
+- (struct timeval*)timeout;
 - (BOOL)promiscuous;
 - (BOOL)immediate;
-- (PPBPFProgram *)filterProgram;
+- (PPBPFProgram*)filterProgram;
 
 @end
 

@@ -25,14 +25,17 @@
 @protocol NSObject;
 
 /* represents the level of the object in the protocol stack */
-enum _stacklev {SL_NONE,
-				SL_PHYSICAL,
-				SL_DATALINK,
-				SL_NETWORK,
-				SL_TRANSPORT,
-				SL_SESSION,
-				SL_PRESENTATION,
-				SL_APPLICATION};
+enum _stacklev
+{
+    SL_NONE,
+    SL_PHYSICAL,
+    SL_DATALINK,
+    SL_NETWORK,
+    SL_TRANSPORT,
+    SL_SESSION,
+    SL_PRESENTATION,
+    SL_APPLICATION
+};
 
 typedef enum _stacklev stacklev;
 
@@ -44,14 +47,14 @@ typedef enum _stacklev stacklev;
 	(Such as if it just contains other Decode objects, and does not perform
 	any decoding itself).
 */
-+ (NSString *)shortName;
++ (NSString*)shortName;
 
 /*
 	Returns an NSString of the long name of the protocol which the object decodes,
 	such as "Internet Protocol version 4". Returns nil if the object does not
 	have a name.
 */
-+ (NSString *)longName;
++ (NSString*)longName;
 
 /*
 	Returns an NSString providing a short informational string about the object,
@@ -59,7 +62,7 @@ typedef enum _stacklev stacklev;
 	are set in the header (i.e, SYN, ACK etc). Returns nil if the object does not
 	provide an information string.
 */
-- (NSString *)info;
+- (NSString*)info;
 
 /*
 	Returns a value corresponding to the position of the object in the

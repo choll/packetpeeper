@@ -22,11 +22,10 @@
 
 #import <Foundation/NSFormatter.h>
 
-NSString *data_quantity_str(unsigned long long nbytes);
+NSString* data_quantity_str(unsigned long long nbytes);
 
 @interface PPDataQuantityFormatter : NSFormatter
 {
-
 }
 
 @end

@@ -28,20 +28,20 @@
 
 #include <iostream>
 
-#import <Foundation/NSThread.h>
-#import <Foundation/NSString.h>
 #import <Foundation/NSArchiver.h>
-#import <Foundation/NSNull.h>
 #import <Foundation/NSNotification.h>
+#import <Foundation/NSNull.h>
+#import <Foundation/NSString.h>
+#import <Foundation/NSThread.h>
 
-#include <sys/types.h>
-#include <sys/socket.h>
 #include <netdb.h>
 #include <stdlib.h>
+#include <sys/socket.h>
+#include <sys/types.h>
 
 namespace
 {
-    HostCache *sharedHostCache = nil;
+    HostCache* sharedHostCache = nil;
 
     template<typename T>
     struct release_deleter
@@ -61,11 +61,10 @@ namespace
 
         bool operator()(const in6_addr& a, const in6_addr& b) const
         {
-            return
-                a.__u6_addr.__u6_addr32[0] < b.__u6_addr.__u6_addr32[0] &&
-                a.__u6_addr.__u6_addr32[1] < b.__u6_addr.__u6_addr32[1] &&
-                a.__u6_addr.__u6_addr32[2] < b.__u6_addr.__u6_addr32[2] &&
-                a.__u6_addr.__u6_addr32[3] < b.__u6_addr.__u6_addr32[3];
+            return a.__u6_addr.__u6_addr32[0] < b.__u6_addr.__u6_addr32[0] &&
+                   a.__u6_addr.__u6_addr32[1] < b.__u6_addr.__u6_addr32[1] &&
+                   a.__u6_addr.__u6_addr32[2] < b.__u6_addr.__u6_addr32[2] &&
+                   a.__u6_addr.__u6_addr32[3] < b.__u6_addr.__u6_addr32[3];
         }
     };
 
@@ -104,9 +103,8 @@ namespace
         {
             std::lock_guard<std::mutex> lock(mutex);
 
-            auto result =
-                map.insert(
-                    std::make_pair(addr, cache_entry(HOSTCACHE_ERROR, nsstring_ptr())));
+            auto result = map.insert(std::make_pair(
+                addr, cache_entry(HOSTCACHE_ERROR, nsstring_ptr())));
 
             cache_entry& entry(result.first->second);
 
@@ -123,7 +121,7 @@ namespace
             // string, so schedule a lookup and give it the cache_entry
             // location to store the result in.
 
-            auto f = [cache, addr, family, &entry, &mutex] () {
+            auto f = [cache, addr, family, &entry, &mutex]() {
                 int ret;
                 NSString* str;
                 SockAddrType sin; // sockaddr_in or sockaddr_in6
@@ -131,19 +129,32 @@ namespace
 
                 sockaddr_helper(sin, family, addr);
 
-                if ((ret = ::getnameinfo(reinterpret_cast<struct sockaddr *>(&sin), sizeof(sin), host, sizeof(host), NULL, 0, NI_NAMEREQD)) != 0)
+                if ((ret = ::getnameinfo(
+                         reinterpret_cast<struct sockaddr*>(&sin),
+                         sizeof(sin),
+                         host,
+                         sizeof(host),
+                         NULL,
+                         0,
+                         NI_NAMEREQD)) != 0)
                 {
                     std::lock_guard<std::mutex> lock2(mutex);
-                    entry.first = (ret == EAI_NONAME) ? HOSTCACHE_NONAME : HOSTCACHE_ERROR;
+                    entry.first = (ret == EAI_NONAME) ? HOSTCACHE_NONAME
+                                                      : HOSTCACHE_ERROR;
                 }
-                else if((str = [[NSString alloc] initWithUTF8String:host]) != nil)
+                else if (
+                    (str = [[NSString alloc] initWithUTF8String:host]) != nil)
                 {
                     std::lock_guard<std::mutex> lock2(mutex);
                     entry.first = HOSTCACHE_SUCCESS;
-                    entry.second = std::unique_ptr<NSString, release_deleter<NSString>>(str);
+                    entry.second =
+                        std::unique_ptr<NSString, release_deleter<NSString>>(
+                            str);
                 }
 
-                [cache performSelectorOnMainThread:@selector(lookupComplete:) withObject:nil waitUntilDone:NO];
+                [cache performSelectorOnMainThread:@selector(lookupComplete:)
+                                        withObject:nil
+                                     waitUntilDone:NO];
             };
 
             async.enqueue(f);
@@ -173,9 +184,9 @@ namespace
     std::mutex ip6_mutex_;
 }
 
-+ (HostCache *)sharedHostCache
++ (HostCache*)sharedHostCache
 {
-    if(sharedHostCache == nil)
+    if (sharedHostCache == nil)
         sharedHostCache = [[HostCache alloc] init];
     return sharedHostCache;
 }
@@ -199,17 +210,21 @@ namespace
 
 - (void)lookupComplete:(id)sender
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:PPHostCacheHostNameLookupCompleteNotification object:self];
+    [[NSNotificationCenter defaultCenter]
+        postNotificationName:PPHostCacheHostNameLookupCompleteNotification
+                      object:self];
 }
 
-- (NSString *)hostWithAddressASync:(const in_addr *)addr returnCode:(int *)code
+- (NSString*)hostWithAddressASync:(const in_addr*)addr returnCode:(int*)code
 {
-    return lookup<struct sockaddr_in>(self, async_, *addr, AF_INET, ip4_addrs_, ip4_mutex_, code);
+    return lookup<struct sockaddr_in>(
+        self, async_, *addr, AF_INET, ip4_addrs_, ip4_mutex_, code);
 }
 
-- (NSString *)hostWithIp6AddressASync:(const in6_addr *)addr returnCode:(int *)code
+- (NSString*)hostWithIp6AddressASync:(const in6_addr*)addr returnCode:(int*)code
 {
-    return lookup<struct sockaddr_in6>(self, async_, *addr, AF_INET6, ip6_addrs_, ip6_mutex_, code);
+    return lookup<struct sockaddr_in6>(
+        self, async_, *addr, AF_INET6, ip6_addrs_, ip6_mutex_, code);
 }
 
 - (void)flush
@@ -225,4 +240,3 @@ namespace
 }
 
 @end
-

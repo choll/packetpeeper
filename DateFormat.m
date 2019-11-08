@@ -17,21 +17,20 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#import <Foundation/NSDate.h>
-#import <Foundation/NSString.h>
-#import <Foundation/NSDateFormatter.h>
 #include "DateFormat.h"
+#import <Foundation/NSDate.h>
+#import <Foundation/NSDateFormatter.h>
+#import <Foundation/NSString.h>
 
 @implementation NSDate (DateFormat)
 
-- (NSString *)descriptionWithFormat:(NSString *)format
+- (NSString*)descriptionWithFormat:(NSString*)format
 {
-    NSDateFormatter *datefmt = [[NSDateFormatter alloc] init];
+    NSDateFormatter* datefmt = [[NSDateFormatter alloc] init];
     [datefmt setDateFormat:format];
-    NSString *ret = [datefmt stringFromDate:self];
+    NSString* ret = [datefmt stringFromDate:self];
     [datefmt release];
     return ret;
 }
 
 @end
-

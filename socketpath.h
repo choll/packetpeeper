@@ -20,6 +20,6 @@
 #ifndef _SOCKETPATH_H_
 #define _SOCKETPATH_H_
 
-#define SOCKETPATH	"/tmp/PacketPeeper.sock"
+#define SOCKETPATH "/tmp/PacketPeeper.sock"
 
 #endif /* _SOCKETPATH_H_ */

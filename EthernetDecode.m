@@ -17,25 +17,25 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include <sys/types.h>
-#include <net/ethernet.h>
-#include <netinet/in.h>
-#include <string.h>
-#import <Foundation/NSData.h>
-#import <Foundation/NSArray.h>
-#import <Foundation/NSString.h>
-#import <Foundation/NSArchiver.h>
+#include "EthernetDecode.h"
 #include "ARPDecode.h"
+#include "ColumnIdentifier.h"
 #include "IPV4Decode.h"
 #include "IPV6Decode.h"
 #include "OUICache.h"
-#include "ColumnIdentifier.h"
-#include "strfuncs.h"
 #include "pkt_compare.h"
-#include "EthernetDecode.h"
+#include "strfuncs.h"
+#import <Foundation/NSArchiver.h>
+#import <Foundation/NSArray.h>
+#import <Foundation/NSData.h>
+#import <Foundation/NSString.h>
+#include <net/ethernet.h>
+#include <netinet/in.h>
+#include <string.h>
+#include <sys/types.h>
 
-static NSString *names[][2] =
-    {{@"Destination Address", @"Ether Dst"},
+static NSString* names[][2] = {
+    {@"Destination Address", @"Ether Dst"},
     {@"Source Address", @"Ether Src"},
     {@"Protocol Type", @"Ether Proto"},
     {@"Destination Address Manufacturer", @"Ether Dst Manuf"},
@@ -43,18 +43,19 @@ static NSString *names[][2] =
 
 @implementation EthernetDecode
 
-- (id)initWithData:(NSData *)dataVal parent:(id <PPDecoderParent>)parentVal
+- (id)initWithData:(NSData*)dataVal parent:(id<PPDecoderParent>)parentVal
 {
-    struct ether_header *hdr;
+    struct ether_header* hdr;
 
-    if(dataVal == nil)
+    if (dataVal == nil)
         return nil;
 
-    if((self = [super init]) != nil) {
-        if([dataVal length] < ETHERNETDECODE_HDR_MIN)
+    if ((self = [super init]) != nil)
+    {
+        if ([dataVal length] < ETHERNETDECODE_HDR_MIN)
             goto err;
 
-        hdr = (struct ether_header *)[dataVal bytes];
+        hdr = (struct ether_header*)[dataVal bytes];
 
         (void)memcpy(src, hdr->ether_shost, sizeof(src));
         (void)memcpy(dst, hdr->ether_dhost, sizeof(dst));
@@ -67,12 +68,12 @@ err:
     return nil;
 }
 
-- (uint8_t *)dst
+- (uint8_t*)dst
 {
     return dst;
 }
 
-- (uint8_t *)src
+- (uint8_t*)src
 {
     return src;
 }
@@ -82,7 +83,7 @@ err:
     return type;
 }
 
-- (void)setParent:(id <PPDecoderParent>)parentVal
+- (void)setParent:(id<PPDecoderParent>)parentVal
 {
     return;
 }
@@ -99,39 +100,42 @@ err:
 
 - (Class)nextLayer
 {
-    switch(type) {
-        case ETHERTYPE_IP:
-            return [IPV4Decode class];
-            /* NOTREACHED */
+    switch (type)
+    {
+    case ETHERTYPE_IP:
+        return [IPV4Decode class];
+        /* NOTREACHED */
 
-        case ETHERTYPE_IPV6:
-            return [IPV6Decode class];
-            /* NOTREACHED */
+    case ETHERTYPE_IPV6:
+        return [IPV6Decode class];
+        /* NOTREACHED */
 
-        case ETHERTYPE_ARP:
-            return [ARPDecode class];
-            /* NOTREACHED */
+    case ETHERTYPE_ARP:
+        return [ARPDecode class];
+        /* NOTREACHED */
 
-        case ETHERTYPE_REVARP:
-            return [RARPDecode class];
-            /* NOTREACHED */
+    case ETHERTYPE_REVARP:
+        return [RARPDecode class];
+        /* NOTREACHED */
     }
     return Nil;
 }
 
-+ (NSString *)shortName
++ (NSString*)shortName
 {
     return @"Ethernet";
 }
 
-+ (NSString *)longName
++ (NSString*)longName
 {
     return @"Ethernet";
 }
 
-- (NSString *)info
+- (NSString*)info
 {
-    return [NSString stringWithFormat:@"%@ to %@", etherstr(dst, sizeof(dst)), etherstr(src, sizeof(src))];
+    return [NSString stringWithFormat:@"%@ to %@",
+                                      etherstr(dst, sizeof(dst)),
+                                      etherstr(src, sizeof(src))];
 }
 
 - (stacklev)level
@@ -141,16 +145,21 @@ err:
 
 /* ColumnIdentifier protocol methods */
 
-+ (NSArray *)columnIdentifiers
++ (NSArray*)columnIdentifiers
 {
-    ColumnIdentifier *colIdent;
-    NSMutableArray *ret;
+    ColumnIdentifier* colIdent;
+    NSMutableArray* ret;
     unsigned int i;
 
-    ret = [[NSMutableArray alloc] initWithCapacity:sizeof(names) / sizeof(names[0])];
+    ret = [[NSMutableArray alloc]
+        initWithCapacity:sizeof(names) / sizeof(names[0])];
 
-    for(i = 0; i < sizeof(names) / sizeof(names[0]) ; ++i) {
-        colIdent = [[ColumnIdentifier alloc] initWithDecoder:[self class] index:i longName:names[i][0] shortName:names[i][1]];
+    for (i = 0; i < sizeof(names) / sizeof(names[0]); ++i)
+    {
+        colIdent = [[ColumnIdentifier alloc] initWithDecoder:[self class]
+                                                       index:i
+                                                    longName:names[i][0]
+                                                   shortName:names[i][1]];
         [ret addObject:colIdent];
         [colIdent release];
     }
@@ -158,19 +167,20 @@ err:
     return [ret autorelease];
 }
 
-- (NSString *)columnStringForIndex:(unsigned int)fieldIndex
+- (NSString*)columnStringForIndex:(unsigned int)fieldIndex
 {
-    switch(fieldIndex) {
-        case 0: /* destination addr */
-            return etherstr(dst, sizeof(dst));
-        case 1: /* source addr */
-            return etherstr(src, sizeof(src));
-        case 2: /* type */
-            return [NSString stringWithFormat:@"0x%.4x", type];
-        case 3: /* dst oui */
-            return [[OUICache sharedOUICache] manufacturerForEthernetAddress:dst];
-        case 4: /* src oui */
-            return [[OUICache sharedOUICache] manufacturerForEthernetAddress:src];
+    switch (fieldIndex)
+    {
+    case 0: /* destination addr */
+        return etherstr(dst, sizeof(dst));
+    case 1: /* source addr */
+        return etherstr(src, sizeof(src));
+    case 2: /* type */
+        return [NSString stringWithFormat:@"0x%.4x", type];
+    case 3: /* dst oui */
+        return [[OUICache sharedOUICache] manufacturerForEthernetAddress:dst];
+    case 4: /* src oui */
+        return [[OUICache sharedOUICache] manufacturerForEthernetAddress:src];
     }
 
     return nil;
@@ -178,17 +188,24 @@ err:
 
 - (NSComparisonResult)compareWith:(id)obj atIndex:(unsigned int)fieldIndex
 {
-    switch(fieldIndex) {
-        case 0: /* destination addr */
-            return mem_compare(dst, ((EthernetDecode *)obj)->dst, sizeof(dst));
-        case 1: /* source addr */
-            return mem_compare(src, ((EthernetDecode *)obj)->src, sizeof(src));
-        case 2: /* type */
-            return val_compare(type, ((EthernetDecode *)obj)->type);
-        case 3: /* dst oui */
-            return [[[OUICache sharedOUICache] manufacturerForEthernetAddress:dst] compare:[[OUICache sharedOUICache] manufacturerForEthernetAddress:((EthernetDecode *)obj)->dst]];
-        case 4: /* src oui */
-            return [[[OUICache sharedOUICache] manufacturerForEthernetAddress:src] compare:[[OUICache sharedOUICache] manufacturerForEthernetAddress:((EthernetDecode *)obj)->src]];
+    switch (fieldIndex)
+    {
+    case 0: /* destination addr */
+        return mem_compare(dst, ((EthernetDecode*)obj)->dst, sizeof(dst));
+    case 1: /* source addr */
+        return mem_compare(src, ((EthernetDecode*)obj)->src, sizeof(src));
+    case 2: /* type */
+        return val_compare(type, ((EthernetDecode*)obj)->type);
+    case 3: /* dst oui */
+        return [[[OUICache sharedOUICache] manufacturerForEthernetAddress:dst]
+            compare:[[OUICache sharedOUICache]
+                        manufacturerForEthernetAddress:((EthernetDecode*)obj)
+                                                           ->dst]];
+    case 4: /* src oui */
+        return [[[OUICache sharedOUICache] manufacturerForEthernetAddress:src]
+            compare:[[OUICache sharedOUICache]
+                        manufacturerForEthernetAddress:((EthernetDecode*)obj)
+                                                           ->src]];
     }
 
     return NSOrderedSame;
@@ -208,36 +225,39 @@ err:
 
 - (id)childAtIndex:(int)fieldIndex
 {
-    OutlineViewItem *ret;
-    NSString *str;
+    OutlineViewItem* ret;
+    NSString* str;
 
     ret = [[OutlineViewItem alloc] init];
     [ret addObject:names[fieldIndex][0]];
 
-    switch(fieldIndex) {
-        case 0:
-            [ret addObject:etherstr(dst, sizeof(dst))];
-            if((str = [[OUICache sharedOUICache] manufacturerForEthernetAddress:dst]) == nil)
-                str = @"Lookup failed";
-            [ret addChildWithObjects:names[3][0], str, nil];
-            break;
+    switch (fieldIndex)
+    {
+    case 0:
+        [ret addObject:etherstr(dst, sizeof(dst))];
+        if ((str = [[OUICache sharedOUICache]
+                 manufacturerForEthernetAddress:dst]) == nil)
+            str = @"Lookup failed";
+        [ret addChildWithObjects:names[3][0], str, nil];
+        break;
 
-        case 1:
-            [ret addObject:etherstr(src, sizeof(src))];
-            if((str = [[OUICache sharedOUICache] manufacturerForEthernetAddress:src]) == nil)
-                str = @"Lookup failed";
-            [ret addChildWithObjects:names[4][0], str, nil];
-            break;
+    case 1:
+        [ret addObject:etherstr(src, sizeof(src))];
+        if ((str = [[OUICache sharedOUICache]
+                 manufacturerForEthernetAddress:src]) == nil)
+            str = @"Lookup failed";
+        [ret addChildWithObjects:names[4][0], str, nil];
+        break;
 
-        case 2:
-            str = [[NSString alloc] initWithFormat:@"0x%.4x", type];
-            [ret addObject:str];
-            [str release];
-            break;
+    case 2:
+        str = [[NSString alloc] initWithFormat:@"0x%.4x", type];
+        [ret addObject:str];
+        [str release];
+        break;
 
-        default:
-            [ret release];
-            return nil;
+    default:
+        [ret release];
+        return nil;
     }
 
     return [ret autorelease];
@@ -253,22 +273,30 @@ err:
     return [[self class] longName];
 }
 
-- (void)encodeWithCoder:(NSCoder *)coder
+- (void)encodeWithCoder:(NSCoder*)coder
 {
-    [coder encodeArrayOfObjCType:@encode(unsigned char) count:sizeof(dst) at:dst];
-    [coder encodeArrayOfObjCType:@encode(unsigned char) count:sizeof(src) at:src];
+    [coder encodeArrayOfObjCType:@encode(unsigned char)
+                           count:sizeof(dst)
+                              at:dst];
+    [coder encodeArrayOfObjCType:@encode(unsigned char)
+                           count:sizeof(src)
+                              at:src];
     [coder encodeValueOfObjCType:@encode(uint16_t) at:&type];
 }
 
-- (id)initWithCoder:(NSCoder *)coder
+- (id)initWithCoder:(NSCoder*)coder
 {
-    if((self = [super init]) != nil) {
-        [coder decodeArrayOfObjCType:@encode(unsigned char) count:sizeof(dst) at:dst];
-        [coder decodeArrayOfObjCType:@encode(unsigned char) count:sizeof(src) at:src];
+    if ((self = [super init]) != nil)
+    {
+        [coder decodeArrayOfObjCType:@encode(unsigned char)
+                               count:sizeof(dst)
+                                  at:dst];
+        [coder decodeArrayOfObjCType:@encode(unsigned char)
+                               count:sizeof(src)
+                                  at:src];
         [coder decodeValueOfObjCType:@encode(uint16_t) at:&type];
     }
     return self;
 }
 
 @end
-

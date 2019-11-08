@@ -15,14 +15,13 @@ namespace peep
 
     namespace detail
     {
-        struct async_func_queue {
+        struct async_func_queue
+        {
             typedef std::mutex mutex_type;
             typedef std::condition_variable condition_variable_type;
             typedef std::function<void()> callback_type;
 
-            async_func_queue()
-            :
-                quit_(false)
+            async_func_queue() : quit_(false)
             {
             }
 
@@ -40,11 +39,11 @@ namespace peep
 // which AFAIK you can't do with std::async.
 class peep::async
 {
-private:
+  private:
     typedef detail::async_func_queue::mutex_type mutex_type;
     typedef std::thread thread_type;
 
-public:
+  public:
     explicit async(std::size_t num_threads = 5);
     ~async() noexcept;
 
@@ -64,4 +63,3 @@ public:
 };
 
 #endif
-

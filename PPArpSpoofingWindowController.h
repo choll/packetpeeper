@@ -31,7 +31,10 @@
 @class NSProgressIndicator;
 @class NSMutableArray;
 
-@interface PPArpSpoofingWindowController : NSWindowController <NSTableViewDataSource, NSTableViewDelegate, NSComboBoxCellDataSource>
+@interface PPArpSpoofingWindowController : NSWindowController <
+                                               NSTableViewDataSource,
+                                               NSTableViewDelegate,
+                                               NSComboBoxCellDataSource>
 {
     IBOutlet NSTableView* targetsTableView_;
     IBOutlet NSTextField* statusTextField_;
@@ -48,12 +51,15 @@
 - (IBAction)helpButton:(id)sender;
 
 // NSTableView data-source methods
-- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView;
-- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex;
+- (NSInteger)numberOfRowsInTableView:(NSTableView*)tableView;
+- (id)tableView:(NSTableView*)tableView
+    objectValueForTableColumn:(NSTableColumn*)tableColumn
+                          row:(NSInteger)rowIndex;
 
 // NSComboBoxCell data-source methods
-- (id)comboBoxCell:(NSComboBoxCell *)aComboBoxCell objectValueForItemAtIndex:(NSInteger)index;
-- (NSInteger)numberOfItemsInComboBoxCell:(NSComboBoxCell *)aComboBoxCell;
+- (id)comboBoxCell:(NSComboBoxCell*)aComboBoxCell
+    objectValueForItemAtIndex:(NSInteger)index;
+- (NSInteger)numberOfItemsInComboBoxCell:(NSComboBoxCell*)aComboBoxCell;
 
 @end
 

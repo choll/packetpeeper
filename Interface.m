@@ -17,24 +17,24 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include <stdlib.h>
-#include <sys/types.h>
-#include <sys/sysctl.h>
-#include <sys/socket.h>
-#include <sys/time.h>
-#include <sys/ioctl.h>
+#include "Interface.h"
+#include "ErrorStack.h"
+#include "pktap.h"
+#import <Foundation/NSArray.h>
+#import <Foundation/NSString.h>
+#include <errno.h>
+#include <ifaddrs.h>
 #include <net/bpf.h>
 #include <net/if.h>
 #include <net/if_dl.h>
 #include <net/if_types.h>
 #include <net/route.h>
-#include <errno.h>
-#include <ifaddrs.h>
-#import <Foundation/NSArray.h>
-#import <Foundation/NSString.h>
-#include "pktap.h"
-#include "ErrorStack.h"
-#include "Interface.h"
+#include <stdlib.h>
+#include <sys/ioctl.h>
+#include <sys/socket.h>
+#include <sys/sysctl.h>
+#include <sys/time.h>
+#include <sys/types.h>
 
 #define IFSTR_ETHER "Ethernet Adaptor"
 #define IFSTR_LOOP  "Loopback Network"
@@ -43,190 +43,241 @@
 
 @implementation Interface
 
-+ (NSArray *)liveInterfaces
++ (NSArray*)liveInterfaces
 {
-	struct if_msghdr *ifm;
-	struct sockaddr_dl *sdl;
-	char *buf;
-	char *lim;
-	char *next;
-	NSMutableArray *ret;
-	NSString *shortname;
-	NSString *longname;
-	size_t needed;
-	int linkType;
-	int mib[6] = {CTL_NET,		/* mib tree; networking */
-				PF_ROUTE,		/* routing table */
-				0,				/* ? */
-				0,				/* address family, 0 is wildcard */
-				NET_RT_IFLIST,	/* type of info, survey interface list */
-				0};				/* flags to mask with for NET_RT_FLAGS */
+    struct if_msghdr* ifm;
+    struct sockaddr_dl* sdl;
+    char* buf;
+    char* lim;
+    char* next;
+    NSMutableArray* ret;
+    NSString* shortname;
+    NSString* longname;
+    size_t needed;
+    int linkType;
+    int mib[6] = {CTL_NET,       /* mib tree; networking */
+                  PF_ROUTE,      /* routing table */
+                  0,             /* ? */
+                  0,             /* address family, 0 is wildcard */
+                  NET_RT_IFLIST, /* type of info, survey interface list */
+                  0};            /* flags to mask with for NET_RT_FLAGS */
 
-	buf = NULL;
-	shortname = nil;
-	longname = nil;
-	ret = nil;
+    buf = NULL;
+    shortname = nil;
+    longname = nil;
+    ret = nil;
 
-	/* find out how much memory is needed. */
-	if(sysctl(mib, 6, NULL, &needed, NULL, 0) < 0) {
-		[[ErrorStack sharedErrorStack] pushError:@"Could not find out how much memory is required for interface list" lookup:[PosixError class] code:errno severity:ERRS_ERROR];
-		goto err;
-	}
+    /* find out how much memory is needed. */
+    if (sysctl(mib, 6, NULL, &needed, NULL, 0) < 0)
+    {
+        [[ErrorStack sharedErrorStack]
+            pushError:
+                @"Could not find out how much memory is required for interface "
+                @"list"
+               lookup:[PosixError class]
+                 code:errno
+             severity:ERRS_ERROR];
+        goto err;
+    }
 
-	if((buf = malloc(needed)) == NULL) {
-		[[ErrorStack sharedErrorStack] pushError:@"Could not allocate memory for interface list" lookup:[PosixError class] code:errno severity:ERRS_ERROR];
-		goto err;
-	}
+    if ((buf = malloc(needed)) == NULL)
+    {
+        [[ErrorStack sharedErrorStack]
+            pushError:@"Could not allocate memory for interface list"
+               lookup:[PosixError class]
+                 code:errno
+             severity:ERRS_ERROR];
+        goto err;
+    }
 
-	/* get the info */
-	if(sysctl(mib, 6, buf, &needed, NULL, 0) < 0) {
-		[[ErrorStack sharedErrorStack] pushError:@"Could not read interface list data" lookup:[PosixError class] code:errno severity:ERRS_ERROR];
-		goto err;
-	}
+    /* get the info */
+    if (sysctl(mib, 6, buf, &needed, NULL, 0) < 0)
+    {
+        [[ErrorStack sharedErrorStack]
+            pushError:@"Could not read interface list data"
+               lookup:[PosixError class]
+                 code:errno
+             severity:ERRS_ERROR];
+        goto err;
+    }
 
-	/* alloc after possible errors can occur */
-	if((ret = [[NSMutableArray alloc] init]) == nil) {
-		[[ErrorStack sharedErrorStack] pushError:@"NSMutableArray failed to alloc" lookup:Nil code:0 severity:ERRS_ERROR];
-		goto err;
-	}
+    /* alloc after possible errors can occur */
+    if ((ret = [[NSMutableArray alloc] init]) == nil)
+    {
+        [[ErrorStack sharedErrorStack]
+            pushError:@"NSMutableArray failed to alloc"
+               lookup:Nil
+                 code:0
+             severity:ERRS_ERROR];
+        goto err;
+    }
 
-	lim = buf + needed;
+    lim = buf + needed;
 
     /* getifaddrs isn't used as it doesn't provide information about the link type */
 
-	for(next = buf; next < lim; next += ifm->ifm_msglen) {
-		ifm = (struct if_msghdr *)next;
+    for (next = buf; next < lim; next += ifm->ifm_msglen)
+    {
+        ifm = (struct if_msghdr*)next;
 
-		if(ifm->ifm_type == RTM_IFINFO && ifm->ifm_flags & IFF_UP) {
-			Interface *iface;
-			char *iftype_str;
+        if (ifm->ifm_type == RTM_IFINFO && ifm->ifm_flags & IFF_UP)
+        {
+            Interface* iface;
+            char* iftype_str;
 
-			sdl = (struct sockaddr_dl *)(ifm + 1);
+            sdl = (struct sockaddr_dl*)(ifm + 1);
 
-			switch(sdl->sdl_type) {
-                case IFT_OTHER:
-                    iftype_str = IFSTR_RVI;
-                    linkType = DLT_PKTAP;
-                    break;
+            switch (sdl->sdl_type)
+            {
+            case IFT_OTHER:
+                iftype_str = IFSTR_RVI;
+                linkType = DLT_PKTAP;
+                break;
 
-				case IFT_ETHER:
-					iftype_str = IFSTR_ETHER;
-					linkType = DLT_EN10MB;
-					break;
+            case IFT_ETHER:
+                iftype_str = IFSTR_ETHER;
+                linkType = DLT_EN10MB;
+                break;
 
-				case IFT_PPP:
-					iftype_str = IFSTR_PPP;
-					linkType = DLT_PPP;
-					break;
+            case IFT_PPP:
+                iftype_str = IFSTR_PPP;
+                linkType = DLT_PPP;
+                break;
 
-				case IFT_LOOP:
-					iftype_str = IFSTR_LOOP;
-					linkType = DLT_NULL;
-					break;
+            case IFT_LOOP:
+                iftype_str = IFSTR_LOOP;
+                linkType = DLT_NULL;
+                break;
 
-				/* interfaces other than loopback, ethernet or ppp are unsupported */
-				default:
-					continue;
-					/* NOTREACHED */
-			}
+            /* interfaces other than loopback, ethernet or ppp are unsupported */
+            default:
+                continue;
+                /* NOTREACHED */
+            }
 
-			if((shortname = [[NSString alloc] initWithBytes:sdl->sdl_data length:sdl->sdl_nlen encoding:NSUTF8StringEncoding]) == nil ||
-			   (longname = [[NSString alloc] initWithUTF8String:iftype_str]) == nil) {
-				[[ErrorStack sharedErrorStack] pushError:@"NSString failed to alloc/init" lookup:Nil code:0 severity:ERRS_ERROR];
-				goto err;
-			}
+            if ((shortname = [[NSString alloc]
+                     initWithBytes:sdl->sdl_data
+                            length:sdl->sdl_nlen
+                          encoding:NSUTF8StringEncoding]) == nil ||
+                (longname = [[NSString alloc] initWithUTF8String:iftype_str]) ==
+                    nil)
+            {
+                [[ErrorStack sharedErrorStack]
+                    pushError:@"NSString failed to alloc/init"
+                       lookup:Nil
+                         code:0
+                     severity:ERRS_ERROR];
+                goto err;
+            }
 
-			if((iface = [[Interface alloc] initWithShortName:shortname
-									   longName:longname
-									   promisc:(ifm->ifm_flags & IFF_PROMISC) != 0
-									   loopback:(ifm->ifm_flags & IFF_LOOPBACK) != 0
-									   netmask:0
-									   linkType:linkType]) == nil) {
-				[[ErrorStack sharedErrorStack] pushError:@"Interface failed to alloc/init" lookup:Nil code:0 severity:ERRS_ERROR];
-				goto err;
-			}
-			[shortname release];
-			[longname release];
-			shortname = nil;
-			longname = nil;
-			[ret addObject:iface];
-			[iface release];
-		}
-	}
+            if ((iface = [[Interface alloc]
+                     initWithShortName:shortname
+                              longName:longname
+                               promisc:(ifm->ifm_flags & IFF_PROMISC) != 0
+                              loopback:(ifm->ifm_flags & IFF_LOOPBACK) != 0
+                               netmask:0
+                              linkType:linkType]) == nil)
+            {
+                [[ErrorStack sharedErrorStack]
+                    pushError:@"Interface failed to alloc/init"
+                       lookup:Nil
+                         code:0
+                     severity:ERRS_ERROR];
+                goto err;
+            }
+            [shortname release];
+            [longname release];
+            shortname = nil;
+            longname = nil;
+            [ret addObject:iface];
+            [iface release];
+        }
+    }
 
-	/* note that ret may be empty if no interfaces found */
+    /* note that ret may be empty if no interfaces found */
 
-	free(buf);
-	[ret autorelease];
-	return ret;
+    free(buf);
+    [ret autorelease];
+    return ret;
 
-	err:
-		if(buf != NULL)
-			free(buf);
-		[ret release];
-		[shortname release];
-		[longname release];
-		return nil;
+err:
+    if (buf != NULL)
+        free(buf);
+    [ret release];
+    [shortname release];
+    [longname release];
+    return nil;
 }
 
-- (id)initWithShortName:(NSString *)shortNameVal longName:(NSString *)longNameVal promisc:(BOOL)promiscVal loopback:(BOOL)loopbackVal netmask:(uint32_t)netmaskVal linkType:(int)linkTypeVal
+- (id)initWithShortName:(NSString*)shortNameVal
+               longName:(NSString*)longNameVal
+                promisc:(BOOL)promiscVal
+               loopback:(BOOL)loopbackVal
+                netmask:(uint32_t)netmaskVal
+               linkType:(int)linkTypeVal
 {
-	if((self = [super init]) != nil) {
-		shortName = [shortNameVal retain];
-		longName = [longNameVal retain];
-		promisc = promiscVal;
-		loopback = loopbackVal;
-		netmask = netmaskVal;
-		linkType = linkTypeVal;
-	}
-	return self;
+    if ((self = [super init]) != nil)
+    {
+        shortName = [shortNameVal retain];
+        longName = [longNameVal retain];
+        promisc = promiscVal;
+        loopback = loopbackVal;
+        netmask = netmaskVal;
+        linkType = linkTypeVal;
+    }
+    return self;
 }
 
 - (id)init
 {
-	return [self initWithShortName:@"default" longName:@"default" promisc:NO loopback:NO netmask:0 linkType:0];
+    return [self initWithShortName:@"default"
+                          longName:@"default"
+                           promisc:NO
+                          loopback:NO
+                           netmask:0
+                          linkType:0];
 }
 
-- (NSString *)shortName
+- (NSString*)shortName
 {
-	return shortName;
+    return shortName;
 }
 
-- (NSString *)longName
+- (NSString*)longName
 {
-	return longName;
+    return longName;
 }
 
 - (BOOL)promisc
 {
-	return promisc;
+    return promisc;
 }
 
 - (BOOL)loopback
 {
-	return loopback;
+    return loopback;
 }
 
 - (uint32_t)netmask
 {
-	return netmask;
+    return netmask;
 }
 
 - (int)linkType
 {
-	return linkType;
+    return linkType;
 }
 
-- (NSString *)description
+- (NSString*)description
 {
-	return [NSString stringWithFormat:@"%@ (%@)", shortName, longName];
+    return [NSString stringWithFormat:@"%@ (%@)", shortName, longName];
 }
 
 - (void)dealloc
 {
-	[shortName release];
-	[longName release];
-	[super dealloc];
+    [shortName release];
+    [longName release];
+    [super dealloc];
 }
 
 @end

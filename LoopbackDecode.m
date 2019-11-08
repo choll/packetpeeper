@@ -17,31 +17,32 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <limits.h>
-#import <Foundation/NSData.h>
-#import <Foundation/NSString.h>
-#import <Foundation/NSArray.h>
-#import <Foundation/NSArchiver.h>
+#include "LoopbackDecode.h"
 #include "IPV4Decode.h"
 #include "IPV6Decode.h"
 #include "pkt_compare.h"
-#include "LoopbackDecode.h"
+#import <Foundation/NSArchiver.h>
+#import <Foundation/NSArray.h>
+#import <Foundation/NSData.h>
+#import <Foundation/NSString.h>
+#include <limits.h>
+#include <sys/socket.h>
+#include <sys/types.h>
 
 @implementation LoopbackDecode
 
-- (id)initWithData:(NSData *)dataVal parent:(id <PPDecoderParent>)parentVal
+- (id)initWithData:(NSData*)dataVal parent:(id<PPDecoderParent>)parentVal
 {
-    if(dataVal == nil)
+    if (dataVal == nil)
         return nil;
 
-    if((self = [super init]) != nil) {
+    if ((self = [super init]) != nil)
+    {
         /* not enough data is represented by returning nil */
-        if([dataVal length] < sizeof(loopback_type))
+        if ([dataVal length] < sizeof(loopback_type))
             goto err;
 
-        type = *(loopback_type *)[dataVal bytes];
+        type = *(loopback_type*)[dataVal bytes];
     }
     return self;
 
@@ -50,7 +51,7 @@ err:
     return nil;
 }
 
-- (void)setParent:(id <PPDecoderParent>)parentVal
+- (void)setParent:(id<PPDecoderParent>)parentVal
 {
     return;
 }
@@ -67,36 +68,37 @@ err:
 
 - (Class)nextLayer
 {
-    switch(type) {
-        /* AF_ defines are from sys/socket.h  */
-        case AF_INET:
-            return [IPV4Decode class];
-            /* NOTREACHED */
+    switch (type)
+    {
+    /* AF_ defines are from sys/socket.h  */
+    case AF_INET:
+        return [IPV4Decode class];
+        /* NOTREACHED */
 
-        case AF_INET6:
-            return [IPV6Decode class];
-            /* NOTREACHED */
+    case AF_INET6:
+        return [IPV6Decode class];
+        /* NOTREACHED */
 
 #ifdef __APPLE__
-        case AF_PPP:
-            return Nil; /* [PPPDecode class]*/
-            /* NOTREACHED */
+    case AF_PPP:
+        return Nil; /* [PPPDecode class]*/
+                    /* NOTREACHED */
 #endif
     }
     return Nil;
 }
 
-+ (NSString *)shortName
++ (NSString*)shortName
 {
     return @"Loopback";
 }
 
-+ (NSString *)longName
++ (NSString*)longName
 {
     return @"Null/Loopback";
 }
 
-- (NSString *)info
+- (NSString*)info
 {
     return nil;
 }
@@ -108,21 +110,24 @@ err:
 
 /* ColumnIdentifier protocol methods */
 
-+ (NSArray *)columnIdentifiers
++ (NSArray*)columnIdentifiers
 {
-    ColumnIdentifier *colIdent;
-    NSArray *ret;
+    ColumnIdentifier* colIdent;
+    NSArray* ret;
 
-    colIdent = [[ColumnIdentifier alloc] initWithDecoder:[self class] index:0 longName:@"Protocol Type" shortName:@"Loopback Proto"];
+    colIdent = [[ColumnIdentifier alloc] initWithDecoder:[self class]
+                                                   index:0
+                                                longName:@"Protocol Type"
+                                               shortName:@"Loopback Proto"];
     ret = [NSArray arrayWithObject:colIdent];
     [colIdent release];
 
     return ret;
 }
 
-- (NSString *)columnStringForIndex:(unsigned int)fieldIndex
+- (NSString*)columnStringForIndex:(unsigned int)fieldIndex
 {
-    if(fieldIndex == 0)
+    if (fieldIndex == 0)
         return [NSString stringWithFormat:@"0x%.8x", type];
 
     return nil;
@@ -130,7 +135,7 @@ err:
 
 - (NSComparisonResult)compareWith:(id)obj atIndex:(unsigned int)fieldIndex
 {
-    return val_compare(type, ((LoopbackDecode *)obj)->type);
+    return val_compare(type, ((LoopbackDecode*)obj)->type);
 }
 
 /* OutlineViewItem protocol methods */
@@ -147,8 +152,8 @@ err:
 
 - (id)childAtIndex:(int)fieldIndex
 {
-    OutlineViewItem *ret;
-    NSString *str;
+    OutlineViewItem* ret;
+    NSString* str;
 
     ret = [[OutlineViewItem alloc] init];
     str = [[NSString alloc] initWithFormat:@"0x%.8x", type];
@@ -172,18 +177,18 @@ err:
 
 /* NSCoding protocol methods */
 
-- (void)encodeWithCoder:(NSCoder *)coder
+- (void)encodeWithCoder:(NSCoder*)coder
 {
     [coder encodeValueOfObjCType:@encode(loopback_type) at:&type];
 }
 
-- (id)initWithCoder:(NSCoder *)coder
+- (id)initWithCoder:(NSCoder*)coder
 {
-    if((self = [super init]) != nil) {
+    if ((self = [super init]) != nil)
+    {
         [coder decodeValueOfObjCType:@encode(loopback_type) at:&type];
     }
     return self;
 }
 
 @end
-

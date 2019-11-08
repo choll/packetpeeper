@@ -20,33 +20,34 @@
 #ifndef _UDPDECODE_H_
 #define _UDPDECODE_H_
 
+#include "ColumnIdentifier.h"
+#include "Decode.h"
+#include "Describe.h"
+#include "OutlineViewItem.h"
+#import <Foundation/NSObject.h>
 #include <netinet/in.h>
 #include <netinet/udp.h>
 #include <stdint.h>
-#import <Foundation/NSObject.h>
-#include "Decode.h"
-#include "Describe.h"
-#include "ColumnIdentifier.h"
-#include "OutlineViewItem.h"
 
-#define UDPDECODE_HDR_MIN	(sizeof(struct udphdr))
+#define UDPDECODE_HDR_MIN (sizeof(struct udphdr))
 
 @class NSData;
 
-@interface UDPDecode : NSObject <Decode, Describe, NSCoding, OutlineViewItem, ColumnIdentifier>
+@interface UDPDecode
+    : NSObject <Decode, Describe, NSCoding, OutlineViewItem, ColumnIdentifier>
 {
-	id <PPDecoderParent> parent;
-	uint16_t sport;
-	uint16_t dport;
-	uint16_t len;
-	uint16_t sum;
-	uint16_t calced_sum;
+    id<PPDecoderParent> parent;
+    uint16_t sport;
+    uint16_t dport;
+    uint16_t len;
+    uint16_t sum;
+    uint16_t calced_sum;
 }
 
 - (unsigned int)srcPort;
 - (unsigned int)dstPort;
-- (NSString *)srcPortName;
-- (NSString *)dstPortName;
+- (NSString*)srcPortName;
+- (NSString*)dstPortName;
 - (BOOL)isChecksumValid;
 - (uint16_t)computedChecksum;
 

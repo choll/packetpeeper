@@ -20,11 +20,11 @@
 #ifndef PACKETPEEPER_PACKETCAPTUREWINDOWCONTROLLER_H
 #define PACKETPEEPER_PACKETCAPTUREWINDOWCONTROLLER_H
 
-#import <AppKit/NSTableView.h>
-#import <AppKit/NSToolbar.h>
-#import <AppKit/NSTextField.h>
-#import <AppKit/NSProgressIndicator.h>
 #include "IndividualPacketWindowController.h"
+#import <AppKit/NSProgressIndicator.h>
+#import <AppKit/NSTableView.h>
+#import <AppKit/NSTextField.h>
+#import <AppKit/NSToolbar.h>
 
 @class NSToolbar;
 @class NSToolbarItem;
@@ -38,48 +38,55 @@
 @class NSButton;
 @class NSTextField;
 
-@interface PacketCaptureWindowController : IndividualPacketWindowController <NSTableViewDataSource, NSTableViewDelegate, NSToolbarDelegate>
+@interface PacketCaptureWindowController : IndividualPacketWindowController <
+                                               NSTableViewDataSource,
+                                               NSTableViewDelegate,
+                                               NSToolbarDelegate>
 {
-	IBOutlet PPTableView *packetTableView;
-	IBOutlet NSTextField *statusTextField;
-	IBOutlet NSButton *cancelEndingButton;
-	NSTableColumn *lastColumn;
-	IBOutlet NSTextField *saveTextField;
-	IBOutlet NSProgressIndicator *saveProgressIndicator;
-	BOOL autoScrolling;
+    IBOutlet PPTableView* packetTableView;
+    IBOutlet NSTextField* statusTextField;
+    IBOutlet NSButton* cancelEndingButton;
+    NSTableColumn* lastColumn;
+    IBOutlet NSTextField* saveTextField;
+    IBOutlet NSProgressIndicator* saveProgressIndicator;
+    BOOL autoScrolling;
 }
 
 - (void)selectPacketAtIndex:(NSUInteger)index;
 
-- (NSMenu *)packetTableColumnMenu;
+- (NSMenu*)packetTableColumnMenu;
 - (void)doubleAction:(id)sender;
-- (void)populatePacketTableView; /* private method */
+- (void)populatePacketTableView;    /* private method */
 - (void)savePacketTableViewColumns; /* private method */
 
-- (NSMutableArray *)columnIdentifierStrings;
+- (NSMutableArray*)columnIdentifierStrings;
 
 /* NSTableView delegate methods */
-- (void)tableViewColumnDidMove:(NSNotification *)aNotification;
-- (void)tableViewColumnDidResize:(NSNotification *)aNotification;
-- (void)tableViewSelectionDidChange:(NSNotification *)aNotification;
+- (void)tableViewColumnDidMove:(NSNotification*)aNotification;
+- (void)tableViewColumnDidResize:(NSNotification*)aNotification;
+- (void)tableViewSelectionDidChange:(NSNotification*)aNotification;
 
-- (void)tableView:(NSTableView *)tableView didClickTableColumn:(NSTableColumn *)tableColumn;
+- (void)tableView:(NSTableView*)tableView
+    didClickTableColumn:(NSTableColumn*)tableColumn;
 
 /* NSTableView data-source methods */
 
-- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView;
+- (NSInteger)numberOfRowsInTableView:(NSTableView*)tableView;
 
-- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex;
+- (id)tableView:(NSTableView*)tableView
+    objectValueForTableColumn:(NSTableColumn*)tableColumn
+                          row:(NSInteger)rowIndex;
 
 /* NSToolbar delegate methods */
-- (NSToolbarItem *)toolbar:(NSToolbar *)toolbar itemForItemIdentifier:(NSString *)itemIdentifier
-						   willBeInsertedIntoToolbar:(BOOL)flag;
-- (NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar *)toolbar;
-- (NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar *)toolbar;
+- (NSToolbarItem*)toolbar:(NSToolbar*)toolbar
+        itemForItemIdentifier:(NSString*)itemIdentifier
+    willBeInsertedIntoToolbar:(BOOL)flag;
+- (NSArray*)toolbarAllowedItemIdentifiers:(NSToolbar*)toolbar;
+- (NSArray*)toolbarDefaultItemIdentifiers:(NSToolbar*)toolbar;
 
 - (void)setupToolbar;
-- (BOOL)validateToolbarItem:(NSToolbarItem *)theItem;
-- (BOOL)validateMenuItem:(NSMenuItem *)menuItem;
+- (BOOL)validateToolbarItem:(NSToolbarItem*)theItem;
+- (BOOL)validateMenuItem:(NSMenuItem*)menuItem;
 
 - (void)updateWithUserScrolling;
 - (void)update:(BOOL)shouldScroll;
@@ -109,4 +116,3 @@
 @end
 
 #endif
-

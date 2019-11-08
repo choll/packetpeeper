@@ -29,14 +29,14 @@
 
 @interface ErrorReportWindowController : NSWindowController
 {
-	IBOutlet NSTextField *domain;
-	IBOutlet NSTextView *description;
-	IBOutlet NSTextView *reason;
-	IBOutlet NSButton *nextButton;
-	ErrorStack *errorStack;
+    IBOutlet NSTextField* domain;
+    IBOutlet NSTextView* description;
+    IBOutlet NSTextView* reason;
+    IBOutlet NSButton* nextButton;
+    ErrorStack* errorStack;
 }
 
-- (void)setErrorStack:(ErrorStack *)errorStackVal;
+- (void)setErrorStack:(ErrorStack*)errorStackVal;
 - (void)displayData;
 - (IBAction)dismissButtonPressed:(id)sender;
 - (IBAction)nextButtonPressed:(id)sender;

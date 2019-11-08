@@ -17,52 +17,57 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+#include "PPHexNumberFormatter.h"
+#import <Foundation/NSDecimalNumber.h>
+#import <Foundation/NSString.h>
+#import <Foundation/NSValue.h>
 #include <errno.h>
 #include <limits.h>
 #include <stdlib.h>
-#import <Foundation/NSString.h>
-#import <Foundation/NSValue.h>
-#import <Foundation/NSDecimalNumber.h>
-#include "PPHexNumberFormatter.h"
 
 @implementation PPHexNumberFormatter
 
-- (BOOL)getObjectValue:(id *)anObject forString:(NSString *)aString errorDescription:(NSString **)errorString
+- (BOOL)getObjectValue:(id*)anObject
+             forString:(NSString*)aString
+      errorDescription:(NSString**)errorString
 {
-	unsigned long value;
-	const char *str;
-	char *endptr;
+    unsigned long value;
+    const char* str;
+    char* endptr;
 
-	if([aString length] < 1) {
-		*anObject = [NSNumber numberWithUnsignedLong:0];
-		return YES;
-	}
+    if ([aString length] < 1)
+    {
+        *anObject = [NSNumber numberWithUnsignedLong:0];
+        return YES;
+    }
 
-	str = [aString UTF8String];
+    str = [aString UTF8String];
 
-	errno = 0;
+    errno = 0;
 
-	value = strtoul(str, &endptr, 16);
+    value = strtoul(str, &endptr, 16);
 
-	if(value != ULONG_MAX && (errno == ERANGE || endptr == str || *endptr != '\0'))
-		return NO;
+    if (value != ULONG_MAX &&
+        (errno == ERANGE || endptr == str || *endptr != '\0'))
+        return NO;
 
-	*anObject = [NSNumber numberWithUnsignedLong:value];
+    *anObject = [NSNumber numberWithUnsignedLong:value];
 
-	return YES;
+    return YES;
 }
 
-- (NSString *)stringForObjectValue:(id)anObject
+- (NSString*)stringForObjectValue:(id)anObject
 {
-	if([anObject isKindOfClass:[NSNumber class]]) {
-		unsigned long value;
+    if ([anObject isKindOfClass:[NSNumber class]])
+    {
+        unsigned long value;
 
-		value = [anObject unsignedLongValue];
+        value = [anObject unsignedLongValue];
 
-		return [NSString stringWithFormat:@"0x%.8lX", value];
-	}
+        return [NSString stringWithFormat:@"0x%.8lX", value];
+    }
 
-	return nil;
+    return nil;
 }
 
 @end

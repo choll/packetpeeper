@@ -17,92 +17,105 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+#include "PPCaptureFilterWindowController.h"
+#include "MyDocument.h"
+#include "PPCaptureFilter.h"
+#include "PPCaptureFilterFormatter.h"
+#include "PPCaptureFilterManager.h"
+#include "PPHexNumberFormatter.h"
+#import <AppKit/NSApplication.h>
+#import <AppKit/NSComboBox.h>
+#import <AppKit/NSTextField.h>
+#import <AppKit/NSWindow.h>
 #import <Foundation/NSArray.h>
 #import <Foundation/NSString.h>
 #import <Foundation/NSValue.h>
-#import <AppKit/NSApplication.h>
-#import <AppKit/NSWindow.h>
-#import <AppKit/NSTextField.h>
-#import <AppKit/NSComboBox.h>
-#include "PPCaptureFilter.h"
-#include "PPCaptureFilterManager.h"
-#include "PPCaptureFilterFormatter.h"
-#include "PPHexNumberFormatter.h"
-#include "MyDocument.h"
-#include "PPCaptureFilterWindowController.h"
 
 @implementation PPCaptureFilterWindowController
 
 - (id)init
 {
-	if((self = [super initWithWindowNibName:@"PPCaptureFilterSheet"]) != nil) {
-		filters = nil;
-	}
-	return self;
+    if ((self = [super initWithWindowNibName:@"PPCaptureFilterSheet"]) != nil)
+    {
+        filters = nil;
+    }
+    return self;
 }
 
-- (PPCaptureFilter *)filter
+- (PPCaptureFilter*)filter
 {
     id temp = [filterTextField objectValue];
-	if([temp isKindOfClass:[PPCaptureFilter class]])
-		return temp;
-	return nil;
+    if ([temp isKindOfClass:[PPCaptureFilter class]])
+        return temp;
+    return nil;
 }
 
 - (void)windowDidLoad
 {
-	PPCaptureFilterFormatter *filterFormatter;
-	PPHexNumberFormatter *hexFormatter;
+    PPCaptureFilterFormatter* filterFormatter;
+    PPHexNumberFormatter* hexFormatter;
 
-	[[self window] setExcludedFromWindowsMenu:YES];
+    [[self window] setExcludedFromWindowsMenu:YES];
 
-	if((filterFormatter = [[PPCaptureFilterFormatter alloc] init]) != nil) {
-		[filterTextField setFormatter:filterFormatter];
-		[filterFormatter release];
-	}
+    if ((filterFormatter = [[PPCaptureFilterFormatter alloc] init]) != nil)
+    {
+        [filterTextField setFormatter:filterFormatter];
+        [filterFormatter release];
+    }
 
-	if((hexFormatter = [[PPHexNumberFormatter alloc] init]) != nil) {
-		[filterNetmaskTextField setFormatter:hexFormatter];
-		[hexFormatter release];
-	}
+    if ((hexFormatter = [[PPHexNumberFormatter alloc] init]) != nil)
+    {
+        [filterNetmaskTextField setFormatter:hexFormatter];
+        [hexFormatter release];
+    }
 
-	/* should save the last filter? */
+    /* should save the last filter? */
 
-	filters = [[[PPCaptureFilterManager sharedCaptureFilterManager] allFilters] retain];
+    filters = [[[PPCaptureFilterManager sharedCaptureFilterManager] allFilters]
+        retain];
 
-	[filterTextField setDelegate:self];
+    [filterTextField setDelegate:self];
 
-	[filterNameComboBox setDataSource:self];
-	[filterNameComboBox setDelegate:self];
+    [filterNameComboBox setDataSource:self];
+    [filterNameComboBox setDelegate:self];
 
     [applyButton setEnabled:NO];
 }
 
-- (void)sheetDidEnd:(NSWindow *)sheet returnCode:(NSModalResponse)returnCode contextInfo:(void *)contextInfo
+- (void)sheetDidEnd:(NSWindow*)sheet
+         returnCode:(NSModalResponse)returnCode
+        contextInfo:(void*)contextInfo
 {
-	if(returnCode == NSModalResponseOK)
-		[[self document] setCaptureFilter:[self filter]];
-	[[self document] removeWindowController:self];
+    if (returnCode == NSModalResponseOK)
+        [[self document] setCaptureFilter:[self filter]];
+    [[self document] removeWindowController:self];
 }
 
 /* NSControl delegate methods */
 
-- (BOOL)control:(NSControl *)control didFailToFormatString:(NSString *)string errorDescription:(NSString *)error
+- (BOOL)control:(NSControl*)control
+    didFailToFormatString:(NSString*)string
+         errorDescription:(NSString*)error
 {
-    [filterErrorTextField setStringValue:[NSString stringWithFormat:@"Error: %@", error]];
+    [filterErrorTextField
+        setStringValue:[NSString stringWithFormat:@"Error: %@", error]];
     [applyButton setEnabled:NO];
-	return NO;
+    return NO;
 }
 
-- (void)control:(NSControl *)control didFailToValidatePartialString:(NSString *)string errorDescription:(NSString *)error
+- (void)control:(NSControl*)control
+    didFailToValidatePartialString:(NSString*)string
+                  errorDescription:(NSString*)error
 {
-    [filterErrorTextField setStringValue:[NSString stringWithFormat:@"Error: %@", error]];
+    [filterErrorTextField
+        setStringValue:[NSString stringWithFormat:@"Error: %@", error]];
     [applyButton setEnabled:NO];
 }
 
-- (void)controlTextDidChange:(NSNotification *)aNotification
+- (void)controlTextDidChange:(NSNotification*)aNotification
 {
-    if([filterTextField objectValue] != nil) {
+    if ([filterTextField objectValue] != nil)
+    {
         [filterErrorTextField setStringValue:@"Filter OK"];
         [applyButton setEnabled:YES];
     }
@@ -110,110 +123,126 @@
 
 /* NSComboBox data source methods */
 
-- (NSInteger)numberOfItemsInComboBox:(NSComboBox *)comboBox
+- (NSInteger)numberOfItemsInComboBox:(NSComboBox*)comboBox
 {
-	return [filters count];
+    return [filters count];
 }
 
-- (id)comboBox:(NSComboBox *)comboBox objectValueForItemAtIndex:(NSInteger)itemIndex
+- (id)comboBox:(NSComboBox*)comboBox
+    objectValueForItemAtIndex:(NSInteger)itemIndex
 {
-	return [[filters objectAtIndex:itemIndex] name];
+    return [[filters objectAtIndex:itemIndex] name];
 }
 
 /* NSComboBox delegate methods */
 
-- (void)comboBoxSelectionDidChange:(NSNotification *)notification
+- (void)comboBoxSelectionDidChange:(NSNotification*)notification
 {
-	NSInteger itemIndex;
+    NSInteger itemIndex;
 
-	if((itemIndex = [filterNameComboBox indexOfSelectedItem]) == -1)
-		return;
+    if ((itemIndex = [filterNameComboBox indexOfSelectedItem]) == -1)
+        return;
 
-	[filterTextField setObjectValue:[filters objectAtIndex:itemIndex]];
-	[filterNetmaskTextField setObjectValue:[NSNumber numberWithUnsignedLong:[[filters objectAtIndex:itemIndex] netmask]]];
+    [filterTextField setObjectValue:[filters objectAtIndex:itemIndex]];
+    [filterNetmaskTextField
+        setObjectValue:[NSNumber
+                           numberWithUnsignedLong:[[filters
+                                                      objectAtIndex:itemIndex]
+                                                      netmask]]];
     [self controlTextDidChange:notification];
 }
 
 - (IBAction)saveFilterButtonPressed:(id)sender
 {
-	PPCaptureFilterManager *filterManager;
-	PPCaptureFilter *filter;
+    PPCaptureFilterManager* filterManager;
+    PPCaptureFilter* filter;
 
-	if([[filterNameComboBox stringValue] length] < 1) {
-		[filterErrorTextField setStringValue:@"Error: Please enter a filter name"];
-		return;
-	}
+    if ([[filterNameComboBox stringValue] length] < 1)
+    {
+        [filterErrorTextField
+            setStringValue:@"Error: Please enter a filter name"];
+        return;
+    }
 
-	if([[filterTextField stringValue] length] < 1) {
-		[filterErrorTextField setStringValue:@"Error: No filter text entered to save"];
-		return;
-	}
+    if ([[filterTextField stringValue] length] < 1)
+    {
+        [filterErrorTextField
+            setStringValue:@"Error: No filter text entered to save"];
+        return;
+    }
 
-	filterManager = [PPCaptureFilterManager sharedCaptureFilterManager];
+    filterManager = [PPCaptureFilterManager sharedCaptureFilterManager];
 
-	filter = [filterTextField objectValue];
-	[filter setName:[filterNameComboBox stringValue]];
-	[filter setNetmask:[[filterNetmaskTextField objectValue] unsignedIntValue]];
+    filter = [filterTextField objectValue];
+    [filter setName:[filterNameComboBox stringValue]];
+    [filter setNetmask:[[filterNetmaskTextField objectValue] unsignedIntValue]];
 
-	[filterManager addFilter:filter];
+    [filterManager addFilter:filter];
 
-	[filters release];
-	filters = [[[PPCaptureFilterManager sharedCaptureFilterManager] allFilters] retain];
+    [filters release];
+    filters = [[[PPCaptureFilterManager sharedCaptureFilterManager] allFilters]
+        retain];
 
-	[filterErrorTextField setStringValue:@"Filter saved"];
+    [filterErrorTextField setStringValue:@"Filter saved"];
 }
 
 - (IBAction)deleteFilterButtonPressed:(id)sender
 {
-	PPCaptureFilterManager *filterManager;
-	PPCaptureFilter *filter;
+    PPCaptureFilterManager* filterManager;
+    PPCaptureFilter* filter;
 
-	filterManager = [PPCaptureFilterManager sharedCaptureFilterManager];
+    filterManager = [PPCaptureFilterManager sharedCaptureFilterManager];
 
-	if((filter = [filterManager filterForName:[filterNameComboBox stringValue]]) == nil)
-		return;
+    if ((filter = [filterManager
+             filterForName:[filterNameComboBox stringValue]]) == nil)
+        return;
 
-	if([filters count] < 2) {
-		/* no more items, clear all */
-		[filterNameComboBox setStringValue:@""];
-		[filterTextField setStringValue:@""];
-		[filterNetmaskTextField setStringValue:@""];
-	} else {
-		NSInteger itemIndex;
+    if ([filters count] < 2)
+    {
+        /* no more items, clear all */
+        [filterNameComboBox setStringValue:@""];
+        [filterTextField setStringValue:@""];
+        [filterNetmaskTextField setStringValue:@""];
+    }
+    else
+    {
+        NSInteger itemIndex;
 
-		/* select item below, or next lowest if we were bottom item */
+        /* select item below, or next lowest if we were bottom item */
 
-		if([filterNameComboBox indexOfSelectedItem] < 1)
-			itemIndex = 0;
-		else
-			itemIndex = [filterNameComboBox indexOfSelectedItem] - 1;
+        if ([filterNameComboBox indexOfSelectedItem] < 1)
+            itemIndex = 0;
+        else
+            itemIndex = [filterNameComboBox indexOfSelectedItem] - 1;
 
-		[filterNameComboBox selectItemAtIndex:itemIndex];
-	}
+        [filterNameComboBox selectItemAtIndex:itemIndex];
+    }
 
-	[filterManager removeFilter:filter];
+    [filterManager removeFilter:filter];
 
-	[filters release];
-	filters = [[[PPCaptureFilterManager sharedCaptureFilterManager] allFilters] retain];
+    [filters release];
+    filters = [[[PPCaptureFilterManager sharedCaptureFilterManager] allFilters]
+        retain];
 
-	[filterErrorTextField setStringValue:@""];
+    [filterErrorTextField setStringValue:@""];
 }
 
 - (IBAction)applyButtonPressed:(id)sender
 {
-    [[[self window] sheetParent] endSheet:[self window] returnCode:NSModalResponseOK];
+    [[[self window] sheetParent] endSheet:[self window]
+                               returnCode:NSModalResponseOK];
 }
 
 - (IBAction)cancelButtonPressed:(id)sender
 {
-    [[[self window] sheetParent] endSheet:[self window] returnCode:NSModalResponseCancel];
+    [[[self window] sheetParent] endSheet:[self window]
+                               returnCode:NSModalResponseCancel];
 }
 
 - (void)dealloc
 {
-	[filters release];
-	[super dealloc];
+    [filters release];
+    [super dealloc];
 }
 
 @end
-

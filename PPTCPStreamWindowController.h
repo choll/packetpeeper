@@ -27,20 +27,21 @@
 @class PPTCPStreamReassembler;
 @protocol PPTCPStreamListener;
 
-@interface PPTCPStreamWindowController : NSWindowController <PPTCPStreamListener>
+@interface PPTCPStreamWindowController
+    : NSWindowController <PPTCPStreamListener>
 {
-	NSTextView *textView;
-	PPTCPStreamReassembler *reassembler;
-	unsigned int lastChunk;
-	unsigned int lastLocation;
+    NSTextView* textView;
+    PPTCPStreamReassembler* reassembler;
+    unsigned int lastChunk;
+    unsigned int lastLocation;
 }
 
-- (id)initWithReassembler:(PPTCPStreamReassembler *)aReassembler;
-- (void)hostNameLookupCompletedNotification:(NSNotification *)note;
+- (id)initWithReassembler:(PPTCPStreamReassembler*)aReassembler;
+- (void)hostNameLookupCompletedNotification:(NSNotification*)note;
 - (void)reset;
 - (void)processStreamData;
 - (void)processStreamDataFromChunk:(unsigned int)chunk;
-- (PPTCPStreamReassembler *)streamReassembler;
+- (PPTCPStreamReassembler*)streamReassembler;
 
 @end
 

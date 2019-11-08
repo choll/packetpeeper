@@ -17,28 +17,28 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "Packet.h"
+#include "pkt_compare.h"
 #include "ColumnIdentifier.h"
 #include "PPPacketUIAdditons.h"
-#include "pkt_compare.h"
+#include "Packet.h"
 
-NSComparisonResult pkt_compare(id pkt1, id pkt2, void *context)
+NSComparisonResult pkt_compare(id pkt1, id pkt2, void* context)
 {
-	return [(Packet *)pkt1 compare:pkt2 withColumn:(ColumnIdentifier *)context];
+    return [(Packet*)pkt1 compare:pkt2 withColumn:(ColumnIdentifier*)context];
 }
 
-NSComparisonResult mem_compare(const void *b1, const void *b2, size_t len)
+NSComparisonResult mem_compare(const void* b1, const void* b2, size_t len)
 {
-	size_t i;
+    size_t i;
 
-	for(i = 0; i < len; ++i) {
-		if(((uint8_t *)b1)[i] > ((uint8_t *)b2)[i])
-			return NSOrderedDescending;
+    for (i = 0; i < len; ++i)
+    {
+        if (((uint8_t*)b1)[i] > ((uint8_t*)b2)[i])
+            return NSOrderedDescending;
 
-		if(((uint8_t *)b1)[i] < ((uint8_t *)b2)[i])
-			return NSOrderedAscending;
-	}
+        if (((uint8_t*)b1)[i] < ((uint8_t*)b2)[i])
+            return NSOrderedAscending;
+    }
 
-	return NSOrderedSame;
+    return NSOrderedSame;
 }
-

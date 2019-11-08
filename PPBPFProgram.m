@@ -17,69 +17,81 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include <sys/types.h>
-#include <sys/time.h>
-#include <sys/ioctl.h>
+#include "PPBPFProgram.h"
+#import <Foundation/NSArchiver.h>
+#import <Foundation/NSObject.h>
 #include <net/bpf.h>
 #include <stdlib.h>
 #include <string.h>
-#import <Foundation/NSObject.h>
-#import <Foundation/NSArchiver.h>
-#include "PPBPFProgram.h"
+#include <sys/ioctl.h>
+#include <sys/time.h>
+#include <sys/types.h>
 
 @implementation PPBPFProgram
 
-- (id)initWithProgram:(struct bpf_program *)program
+- (id)initWithProgram:(struct bpf_program*)program
 {
-	if((self = [super init]) != nil) {
-		if(program == NULL || program->bf_len == 0)
-			goto err;
+    if ((self = [super init]) != nil)
+    {
+        if (program == NULL || program->bf_len == 0)
+            goto err;
 
-		m_program.bf_len = program->bf_len;
+        m_program.bf_len = program->bf_len;
 
-		if((m_program.bf_insns = malloc(m_program.bf_len * sizeof(struct bpf_insn))) == NULL)
-			goto err;
+        if ((m_program.bf_insns =
+                 malloc(m_program.bf_len * sizeof(struct bpf_insn))) == NULL)
+            goto err;
 
-		memcpy(m_program.bf_insns, program->bf_insns, m_program.bf_len * sizeof(struct bpf_insn));
-	}
-	return self;
+        memcpy(
+            m_program.bf_insns,
+            program->bf_insns,
+            m_program.bf_len * sizeof(struct bpf_insn));
+    }
+    return self;
 
 err:
-	[super dealloc];
-	return nil;
+    [super dealloc];
+    return nil;
 }
 
-- (const struct bpf_program *)program
+- (const struct bpf_program*)program
 {
-	return &m_program;
+    return &m_program;
 }
 
-- (void)encodeWithCoder:(NSCoder *)encoder
+- (void)encodeWithCoder:(NSCoder*)encoder
 {
-	[encoder encodeValueOfObjCType:@encode(unsigned int) at:&m_program.bf_len];
-	[encoder encodeArrayOfObjCType:@encode(struct bpf_insn) count:m_program.bf_len at:m_program.bf_insns];
+    [encoder encodeValueOfObjCType:@encode(unsigned int) at:&m_program.bf_len];
+    [encoder encodeArrayOfObjCType:@encode(struct bpf_insn)
+                             count:m_program.bf_len
+                                at:m_program.bf_insns];
 }
 
-- (id)initWithCoder:(NSCoder *)decoder
+- (id)initWithCoder:(NSCoder*)decoder
 {
-	if((self = [super init]) != nil) {
-		[decoder decodeValueOfObjCType:@encode(unsigned int) at:&m_program.bf_len];
-		if((m_program.bf_insns = malloc(m_program.bf_len * sizeof(struct bpf_insn))) == NULL)
-			goto err;
-		[decoder decodeArrayOfObjCType:@encode(struct bpf_insn) count:m_program.bf_len at:m_program.bf_insns];
-	}
-	return self;
+    if ((self = [super init]) != nil)
+    {
+        [decoder decodeValueOfObjCType:@encode(unsigned int)
+                                    at:&m_program.bf_len];
+        if ((m_program.bf_insns =
+                 malloc(m_program.bf_len * sizeof(struct bpf_insn))) == NULL)
+            goto err;
+        [decoder decodeArrayOfObjCType:@encode(struct bpf_insn)
+                                 count:m_program.bf_len
+                                    at:m_program.bf_insns];
+    }
+    return self;
 
 err:
-	[super dealloc];
-	return nil;
+    [super dealloc];
+    return nil;
 }
 
 - (void)dealloc
 {
-	if(m_program.bf_insns != NULL)
-		free(m_program.bf_insns);
-	[super dealloc];
+    if (m_program.bf_insns != NULL)
+        free(m_program.bf_insns);
+    [super dealloc];
 }
 
 @end

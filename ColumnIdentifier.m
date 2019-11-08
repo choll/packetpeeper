@@ -17,139 +17,163 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#import <Foundation/NSString.h>
-#import <Foundation/NSCoder.h>
-#include "PPPluginManager.h"
-#include "PPDecoderPlugin.h"
 #include "ColumnIdentifier.h"
-
+#include "PPDecoderPlugin.h"
+#include "PPPluginManager.h"
+#import <Foundation/NSCoder.h>
+#import <Foundation/NSString.h>
 
 @implementation ColumnIdentifier
 
-- (id)initWithDecoder:(Class)decoderVal index:(unsigned int)indexVal longName:(NSString *)longNameVal shortName:(NSString *)shortNameVal
+- (id)initWithDecoder:(Class)decoderVal
+                index:(unsigned int)indexVal
+             longName:(NSString*)longNameVal
+            shortName:(NSString*)shortNameVal
 {
-	if((self = [super init]) != nil) {
-		decoder = decoderVal;
-		plugin = nil;
-		index = indexVal;
-		longName = [longNameVal retain];
-		shortName = [shortNameVal retain];
-	}
-	return self;
+    if ((self = [super init]) != nil)
+    {
+        decoder = decoderVal;
+        plugin = nil;
+        index = indexVal;
+        longName = [longNameVal retain];
+        shortName = [shortNameVal retain];
+    }
+    return self;
 }
 
-- (id)initWithPlugin:(id <PPDecoderPlugin>)pluginVal index:(unsigned int)indexVal longName:(NSString *)longNameVal shortName:(NSString *)shortNameVal
+- (id)initWithPlugin:(id<PPDecoderPlugin>)pluginVal
+               index:(unsigned int)indexVal
+            longName:(NSString*)longNameVal
+           shortName:(NSString*)shortNameVal
 {
-	if((self = [super init]) != nil) {
-		decoder = Nil;
-		plugin = [pluginVal retain];
-		index = indexVal;
-		longName = [longNameVal retain];
-		shortName = [shortNameVal retain];
-	}
-	return self;
+    if ((self = [super init]) != nil)
+    {
+        decoder = Nil;
+        plugin = [pluginVal retain];
+        index = indexVal;
+        longName = [longNameVal retain];
+        shortName = [shortNameVal retain];
+    }
+    return self;
 }
 
 - (BOOL)isEqual:(id)anObject
 {
-	if(![anObject isMemberOfClass:[ColumnIdentifier class]])
-		return NO;
+    if (![anObject isMemberOfClass:[ColumnIdentifier class]])
+        return NO;
 
-	return (decoder == [anObject decoder] && index == [anObject index]);
+    return (decoder == [anObject decoder] && index == [anObject index]);
 }
 
 - (Class)decoder
 {
-	return decoder;
+    return decoder;
 }
 
-- (id <PPDecoderPlugin>)plugin
+- (id<PPDecoderPlugin>)plugin
 {
-	return plugin;
+    return plugin;
 }
 
 - (unsigned int)index
 {
-	return index;
+    return index;
 }
 
-- (NSString *)longName
+- (NSString*)longName
 {
-	return longName;
+    return longName;
 }
 
-- (NSString *)shortName
+- (NSString*)shortName
 {
-	return shortName;
+    return shortName;
 }
 
-- (NSString *)identifier
+- (NSString*)identifier
 {
     return longName;
 }
 
 /* NSCoding protocol methods */
 
-- (void)encodeWithCoder:(NSCoder *)coder
+- (void)encodeWithCoder:(NSCoder*)coder
 {
-	BOOL isPlugin;
+    BOOL isPlugin;
 
-	if(plugin != nil) {
-		isPlugin = YES;
-		[coder encodeValueOfObjCType:@encode(BOOL) at:&isPlugin];
-		[coder encodeObject:[plugin longName]];
-	} else {
-		isPlugin = NO;
-		[coder encodeValueOfObjCType:@encode(BOOL) at:&isPlugin];
-		[coder encodeObject:NSStringFromClass(decoder)];
-	}
+    if (plugin != nil)
+    {
+        isPlugin = YES;
+        [coder encodeValueOfObjCType:@encode(BOOL) at:&isPlugin];
+        [coder encodeObject:[plugin longName]];
+    }
+    else
+    {
+        isPlugin = NO;
+        [coder encodeValueOfObjCType:@encode(BOOL) at:&isPlugin];
+        [coder encodeObject:NSStringFromClass(decoder)];
+    }
 
-	[coder encodeValueOfObjCType:@encode(unsigned int) at:&index];
-	[coder encodeObject:longName];
-	[coder encodeObject:shortName];
+    [coder encodeValueOfObjCType:@encode(unsigned int) at:&index];
+    [coder encodeObject:longName];
+    [coder encodeObject:shortName];
 }
 
-- (id)initWithCoder:(NSCoder *)coder
+- (id)initWithCoder:(NSCoder*)coder
 {
-	BOOL isPlugin;
+    BOOL isPlugin;
 
-	if((self = [super init]) != nil) {
-		[coder decodeValueOfObjCType:@encode(BOOL) at:&isPlugin];
+    if ((self = [super init]) != nil)
+    {
+        [coder decodeValueOfObjCType:@encode(BOOL) at:&isPlugin];
 
-		if(isPlugin) {
-			NSString *pluginName;
+        if (isPlugin)
+        {
+            NSString* pluginName;
 
-			pluginName = [coder decodeObject];
-			if((plugin = [[PPPluginManager sharedPluginManager] pluginWithLongName:pluginName]) == nil) {
-				[super dealloc];
-				return nil;
-			}
-		} else {
-			if((decoder =  NSClassFromString([coder decodeObject])) == nil) {
-				[super dealloc];
-				return nil;
-			}
-		}
+            pluginName = [coder decodeObject];
+            if ((plugin = [[PPPluginManager sharedPluginManager]
+                     pluginWithLongName:pluginName]) == nil)
+            {
+                [super dealloc];
+                return nil;
+            }
+        }
+        else
+        {
+            if ((decoder = NSClassFromString([coder decodeObject])) == nil)
+            {
+                [super dealloc];
+                return nil;
+            }
+        }
 
-		[coder decodeValueOfObjCType:@encode(unsigned int) at:&index];
-		longName = [[coder decodeObject] retain];
-		shortName = [[coder decodeObject] retain];
-	}
-	return self;
+        [coder decodeValueOfObjCType:@encode(unsigned int) at:&index];
+        longName = [[coder decodeObject] retain];
+        shortName = [[coder decodeObject] retain];
+    }
+    return self;
 }
 
-- (NSString *)description
+- (NSString*)description
 {
-	return [NSString stringWithFormat:@"<%@: shortName='%@', longName='%@', plugin='%@', decoder='%@', index=%u>",
-			NSStringFromClass([self class]), shortName, longName, plugin, NSStringFromClass(decoder), index];
+    return [NSString stringWithFormat:
+                         @"<%@: shortName='%@', longName='%@', plugin='%@', "
+                         @"decoder='%@', index=%u>",
+                         NSStringFromClass([self class]),
+                         shortName,
+                         longName,
+                         plugin,
+                         NSStringFromClass(decoder),
+                         index];
 }
 
 - (void)dealloc
 {
-	[plugin release];
-	[longName release];
-	[shortName release];
-	[super dealloc];
+    [plugin release];
+    [longName release];
+    [shortName release];
+    [super dealloc];
 }
 
 @end

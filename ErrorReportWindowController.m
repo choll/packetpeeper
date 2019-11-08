@@ -17,82 +17,84 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#import <AppKit/NSApplication.h>
-#import <AppKit/NSTextView.h>
-#import <AppKit/NSTextField.h>
-#import <AppKit/NSButton.h>
-#import <AppKit/NSWindow.h>
-#include "ErrorStack.h"
 #include "ErrorReportWindowController.h"
+#include "ErrorStack.h"
+#import <AppKit/NSApplication.h>
+#import <AppKit/NSButton.h>
+#import <AppKit/NSTextField.h>
+#import <AppKit/NSTextView.h>
+#import <AppKit/NSWindow.h>
 
 @implementation ErrorReportWindowController
 
 - (id)init
 {
-	if((self = [super initWithWindowNibName:@"ErrorReportSheet"]) != nil) {
-		errorStack = nil;
-	}
-	return self;
+    if ((self = [super initWithWindowNibName:@"ErrorReportSheet"]) != nil)
+    {
+        errorStack = nil;
+    }
+    return self;
 }
 
 - (void)windowDidLoad
 {
-	[[self window] setExcludedFromWindowsMenu:YES];
+    [[self window] setExcludedFromWindowsMenu:YES];
 
-	/* no specific stack specified, so use the shared one */
-	if(!errorStack)
-		[self setErrorStack:[ErrorStack sharedErrorStack]];
+    /* no specific stack specified, so use the shared one */
+    if (!errorStack)
+        [self setErrorStack:[ErrorStack sharedErrorStack]];
 
-	[self displayData];
-	[errorStack pop];
-	if([errorStack size])
-		[nextButton setEnabled:YES];
+    [self displayData];
+    [errorStack pop];
+    if ([errorStack size])
+        [nextButton setEnabled:YES];
 }
 
-- (void)setErrorStack:(ErrorStack *)errorStackVal
+- (void)setErrorStack:(ErrorStack*)errorStackVal
 {
-	[errorStackVal retain];
-	[errorStack release];
-	errorStack = errorStackVal;
+    [errorStackVal retain];
+    [errorStack release];
+    errorStack = errorStackVal;
 }
 
 - (void)displayData
 {
-	NSString *domainStr;
-	NSString *descriptionStr;
-	NSString *reasonStr;
+    NSString* domainStr;
+    NSString* descriptionStr;
+    NSString* reasonStr;
 
-	if((domainStr = [errorStack domain]) == nil)
-		domainStr = @"Unknown";
+    if ((domainStr = [errorStack domain]) == nil)
+        domainStr = @"Unknown";
 
-	if((descriptionStr = [errorStack descriptionString]) == nil)
-		descriptionStr = @"<None available>";
+    if ((descriptionStr = [errorStack descriptionString]) == nil)
+        descriptionStr = @"<None available>";
 
-	if((reasonStr = [errorStack lookupString]) == nil)
-		reasonStr = @"<None available>";
+    if ((reasonStr = [errorStack lookupString]) == nil)
+        reasonStr = @"<None available>";
 
-	[domain setStringValue:domainStr];
-	[description setString:descriptionStr];
-	[reason setString:reasonStr];
+    [domain setStringValue:domainStr];
+    [description setString:descriptionStr];
+    [reason setString:reasonStr];
 }
 
 - (IBAction)dismissButtonPressed:(id)sender
 {
-    [[[self window] sheetParent] endSheet:[self window] returnCode:NSModalResponseCancel];
+    [[[self window] sheetParent] endSheet:[self window]
+                               returnCode:NSModalResponseCancel];
 }
 
 - (IBAction)nextButtonPressed:(id)sender
 {
-	[self displayData];
-	[errorStack pop];
-	if(![errorStack size])
-		[nextButton setEnabled:NO];
+    [self displayData];
+    [errorStack pop];
+    if (![errorStack size])
+        [nextButton setEnabled:NO];
 }
 
 - (void)dealloc
 {
-	[errorStack release];
-	[super dealloc];
+    [errorStack release];
+    [super dealloc];
 }
 
 @end

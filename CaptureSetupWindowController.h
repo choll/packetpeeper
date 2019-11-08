@@ -35,25 +35,24 @@
 
 @interface CaptureSetupWindowController : PPCaptureFilterWindowController
 {
-	/* basic settings controlls */
-	IBOutlet NSPopUpButton *interfacePopUp;
-	IBOutlet NSButton *promiscuousCheckBox;
-	IBOutlet NSButton *realTimeCheckBox;
+    /* basic settings controlls */
+    IBOutlet NSPopUpButton* interfacePopUp;
+    IBOutlet NSButton* promiscuousCheckBox;
+    IBOutlet NSButton* realTimeCheckBox;
 
-	/* advanced settings controlls */
-	IBOutlet NSSlider *bufferLengthSlider;
-	IBOutlet NSTextField *updateFrequencyTextField;
-	IBOutlet NSTextField *stopPacketsTextField;
-	IBOutlet NSDatePicker *stopTimeDatePicker;
-	IBOutlet NSTextField *stopDataTextField;
-	IBOutlet NSPopUpButton *stopConditionPopUp;
+    /* advanced settings controlls */
+    IBOutlet NSSlider* bufferLengthSlider;
+    IBOutlet NSTextField* updateFrequencyTextField;
+    IBOutlet NSTextField* stopPacketsTextField;
+    IBOutlet NSDatePicker* stopTimeDatePicker;
+    IBOutlet NSTextField* stopDataTextField;
+    IBOutlet NSPopUpButton* stopConditionPopUp;
 
-	IBOutlet NSButton *stopPacketsCheckBox;
-	IBOutlet NSButton *stopTimeCheckBox;
-	IBOutlet NSButton *stopDataCheckBox;
+    IBOutlet NSButton* stopPacketsCheckBox;
+    IBOutlet NSButton* stopTimeCheckBox;
+    IBOutlet NSButton* stopDataCheckBox;
 
-	NSArray *interfaces;
-
+    NSArray* interfaces;
 }
 
 /* basic settings actions */
@@ -64,7 +63,9 @@
 /* advanced settings actions */
 - (IBAction)stopConditionCheckBox:(id)sender;
 
-- (void)sheetDidEnd:(NSWindow *)sheet returnCode:(NSModalResponse)returnCode contextInfo:(void *)contextInfo;
+- (void)sheetDidEnd:(NSWindow*)sheet
+         returnCode:(NSModalResponse)returnCode
+        contextInfo:(void*)contextInfo;
 
 @end
 

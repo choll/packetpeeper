@@ -22,8 +22,8 @@
 
 #include <stddef.h>
 
-unsigned int in_cksum_partial(const void *data, size_t nbytes, unsigned int sum);
+unsigned int
+in_cksum_partial(const void* data, size_t nbytes, unsigned int sum);
 unsigned long in_cksum_fold(unsigned long sum);
 
 #endif
-

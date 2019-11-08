@@ -22,231 +22,242 @@ This is a work in progress-- it hasnt had much effort put into it, simply becaus
 I dont use a PPP connection...
 */
 
+#include "PPPDecode.h"
+#include "IPV4Decode.h"
+#include "pkt_compare.h"
+#import <Foundation/NSArchiver.h>
 #import <Foundation/NSArray.h>
 #import <Foundation/NSData.h>
 #import <Foundation/NSString.h>
-#import <Foundation/NSArchiver.h>
-#include "IPV4Decode.h"
-#include "pkt_compare.h"
-#include "PPPDecode.h"
 
-static NSString *names[][2]	=	{{@"Address", @"PPP Address"},
-								 {@"Control", @"PPP Control"},
-								 {@"Protocol", @"PPP Proto"},
-								 {@"CRC", @"PPP CRC"}};
+static NSString* names[][2] = {{@"Address", @"PPP Address"},
+                               {@"Control", @"PPP Control"},
+                               {@"Protocol", @"PPP Proto"},
+                               {@"CRC", @"PPP CRC"}};
 
-#define PPPDECODE_PROTO_IP			0x0021
-#define PPPDECODE_PROTO_LINK_CTRL	0xC021
-#define PPPDECODE_PROTO_NET_CTRL	0x8021
+#define PPPDECODE_PROTO_IP        0x0021
+#define PPPDECODE_PROTO_LINK_CTRL 0xC021
+#define PPPDECODE_PROTO_NET_CTRL  0x8021
 
 @implementation PPPDecode
 
-- (id)initWithData:(NSData *)dataVal parent:(id <PPDecoderParent>)parentVal
+- (id)initWithData:(NSData*)dataVal parent:(id<PPDecoderParent>)parentVal
 {
-	if(dataVal == nil)
-		return nil;
+    if (dataVal == nil)
+        return nil;
 
-	if((self = [super init]) != nil) {
-		/* not enough data is represented by returning nil */
-		if([dataVal length] <  PPPDECODE_HDR_MIN)
-			goto err;
+    if ((self = [super init]) != nil)
+    {
+        /* not enough data is represented by returning nil */
+        if ([dataVal length] < PPPDECODE_HDR_MIN)
+            goto err;
 
-		addr = *(uint8_t *)[dataVal bytes];
-		control = *((uint8_t *)[dataVal bytes] + 1);
-		protocol = *(uint16_t *)((uint8_t *)[dataVal bytes] + 2);
-		crc = *(uint16_t *)((uint8_t *)[dataVal bytes] + ([dataVal length] - 2));
-	}
-	return self;
+        addr = *(uint8_t*)[dataVal bytes];
+        control = *((uint8_t*)[dataVal bytes] + 1);
+        protocol = *(uint16_t*)((uint8_t*)[dataVal bytes] + 2);
+        crc = *(uint16_t*)((uint8_t*)[dataVal bytes] + ([dataVal length] - 2));
+    }
+    return self;
 
-	err:
-		[self dealloc];
-		return nil;
+err:
+    [self dealloc];
+    return nil;
 }
 
-- (void)setParent:(id <PPDecoderParent>)parentVal
+- (void)setParent:(id<PPDecoderParent>)parentVal
 {
-	return;
+    return;
 }
 
 - (size_t)frontSize
 {
-	return (sizeof(addr) + sizeof(control) + sizeof(protocol));
+    return (sizeof(addr) + sizeof(control) + sizeof(protocol));
 }
 
 - (size_t)rearSize
 {
-	return 0;//(sizeof(crc) + 1);
+    return 0; //(sizeof(crc) + 1);
 }
 
 - (Class)nextLayer
 {
-	switch(protocol) {
-		case PPPDECODE_PROTO_IP:
-			return [IPV4Decode class];
-			/* NOTREACHED */
-	}
-	return Nil;
+    switch (protocol)
+    {
+    case PPPDECODE_PROTO_IP:
+        return [IPV4Decode class];
+        /* NOTREACHED */
+    }
+    return Nil;
 }
 
-+ (NSString *)shortName
++ (NSString*)shortName
 {
-	return @"PPP";
+    return @"PPP";
 }
 
-+ (NSString *)longName
++ (NSString*)longName
 {
-	return @"PPP";
+    return @"PPP";
 }
 
-- (NSString *)info
+- (NSString*)info
 {
-	return nil;
+    return nil;
 }
 
 - (stacklev)level
 {
-	return SL_DATALINK;
+    return SL_DATALINK;
 }
 
 /* ColumnIdentifier protocol methods */
 
-+ (NSArray *)columnIdentifiers
++ (NSArray*)columnIdentifiers
 {
-	ColumnIdentifier *colIdent;
-	NSMutableArray *ret;
-	unsigned int i;
+    ColumnIdentifier* colIdent;
+    NSMutableArray* ret;
+    unsigned int i;
 
-	ret = [[NSMutableArray alloc] initWithCapacity:sizeof(names) / sizeof(names[0])];
+    ret = [[NSMutableArray alloc]
+        initWithCapacity:sizeof(names) / sizeof(names[0])];
 
-	for(i = 0; i < sizeof(names) / sizeof(names[0]) ; ++i) {
-		colIdent = [[ColumnIdentifier alloc] initWithDecoder:[self class] index:i longName:names[i][0] shortName:names[i][1]];
-		[ret addObject:colIdent];
-		[colIdent release];
-	}
+    for (i = 0; i < sizeof(names) / sizeof(names[0]); ++i)
+    {
+        colIdent = [[ColumnIdentifier alloc] initWithDecoder:[self class]
+                                                       index:i
+                                                    longName:names[i][0]
+                                                   shortName:names[i][1]];
+        [ret addObject:colIdent];
+        [colIdent release];
+    }
 
-	return [ret autorelease];
+    return [ret autorelease];
 }
 
-- (NSString *)columnStringForIndex:(unsigned int)fieldIndex
+- (NSString*)columnStringForIndex:(unsigned int)fieldIndex
 {
-	switch(fieldIndex) {
-		case 0:
-			return [NSString stringWithFormat:@"0x%.2x", addr];
+    switch (fieldIndex)
+    {
+    case 0:
+        return [NSString stringWithFormat:@"0x%.2x", addr];
 
-		case 1:
-			return [NSString stringWithFormat:@"0x%.2x", control];
+    case 1:
+        return [NSString stringWithFormat:@"0x%.2x", control];
 
-		case 2:
-			return [NSString stringWithFormat:@"0x%.4x", protocol];
+    case 2:
+        return [NSString stringWithFormat:@"0x%.4x", protocol];
 
-		case 3:
-			return [NSString stringWithFormat:@"0x%.4x", crc];
-	}
+    case 3:
+        return [NSString stringWithFormat:@"0x%.4x", crc];
+    }
 
-	return nil;
+    return nil;
 }
 
 - (NSComparisonResult)compareWith:(id)obj atIndex:(unsigned int)fieldIndex
 {
-	switch(fieldIndex) {
-		case 0:
-			return val_compare(addr, ((PPPDecode *)obj)->addr);
+    switch (fieldIndex)
+    {
+    case 0:
+        return val_compare(addr, ((PPPDecode*)obj)->addr);
 
-		case 1:
-			return val_compare(control, ((PPPDecode *)obj)->control);
+    case 1:
+        return val_compare(control, ((PPPDecode*)obj)->control);
 
-		case 2:
-			return val_compare(protocol, ((PPPDecode *)obj)->protocol);
+    case 2:
+        return val_compare(protocol, ((PPPDecode*)obj)->protocol);
 
-		case 3:
-			return val_compare(crc, ((PPPDecode *)obj)->crc);
-	}
+    case 3:
+        return val_compare(crc, ((PPPDecode*)obj)->crc);
+    }
 
-	return NSOrderedSame;
+    return NSOrderedSame;
 }
 
 /* OutlineViewItem protocol methods */
 
 - (BOOL)expandable
 {
-	return YES;
+    return YES;
 }
 
 - (size_t)numberOfChildren
 {
-	return 4;
+    return 4;
 }
 
 - (id)childAtIndex:(int)fieldIndex
 {
-	OutlineViewItem *ret;
-	NSString *str;
+    OutlineViewItem* ret;
+    NSString* str;
 
-	ret = [[OutlineViewItem alloc] init];
-	[ret addObject:names[fieldIndex][0]];
+    ret = [[OutlineViewItem alloc] init];
+    [ret addObject:names[fieldIndex][0]];
 
-	switch(fieldIndex) {
-		case 0:
-			str = [[NSString alloc] initWithFormat:@"0x%.2x", addr];
-			[ret addObject:str];
-			[str release];
-			break;
+    switch (fieldIndex)
+    {
+    case 0:
+        str = [[NSString alloc] initWithFormat:@"0x%.2x", addr];
+        [ret addObject:str];
+        [str release];
+        break;
 
-		case 1:
-			str = [[NSString alloc] initWithFormat:@"0x%.2x", control];
-			[ret addObject:str];
-			[str release];
-			break;
+    case 1:
+        str = [[NSString alloc] initWithFormat:@"0x%.2x", control];
+        [ret addObject:str];
+        [str release];
+        break;
 
-		case 2:
-			str = [[NSString alloc] initWithFormat:@"0x%.4x", protocol];
-			[ret addObject:str];
-			[str release];
-			break;
+    case 2:
+        str = [[NSString alloc] initWithFormat:@"0x%.4x", protocol];
+        [ret addObject:str];
+        [str release];
+        break;
 
-		case 3:
-			str = [[NSString alloc] initWithFormat:@"0x%.4x", crc];
-			[ret addObject:str];
-			[str release];
-			break;
+    case 3:
+        str = [[NSString alloc] initWithFormat:@"0x%.4x", crc];
+        [ret addObject:str];
+        [str release];
+        break;
 
-		default:
-			[ret release];
-			return nil;
-	}
+    default:
+        [ret release];
+        return nil;
+    }
 
-	return [ret autorelease];
+    return [ret autorelease];
 }
 
 - (size_t)numberOfValues
 {
-	return 1;
+    return 1;
 }
 
 - (id)valueAtIndex:(int)anIndex
 {
-	return [[self class] longName];
+    return [[self class] longName];
 }
 
 /* NSCoding protocol methods */
 
-- (void)encodeWithCoder:(NSCoder *)coder
+- (void)encodeWithCoder:(NSCoder*)coder
 {
-	[coder encodeValueOfObjCType:@encode(uint8_t) at:&addr];
-	[coder encodeValueOfObjCType:@encode(uint8_t) at:&control];
-	[coder encodeValueOfObjCType:@encode(uint16_t) at:&protocol];
-	[coder encodeValueOfObjCType:@encode(uint16_t) at:&crc];
+    [coder encodeValueOfObjCType:@encode(uint8_t) at:&addr];
+    [coder encodeValueOfObjCType:@encode(uint8_t) at:&control];
+    [coder encodeValueOfObjCType:@encode(uint16_t) at:&protocol];
+    [coder encodeValueOfObjCType:@encode(uint16_t) at:&crc];
 }
 
-- (id)initWithCoder:(NSCoder *)coder
+- (id)initWithCoder:(NSCoder*)coder
 {
-	if((self = [super init]) != nil) {
-		[coder decodeValueOfObjCType:@encode(uint8_t) at:&addr];
-		[coder decodeValueOfObjCType:@encode(uint8_t) at:&control];
-		[coder decodeValueOfObjCType:@encode(uint16_t) at:&protocol];
-		[coder decodeValueOfObjCType:@encode(uint16_t) at:&crc];
-	}
-	return self;
+    if ((self = [super init]) != nil)
+    {
+        [coder decodeValueOfObjCType:@encode(uint8_t) at:&addr];
+        [coder decodeValueOfObjCType:@encode(uint8_t) at:&control];
+        [coder decodeValueOfObjCType:@encode(uint16_t) at:&protocol];
+        [coder decodeValueOfObjCType:@encode(uint16_t) at:&crc];
+    }
+    return self;
 }
 
 @end

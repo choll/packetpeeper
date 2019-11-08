@@ -20,31 +20,33 @@
 #ifndef _PORTCACHE_H_
 #define _PORTCACHE_H_
 
-#include <stdint.h>
-#include <pthread.h>
 #include "Cache.h"
+#include <pthread.h>
+#include <stdint.h>
 
-#define PC_HASHMASK			(PC_HASHTABLE_SZ - 1)
-#define PC_HASHTABLE_SZ		256
-#define PC_PROTO_TCP		0
-#define PC_PROTO_UDP		1
+#define PC_HASHMASK     (PC_HASHTABLE_SZ - 1)
+#define PC_HASHTABLE_SZ 256
+#define PC_PROTO_TCP    0
+#define PC_PROTO_UDP    1
 
 @interface PortCache : Cache
 {
-	char *service_description;
-	size_t service_description_sz;
-	unsigned int tcp_recsz;
-	unsigned int udp_recsz;
-	int tcp_fd;
-	int udp_fd;
+    char* service_description;
+    size_t service_description_sz;
+    unsigned int tcp_recsz;
+    unsigned int udp_recsz;
+    int tcp_fd;
+    int udp_fd;
 }
 
-+ (PortCache *)sharedPortCache;
++ (PortCache*)sharedPortCache;
 + (void)releaseSharedPortCache;
-- (NSString *)serviceWithTCPPort:(uint16_t)port;
-- (NSString *)serviceWithUDPPort:(uint16_t)port;
-- (NSString *)readServiceWithPort:(uint16_t)port protocol:(int)proto isUnified:(BOOL *)unified;
-- (NSString *)serviceWithPort:(uint16_t)port protocol:(int)proto;
+- (NSString*)serviceWithTCPPort:(uint16_t)port;
+- (NSString*)serviceWithUDPPort:(uint16_t)port;
+- (NSString*)readServiceWithPort:(uint16_t)port
+                        protocol:(int)proto
+                       isUnified:(BOOL*)unified;
+- (NSString*)serviceWithPort:(uint16_t)port protocol:(int)proto;
 
 @end
 

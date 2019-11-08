@@ -20,23 +20,24 @@
 #ifndef PPPLUGINWRAPPER_H_
 #define PPPLUGINWRAPPER_H_
 
+#include "ColumnIdentifier.h"
 #include "Decode.h"
 #include "OutlineViewItem.h"
-#include "ColumnIdentifier.h"
 
 @class NSObject;
 @protocol Describe;
 @protocol PPDecoderPlugin;
 
-@interface PPPluginWrapper : NSObject <Decode, Describe, OutlineViewItem, ColumnIdentifier>
+@interface PPPluginWrapper
+    : NSObject <Decode, Describe, OutlineViewItem, ColumnIdentifier>
 {
-	NSData *m_data;
-	id <PPDecoderPlugin> m_plugin;
+    NSData* m_data;
+    id<PPDecoderPlugin> m_plugin;
 }
 
-- (id)initWithData:(NSData *)data plugin:(id <PPDecoderPlugin>)plugin;
-- (id <PPDecoderPlugin>)plugin;
-- (NSData *)data;
+- (id)initWithData:(NSData*)data plugin:(id<PPDecoderPlugin>)plugin;
+- (id<PPDecoderPlugin>)plugin;
+- (NSData*)data;
 
 @end
 

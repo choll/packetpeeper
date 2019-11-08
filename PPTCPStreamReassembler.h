@@ -22,8 +22,8 @@
 
 #import <Foundation/NSObject.h>
 
-#include <sys/types.h>
 #include <stdint.h>
+#include <sys/types.h>
 
 @class NSMutableArray;
 @class NSString;
@@ -33,11 +33,12 @@
 @class PPTCPStream;
 @class PPTCPStreamController;
 
-struct reassembly_queue {
-	NSMutableArray *segments;
-	uint32_t first_seq_no;
-	uint32_t next_seq_no;
-	unsigned int streamIndex;
+struct reassembly_queue
+{
+    NSMutableArray* segments;
+    uint32_t first_seq_no;
+    uint32_t next_seq_no;
+    unsigned int streamIndex;
 };
 
 @protocol PPTCPStreamListener <NSObject>
@@ -50,47 +51,49 @@ struct reassembly_queue {
 
 @interface PPTCPStreamReassemblerChunk : NSObject
 {
-	const void *m_data;
-	size_t m_length;
-	BOOL m_isClient;
+    const void* m_data;
+    size_t m_length;
+    BOOL m_isClient;
 }
 
 - (BOOL)isClient;
 - (BOOL)isServer;
-- (const void *)data;
+- (const void*)data;
 - (size_t)length;
 
 @end
 
 @interface PPTCPStreamReassembler : NSObject
 {
-	NSTimer *m_timer;
-	NSMutableArray *m_chunks;
-	NSMutableArray *m_listeners;
-	PPTCPStreamController *m_streamController;  /* not retained to avoid retain-cycle */
-	PPTCPStream *m_stream; /* not retained to avoid retain-cycle */
+    NSTimer* m_timer;
+    NSMutableArray* m_chunks;
+    NSMutableArray* m_listeners;
+    PPTCPStreamController*
+        m_streamController; /* not retained to avoid retain-cycle */
+    PPTCPStream* m_stream;  /* not retained to avoid retain-cycle */
 
-	unsigned int m_streamIndex; /* data index */
-	unsigned int m_clientStreamIndex; /* ack index */
-	unsigned int m_serverStreamIndex; /* ack index */
-	uint32_t m_c_seq_no;
-	uint32_t m_s_seq_no;
+    unsigned int m_streamIndex;       /* data index */
+    unsigned int m_clientStreamIndex; /* ack index */
+    unsigned int m_serverStreamIndex; /* ack index */
+    uint32_t m_c_seq_no;
+    uint32_t m_s_seq_no;
 
-	BOOL m_segmentsDeleted;
+    BOOL m_segmentsDeleted;
 }
 
-- (id)initWithStream:(PPTCPStream *)stream streamController:(PPTCPStreamController *)streamController;
-- (PPTCPStream *)stream;
-- (void)addListener:(id <PPTCPStreamListener>)aListener;
-- (void)removeListener:(id <PPTCPStreamListener>)aListener;
+- (id)initWithStream:(PPTCPStream*)stream
+    streamController:(PPTCPStreamController*)streamController;
+- (PPTCPStream*)stream;
+- (void)addListener:(id<PPTCPStreamListener>)aListener;
+- (void)removeListener:(id<PPTCPStreamListener>)aListener;
 - (void)reassemble;
 - (size_t)numberOfChunks;
-- (NSData *)chunkDataAt:(unsigned int)chunkIndex;
+- (NSData*)chunkDataAt:(unsigned int)chunkIndex;
 - (BOOL)chunkIsClient:(unsigned int)chunkIndex;
 - (BOOL)chunkIsServer:(unsigned int)chunkIndex;
 - (void)reset;
-- (void)setTimer; /* private method */
-- (void)updateListenersWithTimer:(NSTimer *)aTimer; /* private method */
+- (void)setTimer;                                  /* private method */
+- (void)updateListenersWithTimer:(NSTimer*)aTimer; /* private method */
 - (void)invalidateStream;
 - (void)noteSegmentsDeleted;
 - (void)noteSegmentsAppended;

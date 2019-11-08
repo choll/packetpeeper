@@ -34,12 +34,12 @@
 	as the parent object. parentVal maybe nil.
 
 */
-- (id)initWithData:(NSData *)dataVal parent:(id <PPDecoderParent>)parentVal;
+- (id)initWithData:(NSData*)dataVal parent:(id<PPDecoderParent>)parentVal;
 
 /*
 	Sets the parent of the decoder.
 */
-- (void)setParent:(id <PPDecoderParent>)parentVal;
+- (void)setParent:(id<PPDecoderParent>)parentVal;
 
 /*
 	Returns the amount of data processed by the decoder, from the front of the

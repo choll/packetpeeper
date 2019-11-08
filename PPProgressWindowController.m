@@ -17,52 +17,55 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#import <AppKit/NSWindow.h>
-#import <AppKit/NSTextField.h>
-#import <AppKit/NSProgressIndicator.h>
-#include "MyDocument.h"
 #include "PPProgressWindowController.h"
+#include "MyDocument.h"
+#import <AppKit/NSProgressIndicator.h>
+#import <AppKit/NSTextField.h>
+#import <AppKit/NSWindow.h>
 
 @implementation PPProgressWindowController
 
-- (id)initWithLoadingMessage:(NSString *)loadingMessage delegate:(id)delegate cancelSelector:(SEL)cancelSelector
+- (id)initWithLoadingMessage:(NSString*)loadingMessage
+                    delegate:(id)delegate
+              cancelSelector:(SEL)cancelSelector
 {
-	if((self = [super initWithWindowNibName:@"ProgressSheet"]) != nil) {
-		m_initialLoadingMessage = loadingMessage;
-		m_delegate = delegate;
-		m_cancelSelector = cancelSelector;
-	}
-	return self;
+    if ((self = [super initWithWindowNibName:@"ProgressSheet"]) != nil)
+    {
+        m_initialLoadingMessage = loadingMessage;
+        m_delegate = delegate;
+        m_cancelSelector = cancelSelector;
+    }
+    return self;
 }
 
 - (void)windowDidLoad
 {
-	[self setLoadingMessage:m_initialLoadingMessage];
-	[m_initialLoadingMessage release];
-	m_initialLoadingMessage = nil;
-	[m_progressIndicator startAnimation:self];
+    [self setLoadingMessage:m_initialLoadingMessage];
+    [m_initialLoadingMessage release];
+    m_initialLoadingMessage = nil;
+    [m_progressIndicator startAnimation:self];
 }
 
 - (IBAction)cancelButtonPressed:(id)sender
 {
-	[m_delegate performSelector:m_cancelSelector];
+    [m_delegate performSelector:m_cancelSelector];
 }
 
-- (void)setLoadingMessage:(NSString *)loadingMessage
+- (void)setLoadingMessage:(NSString*)loadingMessage
 {
-	[m_loadingMessage setStringValue:loadingMessage];
+    [m_loadingMessage setStringValue:loadingMessage];
 }
 
 - (void)setPercentLoaded:(double)loadedPercent
 {
-	[m_progressIndicator setIndeterminate:NO];
-	[m_progressIndicator setDoubleValue:loadedPercent];
+    [m_progressIndicator setIndeterminate:NO];
+    [m_progressIndicator setDoubleValue:loadedPercent];
 }
 
 - (void)dealloc
 {
-	[m_initialLoadingMessage release];
-	[super dealloc];
+    [m_initialLoadingMessage release];
+    [super dealloc];
 }
 
 @end

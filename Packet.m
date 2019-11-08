@@ -17,31 +17,31 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include <sys/types.h>
-#include <sys/time.h>
-#include <sys/ioctl.h>
-#include <net/bpf.h>
-#include <errno.h>
-#import <Foundation/NSString.h>
-#import <Foundation/NSData.h>
-#import <Foundation/NSArray.h>
-#import <Foundation/NSTimeZone.h>
-#import <Foundation/NSDate.h>
-#import <Foundation/NSCalendarDate.h>
-#import <Foundation/NSUserDefaults.h>
-#import <Foundation/NSArchiver.h>
-#include "MyDocument.h"
-#include "PPPluginManager.h"
+#include "Packet.h"
 #include "ColumnIdentifier.h"
-#include "LoopbackDecode.h"
-#include "PPRVIDecode.h"
 #include "EthernetDecode.h"
-#include "PPPDecode.h"
 #include "IPV4Decode.h"
+#include "LoopbackDecode.h"
+#include "MyDocument.h"
+#include "PPPDecode.h"
+#include "PPPluginManager.h"
+#include "PPRVIDecode.h"
+#include "PacketPeeper.h"
 #include "demultiplex.h"
 #include "pktap.h"
-#include "PacketPeeper.h"
-#include "Packet.h"
+#import <Foundation/NSArchiver.h>
+#import <Foundation/NSArray.h>
+#import <Foundation/NSCalendarDate.h>
+#import <Foundation/NSData.h>
+#import <Foundation/NSDate.h>
+#import <Foundation/NSString.h>
+#import <Foundation/NSTimeZone.h>
+#import <Foundation/NSUserDefaults.h>
+#include <errno.h>
+#include <net/bpf.h>
+#include <sys/ioctl.h>
+#include <sys/time.h>
+#include <sys/types.h>
 
 @implementation Packet
 
@@ -50,16 +50,17 @@
     return nil;
 }
 
-- (id)initWithData:(NSData *)dataVal
-    captureLength:(uint32_t)aCaptureLength
-    actualLength:(uint32_t)anActualLength
-    timestamp:(NSDate *)timestamp
-    linkLayer:(Class)linkLayer
+- (id)initWithData:(NSData*)dataVal
+     captureLength:(uint32_t)aCaptureLength
+      actualLength:(uint32_t)anActualLength
+         timestamp:(NSDate*)timestamp
+         linkLayer:(Class)linkLayer
 {
-    if(dataVal == nil || linkLayer == Nil)
+    if (dataVal == nil || linkLayer == Nil)
         return nil;
 
-    if((self = [super init]) != nil) {
+    if ((self = [super init]) != nil)
+    {
         data = [dataVal retain];
         decoders = nil;
         date = nil;
@@ -68,10 +69,10 @@
         captureLength = aCaptureLength;
         actualLength = anActualLength;
 
-        if((decoders = [[NSMutableArray alloc] init]) == nil)
+        if ((decoders = [[NSMutableArray alloc] init]) == nil)
             goto err;
 
-        if(demultiplex_data(data, decoders, self, linkLayer) == -1)
+        if (demultiplex_data(data, decoders, self, linkLayer) == -1)
             goto err;
 
         date = [timestamp retain];
@@ -85,9 +86,12 @@ err:
     return nil;
 }
 
-- (NSString *)description
+- (NSString*)description
 {
-    return [NSString stringWithFormat:@"<Packet: %p, #%lu, %u bytes>", (void*)self, number, captureLength];
+    return [NSString stringWithFormat:@"<Packet: %p, #%lu, %u bytes>",
+                                      (void*)self,
+                                      number,
+                                      captureLength];
 }
 
 - (void)setNumber:(unsigned long)aNumber
@@ -100,22 +104,22 @@ err:
     return number;
 }
 
-- (HostCache *)hostCache
+- (HostCache*)hostCache
 {
     return [document hostCache];
 }
 
-- (MyDocument *)document
+- (MyDocument*)document
 {
     return document;
 }
 
-- (void)setDocument:(MyDocument *)aDocument
+- (void)setDocument:(MyDocument*)aDocument
 {
     document = aDocument;
 }
 
-- (NSArray *)decoders
+- (NSArray*)decoders
 {
     return decoders;
 }
@@ -126,20 +130,20 @@ err:
    sent over the wire, but added by bpf.
    */
 
-- (NSData *)packetData
+- (NSData*)packetData
 {
     return data;
 }
 
-- (NSData *)dataForDecoder:(id)decoder
+- (NSData*)dataForDecoder:(id)decoder
 {
     size_t offset;
 
     offset = [self byteOffsetForDecoder:decoder];
 
-    return [NSData dataWithBytesNoCopy:((uint8_t *)[data bytes] + offset)
-        length:([data length] - offset)
-        freeWhenDone:NO];
+    return [NSData dataWithBytesNoCopy:((uint8_t*)[data bytes] + offset)
+                                length:([data length] - offset)
+                          freeWhenDone:NO];
 }
 
 - (size_t)byteOffsetForDecoder:(id)decoder
@@ -149,10 +153,11 @@ err:
 
     nbytes = 0;
 
-    for(i = 0; i < [decoders count]; ++i) {
-        id <Decode> current;
+    for (i = 0; i < [decoders count]; ++i)
+    {
+        id<Decode> current;
 
-        if((current = [decoders objectAtIndex:i]) == decoder)
+        if ((current = [decoders objectAtIndex:i]) == decoder)
             break;
 
         nbytes += [current frontSize];
@@ -185,30 +190,30 @@ err:
 {
     Class linkType;
 
-    if([decoders count] < 1)
+    if ([decoders count] < 1)
         return DLT_NULL;
 
     linkType = [[decoders objectAtIndex:0] class];
 
-    if(linkType == [PPRVIDecode class])
+    if (linkType == [PPRVIDecode class])
         return DLT_PKTAP;
 
-    if(linkType == [LoopbackDecode class])
+    if (linkType == [LoopbackDecode class])
         return DLT_NULL;
 
-    if(linkType == [EthernetDecode class])
+    if (linkType == [EthernetDecode class])
         return DLT_EN10MB;
 
-    if(linkType == [PPPDecode class])
+    if (linkType == [PPPDecode class])
         return DLT_PPP;
 
-    if(linkType == [IPV4Decode class])
+    if (linkType == [IPV4Decode class])
         return DLT_RAW;
 
     return DLT_NULL;
 }
 
-- (NSDate *)date
+- (NSDate*)date
 {
     return date;
 }
@@ -217,11 +222,12 @@ err:
 {
     unsigned int i;
 
-    if(aClass == Nil)
+    if (aClass == Nil)
         return nil;
 
-    for(i = 0; i < [decoders count]; ++i) {
-        if([[decoders objectAtIndex:i] isMemberOfClass:aClass])
+    for (i = 0; i < [decoders count]; ++i)
+    {
+        if ([[decoders objectAtIndex:i] isMemberOfClass:aClass])
             return [decoders objectAtIndex:i];
     }
 
@@ -230,7 +236,7 @@ err:
 
 /* NSCoding protocol methods */
 
-- (void)encodeWithCoder:(NSCoder *)coder
+- (void)encodeWithCoder:(NSCoder*)coder
 {
     [coder encodeDataObject:data];
     [coder encodeObject:date];
@@ -241,16 +247,18 @@ err:
 }
 
 /* Note that only Packet should encode its data object */
-- (id)initWithCoder:(NSCoder *)coder
+- (id)initWithCoder:(NSCoder*)coder
 {
-    if((self = [super init]) != nil) {
+    if ((self = [super init]) != nil)
+    {
         data = [[coder decodeDataObject] retain];
         date = [[coder decodeObject] retain];
         decoders = [[coder decodeObject] retain];
         [coder decodeValueOfObjCType:@encode(unsigned int) at:&captureLength];
         [coder decodeValueOfObjCType:@encode(unsigned int) at:&actualLength];
         [coder decodeValueOfObjCType:@encode(unsigned int) at:&number];
-        [decoders makeObjectsPerformSelector:@selector(setParent:) withObject:self];
+        [decoders makeObjectsPerformSelector:@selector(setParent:)
+                                  withObject:self];
         document = nil;
         pendingDeletion = NO;
         processedPlugins = NO;
@@ -267,4 +275,3 @@ err:
 }
 
 @end
-

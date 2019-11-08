@@ -20,21 +20,22 @@
 #ifndef _PPPDECODE_H_
 #define _PPPDECODE_H_
 
-#include <stdint.h>
-#import <Foundation/NSObject.h>
+#include "ColumnIdentifier.h"
 #include "Decode.h"
 #include "Describe.h"
-#include "ColumnIdentifier.h"
 #include "OutlineViewItem.h"
+#import <Foundation/NSObject.h>
+#include <stdint.h>
 
-#define PPPDECODE_HDR_MIN	8
+#define PPPDECODE_HDR_MIN 8
 
-@interface PPPDecode : NSObject <Decode, Describe, NSCoding, OutlineViewItem, ColumnIdentifier>
+@interface PPPDecode
+    : NSObject <Decode, Describe, NSCoding, OutlineViewItem, ColumnIdentifier>
 {
-	uint8_t addr;
-	uint8_t control;
-	uint16_t protocol;
-	uint16_t crc;
+    uint8_t addr;
+    uint8_t control;
+    uint16_t protocol;
+    uint16_t crc;
 }
 
 @end

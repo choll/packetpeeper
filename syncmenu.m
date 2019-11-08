@@ -17,41 +17,50 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#import <Foundation/NSArray.h>
-#import <AppKit/NSMenu.h>
-#import <AppKit/NSCell.h>
 #include "syncmenu.h"
+#import <AppKit/NSCell.h>
+#import <AppKit/NSMenu.h>
+#import <Foundation/NSArray.h>
 
-void syncMenu(NSMenu *menu, NSMutableArray *identifiers)
+void syncMenu(NSMenu* menu, NSMutableArray* identifiers)
 {
-	unsigned int i, j;
+    unsigned int i, j;
 
-	for(i = 0; i < [menu numberOfItems]; ++i) {
-		NSMenuItem *item;
+    for (i = 0; i < [menu numberOfItems]; ++i)
+    {
+        NSMenuItem* item;
 
-		item = [menu itemAtIndex:i];
+        item = [menu itemAtIndex:i];
 
-		if([item isSeparatorItem])
-			continue;
+        if ([item isSeparatorItem])
+            continue;
 
-		if(![item hasSubmenu]) {
-			if([identifiers count] == 0) {
-				[item setState:NSOffState];
-			} else {
-				for(j = 0; j < [identifiers count]; ++j) {
-					if([[item representedObject] isEqual:[identifiers objectAtIndex:j]]) {
-						[item setState:NSOnState];
-						[identifiers removeObjectAtIndex:j];
-						goto item_found;
-					}
-				}
+        if (![item hasSubmenu])
+        {
+            if ([identifiers count] == 0)
+            {
+                [item setState:NSOffState];
+            }
+            else
+            {
+                for (j = 0; j < [identifiers count]; ++j)
+                {
+                    if ([[item representedObject]
+                            isEqual:[identifiers objectAtIndex:j]])
+                    {
+                        [item setState:NSOnState];
+                        [identifiers removeObjectAtIndex:j];
+                        goto item_found;
+                    }
+                }
 
-				[item setState:NSOffState];
+                [item setState:NSOffState];
 
-				item_found:
-					continue;
-			}
-		} else
-			syncMenu([item submenu], identifiers);
-	} /* for loop i */
+            item_found:
+                continue;
+            }
+        }
+        else
+            syncMenu([item submenu], identifiers);
+    } /* for loop i */
 }

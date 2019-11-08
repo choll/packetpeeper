@@ -17,111 +17,146 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#import <Foundation/NSTimer.h>
-#import <Foundation/NSString.h>
+#include "IndividualPacketWindowController.h"
+#import "DataInspectorRepresenter.h"
+#include "HostCache.hh"
+#include "MyDocument.h"
+#include "OutlineViewItem.h"
+#include "PPPacketUIAdditons.h"
+#include "Packet.h"
+#include "PacketCaptureWindowController.h"
+#include "PacketPeeper.h"
+#import <AppKit/NSClipView.h>
+#import <AppKit/NSOutlineView.h>
+#import <AppKit/NSProgressIndicator.h> // For HexFiend
+#import <AppKit/NSScrollView.h>
+#import <AppKit/NSTableColumn.h>
 #import <Foundation/NSArray.h>
 #import <Foundation/NSData.h>
 #import <Foundation/NSDate.h>
-#import <Foundation/NSNotification.h>
-#import <Foundation/NSValue.h>
 #import <Foundation/NSDecimalNumber.h>
 #import <Foundation/NSDictionary.h>
+#import <Foundation/NSNotification.h>
+#import <Foundation/NSString.h>
+#import <Foundation/NSTimer.h>
 #import <Foundation/NSUserDefaults.h>
-#import <AppKit/NSOutlineView.h>
-#import <AppKit/NSScrollView.h>
-#import <AppKit/NSClipView.h>
-#import <AppKit/NSTableColumn.h>
-#import <AppKit/NSProgressIndicator.h> // For HexFiend
+#import <Foundation/NSValue.h>
 #import <HexFiend/HexFiend.h>
-#import "DataInspectorRepresenter.h"
-#include "PacketPeeper.h"
-#include "Packet.h"
-#include "HostCache.hh"
-#include "PPPacketUIAdditons.h"
-#include "MyDocument.h"
-#include "OutlineViewItem.h"
-#include "PacketCaptureWindowController.h"
-#include "IndividualPacketWindowController.h"
 
-static void record_expanded_items(NSOutlineView *outlineView, NSMutableDictionary *expandedItems, id <OutlineViewItem> item);
-static void expand_items(NSOutlineView *outlineView, NSMutableDictionary *expandedItems, id <OutlineViewItem> item);
-static OutlineViewItem *copy_item_tree(id <OutlineViewItem> root);
+static void record_expanded_items(
+    NSOutlineView* outlineView,
+    NSMutableDictionary* expandedItems,
+    id<OutlineViewItem> item);
+static void expand_items(
+    NSOutlineView* outlineView,
+    NSMutableDictionary* expandedItems,
+    id<OutlineViewItem> item);
+static OutlineViewItem* copy_item_tree(id<OutlineViewItem> root);
 
 @implementation IndividualPacketWindowController
 
-- (id)initWithWindowNibName:(NSString *)windowNibName
+- (id)initWithWindowNibName:(NSString*)windowNibName
 {
-	if((self = [super initWithWindowNibName:windowNibName]) != nil) {
-		expandedItems = [[NSMutableDictionary alloc] init];
+    if ((self = [super initWithWindowNibName:windowNibName]) != nil)
+    {
+        expandedItems = [[NSMutableDictionary alloc] init];
         packetItems = nil;
         packet = nil;
         dataInspectorRepresenter = nil;
-	}
-	return self;
+    }
+    return self;
 }
 
 - (id)init
 {
-	return [self initWithPacket:nil];
+    return [self initWithPacket:nil];
 }
 
-- (id)initWithPacket:(Packet *)aPacket
+- (id)initWithPacket:(Packet*)aPacket
 {
-	if((self = [self initWithWindowNibName:@"IndividualPacket"]) != nil) {
-		packet = [aPacket retain];
-		packetItems = copy_item_tree(packet);
-		[packetItems retain];
-	}
-	return self;
+    if ((self = [self initWithWindowNibName:@"IndividualPacket"]) != nil)
+    {
+        packet = [aPacket retain];
+        packetItems = copy_item_tree(packet);
+        [packetItems retain];
+    }
+    return self;
 }
 
 - (IBAction)toggleDataInspectorView:(id)sender
 {
-	if([sender state] == NSOffState) {
-		[sender setState:NSOnState];
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:PPDOCUMENT_DATA_INSPECTOR];
-        if(![self isDataInspectorViewVisible]) {
-            [[packetHexView controller] addRepresenter:dataInspectorRepresenter];
-            [[packetHexView layoutRepresenter] addRepresenter:dataInspectorRepresenter];
+    if ([sender state] == NSOffState)
+    {
+        [sender setState:NSOnState];
+        [[NSUserDefaults standardUserDefaults]
+            setBool:YES
+             forKey:PPDOCUMENT_DATA_INSPECTOR];
+        if (![self isDataInspectorViewVisible])
+        {
+            [[packetHexView controller]
+                addRepresenter:dataInspectorRepresenter];
+            [[packetHexView layoutRepresenter]
+                addRepresenter:dataInspectorRepresenter];
         }
-	} else {
-		[sender setState:NSOffState];
-        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:PPDOCUMENT_DATA_INSPECTOR];
-        if([self isDataInspectorViewVisible]) {
-            [[packetHexView controller] removeRepresenter:dataInspectorRepresenter];
-            [[packetHexView layoutRepresenter] removeRepresenter:dataInspectorRepresenter];
+    }
+    else
+    {
+        [sender setState:NSOffState];
+        [[NSUserDefaults standardUserDefaults]
+            setBool:NO
+             forKey:PPDOCUMENT_DATA_INSPECTOR];
+        if ([self isDataInspectorViewVisible])
+        {
+            [[packetHexView controller]
+                removeRepresenter:dataInspectorRepresenter];
+            [[packetHexView layoutRepresenter]
+                removeRepresenter:dataInspectorRepresenter];
         }
-	}
+    }
 }
 
 - (bool)isDataInspectorViewVisible
 {
-    return [[[packetHexView layoutRepresenter] representers] containsObject:dataInspectorRepresenter];
+    return [[[packetHexView layoutRepresenter] representers]
+        containsObject:dataInspectorRepresenter];
 }
 
 - (void)windowDidLoad
 {
-    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+    NSNotificationCenter* notificationCenter =
+        [NSNotificationCenter defaultCenter];
 
     [packetOutlineView setDataSource:self];
 
     // LineCountingRepresenter
-    HFLineCountingRepresenter *lineCountingRepresenter = [[HFLineCountingRepresenter alloc] init];
+    HFLineCountingRepresenter* lineCountingRepresenter =
+        [[HFLineCountingRepresenter alloc] init];
     [lineCountingRepresenter setMinimumDigitCount:10];
-    NSNumber *lineNumberFormat = [[NSUserDefaults standardUserDefaults] objectForKey:PPHEXVIEW_LINECOLUMN_MODE];
-    [lineCountingRepresenter setLineNumberFormat:[lineNumberFormat unsignedIntValue]];
+    NSNumber* lineNumberFormat = [[NSUserDefaults standardUserDefaults]
+        objectForKey:PPHEXVIEW_LINECOLUMN_MODE];
+    [lineCountingRepresenter
+        setLineNumberFormat:[lineNumberFormat unsignedIntValue]];
     [[packetHexView controller] addRepresenter:lineCountingRepresenter];
     [[packetHexView layoutRepresenter] addRepresenter:lineCountingRepresenter];
     [lineCountingRepresenter release];
 
     // DataInsepctorRepresenter
     dataInspectorRepresenter = [[DataInspectorRepresenter alloc] init];
-    [notificationCenter addObserver:self selector:@selector(dataInspectorChangedRowCount:) name:DataInspectorDidChangeRowCount object:dataInspectorRepresenter];
-    [notificationCenter addObserver:self selector:@selector(dataInspectorDeletedAllRows:) name:DataInspectorDidDeleteAllRows object:dataInspectorRepresenter];
+    [notificationCenter addObserver:self
+                           selector:@selector(dataInspectorChangedRowCount:)
+                               name:DataInspectorDidChangeRowCount
+                             object:dataInspectorRepresenter];
+    [notificationCenter addObserver:self
+                           selector:@selector(dataInspectorDeletedAllRows:)
+                               name:DataInspectorDidDeleteAllRows
+                             object:dataInspectorRepresenter];
 
-    if([[NSUserDefaults standardUserDefaults] boolForKey:PPDOCUMENT_DATA_INSPECTOR]) {
+    if ([[NSUserDefaults standardUserDefaults]
+            boolForKey:PPDOCUMENT_DATA_INSPECTOR])
+    {
         [[packetHexView controller] addRepresenter:dataInspectorRepresenter];
-        [[packetHexView layoutRepresenter] addRepresenter:dataInspectorRepresenter];
+        [[packetHexView layoutRepresenter]
+            addRepresenter:dataInspectorRepresenter];
     }
 
     [[packetHexView controller] setBytesPerColumn:2]; /* same as old HexView */
@@ -132,73 +167,84 @@ static OutlineViewItem *copy_item_tree(id <OutlineViewItem> root);
     [[packetHexView controller] setEditable:NO];
     [packetHexView setBordered:YES];
 
-    [packetOutlineView setColumnAutoresizingStyle:NSTableViewNoColumnAutoresizing];
+    [packetOutlineView
+        setColumnAutoresizingStyle:NSTableViewNoColumnAutoresizing];
 
-    [notificationCenter addObserver:self
-                        selector:@selector(hostNameLookupCompletedNotification:)
-                        name:PPHostCacheHostNameLookupCompleteNotification
-                        object:[[self document] hostCache]];
+    [notificationCenter
+        addObserver:self
+           selector:@selector(hostNameLookupCompletedNotification:)
+               name:PPHostCacheHostNameLookupCompleteNotification
+             object:[[self document] hostCache]];
 
     [[packetHexView layoutRepresenter] performLayout];
 }
 
-- (void)dataInspectorDeletedAllRows:(NSNotification *)note {
-    DataInspectorRepresenter *inspector = [note object];
+- (void)dataInspectorDeletedAllRows:(NSNotification*)note
+{
+    DataInspectorRepresenter* inspector = [note object];
     [self hideViewForRepresenter:inspector];
     // Disable menu item
-    NSMenu *viewMenu = [[[NSApp mainMenu] itemWithTag:APPMENU_ITEM_VIEW_TAG] submenu];
-    NSMenuItem *viewItem = [viewMenu itemWithTag:APPMENU_ITEM_DATA_INSPECTOR_TAG];
+    NSMenu* viewMenu =
+        [[[NSApp mainMenu] itemWithTag:APPMENU_ITEM_VIEW_TAG] submenu];
+    NSMenuItem* viewItem =
+        [viewMenu itemWithTag:APPMENU_ITEM_DATA_INSPECTOR_TAG];
     [self toggleDataInspectorView:viewItem];
 }
 
 /* Called when our data inspector changes its size (number of rows) */
-- (void)dataInspectorChangedRowCount:(NSNotification *)note {
-    DataInspectorRepresenter *inspector = [note object];
-    CGFloat newHeight = (CGFloat)[[[note userInfo] objectForKey:@"height"] doubleValue];
-    NSView *dataInspectorView = [inspector view];
+- (void)dataInspectorChangedRowCount:(NSNotification*)note
+{
+    DataInspectorRepresenter* inspector = [note object];
+    CGFloat newHeight =
+        (CGFloat)[[[note userInfo] objectForKey:@"height"] doubleValue];
+    NSView* dataInspectorView = [inspector view];
     NSSize size = [dataInspectorView frame].size;
     size.height = newHeight;
     [dataInspectorView setFrameSize:size];
     [[packetHexView layoutRepresenter] performLayout];
 }
-- (void)hideViewForRepresenter:(HFRepresenter *)rep {
+- (void)hideViewForRepresenter:(HFRepresenter*)rep
+{
     [[packetHexView controller] removeRepresenter:rep];
     [[packetHexView layoutRepresenter] removeRepresenter:rep];
 }
 
-- (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName
+- (NSString*)windowTitleForDocumentDisplayName:(NSString*)displayName
 {
-    return
-        [NSString stringWithFormat:@"%@ - %@ - Packet #%lu, %@ %@",
-        displayName, [[self document] interface], [packet number],
-        ([packet protocols] != nil) ? [packet protocols] : @"",
-        ([packet info] != nil) ? [packet info] : @""];
+    return [NSString
+        stringWithFormat:@"%@ - %@ - Packet #%lu, %@ %@",
+                         displayName,
+                         [[self document] interface],
+                         [packet number],
+                         ([packet protocols] != nil) ? [packet protocols] : @"",
+                         ([packet info] != nil) ? [packet info] : @""];
 }
 
 - (void)setDocumentEdited:(BOOL)flag
 {
-	/* for an individual window, do not show as being dirty/edited */
-	if([self isMemberOfClass:[IndividualPacketWindowController class]])
-		return;
+    /* for an individual window, do not show as being dirty/edited */
+    if ([self isMemberOfClass:[IndividualPacketWindowController class]])
+        return;
 
-	[super setDocumentEdited:flag];
+    [super setDocumentEdited:flag];
 }
 
-- (NSResponder *)nextResponder
+- (NSResponder*)nextResponder
 {
-	if([self isMemberOfClass:[IndividualPacketWindowController class]])
-		return [[self document] packetCaptureWindowController];
+    if ([self isMemberOfClass:[IndividualPacketWindowController class]])
+        return [[self document] packetCaptureWindowController];
 
-	return nil;
+    return nil;
 }
 
-- (void)setPacket:(Packet *)aPacket
+- (void)setPacket:(Packet*)aPacket
 {
     NSPoint scrollPosition;
 
-    scrollPosition = [[[packetOutlineView enclosingScrollView] contentView] bounds].origin;
+    scrollPosition =
+        [[[packetOutlineView enclosingScrollView] contentView] bounds].origin;
 
-    if(packet != nil)
+    if (packet != nil)
         record_expanded_items(packetOutlineView, expandedItems, packetItems);
 
     [aPacket retain];
@@ -216,85 +262,100 @@ static OutlineViewItem *copy_item_tree(id <OutlineViewItem> root);
 
     expand_items(packetOutlineView, expandedItems, packetItems);
 
-    if([[[packetOutlineView enclosingScrollView] contentView] bounds].size.height < [packetOutlineView bounds].size.height) {
-        [[[packetOutlineView enclosingScrollView] contentView] scrollToPoint:scrollPosition];
-        [[packetOutlineView enclosingScrollView] reflectScrolledClipView:[[packetOutlineView enclosingScrollView] contentView]];
+    if ([[[packetOutlineView enclosingScrollView] contentView] bounds]
+            .size.height < [packetOutlineView bounds].size.height)
+    {
+        [[[packetOutlineView enclosingScrollView] contentView]
+            scrollToPoint:scrollPosition];
+        [[packetOutlineView enclosingScrollView]
+            reflectScrolledClipView:[[packetOutlineView enclosingScrollView]
+                                        contentView]];
     }
 }
 
-- (Packet *)packet
+- (Packet*)packet
 {
-	return packet;
+    return packet;
 }
 
-- (void)hostNameLookupCompletedNotification:(NSNotification *)note
+- (void)hostNameLookupCompletedNotification:(NSNotification*)note
 {
-	[self setPacket:packet];
+    [self setPacket:packet];
 }
 
 /* NSOutlineView data-source methods */
 
-- (BOOL)outlineView:(NSOutlineView *)outlineView isItemExpandable:(id)item
+- (BOOL)outlineView:(NSOutlineView*)outlineView isItemExpandable:(id)item
 {
-	if(item == nil) {
-		if(packetItems == nil)
-			return NO;
-		else
-			return [packetItems expandable];
-	} else
-		return [(id <OutlineViewItem>)item expandable];
+    if (item == nil)
+    {
+        if (packetItems == nil)
+            return NO;
+        else
+            return [packetItems expandable];
+    }
+    else
+        return [(id<OutlineViewItem>)item expandable];
 }
 
-- (NSInteger)outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(id)item
+- (NSInteger)outlineView:(NSOutlineView*)outlineView
+    numberOfChildrenOfItem:(id)item
 {
-	if(item == nil) {
-		if(packetItems == nil)
-			return 0;
-		else
-			return [packetItems numberOfChildren];
-	} else
-		return [(id <OutlineViewItem>)item numberOfChildren];
+    if (item == nil)
+    {
+        if (packetItems == nil)
+            return 0;
+        else
+            return [packetItems numberOfChildren];
+    }
+    else
+        return [(id<OutlineViewItem>)item numberOfChildren];
 }
 
-- (id)outlineView:(NSOutlineView *)outlineView child:(int)anIndex ofItem:(id)item
+- (id)outlineView:(NSOutlineView*)outlineView child:(int)anIndex ofItem:(id)item
 {
-	id ret;
+    id ret;
 
-	if(item == nil) {
-		if(packetItems == nil)
-			return nil;
-		else
-			ret = [packetItems childAtIndex:anIndex];
-	} else {
-			ret = [(id <OutlineViewItem>)item childAtIndex:anIndex];
-	}
+    if (item == nil)
+    {
+        if (packetItems == nil)
+            return nil;
+        else
+            ret = [packetItems childAtIndex:anIndex];
+    }
+    else
+    {
+        ret = [(id<OutlineViewItem>)item childAtIndex:anIndex];
+    }
 
-	return ret;
+    return ret;
 }
 
-- (id)outlineView:(NSOutlineView *)outlineView objectValueForTableColumn:(NSTableColumn *)tableColumn byItem:(id)item
+- (id)outlineView:(NSOutlineView*)outlineView
+    objectValueForTableColumn:(NSTableColumn*)tableColumn
+                       byItem:(id)item
 {
-	BOOL isValue;
+    BOOL isValue;
 
-	/* Table columns are labelled "Field" and "Value",
+    /* Table columns are labelled "Field" and "Value",
 	   the valueAtIndex stores the field at 0 and the value at 1  */
 
-	isValue = [[tableColumn identifier] isEqualToString:@"Value"];
+    isValue = [[tableColumn identifier] isEqualToString:@"Value"];
 
-	if([(id <OutlineViewItem>)item numberOfValues] < (1 + (isValue ? 1 : 0)))
-		return nil;
+    if ([(id<OutlineViewItem>)item numberOfValues] < (1 + (isValue ? 1 : 0)))
+        return nil;
 
-	return [(id <OutlineViewItem>)item valueAtIndex:isValue ? 1 : 0];
+    return [(id<OutlineViewItem>)item valueAtIndex:isValue ? 1 : 0];
 }
 
 - (void)dealloc
 {
     [dataInspectorRepresenter release];
-	[expandedItems release];
-	[packetItems release];
-	[packet release];
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	[super dealloc];
+    [expandedItems release];
+    [packetItems release];
+    [packet release];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [super dealloc];
 }
 
 @end
@@ -306,83 +367,100 @@ static OutlineViewItem *copy_item_tree(id <OutlineViewItem> root);
    the NSOutlineView as the notification object so are useless here. So, I can't see any way to fix
    this 100% reliably.. */
 
-static void record_expanded_items(NSOutlineView *outlineView, NSMutableDictionary *expandedItems, id <OutlineViewItem> item)
+static void record_expanded_items(
+    NSOutlineView* outlineView,
+    NSMutableDictionary* expandedItems,
+    id<OutlineViewItem> item)
 {
-	unsigned int i;
+    unsigned int i;
 
-	for(i = 0; i < [item numberOfChildren]; ++i) {
-		NSString *childName;
-		NSMutableArray *pair; /* {BOOL isExpanded, NSMutableDictionary *childExpandedItems} */
-		NSMutableDictionary *childExpandedItems;
-		id <OutlineViewItem> child;
-		NSNumber *isExpanded;
+    for (i = 0; i < [item numberOfChildren]; ++i)
+    {
+        NSString* childName;
+        NSMutableArray*
+            pair; /* {BOOL isExpanded, NSMutableDictionary *childExpandedItems} */
+        NSMutableDictionary* childExpandedItems;
+        id<OutlineViewItem> child;
+        NSNumber* isExpanded;
 
-		child = [item childAtIndex:i];
-		childName = [child valueAtIndex:0];
-		isExpanded = [NSNumber numberWithBool:[outlineView isItemExpanded:child]];
+        child = [item childAtIndex:i];
+        childName = [child valueAtIndex:0];
+        isExpanded =
+            [NSNumber numberWithBool:[outlineView isItemExpanded:child]];
 
-		if((pair = [expandedItems objectForKey:childName]) == nil) {
-			childExpandedItems = [NSMutableDictionary dictionary];
-			pair = [NSMutableArray arrayWithObjects:isExpanded, childExpandedItems, nil];
-			[expandedItems setObject:pair forKey:childName];
-		} else {
-			[pair replaceObjectAtIndex:0 withObject:isExpanded];
-			childExpandedItems = [pair objectAtIndex:1];
-		}
+        if ((pair = [expandedItems objectForKey:childName]) == nil)
+        {
+            childExpandedItems = [NSMutableDictionary dictionary];
+            pair = [NSMutableArray
+                arrayWithObjects:isExpanded, childExpandedItems, nil];
+            [expandedItems setObject:pair forKey:childName];
+        }
+        else
+        {
+            [pair replaceObjectAtIndex:0 withObject:isExpanded];
+            childExpandedItems = [pair objectAtIndex:1];
+        }
 
-		record_expanded_items(outlineView, childExpandedItems, child);
-	}
+        record_expanded_items(outlineView, childExpandedItems, child);
+    }
 }
 
-static void expand_items(NSOutlineView *outlineView, NSMutableDictionary *expandedItems, id <OutlineViewItem> item)
+static void expand_items(
+    NSOutlineView* outlineView,
+    NSMutableDictionary* expandedItems,
+    id<OutlineViewItem> item)
 {
-	unsigned int i;
+    unsigned int i;
 
-	for(i = 0; i < [item numberOfChildren]; ++i) {
-		NSString *childName;
-		NSMutableArray *pair; /* {BOOL isExpanded, NSMutableDictionary *childExpandedItems} */
-		NSMutableDictionary *childExpandedItems;
-		id <OutlineViewItem> child;
-		NSNumber *isExpanded;
+    for (i = 0; i < [item numberOfChildren]; ++i)
+    {
+        NSString* childName;
+        NSMutableArray*
+            pair; /* {BOOL isExpanded, NSMutableDictionary *childExpandedItems} */
+        NSMutableDictionary* childExpandedItems;
+        id<OutlineViewItem> child;
+        NSNumber* isExpanded;
 
-		child = [item childAtIndex:i];
-		childName = [child valueAtIndex:0];
+        child = [item childAtIndex:i];
+        childName = [child valueAtIndex:0];
 
-		if((pair = [expandedItems objectForKey:childName]) == nil)
-			continue;
+        if ((pair = [expandedItems objectForKey:childName]) == nil)
+            continue;
 
-		isExpanded = [pair objectAtIndex:0];
-		childExpandedItems = [pair objectAtIndex:1];
+        isExpanded = [pair objectAtIndex:0];
+        childExpandedItems = [pair objectAtIndex:1];
 
-		if([isExpanded boolValue])
-			[outlineView expandItem:child];
+        if ([isExpanded boolValue])
+            [outlineView expandItem:child];
 
-		expand_items(outlineView, childExpandedItems, child);
-	}
+        expand_items(outlineView, childExpandedItems, child);
+    }
 }
 
-static OutlineViewItem *copy_item_tree(id <OutlineViewItem> root)
+static OutlineViewItem* copy_item_tree(id<OutlineViewItem> root)
 {
-	unsigned int i;
-	OutlineViewItem *result;
+    unsigned int i;
+    OutlineViewItem* result;
 
-	if(root == nil || ([root numberOfValues] < 1 && [root numberOfChildren] < 1))
-		return nil;
+    if (root == nil ||
+        ([root numberOfValues] < 1 && [root numberOfChildren] < 1))
+        return nil;
 
-	if((result = [[OutlineViewItem alloc] init]) == nil)
-		return nil;
+    if ((result = [[OutlineViewItem alloc] init]) == nil)
+        return nil;
 
-	for(i = 0; i < [root numberOfValues]; ++i)
-		[result addObject:[root valueAtIndex:i]];
+    for (i = 0; i < [root numberOfValues]; ++i)
+        [result addObject:[root valueAtIndex:i]];
 
-	for(i = 0; i < [root numberOfChildren]; ++i) {
-		id <OutlineViewItem> temp;
+    for (i = 0; i < [root numberOfChildren]; ++i)
+    {
+        id<OutlineViewItem> temp;
 
-		if((temp = copy_item_tree([root childAtIndex:i])) == nil)
-			break;
+        if ((temp = copy_item_tree([root childAtIndex:i])) == nil)
+            break;
 
-		[result addChild:temp];
-	}
+        [result addChild:temp];
+    }
 
-	return [result autorelease];
+    return [result autorelease];
 }

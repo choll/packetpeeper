@@ -20,53 +20,54 @@
 #ifndef _IPV4DECODE_H_
 #define _IPV4DECODE_H_
 
-#include <stdint.h>
-#include <netinet/in.h>
-#import <Foundation/NSObject.h>
+#include "ColumnIdentifier.h"
 #include "Decode.h"
 #include "Describe.h"
 #include "OutlineViewItem.h"
-#include "ColumnIdentifier.h"
+#import <Foundation/NSObject.h>
+#include <netinet/in.h>
+#include <stdint.h>
 
-#define IPV4DECODE_HDR_MIN		(sizeof(struct ip))
+#define IPV4DECODE_HDR_MIN (sizeof(struct ip))
 
 @class NSData;
 @class NSString;
 @class HostCache;
 @protocol PPDecoderPlugin;
 
-@interface IPV4Decode : NSObject <Decode, Describe, NSCoding, OutlineViewItem, ColumnIdentifier>
+@interface IPV4Decode
+    : NSObject <Decode, Describe, NSCoding, OutlineViewItem, ColumnIdentifier>
 {
-	id <PPDecoderParent> parent;
-	struct in_addr src;
-	struct in_addr dst;
-	uint16_t tlen;		/* total length */
-	uint16_t ident;
-	uint16_t sum;
-	uint16_t offset;
-	uint16_t calced_sum;
-	uint8_t version;	/* version, 4 bits */
-	uint8_t hlen;		/* header length, 4 bits, measured in 32bit words */
-	uint8_t tos;		/* type of service */
-	uint8_t flags;
-#define IPV4DECODE_FLAGS_RES	0x80	/* reserved */
-#define IPV4DECODE_FLAGS_DFRAG	0x40	/* dont fragment */
-#define IPV4DECODE_FLAGS_MFRAG	0x20	/* more fragments */
-	uint8_t ttl;
-	uint8_t proto;
-	id <PPDecoderPlugin> optionsDecoder;
+    id<PPDecoderParent> parent;
+    struct in_addr src;
+    struct in_addr dst;
+    uint16_t tlen; /* total length */
+    uint16_t ident;
+    uint16_t sum;
+    uint16_t offset;
+    uint16_t calced_sum;
+    uint8_t version; /* version, 4 bits */
+    uint8_t hlen;    /* header length, 4 bits, measured in 32bit words */
+    uint8_t tos;     /* type of service */
+    uint8_t flags;
+#define IPV4DECODE_FLAGS_RES   0x80 /* reserved */
+#define IPV4DECODE_FLAGS_DFRAG 0x40 /* dont fragment */
+#define IPV4DECODE_FLAGS_MFRAG 0x20 /* more fragments */
+    uint8_t ttl;
+    uint8_t proto;
+    id<PPDecoderPlugin> optionsDecoder;
 }
 
-- (NSString *)addrTo;
-- (NSString *)addrFrom;
-- (NSString *)resolvTo;
-- (NSString *)resolvFrom;
-- (NSString *)to;
-- (NSString *)from;
+- (NSString*)addrTo;
+- (NSString*)addrFrom;
+- (NSString*)resolvTo;
+- (NSString*)resolvFrom;
+- (NSString*)to;
+- (NSString*)from;
 - (uint8_t)protocol;
 - (BOOL)isChecksumValid;
 - (uint16_t)computedChecksum;
-- (NSString *)flagsMeaning;
+- (NSString*)flagsMeaning;
 - (BOOL)dontFragmentFlag;
 - (BOOL)moreFragmentsFlag;
 - (size_t)length;
@@ -74,10 +75,10 @@
 - (unsigned int)fragmentOffset;
 - (struct in_addr)in_addrSrc;
 - (struct in_addr)in_addrDst;
-- (NSData *)optionsData;
+- (NSData*)optionsData;
 
 /* private method */
-- (id <OutlineViewItem>)resolvCallback:(void *)data;
+- (id<OutlineViewItem>)resolvCallback:(void*)data;
 
 @end
 

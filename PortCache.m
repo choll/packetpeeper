@@ -17,55 +17,67 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include <sys/types.h>
-#include <sys/socket.h>
+#include "PortCache.h"
+#import <Foundation/NSBundle.h>
+#import <Foundation/NSNull.h>
+#import <Foundation/NSString.h>
 #include <arpa/inet.h>
 #include <fcntl.h>
 #include <netdb.h>
 #include <stdlib.h>
+#include <sys/socket.h>
+#include <sys/types.h>
 #include <unistd.h>
-#import <Foundation/NSString.h>
-#import <Foundation/NSNull.h>
-#import <Foundation/NSBundle.h>
-#include "PortCache.h"
 
-#define PORTCACHE_TCP_DATFILE_PATH		[[[NSBundle mainBundle] pathForResource:@"port-numbers-tcp" ofType:@"port"] UTF8String]
-#define PORTCACHE_TCP_DATFILE_MAGIC		0x1A0D
+#define PORTCACHE_TCP_DATFILE_PATH                              \
+    [[[NSBundle mainBundle] pathForResource:@"port-numbers-tcp" \
+                                     ofType:@"port"] UTF8String]
+#define PORTCACHE_TCP_DATFILE_MAGIC 0x1A0D
 
-#define PORTCACHE_UDP_DATFILE_PATH		[[[NSBundle mainBundle] pathForResource:@"port-numbers-udp" ofType:@"port"] UTF8String]
-#define PORTCACHE_UDP_DATFILE_MAGIC		0x1B0D
+#define PORTCACHE_UDP_DATFILE_PATH                              \
+    [[[NSBundle mainBundle] pathForResource:@"port-numbers-udp" \
+                                     ofType:@"port"] UTF8String]
+#define PORTCACHE_UDP_DATFILE_MAGIC 0x1B0D
 
-#define PORTCACHE_FLAG_HASEQUIVALENT	0x1
+#define PORTCACHE_FLAG_HASEQUIVALENT 0x1
 
-#define PORTCACHE_RECORD_NULL			1
-#define PORTCACHE_RECORD_FOUND			0
+#define PORTCACHE_RECORD_NULL  1
+#define PORTCACHE_RECORD_FOUND 0
 
-static int read_service(int fd, uint16_t port, unsigned int recsz, char *outbuf, size_t outbuf_sz, uint8_t *outflags);
+static int read_service(
+    int fd,
+    uint16_t port,
+    unsigned int recsz,
+    char* outbuf,
+    size_t outbuf_sz,
+    uint8_t* outflags);
 
-static int port_comp(const void *key_a, const void *key_b);
+static int port_comp(const void* key_a, const void* key_b);
 
-static unsigned int port_hash(const void *key);
+static unsigned int port_hash(const void* key);
 
-static PortCache *_sharedPortCache = nil;
+static PortCache* _sharedPortCache = nil;
 
-#define DATFILE_HDR_SZ		4
+#define DATFILE_HDR_SZ 4
 
-struct datfile_hdr {
-	uint16_t magic;
-	uint16_t recsz;
+struct datfile_hdr
+{
+    uint16_t magic;
+    uint16_t recsz;
 };
 
-#define DATFILE_RECHDR_SZ	3
+#define DATFILE_RECHDR_SZ 3
 
-struct datfile_rec {
-	uint16_t len;
-	uint8_t flags;
+struct datfile_rec
+{
+    uint16_t len;
+    uint8_t flags;
 };
 
 @interface PPServicePair : NSObject
 {
-	id tcp;
-	id udp;
+    id tcp;
+    id udp;
 }
 
 - (id)tcpService;
@@ -79,243 +91,269 @@ struct datfile_rec {
 
 - (id)init
 {
-	if((self = [super init]) != nil) {
-		tcp = nil;
-		udp = nil;
-	}
+    if ((self = [super init]) != nil)
+    {
+        tcp = nil;
+        udp = nil;
+    }
 
-	return self;
+    return self;
 }
 
 - (id)tcpService
 {
-	return tcp;
+    return tcp;
 }
 
--(id)udpService
+- (id)udpService
 {
-	return udp;
+    return udp;
 }
 
 - (void)setTCPService:(id)service
 {
-	[service retain];
-	[tcp release];
-	tcp = service;
+    [service retain];
+    [tcp release];
+    tcp = service;
 }
 
 - (void)setUDPService:(id)service
 {
-	[service retain];
-	[udp release];
-	udp = service;
+    [service retain];
+    [udp release];
+    udp = service;
 }
 
 - (void)dealloc
 {
-	[tcp release];
-	[udp release];
-	[super dealloc];
+    [tcp release];
+    [udp release];
+    [super dealloc];
 }
 
 @end
 
 @implementation PortCache
 
-+ (PortCache *)sharedPortCache
++ (PortCache*)sharedPortCache
 {
-	if(_sharedPortCache == nil)
-		_sharedPortCache = [[PortCache alloc] init];
+    if (_sharedPortCache == nil)
+        _sharedPortCache = [[PortCache alloc] init];
 
-	return _sharedPortCache;
+    return _sharedPortCache;
 }
 
 + (void)releaseSharedPortCache
 {
-	[_sharedPortCache release];
-	_sharedPortCache = nil;
+    [_sharedPortCache release];
+    _sharedPortCache = nil;
 }
 
 - (id)init
 {
-	struct datfile_hdr hdr;
+    struct datfile_hdr hdr;
 
-	if((self = [super initWithKeySize:sizeof(uint16_t) hashSlots:PC_HASHTABLE_SZ hashFunction:port_hash comparisonFunction:port_comp]) != nil) {
-		tcp_fd = -1;
-		udp_fd = -1;
-		service_description = NULL;
+    if ((self = [super initWithKeySize:sizeof(uint16_t)
+                             hashSlots:PC_HASHTABLE_SZ
+                          hashFunction:port_hash
+                    comparisonFunction:port_comp]) != nil)
+    {
+        tcp_fd = -1;
+        udp_fd = -1;
+        service_description = NULL;
 
-		if((tcp_fd = open(PORTCACHE_TCP_DATFILE_PATH, O_RDONLY, 0)) == -1)
-			goto err;
+        if ((tcp_fd = open(PORTCACHE_TCP_DATFILE_PATH, O_RDONLY, 0)) == -1)
+            goto err;
 
-		if(read(tcp_fd, &hdr, sizeof(hdr)) != sizeof(hdr))
-			goto err;
+        if (read(tcp_fd, &hdr, sizeof(hdr)) != sizeof(hdr))
+            goto err;
 
-		hdr.recsz = ntohs(hdr.recsz);
+        hdr.recsz = ntohs(hdr.recsz);
 
-		if(hdr.magic != PORTCACHE_TCP_DATFILE_MAGIC || hdr.recsz < DATFILE_RECHDR_SZ)
-			goto err;
-            
-		tcp_recsz = hdr.recsz;
+        if (hdr.magic != PORTCACHE_TCP_DATFILE_MAGIC ||
+            hdr.recsz < DATFILE_RECHDR_SZ)
+            goto err;
 
-		if((udp_fd = open(PORTCACHE_UDP_DATFILE_PATH, O_RDONLY, 0)) == -1)
-			goto err;
+        tcp_recsz = hdr.recsz;
 
-		if(read(udp_fd, &hdr, sizeof(hdr)) != sizeof(hdr))
-			goto err;
+        if ((udp_fd = open(PORTCACHE_UDP_DATFILE_PATH, O_RDONLY, 0)) == -1)
+            goto err;
 
-		hdr.recsz = ntohs(hdr.recsz);
+        if (read(udp_fd, &hdr, sizeof(hdr)) != sizeof(hdr))
+            goto err;
 
-		if(hdr.magic != PORTCACHE_UDP_DATFILE_MAGIC || hdr.recsz < DATFILE_RECHDR_SZ)
-			goto err;
-            
-		udp_recsz = hdr.recsz;
+        hdr.recsz = ntohs(hdr.recsz);
 
-		service_description_sz = MAX(udp_recsz, tcp_recsz) - 2;
+        if (hdr.magic != PORTCACHE_UDP_DATFILE_MAGIC ||
+            hdr.recsz < DATFILE_RECHDR_SZ)
+            goto err;
 
-		if((service_description = malloc(service_description_sz)) == NULL)
-			goto err;
+        udp_recsz = hdr.recsz;
 
-	}
-	return self;
+        service_description_sz = MAX(udp_recsz, tcp_recsz) - 2;
 
-	err:
-		[self dealloc];
-		return nil;
+        if ((service_description = malloc(service_description_sz)) == NULL)
+            goto err;
+    }
+    return self;
+
+err:
+    [self dealloc];
+    return nil;
 }
 
-- (NSString *)serviceWithTCPPort:(uint16_t)port
+- (NSString*)serviceWithTCPPort:(uint16_t)port
 {
-	return [self serviceWithPort:port protocol:PC_PROTO_TCP];
+    return [self serviceWithPort:port protocol:PC_PROTO_TCP];
 }
 
-- (NSString *)serviceWithUDPPort:(uint16_t)port
+- (NSString*)serviceWithUDPPort:(uint16_t)port
 {
-	return [self serviceWithPort:port protocol:PC_PROTO_UDP];
+    return [self serviceWithPort:port protocol:PC_PROTO_UDP];
 }
 
-- (NSString *)readServiceWithPort:(uint16_t)port protocol:(int)proto isUnified:(BOOL *)unified
+- (NSString*)readServiceWithPort:(uint16_t)port
+                        protocol:(int)proto
+                       isUnified:(BOOL*)unified
 {
-	int fd, ret;
-	uint16_t recsz;
-	uint8_t flags;
-	id str;
+    int fd, ret;
+    uint16_t recsz;
+    uint8_t flags;
+    id str;
 
-	if(proto == PC_PROTO_TCP) {
-		fd = tcp_fd;
-		recsz = tcp_recsz;
-	} else {
-		fd = udp_fd;
-		recsz = udp_recsz;
-	}
+    if (proto == PC_PROTO_TCP)
+    {
+        fd = tcp_fd;
+        recsz = tcp_recsz;
+    }
+    else
+    {
+        fd = udp_fd;
+        recsz = udp_recsz;
+    }
 
-	flags = 0;
+    flags = 0;
 
-	ret = read_service(fd, port, recsz, service_description, service_description_sz, &flags);
+    ret = read_service(
+        fd, port, recsz, service_description, service_description_sz, &flags);
 
-	if(ret == PORTCACHE_RECORD_NULL)
-		str = [NSNull null];
-	else if(ret == PORTCACHE_RECORD_FOUND)
-		str = [NSString stringWithUTF8String:service_description];
-	else
-		return nil;
+    if (ret == PORTCACHE_RECORD_NULL)
+        str = [NSNull null];
+    else if (ret == PORTCACHE_RECORD_FOUND)
+        str = [NSString stringWithUTF8String:service_description];
+    else
+        return nil;
 
-	if(unified != NULL)
-		*unified = (flags & PORTCACHE_FLAG_HASEQUIVALENT) ? YES : NO;
+    if (unified != NULL)
+        *unified = (flags & PORTCACHE_FLAG_HASEQUIVALENT) ? YES : NO;
 
-	return str;
+    return str;
 }
 
-- (NSString *)serviceWithPort:(uint16_t)port protocol:(int)proto
+- (NSString*)serviceWithPort:(uint16_t)port protocol:(int)proto
 {
-	PPServicePair *result;
-	BOOL unified;
-	id str;
+    PPServicePair* result;
+    BOOL unified;
+    id str;
 
-	result = [super objectForKey:&port];
+    result = [super objectForKey:&port];
 
-	if(result == nil ||
-	  (proto == PC_PROTO_TCP && [result tcpService] == nil) || 
-	  (proto == PC_PROTO_UDP && [result udpService] == nil)) {
-		/* str will be NSNull or the service name */
-		if((str = [self readServiceWithPort:port protocol:proto isUnified:&unified]) == nil)
-			return nil;
+    if (result == nil ||
+        (proto == PC_PROTO_TCP && [result tcpService] == nil) ||
+        (proto == PC_PROTO_UDP && [result udpService] == nil))
+    {
+        /* str will be NSNull or the service name */
+        if ((str = [self readServiceWithPort:port
+                                    protocol:proto
+                                   isUnified:&unified]) == nil)
+            return nil;
 
-		/* only allocate/insert if needed */
-		if(result == nil) {
-			if((result = [[PPServicePair alloc] init]) == nil)
-				return nil;
+        /* only allocate/insert if needed */
+        if (result == nil)
+        {
+            if ((result = [[PPServicePair alloc] init]) == nil)
+                return nil;
 
-			[super insertObject:result forKey:&port];
-		}
+            [super insertObject:result forKey:&port];
+        }
 
-		if(proto == PC_PROTO_UDP) {
-			[result setUDPService:str];
-			if(unified)
-				[result setTCPService:str];
-		} else {
-			[result setTCPService:str];
-			if(unified)
-				[result setUDPService:str];
-		}
-	}
+        if (proto == PC_PROTO_UDP)
+        {
+            [result setUDPService:str];
+            if (unified)
+                [result setTCPService:str];
+        }
+        else
+        {
+            [result setTCPService:str];
+            if (unified)
+                [result setUDPService:str];
+        }
+    }
 
-	if(proto == PC_PROTO_UDP)
-		str = [result udpService];
-	else
-		str = [result tcpService];
+    if (proto == PC_PROTO_UDP)
+        str = [result udpService];
+    else
+        str = [result tcpService];
 
-	return (str == [NSNull null]) ? nil : str;
+    return (str == [NSNull null]) ? nil : str;
 }
 
 - (void)dealloc
 {
-	if(tcp_fd != -1)
-		close(tcp_fd);
-	if(udp_fd != -1)
-		close(tcp_fd);
-	if(service_description != NULL)
-		free(service_description);
+    if (tcp_fd != -1)
+        close(tcp_fd);
+    if (udp_fd != -1)
+        close(tcp_fd);
+    if (service_description != NULL)
+        free(service_description);
 
-	[super dealloc];
+    [super dealloc];
 }
 
 @end
 
-static int read_service(int fd, uint16_t port, unsigned int recsz, char *outbuf, size_t outbuf_sz, uint8_t *outflags)
+static int read_service(
+    int fd,
+    uint16_t port,
+    unsigned int recsz,
+    char* outbuf,
+    size_t outbuf_sz,
+    uint8_t* outflags)
 {
-	struct datfile_rec entry;
+    struct datfile_rec entry;
 
-	if(port < 1)
-		return -1;
+    if (port < 1)
+        return -1;
 
-	if(pread(fd, &entry, sizeof(entry), 4 + ((port - 1) * recsz)) != sizeof(entry))
-		return -1;
+    if (pread(fd, &entry, sizeof(entry), 4 + ((port - 1) * recsz)) !=
+        sizeof(entry))
+        return -1;
 
-	entry.len = ntohs(entry.len);
+    entry.len = ntohs(entry.len);
 
-	if(entry.len == 0)
-		return PORTCACHE_RECORD_NULL;
+    if (entry.len == 0)
+        return PORTCACHE_RECORD_NULL;
 
-	entry.len = MIN(entry.len, outbuf_sz - 1);
+    entry.len = MIN(entry.len, outbuf_sz - 1);
 
-	if(pread(fd, outbuf, entry.len, 4 + ((port - 1) * recsz) + 3) != entry.len)
-		return -1;
+    if (pread(fd, outbuf, entry.len, 4 + ((port - 1) * recsz) + 3) != entry.len)
+        return -1;
 
-	if(outflags != NULL)
-		*outflags = entry.flags;
+    if (outflags != NULL)
+        *outflags = entry.flags;
 
-	outbuf[entry.len] = '\0';
+    outbuf[entry.len] = '\0';
 
-	return PORTCACHE_RECORD_FOUND;
+    return PORTCACHE_RECORD_FOUND;
 }
 
-static int port_comp(const void *key_a, const void *key_b)
+static int port_comp(const void* key_a, const void* key_b)
 {
-	return (*(uint16_t *)key_a - *(uint16_t *)key_b);
+    return (*(uint16_t*)key_a - *(uint16_t*)key_b);
 }
 
-static unsigned int port_hash(const void *key)
+static unsigned int port_hash(const void* key)
 {
-	return (*(uint16_t *)key & PC_HASHMASK);
+    return (*(uint16_t*)key & PC_HASHMASK);
 }

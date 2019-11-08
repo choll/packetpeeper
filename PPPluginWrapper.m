@@ -17,171 +17,171 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#import <Foundation/NSObject.h>
-#include <Foundation/NSData.h>
+#include "PPPluginWrapper.h"
+#include "ColumnIdentifier.h"
 #include "Decode.h"
 #include "Describe.h"
 #include "OutlineViewItem.h"
-#include "ColumnIdentifier.h"
 #include "PPDecoderPlugin.h"
-#include "PPPluginWrapper.h"
+#include <Foundation/NSData.h>
+#import <Foundation/NSObject.h>
 
 @implementation PPPluginWrapper
 
-- (id)initWithData:(NSData *)data plugin:(id <PPDecoderPlugin>)plugin
+- (id)initWithData:(NSData*)data plugin:(id<PPDecoderPlugin>)plugin
 {
-	if((self = [super init]) != nil) {
-		m_data = [data retain];
-		m_plugin = [plugin retain];
-	}
-	return self;
+    if ((self = [super init]) != nil)
+    {
+        m_data = [data retain];
+        m_plugin = [plugin retain];
+    }
+    return self;
 }
 
-- (id <PPDecoderPlugin>)plugin
+- (id<PPDecoderPlugin>)plugin
 {
-	return m_plugin;
+    return m_plugin;
 }
 
-- (NSData *)data
+- (NSData*)data
 {
-	return m_data;
+    return m_data;
 }
 
 /* Describe protocol methods */
 
-+ (NSString *)shortName
++ (NSString*)shortName
 {
-	return @"PPPluginWrapper";
+    return @"PPPluginWrapper";
 }
 
-+ (NSString *)longName
++ (NSString*)longName
 {
-	return @"PPPluginWrapper";
+    return @"PPPluginWrapper";
 }
 
-- (NSString *)shortName
+- (NSString*)shortName
 {
-	return [m_plugin shortName];
+    return [m_plugin shortName];
 }
 
-- (NSString *)longName
+- (NSString*)longName
 {
-	return [m_plugin longName];
+    return [m_plugin longName];
 }
 
-- (NSString *)info
+- (NSString*)info
 {
-	return [m_plugin infoForData:m_data];
+    return [m_plugin infoForData:m_data];
 }
 
 - (stacklev)level
 {
-	return SL_DATALINK;
+    return SL_DATALINK;
 }
 
 /* OutlineViewItem protocol methods */
 
 - (BOOL)expandable
 {
-	id <OutlineViewItem> outlineTree;
+    id<OutlineViewItem> outlineTree;
 
-	if((outlineTree = [m_plugin outlineViewItemTreeForData:m_data]) == nil)
-		return NO;
+    if ((outlineTree = [m_plugin outlineViewItemTreeForData:m_data]) == nil)
+        return NO;
 
-	return [outlineTree expandable];
+    return [outlineTree expandable];
 }
 
 - (size_t)numberOfChildren
 {
-	id <OutlineViewItem> outlineTree;
+    id<OutlineViewItem> outlineTree;
 
-	if((outlineTree = [m_plugin outlineViewItemTreeForData:m_data]) == nil)
-		return 0;
+    if ((outlineTree = [m_plugin outlineViewItemTreeForData:m_data]) == nil)
+        return 0;
 
-	return [outlineTree numberOfChildren];
+    return [outlineTree numberOfChildren];
 }
 
 - (id)childAtIndex:(int)fieldIndex
 {
-	id <OutlineViewItem> outlineTree;
+    id<OutlineViewItem> outlineTree;
 
-	if((outlineTree = [m_plugin outlineViewItemTreeForData:m_data]) == nil)
-		return nil;
+    if ((outlineTree = [m_plugin outlineViewItemTreeForData:m_data]) == nil)
+        return nil;
 
-	return [outlineTree childAtIndex:fieldIndex];
+    return [outlineTree childAtIndex:fieldIndex];
 }
 
 - (size_t)numberOfValues
 {
-	id <OutlineViewItem> outlineTree;
+    id<OutlineViewItem> outlineTree;
 
-	if((outlineTree = [m_plugin outlineViewItemTreeForData:m_data]) == nil)
-		return 0;
+    if ((outlineTree = [m_plugin outlineViewItemTreeForData:m_data]) == nil)
+        return 0;
 
-	return [outlineTree numberOfValues];
+    return [outlineTree numberOfValues];
 }
 
 - (id)valueAtIndex:(int)index
 {
-	id <OutlineViewItem> outlineTree;
+    id<OutlineViewItem> outlineTree;
 
-	if((outlineTree = [m_plugin outlineViewItemTreeForData:m_data]) == nil)
-		return nil;
+    if ((outlineTree = [m_plugin outlineViewItemTreeForData:m_data]) == nil)
+        return nil;
 
-	return [outlineTree valueAtIndex:index];
+    return [outlineTree valueAtIndex:index];
 }
 
 /* ColumnIdentifier protocol methods */
 
-+ (NSArray *)columnIdentifiers
++ (NSArray*)columnIdentifiers
 {
-	return nil;
+    return nil;
 }
 
-- (NSString *)columnStringForIndex:(unsigned int)fieldIndex
+- (NSString*)columnStringForIndex:(unsigned int)fieldIndex
 {
-	return [m_plugin columnStringForIndex:fieldIndex data:m_data];
+    return [m_plugin columnStringForIndex:fieldIndex data:m_data];
 }
 
 - (NSComparisonResult)compareWith:(id)obj atIndex:(unsigned int)fieldIndex
 {
-	return [m_plugin compareWith:[obj data] atIndex:fieldIndex data:m_data];
+    return [m_plugin compareWith:[obj data] atIndex:fieldIndex data:m_data];
 }
 
 - (void)dealloc
 {
-	[m_data release];
-	[m_plugin release];
-	[super dealloc];
+    [m_data release];
+    [m_plugin release];
+    [super dealloc];
 }
 
 /* Decode protocol methods, this is implemented to provide a consistent interface for
    decoders. These are never called. The Decode protocol should be altered to accomodate
    plugins properly */
 
-- (id)initWithData:(NSData *)dataVal parent:(id <PPDecoderParent>)parentVal
+- (id)initWithData:(NSData*)dataVal parent:(id<PPDecoderParent>)parentVal
 {
-	return nil;
+    return nil;
 }
 
-- (void)setParent:(id <PPDecoderParent>)parentVal
+- (void)setParent:(id<PPDecoderParent>)parentVal
 {
-
 }
 
 - (size_t)frontSize
 {
-	return 0;
+    return 0;
 }
 
 - (size_t)rearSize
 {
-	return 0;
+    return 0;
 }
 
 - (Class)nextLayer
 {
-	return Nil;
+    return Nil;
 }
 
 @end

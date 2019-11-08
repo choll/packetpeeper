@@ -17,9 +17,9 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+#import "PPDataView.h"
 #import <AppKit/NSColor.h>
 #import <AppKit/NSFont.h>
-#import "PPDataView.h"
 
 /*
  * PPDataView
@@ -27,91 +27,97 @@
 
 @implementation PPDataView
 
-- (id)initWithFrame:(NSRect)frame {
-	if((self = [super initWithFrame:frame]) != nil) {
-		m_dataSource = nil;
-		m_offsetColumnView = nil;
-		m_hexDataView = nil;
-		m_asciiDataView = nil;
-		[[self enclosingScrollView] setPostsFrameChangedNotifications:YES];
-	}
+- (id)initWithFrame:(NSRect)frame
+{
+    if ((self = [super initWithFrame:frame]) != nil)
+    {
+        m_dataSource = nil;
+        m_offsetColumnView = nil;
+        m_hexDataView = nil;
+        m_asciiDataView = nil;
+        [[self enclosingScrollView] setPostsFrameChangedNotifications:YES];
+    }
     return self;
 }
 
 - (void)awakeFromNib
 {
     float height;
-	float x, y;
+    float x, y;
 
-	height = NSHeight([self bounds]);
+    height = NSHeight([self bounds]);
 
-	x = 0.0f;
-	y = 0.0f;
+    x = 0.0f;
+    y = 0.0f;
 
-#define OFFSET_COLUMN_VIEW_WIDTH	30.0f
-#define HEX_DATA_VIEW_WIDTH			60.0f
-#define ASCII_DATA_VIEW_WIDTH		30.0f
+#define OFFSET_COLUMN_VIEW_WIDTH 30.0f
+#define HEX_DATA_VIEW_WIDTH      60.0f
+#define ASCII_DATA_VIEW_WIDTH    30.0f
 
-	m_offsetColumnView = [[PPDataViewOffsetColumn alloc] initWithFrame:NSMakeRect(x, y, OFFSET_COLUMN_VIEW_WIDTH, height)];
-	[m_offsetColumnView setDataSource:m_dataSource];
-    [m_offsetColumnView setAutoresizingMask:NSViewHeightSizable | NSViewMaxXMargin];
-	[self addSubview:m_offsetColumnView];
+    m_offsetColumnView = [[PPDataViewOffsetColumn alloc]
+        initWithFrame:NSMakeRect(x, y, OFFSET_COLUMN_VIEW_WIDTH, height)];
+    [m_offsetColumnView setDataSource:m_dataSource];
+    [m_offsetColumnView
+        setAutoresizingMask:NSViewHeightSizable | NSViewMaxXMargin];
+    [self addSubview:m_offsetColumnView];
 
-	x += OFFSET_COLUMN_VIEW_WIDTH;
+    x += OFFSET_COLUMN_VIEW_WIDTH;
 
-	m_hexDataView = [[PPDataViewHexColumn alloc] initWithFrame:NSMakeRect(x, y, HEX_DATA_VIEW_WIDTH, height)];
-	[m_hexDataView setDataSource:m_dataSource];
-    [m_hexDataView setAutoresizingMask: NSViewHeightSizable];
-	[self addSubview:m_hexDataView];
+    m_hexDataView = [[PPDataViewHexColumn alloc]
+        initWithFrame:NSMakeRect(x, y, HEX_DATA_VIEW_WIDTH, height)];
+    [m_hexDataView setDataSource:m_dataSource];
+    [m_hexDataView setAutoresizingMask:NSViewHeightSizable];
+    [self addSubview:m_hexDataView];
 
-	x += HEX_DATA_VIEW_WIDTH;
+    x += HEX_DATA_VIEW_WIDTH;
 
-	m_asciiDataView	= [[PPDataViewASCIIColumn alloc] initWithFrame:NSMakeRect(x, y, ASCII_DATA_VIEW_WIDTH, height)];
-	[m_asciiDataView setDataSource:m_dataSource];
-    [m_asciiDataView setAutoresizingMask: NSViewHeightSizable];
-	[self addSubview:m_asciiDataView];
+    m_asciiDataView = [[PPDataViewASCIIColumn alloc]
+        initWithFrame:NSMakeRect(x, y, ASCII_DATA_VIEW_WIDTH, height)];
+    [m_asciiDataView setDataSource:m_dataSource];
+    [m_asciiDataView setAutoresizingMask:NSViewHeightSizable];
+    [self addSubview:m_asciiDataView];
 }
 
-- (void)drawRect:(NSRect)rect {
-
-}
-
-- (void)setDataSource:(id <PPDataViewDataSource>)dataSource
+- (void)drawRect:(NSRect)rect
 {
-	[m_offsetColumnView setDataSource:dataSource];
-	[m_hexDataView setDataSource:dataSource];
-	[m_asciiDataView setDataSource:dataSource];
-	[super setDataSource:dataSource];
 }
 
-- (void)setOffsetColumnTextColor:(NSColor *)color
+- (void)setDataSource:(id<PPDataViewDataSource>)dataSource
 {
-	[m_offsetColumnView setTextColor:color];
+    [m_offsetColumnView setDataSource:dataSource];
+    [m_hexDataView setDataSource:dataSource];
+    [m_asciiDataView setDataSource:dataSource];
+    [super setDataSource:dataSource];
 }
 
-- (void)setHexColumnTextColor:(NSColor *)color
+- (void)setOffsetColumnTextColor:(NSColor*)color
 {
-	[m_hexDataView setTextColor:color];
+    [m_offsetColumnView setTextColor:color];
 }
 
-- (void)setASCIIColumnTextColor:(NSColor *)color
+- (void)setHexColumnTextColor:(NSColor*)color
 {
-	[m_asciiDataView setTextColor:color];
+    [m_hexDataView setTextColor:color];
 }
 
-- (NSColor *)offsetColumntextColor
+- (void)setASCIIColumnTextColor:(NSColor*)color
 {
-	return [m_offsetColumnView textColor];
+    [m_asciiDataView setTextColor:color];
 }
 
-- (NSColor *)hexColumntextColor
+- (NSColor*)offsetColumntextColor
 {
-	return [m_hexDataView textColor];
+    return [m_offsetColumnView textColor];
 }
 
-- (NSColor *)ASCIIColumntextColor
+- (NSColor*)hexColumntextColor
 {
-	return [m_asciiDataView textColor];
+    return [m_hexDataView textColor];
+}
+
+- (NSColor*)ASCIIColumntextColor
+{
+    return [m_asciiDataView textColor];
 }
 
 - (void)setOffsetColumnVisible:(BOOL)flag
@@ -128,24 +134,24 @@
 
 - (BOOL)offsetColumnVisible
 {
-	return YES;
+    return YES;
 }
 
 - (BOOL)hexColumnVisible
 {
-	return YES;
+    return YES;
 }
 
 - (BOOL)asciiColumnVisible
 {
-	return YES;
+    return YES;
 }
 
-- (void)setFont:(NSFont *)font
+- (void)setFont:(NSFont*)font
 {
-	[m_offsetColumnView setFont:font];
-	[m_hexDataView setFont:font];
-	[m_asciiDataView setFont:font];
+    [m_offsetColumnView setFont:font];
+    [m_hexDataView setFont:font];
+    [m_asciiDataView setFont:font];
 }
 
 @end
@@ -156,66 +162,68 @@
 
 @implementation PPDataViewAbstractBase
 
-- (id)initWithFrame:(NSRect)frame {
-	if((self = [super initWithFrame:frame]) != nil) {
-		m_dataSource = nil;
-		m_font = [[NSFont userFixedPitchFontOfSize:0.0f] retain];
-		m_textColor = [[NSColor blackColor] retain];
-	}
+- (id)initWithFrame:(NSRect)frame
+{
+    if ((self = [super initWithFrame:frame]) != nil)
+    {
+        m_dataSource = nil;
+        m_font = [[NSFont userFixedPitchFontOfSize:0.0f] retain];
+        m_textColor = [[NSColor blackColor] retain];
+    }
     return self;
 }
 
 - (BOOL)isFlipped
 {
-	return YES;
+    return YES;
 }
 
-- (void)setDataSource:(id <PPDataViewDataSource>)dataSource;
+- (void)setDataSource:(id<PPDataViewDataSource>)dataSource;
 {
-	/* do not retain the data source, to avoid retain cycles */
-	m_dataSource = dataSource;
-	[self reloadDataSource];
+    /* do not retain the data source, to avoid retain cycles */
+    m_dataSource = dataSource;
+    [self reloadDataSource];
 }
 
-- (id <PPDataViewDataSource>)dataSource
+- (id<PPDataViewDataSource>)dataSource
 {
-	return m_dataSource;
+    return m_dataSource;
 }
 
 - (void)reloadDataSource
 {
-	NSLog(@"*** %@: implement -reloadDataSource! ***", self);
+    NSLog(@"*** %@: implement -reloadDataSource! ***", self);
 }
 
-- (void)setFont:(NSFont *)font
+- (void)setFont:(NSFont*)font
 {
-	[font retain];
-	[m_font release];
-	m_font = font;
+    [font retain];
+    [m_font release];
+    m_font = font;
 }
 
-- (NSFont *)font
+- (NSFont*)font
 {
-	return m_font;
+    return m_font;
 }
 
-- (void)setTextColor:(NSColor *)color
+- (void)setTextColor:(NSColor*)color
 {
-	[color retain];
-	[m_textColor release];
-	m_textColor = color;
+    [color retain];
+    [m_textColor release];
+    m_textColor = color;
 }
 
-- (NSColor *)textColor
+- (NSColor*)textColor
 {
-	return m_textColor;
+    return m_textColor;
 }
 
 - (void)dealloc
 {
-	[m_font release];
-	[m_textColor release];
-	[super dealloc];
+    [m_font release];
+    [m_textColor release];
+    [super dealloc];
 }
 
 @end
@@ -226,15 +234,18 @@
 
 @implementation PPDataViewOffsetColumn
 
-- (id)initWithFrame:(NSRect)frame {
-	if((self = [super initWithFrame:frame]) != nil) {
-	}
+- (id)initWithFrame:(NSRect)frame
+{
+    if ((self = [super initWithFrame:frame]) != nil)
+    {
+    }
     return self;
 }
 
-- (void)drawRect:(NSRect)rect {
-	[[NSColor redColor] set];
-	NSRectFill(rect);
+- (void)drawRect:(NSRect)rect
+{
+    [[NSColor redColor] set];
+    NSRectFill(rect);
 }
 
 @end
@@ -245,15 +256,18 @@
 
 @implementation PPDataViewHexColumn
 
-- (id)initWithFrame:(NSRect)frame {
-	if((self = [super initWithFrame:frame]) != nil) {
-	}
+- (id)initWithFrame:(NSRect)frame
+{
+    if ((self = [super initWithFrame:frame]) != nil)
+    {
+    }
     return self;
 }
 
-- (void)drawRect:(NSRect)rect {
-	[[NSColor greenColor] set];
-	NSRectFill(rect);
+- (void)drawRect:(NSRect)rect
+{
+    [[NSColor greenColor] set];
+    NSRectFill(rect);
 }
 
 @end
@@ -264,15 +278,18 @@
 
 @implementation PPDataViewASCIIColumn
 
-- (id)initWithFrame:(NSRect)frame {
-	if((self = [super initWithFrame:frame]) != nil) {
-	}
+- (id)initWithFrame:(NSRect)frame
+{
+    if ((self = [super initWithFrame:frame]) != nil)
+    {
+    }
     return self;
 }
 
-- (void)drawRect:(NSRect)rect {
-	[[NSColor blueColor] set];
-	NSRectFill(rect);
+- (void)drawRect:(NSRect)rect
+{
+    [[NSColor blueColor] set];
+    NSRectFill(rect);
 }
 
 @end

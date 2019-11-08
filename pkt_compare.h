@@ -20,14 +20,15 @@
 #ifndef _PKT_COMPARE_H_
 #define _PKT_COMPARE_H_
 
-#include <sys/types.h>
-#include <stdint.h>
 #include <objc/objc.h>
+#include <stdint.h>
+#include <sys/types.h>
 
-#define val_compare(x, y) ((x) > (y) ? NSOrderedDescending : ((x) < (y) ? NSOrderedAscending : NSOrderedSame))
+#define val_compare(x, y)            \
+    ((x) > (y) ? NSOrderedDescending \
+               : ((x) < (y) ? NSOrderedAscending : NSOrderedSame))
 
-NSComparisonResult pkt_compare(id pkt1, id pkt2, void *context);
-NSComparisonResult mem_compare(const void *b1, const void *b2, size_t len);
+NSComparisonResult pkt_compare(id pkt1, id pkt2, void* context);
+NSComparisonResult mem_compare(const void* b1, const void* b2, size_t len);
 
 #endif
-

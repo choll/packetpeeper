@@ -28,9 +28,8 @@
 
 @interface NSDate (DateFormat)
 
-- (NSString *)descriptionWithFormat:(NSString *)format;
+- (NSString*)descriptionWithFormat:(NSString*)format;
 
 @end
 
 #endif
-

@@ -20,26 +20,29 @@
 #ifndef PACKETPEEPER_MYDOCUMENT_H
 #define PACKETPEEPER_MYDOCUMENT_H
 
-#include <CoreFoundation/CFSocket.h>
-#import <AppKit/NSDocument.h>
-#import <AppKit/NSAlert.h>
 #include "pkt_compare.h"
+#import <AppKit/NSAlert.h>
+#import <AppKit/NSDocument.h>
+#include <CoreFoundation/CFSocket.h>
 
-#define BPF_SMALLBUFSIZE	0x80
-#define BPF_MEDIUMBUFSIZE	0x400
-#define BPF_LARGEBUFSIZE	0x2000
+#define BPF_SMALLBUFSIZE  0x80
+#define BPF_MEDIUMBUFSIZE 0x400
+#define BPF_LARGEBUFSIZE  0x2000
 
-#define CAPTURE_FILE_LOADING_ARRAY_SZ	1024
+#define CAPTURE_FILE_LOADING_ARRAY_SZ 1024
 
 /* note that BS_HUGE is chosen as default,
    as the bpf device chooses the largest buffer
    itself if unspecified by the user */
 
-enum _bufsize {BS_TINY,
-			   BS_SMALL,
-			   BS_MEDIUM,
-			   BS_LARGE,
-			   BS_HUGE};
+enum _bufsize
+{
+    BS_TINY,
+    BS_SMALL,
+    BS_MEDIUM,
+    BS_LARGE,
+    BS_HUGE
+};
 
 typedef enum _bufsize bufsize;
 
@@ -72,33 +75,33 @@ struct thread_args;
 
 @interface MyDocument : NSDocument
 {
-	PacketCaptureWindowController *captureWindowController;
-	PPStreamsWindowController *streamsWindowController;
-	PPArpSpoofingWindowController *arpSpoofingWindowController;
-	PPProgressWindowController *progressWindowController;
-	ObjectIO *helperIO;
-	PPTCPStreamController *streamController;
-	HostCache *hc;
-	NSMutableArray *packets;
-	NSMutableArray *allPackets;
-	NSTimer *timer;
-	NSString *interface;
-	ColumnIdentifier *sortColumn;
-	PPBPFProgram *bpfProgram;
-	struct thread_args *thread_args;
-	size_t byteCount;
-	CFSocketRef sockref;
-	unsigned long packetCount;
-	int sockfd;
-	int linkType;
-	BOOL live;			/* is the current document a live capture */
-	BOOL reverseOrder;	/* is the packet array currently in reverse order? */
+    PacketCaptureWindowController* captureWindowController;
+    PPStreamsWindowController* streamsWindowController;
+    PPArpSpoofingWindowController* arpSpoofingWindowController;
+    PPProgressWindowController* progressWindowController;
+    ObjectIO* helperIO;
+    PPTCPStreamController* streamController;
+    HostCache* hc;
+    NSMutableArray* packets;
+    NSMutableArray* allPackets;
+    NSTimer* timer;
+    NSString* interface;
+    ColumnIdentifier* sortColumn;
+    PPBPFProgram* bpfProgram;
+    struct thread_args* thread_args;
+    size_t byteCount;
+    CFSocketRef sockref;
+    unsigned long packetCount;
+    int sockfd;
+    int linkType;
+    BOOL live;         /* is the current document a live capture */
+    BOOL reverseOrder; /* is the packet array currently in reverse order? */
 
-	/* capture ending conditions */
-	NSTimer *endingTimer;
-	unsigned long endingPackets;
-	unsigned long long endingBytes;
-	BOOL endingMatchAll;
+    /* capture ending conditions */
+    NSTimer* endingTimer;
+    unsigned long endingPackets;
+    unsigned long long endingBytes;
+    BOOL endingMatchAll;
 }
 
 - (void)waitForWorkerThread;
@@ -108,55 +111,61 @@ struct thread_args;
 - (void)cancelLoadingFile;
 - (void)closeProgressSheet;
 - (void)displayFileLoadingProgressSheet;
-- (void)displayProgressSheetWithMessage:(NSString *)message cancelSelector:(SEL)cancelSelector;
+- (void)displayProgressSheetWithMessage:(NSString*)message
+                         cancelSelector:(SEL)cancelSelector;
 - (void)displayFilterSheet;
 - (void)displaySetupSheet;
-- (void)displayIndividualWindow:(Packet *)aPacket;
-- (void)displayReassemblyWindowForPacket:(Packet *)aPacket;
+- (void)displayIndividualWindow:(Packet*)aPacket;
+- (void)displayReassemblyWindowForPacket:(Packet*)aPacket;
 - (void)displayStreamsWindow;
 - (void)displayArpSpoofingWindow;
 
-- (PacketCaptureWindowController *)packetCaptureWindowController;
+- (PacketCaptureWindowController*)packetCaptureWindowController;
 
 - (BOOL)isLive;
 - (int)linkType;
-- (void)setHostCache:(HostCache *)hostCache;
-- (HostCache *)hostCache;
-- (NSString *)interface;
-- (void)setInterface:(NSString *)anInterface;
-- (Packet *)packetAtIndex:(NSInteger)packetIndex;
+- (void)setHostCache:(HostCache*)hostCache;
+- (HostCache*)hostCache;
+- (NSString*)interface;
+- (void)setInterface:(NSString*)anInterface;
+- (Packet*)packetAtIndex:(NSInteger)packetIndex;
 - (size_t)numberOfPackets;
 - (size_t)numberOfBytes;
 - (void)deletePacketAtIndex:(NSInteger)packetIndex;
 - (void)updateControllers;
-- (void)addPacketArray:(NSArray *)packetArray;
-- (void)addPacket:(Packet *)packet;
-- (void)deletePacket:(Packet *)packet;
-- (void)deleteStream:(PPTCPStream *)stream streamIndex:(NSUInteger)streamIndex indexValid:(BOOL)indexValid;
-- (void)deleteStream:(PPTCPStream *)stream streamIndex:(NSUInteger)streamIndex;
-- (void)deleteStream:(PPTCPStream *)stream;
-- (NSArray *)packetsSortedByNumber;
-- (void)sortPacketsWithColumn:(ColumnIdentifier *)column;
+- (void)addPacketArray:(NSArray*)packetArray;
+- (void)addPacket:(Packet*)packet;
+- (void)deletePacket:(Packet*)packet;
+- (void)deleteStream:(PPTCPStream*)stream
+         streamIndex:(NSUInteger)streamIndex
+          indexValid:(BOOL)indexValid;
+- (void)deleteStream:(PPTCPStream*)stream streamIndex:(NSUInteger)streamIndex;
+- (void)deleteStream:(PPTCPStream*)stream;
+- (NSArray*)packetsSortedByNumber;
+- (void)sortPacketsWithColumn:(ColumnIdentifier*)column;
 - (void)setReversePacketOrder:(BOOL)reverse;
 - (BOOL)isReverseOrder;
-- (NSInteger)indexForPacket:(Packet *)packet;
+- (NSInteger)indexForPacket:(Packet*)packet;
 
-- (PPTCPStreamController *)tcpStreamController;
+- (PPTCPStreamController*)tcpStreamController;
 
-- (void)displayErrorStack:(ErrorStack *)errorStack close:(BOOL)closeDocument; // XXX perhaps move to PCWC
+- (void)displayErrorStack:(ErrorStack*)errorStack
+                    close:(BOOL)closeDocument; // XXX perhaps move to PCWC
 
-- (void)sheetDidEnd:(NSWindow *)sheet returnCode:(NSModalResponse)returnCode contextInfo:(void *)contextInfo;
+- (void)sheetDidEnd:(NSWindow*)sheet
+         returnCode:(NSModalResponse)returnCode
+        contextInfo:(void*)contextInfo;
 
-- (void)startCaptureOn:(Interface *)anInterface
-					   isPromiscuous:(BOOL)promiscuousVal
-					   isRealTime:(BOOL)realTimeVal
-					   bufferLength:(bufsize)bufferLengthVal
-					   updateFrequency:(float)frequency
-					   stopAfterPackets:(unsigned long)numberOfPackets
-					   stopAfterDate:(NSDate *)stopDate
-					   stopAfterData:(unsigned long long)numberOfBytes
-					   stopAfterMatchAll:(BOOL)matchAllConditions
-					   filter:(PPCaptureFilter *)filter;
+- (void)startCaptureOn:(Interface*)anInterface
+         isPromiscuous:(BOOL)promiscuousVal
+            isRealTime:(BOOL)realTimeVal
+          bufferLength:(bufsize)bufferLengthVal
+       updateFrequency:(float)frequency
+      stopAfterPackets:(unsigned long)numberOfPackets
+         stopAfterDate:(NSDate*)stopDate
+         stopAfterData:(unsigned long long)numberOfBytes
+     stopAfterMatchAll:(BOOL)matchAllConditions
+                filter:(PPCaptureFilter*)filter;
 
 - (void)purgePacketsPendingDeletionWithHint:(size_t)count;
 
@@ -164,16 +173,15 @@ struct thread_args;
 
 - (void)stopCapture;
 
-- (void)updateControllerWithTimer:(NSTimer *)aTimer;
-- (void)endCaptureWithTimer:(NSTimer *)aTimer;
+- (void)updateControllerWithTimer:(NSTimer*)aTimer;
+- (void)endCaptureWithTimer:(NSTimer*)aTimer;
 - (void)cancelEndingConditions;
 
 - (void)readData;
 - (void)clearFilterProgram:(BOOL)discardFilteredPackets;
-- (PPBPFProgram *)filterProgram;
-- (void)setCaptureFilter:(PPCaptureFilter *)captureFilter;
+- (PPBPFProgram*)filterProgram;
+- (void)setCaptureFilter:(PPCaptureFilter*)captureFilter;
 
 @end
 
 #endif
-

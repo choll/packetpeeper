@@ -19,7 +19,6 @@
 
 #include "IGMPDecode.h"
 
-
 @implementation IGMPDecode
 
 @end

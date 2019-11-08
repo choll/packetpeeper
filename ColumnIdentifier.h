@@ -27,28 +27,36 @@
 @protocol PPDecoderPlugin;
 
 @protocol ColumnIdentifier <NSObject>
-+ (NSArray *)columnIdentifiers;
-- (NSString *)columnStringForIndex:(unsigned int)fieldIndex;
++ (NSArray*)columnIdentifiers;
+- (NSString*)columnStringForIndex:(unsigned int)fieldIndex;
 - (NSComparisonResult)compareWith:(id)obj atIndex:(unsigned int)fieldIndex;
 @end
 
 @interface ColumnIdentifier : NSObject <NSCoding>
 {
-	Class decoder;					/* decoder that this column belongs to (if built-in decoder)  */
-	id <PPDecoderPlugin> plugin;	/* decoder that this column belongs to (if plugin decoder) */
-	unsigned int index;				/* index value used by decoder */
-	NSString *longName;				/* long name used in menu list */
-	NSString *shortName;			/* short name used in column header */
+    Class
+        decoder; /* decoder that this column belongs to (if built-in decoder)  */
+    id<PPDecoderPlugin>
+        plugin; /* decoder that this column belongs to (if plugin decoder) */
+    unsigned int index;  /* index value used by decoder */
+    NSString* longName;  /* long name used in menu list */
+    NSString* shortName; /* short name used in column header */
 }
 
-- (id)initWithDecoder:(Class)decoderVal index:(unsigned int)indexVal longName:(NSString *)longNameVal shortName:(NSString *)shortNameVal;
-- (id)initWithPlugin:(id <PPDecoderPlugin>)pluginVal index:(unsigned int)indexVal longName:(NSString *)longNameVal shortName:(NSString *)shortNameVal;
+- (id)initWithDecoder:(Class)decoderVal
+                index:(unsigned int)indexVal
+             longName:(NSString*)longNameVal
+            shortName:(NSString*)shortNameVal;
+- (id)initWithPlugin:(id<PPDecoderPlugin>)pluginVal
+               index:(unsigned int)indexVal
+            longName:(NSString*)longNameVal
+           shortName:(NSString*)shortNameVal;
 - (Class)decoder;
-- (id <PPDecoderPlugin>)plugin;
+- (id<PPDecoderPlugin>)plugin;
 - (unsigned int)index;
-- (NSString *)longName;
-- (NSString *)shortName;
-- (NSString *)identifier;
+- (NSString*)longName;
+- (NSString*)shortName;
+- (NSString*)identifier;
 
 @end
 

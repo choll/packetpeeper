@@ -2,15 +2,17 @@
 #import <HexFiend/HexFiend.h>
 
 //notification posted when our DataInspector's height changes.  Has a single key "height" which is the new height for the scroll view
-extern NSString * const DataInspectorDidChangeRowCount;
+extern NSString* const DataInspectorDidChangeRowCount;
 
 // notification posted when all rows are deleted
-extern NSString * const DataInspectorDidDeleteAllRows;
+extern NSString* const DataInspectorDidDeleteAllRows;
 
-@interface DataInspectorRepresenter : HFRepresenter {
-    IBOutlet NSView *outletView; //used only for loading the nib
-    IBOutlet NSTableView *table; //not retained - is a subview of our view (stored in superclass)
-    NSMutableArray *inspectors;
+@interface DataInspectorRepresenter : HFRepresenter
+{
+    IBOutlet NSView* outletView; //used only for loading the nib
+    IBOutlet NSTableView*
+        table; //not retained - is a subview of our view (stored in superclass)
+    NSMutableArray* inspectors;
 }
 
 - (void)loadDefaultInspectors;

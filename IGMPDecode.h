@@ -20,16 +20,15 @@
 #ifndef _IGMPDECODE_H_
 #define _IGMPDECODE_H_
 
-#import <Foundation/NSObject.h>
+#include "ColumnIdentifier.h"
 #include "Decode.h"
 #include "Describe.h"
-#include "ColumnIdentifier.h"
 #include "OutlineViewItem.h"
+#import <Foundation/NSObject.h>
 
-
-@interface IGMPDecode : NSObject <Decode, Describe, NSCoding, OutlineViewItem, ColumnIdentifier>
+@interface IGMPDecode
+    : NSObject <Decode, Describe, NSCoding, OutlineViewItem, ColumnIdentifier>
 {
-
 }
 
 @end

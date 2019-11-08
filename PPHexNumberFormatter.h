@@ -24,7 +24,6 @@
 
 @interface PPHexNumberFormatter : NSFormatter
 {
-
 }
 
 @end

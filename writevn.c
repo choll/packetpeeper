@@ -17,11 +17,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+#include "writevn.h"
+#include <stdint.h>
 #include <sys/types.h>
 #include <sys/uio.h>
-#include <stdint.h>
 #include <unistd.h>
-#include "writevn.h"
 
 /*
 	Wrapper around writev, as writev might write less than was specified
@@ -29,39 +29,44 @@
 	continue writing the remaining data. Unlike writev, writevn may modify the
 	members of the iov array. See writev(2).
 */
-ssize_t writevn(int fd, struct iovec *iov, int iovcnt)
+ssize_t writevn(int fd, struct iovec* iov, int iovcnt)
 {
-	size_t nleft;
-	ssize_t nwritten;
-	ssize_t ret;
-	unsigned int i;
+    size_t nleft;
+    ssize_t nwritten;
+    ssize_t ret;
+    unsigned int i;
 
-	for(i = 0, nleft = 0; i < iovcnt; ++i)
-		nleft += iov[i].iov_len;
+    for (i = 0, nleft = 0; i < iovcnt; ++i)
+        nleft += iov[i].iov_len;
 
-	ret = nleft;
+    ret = nleft;
 
-	while(nleft > 0) {
-		if((nwritten = writev(fd, iov, iovcnt)) <= 0)
-			return nwritten;
+    while (nleft > 0)
+    {
+        if ((nwritten = writev(fd, iov, iovcnt)) <= 0)
+            return nwritten;
 
-		nleft -= nwritten;
+        nleft -= nwritten;
 
-		/* return early to avoid unneeded updating of iov */
-		if(nleft == 0)
-			break;
+        /* return early to avoid unneeded updating of iov */
+        if (nleft == 0)
+            break;
 
-		for (i = 0; i < iovcnt; ++i) {
-			if(nwritten >= iov[i].iov_len) {
-				nwritten -= iov[i].iov_len;
-			} else {
-				iov[i].iov_len -= nwritten;
-				iov[i].iov_base = (uint8_t *)iov[i].iov_base + nwritten;
-				break;
-			}
-		}
-		iov += i;
-	}
+        for (i = 0; i < iovcnt; ++i)
+        {
+            if (nwritten >= iov[i].iov_len)
+            {
+                nwritten -= iov[i].iov_len;
+            }
+            else
+            {
+                iov[i].iov_len -= nwritten;
+                iov[i].iov_base = (uint8_t*)iov[i].iov_base + nwritten;
+                break;
+            }
+        }
+        iov += i;
+    }
 
-	return ret;
+    return ret;
 }

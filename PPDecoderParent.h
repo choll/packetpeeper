@@ -30,15 +30,15 @@
 
 @protocol PPDecoderParent <NSObject>
 
-- (HostCache *)hostCache;
-- (NSData *)dataForDecoder:(id)decoder;
+- (HostCache*)hostCache;
+- (NSData*)dataForDecoder:(id)decoder;
 - (size_t)byteOffsetForDecoder:(id)decoder;
 - (id)decoderForClass:(Class)aClass;
-- (NSArray *)decoders;
-- (NSData *)packetData;
+- (NSArray*)decoders;
+- (NSData*)packetData;
 - (uint32_t)captureLength;
 - (uint32_t)actualLength;
-- (NSDate *)date;
+- (NSDate*)date;
 
 @end
 

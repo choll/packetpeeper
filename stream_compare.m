@@ -17,10 +17,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#import "PPTCPStream.h"
 #import "stream_compare.h"
+#import "PPTCPStream.h"
 
-NSComparisonResult stream_compare(id stream1, id stream2, void *context)
+NSComparisonResult stream_compare(id stream1, id stream2, void* context)
 {
-	return [(PPTCPStream *)stream1 compare:stream2 atIndex:*(unsigned int *)context];
+    return [(PPTCPStream*)stream1 compare:stream2
+                                  atIndex:*(unsigned int*)context];
 }

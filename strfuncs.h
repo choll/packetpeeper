@@ -22,9 +22,9 @@
 
 @class NSString;
 
-NSString *binstr(const void *data, unsigned int bits);
-NSString *hexstr(const void *data, size_t size);
-NSString *etherstr(const void *data, size_t size);
-NSString *ipaddrstr(const void *data, size_t size);
+NSString* binstr(const void* data, unsigned int bits);
+NSString* hexstr(const void* data, size_t size);
+NSString* etherstr(const void* data, size_t size);
+NSString* ipaddrstr(const void* data, size_t size);
 
 #endif /* _STRFUNCS_H_ */

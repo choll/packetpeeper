@@ -20,12 +20,12 @@
 #ifndef _LOOPBACKDECODE_H_
 #define _LOOPBACKDECODE_H_
 
-#include <stdint.h>
-#import <Foundation/NSObject.h>
+#include "ColumnIdentifier.h"
 #include "Decode.h"
 #include "Describe.h"
-#include "ColumnIdentifier.h"
 #include "OutlineViewItem.h"
+#import <Foundation/NSObject.h>
+#include <stdint.h>
 
 /* this might change - so use a typedef just in case it does,
    also note that on some systems (OpenBSD) it can be in
@@ -34,9 +34,10 @@ typedef uint32_t loopback_type;
 
 @class NSData;
 
-@interface LoopbackDecode : NSObject <Decode, Describe, NSCoding, OutlineViewItem, ColumnIdentifier>
+@interface LoopbackDecode
+    : NSObject <Decode, Describe, NSCoding, OutlineViewItem, ColumnIdentifier>
 {
-	loopback_type type;
+    loopback_type type;
 }
 
 @end

@@ -17,11 +17,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include <stdarg.h>
-#include <objc/message.h>
-#import <Foundation/NSObject.h>
-#import <Foundation/NSArray.h>
 #include "OutlineViewItem.h"
+#import <Foundation/NSArray.h>
+#import <Foundation/NSObject.h>
+#include <objc/message.h>
+#include <stdarg.h>
 
 #import <Foundation/NSString.h>
 
@@ -29,156 +29,160 @@
 
 @interface OutlineCallback : NSObject
 {
-	id target;
-	SEL selector;
-	void *data;
+    id target;
+    SEL selector;
+    void* data;
 }
 
-- (id)initWithTarget:(id)aTarget selector:(SEL)aSelector data:(void *)ptr;
+- (id)initWithTarget:(id)aTarget selector:(SEL)aSelector data:(void*)ptr;
 - (id)performAction;
 
 @end
 
 @implementation OutlineViewItem
 
-+ (OutlineViewItem *)outlineViewWithObject:(id)anObject
++ (OutlineViewItem*)outlineViewWithObject:(id)anObject
 {
-	OutlineViewItem *ret;
+    OutlineViewItem* ret;
 
-	ret = [[OutlineViewItem alloc] init];
-	[ret addObject:anObject];
+    ret = [[OutlineViewItem alloc] init];
+    [ret addObject:anObject];
 
-	return [ret autorelease];
+    return [ret autorelease];
 }
 
 - (id)init
 {
-	if((self = [super init]) != nil) {
-		items = [[NSMutableArray alloc] init];
-		children = nil;
-	}
-	return self;
+    if ((self = [super init]) != nil)
+    {
+        items = [[NSMutableArray alloc] init];
+        children = nil;
+    }
+    return self;
 }
 
 - (void)addObject:(id)anObject
 {
-	if(anObject != nil)
-		[items addObject:anObject];
+    if (anObject != nil)
+        [items addObject:anObject];
 }
 
 - (void)removeChild:(id)anObject
 {
-	if(anObject != nil && children != nil)
-		[children removeObject:anObject];
+    if (anObject != nil && children != nil)
+        [children removeObject:anObject];
 }
 
 - (void)addChild:(id)anObject
 {
-	if(children == nil)
-		children = [[NSMutableArray alloc] init];
+    if (children == nil)
+        children = [[NSMutableArray alloc] init];
 
-	if(anObject != nil)
-		[children addObject:anObject];
+    if (anObject != nil)
+        [children addObject:anObject];
 }
 
 - (void)insertChild:(id)anObject atIndex:(unsigned int)index
 {
-	if(children == nil)
-		children = [[NSMutableArray alloc] init];
+    if (children == nil)
+        children = [[NSMutableArray alloc] init];
 
-	if(index <= [children count] && anObject != nil)
-		[children insertObject:anObject atIndex:index];
+    if (index <= [children count] && anObject != nil)
+        [children insertObject:anObject atIndex:index];
 }
 
-- (void)addChildWithCallback:(id)aTarget selector:(SEL)aSelector data:(void *)ptr
+- (void)addChildWithCallback:(id)aTarget selector:(SEL)aSelector data:(void*)ptr
 {
-	id cback;
+    id cback;
 
-	if(children == nil)
-		children = [[NSMutableArray alloc] init];
+    if (children == nil)
+        children = [[NSMutableArray alloc] init];
 
-	cback = [[OutlineCallback alloc] initWithTarget:aTarget selector:aSelector data:ptr];
-	[children addObject:cback];
-	[cback release];
+    cback = [[OutlineCallback alloc] initWithTarget:aTarget
+                                           selector:aSelector
+                                               data:ptr];
+    [children addObject:cback];
+    [cback release];
 }
 
 - (void)addChildWithObjects:(id)firstObj, ...
 {
-	va_list ap;
-	OutlineViewItem *child;
+    va_list ap;
+    OutlineViewItem* child;
 
-	if(children == nil)
-		children = [[NSMutableArray alloc] init];
+    if (children == nil)
+        children = [[NSMutableArray alloc] init];
 
-	child = [[OutlineViewItem alloc] init];
+    child = [[OutlineViewItem alloc] init];
 
-	for(va_start(ap, firstObj); firstObj != nil; firstObj = va_arg(ap, id))
-		[child addObject:firstObj];
+    for (va_start(ap, firstObj); firstObj != nil; firstObj = va_arg(ap, id))
+        [child addObject:firstObj];
 
-	[self addChild:child];
-	[child release];
-	va_end(ap);
+    [self addChild:child];
+    [child release];
+    va_end(ap);
 }
 
 - (BOOL)expandable
 {
-	return (children != nil);
+    return (children != nil);
 }
 
 - (size_t)numberOfChildren
 {
-	if(children)
-		return [children count];
-	else
-		return 0;
+    if (children)
+        return [children count];
+    else
+        return 0;
 }
 
 - (id)childAtIndex:(int)fieldIndex
 {
-	id ret;
+    id ret;
 
-	ret = [children objectAtIndex:fieldIndex];
+    ret = [children objectAtIndex:fieldIndex];
 
-	if([ret isMemberOfClass:[OutlineCallback class]])
-		ret = [ret performAction];
+    if ([ret isMemberOfClass:[OutlineCallback class]])
+        ret = [ret performAction];
 
-	return ret;
+    return ret;
 }
 
 - (size_t)numberOfValues
 {
-	return [items count];
+    return [items count];
 }
 
 - (id)valueAtIndex:(int)anIndex
 {
-	return [items objectAtIndex:anIndex];
+    return [items objectAtIndex:anIndex];
 }
 
 - (void)dealloc
 {
-	[items release];
-	[children release];
-	[super dealloc];
+    [items release];
+    [children release];
+    [super dealloc];
 }
 
 @end
 
 @implementation OutlineCallback
 
-- (id)initWithTarget:(id)aTarget selector:(SEL)aSelector data:(void *)ptr
+- (id)initWithTarget:(id)aTarget selector:(SEL)aSelector data:(void*)ptr
 {
-	if((self = [super init]) != nil) {
-		target = aTarget;
-		selector = aSelector;
-		data = ptr;
-	}
-	return self;
+    if ((self = [super init]) != nil)
+    {
+        target = aTarget;
+        selector = aSelector;
+        data = ptr;
+    }
+    return self;
 }
 
 - (id)performAction
 {
-	return ((id(*)(id, SEL, void*))objc_msgSend)(target, selector, data);
+    return ((id(*)(id, SEL, void*))objc_msgSend)(target, selector, data);
 }
 
 @end

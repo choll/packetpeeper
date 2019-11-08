@@ -20,8 +20,8 @@
 #ifndef _PPAPPCONTROLLER_H_
 #define _PPAPPCONTROLLER_H_
 
-#import <Foundation/NSObject.h>
 #import <Breakpad/Breakpad.h>
+#import <Foundation/NSObject.h>
 
 @class NSApplication;
 @class NSNotification;
@@ -34,15 +34,17 @@
     BreakpadRef breakpad;
 }
 
-- (void)windowDidBecomeKey:(NSNotification *)aNotification;
-- (BOOL)applicationShouldOpenUntitledFile:(NSApplication *)sender;
-- (NSMenu *)createTCPProtocolsMenu;
-- (NSMenu *)createProtocolsMenu;
-- (NSMenu *)createProtocolsMenuForDecoders:(Class *)decoders count:(size_t)ndecoders;
-- (void)applicationWillFinishLaunching:(NSNotification *)aNotification;
+- (void)windowDidBecomeKey:(NSNotification*)aNotification;
+- (BOOL)applicationShouldOpenUntitledFile:(NSApplication*)sender;
+- (NSMenu*)createTCPProtocolsMenu;
+- (NSMenu*)createProtocolsMenu;
+- (NSMenu*)createProtocolsMenuForDecoders:(Class*)decoders
+                                    count:(size_t)ndecoders;
+- (void)applicationWillFinishLaunching:(NSNotification*)aNotification;
 - (void)initializeDefaults;
-- (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender;
-- (void)applicationWillTerminate:(NSNotification *)aNotification;
+- (NSApplicationTerminateReply)applicationShouldTerminate:
+    (NSApplication*)sender;
+- (void)applicationWillTerminate:(NSNotification*)aNotification;
 - (BOOL)applicationIsTerminating;
 - (IBAction)showHelp:(id)sender;
 - (IBAction)showPreferencePanel:(id)sender;
