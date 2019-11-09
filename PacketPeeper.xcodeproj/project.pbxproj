@@ -205,6 +205,7 @@
 		83383EFB1E662692007959C5 /* port-numbers-tcp.port in Resources */ = {isa = PBXBuildFile; fileRef = 83383EFA1E662692007959C5 /* port-numbers-tcp.port */; };
 		83383EFD1E6626A1007959C5 /* port-numbers-udp.port in Resources */ = {isa = PBXBuildFile; fileRef = 83383EFC1E6626A1007959C5 /* port-numbers-udp.port */; };
 		833B0E8B23765A1600570695 /* HexFiend.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 833B0E8A23765A1500570695 /* HexFiend.framework */; };
+		833B0E8E2376609C00570695 /* HexFiend.framework in Copy frameworks */ = {isa = PBXBuildFile; fileRef = 833B0E8A23765A1500570695 /* HexFiend.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8352BE860C82B9FC00284D91 /* PPProgressWindowController.h in Headers */ = {isa = PBXBuildFile; fileRef = 8352BE840C82B9FC00284D91 /* PPProgressWindowController.h */; };
 		8352BE870C82B9FC00284D91 /* PPProgressWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8352BE850C82B9FC00284D91 /* PPProgressWindowController.m */; };
 		83565A430D356C7B0037485E /* helper_dummy.h in Headers */ = {isa = PBXBuildFile; fileRef = 83565A3F0D356BFB0037485E /* helper_dummy.h */; };
@@ -363,6 +364,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				833B0E8E2376609C00570695 /* HexFiend.framework in Copy frameworks */,
 			);
 			name = "Copy frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
