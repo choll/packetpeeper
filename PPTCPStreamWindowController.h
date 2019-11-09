@@ -20,6 +20,7 @@
 #ifndef _PPTCPSTREAMWINDOWCONTROLLER_H_
 #define _PPTCPSTREAMWINDOWCONTROLLER_H_
 
+#include "PPTCPStreamReassembler.h"
 #import <AppKit/NSWindowController.h>
 
 @class NSTextView;

@@ -206,7 +206,6 @@
 		83383EF91E662649007959C5 /* ethernet-manufacturers.oui in Resources */ = {isa = PBXBuildFile; fileRef = 83383EF81E662649007959C5 /* ethernet-manufacturers.oui */; };
 		83383EFB1E662692007959C5 /* port-numbers-tcp.port in Resources */ = {isa = PBXBuildFile; fileRef = 83383EFA1E662692007959C5 /* port-numbers-tcp.port */; };
 		83383EFD1E6626A1007959C5 /* port-numbers-udp.port in Resources */ = {isa = PBXBuildFile; fileRef = 83383EFC1E6626A1007959C5 /* port-numbers-udp.port */; };
-		83383EFF1E662793007959C5 /* PacketPeeper_x86_64.breakpad in Resources */ = {isa = PBXBuildFile; fileRef = 83383EFE1E662793007959C5 /* PacketPeeper_x86_64.breakpad */; };
 		8352BE860C82B9FC00284D91 /* PPProgressWindowController.h in Headers */ = {isa = PBXBuildFile; fileRef = 8352BE840C82B9FC00284D91 /* PPProgressWindowController.h */; };
 		8352BE870C82B9FC00284D91 /* PPProgressWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8352BE850C82B9FC00284D91 /* PPProgressWindowController.m */; };
 		83565A430D356C7B0037485E /* helper_dummy.h in Headers */ = {isa = PBXBuildFile; fileRef = 83565A3F0D356BFB0037485E /* helper_dummy.h */; };
@@ -244,8 +243,6 @@
 		83700F5519428FE8005BE7DB /* PPRVIDecode.m in Sources */ = {isa = PBXBuildFile; fileRef = 83700F5219428FE8005BE7DB /* PPRVIDecode.m */; };
 		83700F5619428FE8005BE7DB /* PPRVIDecode.m in Sources */ = {isa = PBXBuildFile; fileRef = 83700F5219428FE8005BE7DB /* PPRVIDecode.m */; };
 		83700F5719428FE8005BE7DB /* PPRVIDecode.m in Sources */ = {isa = PBXBuildFile; fileRef = 83700F5219428FE8005BE7DB /* PPRVIDecode.m */; };
-		83700F791943BF35005BE7DB /* Breakpad.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83700F781943BF35005BE7DB /* Breakpad.framework */; };
-		83700F7A1943C2DA005BE7DB /* Breakpad.framework in Copy frameworks */ = {isa = PBXBuildFile; fileRef = 83700F781943BF35005BE7DB /* Breakpad.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		838B25650B03A07400F9CA41 /* OUICache.h in Headers */ = {isa = PBXBuildFile; fileRef = 8396932607A0570F00E1EDB9 /* OUICache.h */; };
 		838B25660B03A07400F9CA41 /* OUICache.m in Sources */ = {isa = PBXBuildFile; fileRef = 8396932707A0570F00E1EDB9 /* OUICache.m */; };
 		838EAD550E2A91940003F920 /* PPDecoderParent.h in Headers */ = {isa = PBXBuildFile; fileRef = 838EAD540E2A91940003F920 /* PPDecoderParent.h */; };
@@ -311,7 +308,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				83700F7A1943C2DA005BE7DB /* Breakpad.framework in Copy frameworks */,
 				83150D7B190BDA0500670C34 /* HexFiend.framework in Copy frameworks */,
 			);
 			name = "Copy frameworks";
@@ -443,7 +439,6 @@
 		83700F4E1940C7A5005BE7DB /* pktap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pktap.h; sourceTree = "<group>"; };
 		83700F5119428FE8005BE7DB /* PPRVIDecode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPRVIDecode.h; sourceTree = "<group>"; };
 		83700F5219428FE8005BE7DB /* PPRVIDecode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPRVIDecode.m; sourceTree = "<group>"; };
-		83700F781943BF35005BE7DB /* Breakpad.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Breakpad.framework; sourceTree = "<group>"; };
 		8384E1BC06D660AB001F2BA7 /* IPV4Decode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPV4Decode.h; sourceTree = "<group>"; };
 		8384E1BD06D660AB001F2BA7 /* IPV4Decode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPV4Decode.m; sourceTree = "<group>"; };
 		838EAD540E2A91940003F920 /* PPDecoderParent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPDecoderParent.h; sourceTree = "<group>"; };
@@ -544,7 +539,6 @@
 				832D5B850AFFF00B007D1E56 /* Cocoa.framework in Frameworks */,
 				83150D78190B3DC200670C34 /* HexFiend.framework in Frameworks */,
 				832D5B860AFFF00B007D1E56 /* Security.framework in Frameworks */,
-				83700F791943BF35005BE7DB /* Breakpad.framework in Frameworks */,
 				83CC8DC00C9B516400B70DF4 /* libpcap.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -673,7 +667,6 @@
 		2A37F4C3FDCFA73011CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				83700F781943BF35005BE7DB /* Breakpad.framework */,
 				83150D77190B3DC200670C34 /* HexFiend.framework */,
 				83A1D4B318E09D4C00ED3C30 /* libpython2.7.dylib */,
 				83CC8DBF0C9B516300B70DF4 /* libpcap.dylib */,
@@ -1008,7 +1001,6 @@
 				83383EEA1E660C95007959C5 /* Generate ethernet OUI database */,
 				832D5B530AFFF00B007D1E56 /* Sources */,
 				832D5B840AFFF00B007D1E56 /* Frameworks */,
-				83700F7B1943D28E005BE7DB /* Generate BreakPad symbols */,
 				832D5B3C0AFFF00B007D1E56 /* Resources */,
 				832D5B870AFFF00B007D1E56 /* Copy PacketPeeperHelper */,
 				83D7F5AD0D25CC6700229DB3 /* Copy Plugins */,
@@ -1091,7 +1083,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				83383EFF1E662793007959C5 /* PacketPeeper_x86_64.breakpad in Resources */,
 				83383EFD1E6626A1007959C5 /* port-numbers-udp.port in Resources */,
 				83383EFB1E662692007959C5 /* port-numbers-tcp.port in Resources */,
 				83383EF91E662649007959C5 /* ethernet-manufacturers.oui in Resources */,
@@ -1167,23 +1158,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "./oui2pp.py $SRCROOT/oui.txt $DERIVED_FILE_DIR/ethernet-manufacturers.oui";
-			showEnvVarsInLog = 0;
-		};
-		83700F7B1943D28E005BE7DB /* Generate BreakPad symbols */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				$TARGET_BUILD_DIR/$EXECUTABLE_PATH,
-			);
-			name = "Generate BreakPad symbols";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/$TARGET_NAME\"_x86_64.breakpad\"",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nPROD=$TARGET_BUILD_DIR/$EXECUTABLE_PATH\n\n\"$PROJECT_DIR/third_party_repos/breakpad/src/tools/mac/dump_syms/build/Release/dump_syms\" -a x86_64 \"$PROD\" > $DERIVED_FILE_DIR/$TARGET_NAME\"_x86_64.breakpad\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1450,6 +1424,7 @@
 				LIBRARY_SEARCH_PATHS = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Python.framework/Versions/2.7/lib/python2.7/config";
 				PRODUCT_BUNDLE_IDENTIFIER = org.PacketPeeper;
 				PRODUCT_NAME = "Packet Peeper";
+				USE_HEADERMAP = NO;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1465,6 +1440,7 @@
 				LIBRARY_SEARCH_PATHS = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Python.framework/Versions/2.7/lib/python2.7/config";
 				PRODUCT_BUNDLE_IDENTIFIER = org.PacketPeeper;
 				PRODUCT_NAME = "Packet Peeper";
+				USE_HEADERMAP = NO;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -1474,6 +1450,7 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				PRODUCT_NAME = PacketPeeperHelper;
+				USE_HEADERMAP = NO;
 			};
 			name = Debug;
 		};
@@ -1482,6 +1459,7 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				PRODUCT_NAME = PacketPeeperHelper;
+				USE_HEADERMAP = NO;
 			};
 			name = Release;
 		};

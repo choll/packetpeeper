@@ -26,7 +26,6 @@
 #import <Foundation/NSArray.h>
 #import <Foundation/NSBundle.h>
 #import <Foundation/NSFileManager.h>
-#import <Foundation/NSObject.h>
 #import <Foundation/NSPathUtilities.h>
 #import <Foundation/NSString.h>
 #include <Python.h>

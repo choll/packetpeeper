@@ -18,7 +18,6 @@
  */
 
 #include "NSMutableArrayExtensions.h"
-#import <Foundation/NSArray.h>
 
 @implementation NSMutableArray (NSMutableArrayExtensions)
 

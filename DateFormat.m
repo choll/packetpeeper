@@ -18,7 +18,6 @@
  */
 
 #include "DateFormat.h"
-#import <Foundation/NSDate.h>
 #import <Foundation/NSDateFormatter.h>
 #import <Foundation/NSString.h>
 

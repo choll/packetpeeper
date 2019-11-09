@@ -20,7 +20,7 @@
 #ifndef __NSMUTABLEARRAYEXTENSIONS_H__
 #define __NSMUTABLEARRAYEXTENSIONS_H__
 
-@class NSMutableArray;
+#import <Foundation/NSArray.h>
 
 @interface NSMutableArray (NSMutableArrayExtensions)
 

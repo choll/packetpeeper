@@ -21,6 +21,7 @@
 #define PPDECODERPLUGIN_H_
 
 #include "Describe.h"
+#import <Foundation/NSObjCRuntime.h>
 
 @class NSString;
 @class NSData;

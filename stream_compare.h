@@ -20,7 +20,7 @@
 #ifndef PP_STREAM_COMPARE_H_
 #define PP_STREAM_COMPARE_H_
 
-#include <objc/objc.h>
+#import <Foundation/NSObjCRuntime.h>
 #include <sys/types.h>
 
 #include "pkt_compare.h" /* XXX mem_compare needs its own header */

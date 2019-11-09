@@ -20,6 +20,8 @@
 #ifndef _STRFUNCS_H_
 #define _STRFUNCS_H_
 
+#include <stddef.h>
+
 @class NSString;
 
 NSString* binstr(const void* data, unsigned int bits);

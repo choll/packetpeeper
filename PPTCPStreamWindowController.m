@@ -21,7 +21,6 @@
 #include "HostCache.hh"
 #include "MyDocument.h"
 #include "PPTCPStream.h"
-#include "PPTCPStreamReassembler.h"
 #include "PacketCaptureWindowController.h"
 #include "PacketPeeper.h"
 #import <AppKit/NSColor.h>

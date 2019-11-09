@@ -20,7 +20,7 @@
 #ifndef _PKT_COMPARE_H_
 #define _PKT_COMPARE_H_
 
-#include <objc/objc.h>
+#import <Foundation/NSObjCRuntime.h>
 #include <stdint.h>
 #include <sys/types.h>
 

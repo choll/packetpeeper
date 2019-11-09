@@ -20,14 +20,13 @@
 #include "writevn.h"
 #include <stdint.h>
 #include <sys/types.h>
-#include <sys/uio.h>
 #include <unistd.h>
 
 /*
-	Wrapper around writev, as writev might write less than was specified
-	(depending on what we're writing to), this is not an error, so writevn will
-	continue writing the remaining data. Unlike writev, writevn may modify the
-	members of the iov array. See writev(2).
+   Wrapper around writev, as writev might write less than was specified
+   (depending on what we're writing to), this is not an error, so writevn will
+   continue writing the remaining data. Unlike writev, writevn may modify the
+   members of the iov array. See writev(2).
 */
 ssize_t writevn(int fd, struct iovec* iov, int iovcnt)
 {

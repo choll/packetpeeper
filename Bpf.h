@@ -22,6 +22,7 @@
 
 #include "ErrorStack.h"
 #import <Foundation/NSObject.h>
+#include <net/bpf.h>
 #include <sys/time.h>
 
 /* when trying to open a bpf device, make up to and including N attempts, eg /dev/bpf[0..n-1]

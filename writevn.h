@@ -20,6 +20,8 @@
 #ifndef _WRITEVN_H_
 #define _WRITEVN_H_
 
+#include <sys/uio.h>
+
 ssize_t writevn(int d, struct iovec* iov, int iovcnt);
 
 #endif /* _WRITEVN_H_ */

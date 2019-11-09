@@ -20,6 +20,8 @@
 #ifndef _RB_TREE_H_
 #define _RB_TREE_H_
 
+#include <stdint.h>
+
 #define RB_NODE_RED   1
 #define RB_NODE_BLACK 0
 

@@ -22,6 +22,7 @@
 
 #include "ColumnIdentifier.h"
 #include "Decode.h"
+#include "Describe.h"
 #include "OutlineViewItem.h"
 
 @class NSObject;

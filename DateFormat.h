@@ -20,8 +20,9 @@
 #ifndef PACKETPEEPER_DATEFORMAT_H
 #define PACKETPEEPER_DATEFORMAT_H
 
+#import <Foundation/NSDate.h>
+
 @class NSString;
-@class NSDate;
 
 /* NSCalendarDate cannot store milliseconds (or anything less than a second)
    so NSDate is used, however NSDate lacks formatting methods, so we use this */

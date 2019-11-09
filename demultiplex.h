@@ -20,8 +20,10 @@
 #ifndef _DEMULTIPLEX_H_
 #define _DEMULTIPLEX_H_
 
+#include <stddef.h>
+
 @class NSData;
-@class NSArray;
+@class NSMutableArray;
 @protocol PPDecoderParent;
 @protocol Decode;
 

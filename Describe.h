@@ -20,9 +20,10 @@
 #ifndef _DESCRIBE_H_
 #define _DESCRIBE_H_
 
+#import <Foundation/NSObject.h>
+
 @class NSString;
 @class NSData;
-@protocol NSObject;
 
 /* represents the level of the object in the protocol stack */
 enum _stacklev

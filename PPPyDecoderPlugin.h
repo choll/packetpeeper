@@ -21,6 +21,7 @@
 #define PPPYDECODERPLUGIN_H_
 
 #include "PPDecoderPlugin.h"
+#include <Python.h>
 
 @class OutlineViewItem;
 

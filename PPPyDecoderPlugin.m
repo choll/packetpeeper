@@ -20,14 +20,12 @@
 #include "PPPyDecoderPlugin.h"
 #include "ColumnIdentifier.h"
 #include "OutlineViewItem.h"
-#include "PPDecoderPlugin.h"
 #include "strfuncs.h"
 #import <Foundation/NSArray.h>
 #import <Foundation/NSBundle.h>
 #import <Foundation/NSData.h>
 #import <Foundation/NSObject.h>
 #import <Foundation/NSString.h>
-#include <Python.h>
 #include <errno.h>
 #include <inttypes.h>
 #include <limits.h>

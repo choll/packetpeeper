@@ -20,7 +20,8 @@
 #ifndef PPCAPTUREFILTERMANAGER_H_
 #define PPCAPTUREFILTERMANAGER_H_
 
-@class NSObject;
+#import <Foundation/NSObject.h>
+
 @class NSArray;
 @class PPCaptureFilter;
 @class NSMutableDictionary;

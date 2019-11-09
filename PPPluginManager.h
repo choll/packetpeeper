@@ -20,7 +20,8 @@
 #ifndef PPPLUGINMANAGER_H_
 #define PPPLUGINMANAGER_H_
 
-@class NSObject;
+#import <Foundation/NSObject.h>
+
 @class NSMutableArray;
 @protocol PPDecoderPlugin;
 @protocol Describe;

@@ -20,6 +20,9 @@
 #ifndef _SYNCMENU_H_
 #define _SYNCMENU_H_
 
+@class NSMenu;
+@class NSMutableArray;
+
 void syncMenu(NSMenu* menu, NSMutableArray* identifiers);
 
 #endif /* _SYNCMENU_H_ */

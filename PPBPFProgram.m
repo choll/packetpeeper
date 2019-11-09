@@ -18,7 +18,6 @@
  */
 
 #include "PPBPFProgram.h"
-#import <Foundation/NSArchiver.h>
 #import <Foundation/NSObject.h>
 #include <net/bpf.h>
 #include <stdlib.h>

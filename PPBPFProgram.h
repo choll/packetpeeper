@@ -20,6 +20,7 @@
 #ifndef PPBPFPROGRAM_H_
 #define PPBPFPROGRAM_H_
 
+#import <Foundation/NSArchiver.h>
 #include <net/bpf.h>
 #include <sys/ioctl.h>
 #include <sys/time.h>

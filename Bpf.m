@@ -26,7 +26,6 @@
 #import <Foundation/NSString.h>
 #include <errno.h>
 #include <fcntl.h>
-#include <net/bpf.h>
 #include <net/if.h>
 #include <stdio.h>
 #include <stdlib.h>
