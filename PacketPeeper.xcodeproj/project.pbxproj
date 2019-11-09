@@ -28,8 +28,6 @@
 		8314CAD50CB12A09003610FD /* NSMutableArrayExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8314CAD30CB12A09003610FD /* NSMutableArrayExtensions.m */; };
 		8314CB200CB12E9F003610FD /* ppdocumenticon2.icns in Resources */ = {isa = PBXBuildFile; fileRef = 8314CB1E0CB12E9F003610FD /* ppdocumenticon2.icns */; };
 		8314CB210CB12E9F003610FD /* ppicon2.icns in Resources */ = {isa = PBXBuildFile; fileRef = 8314CB1F0CB12E9F003610FD /* ppicon2.icns */; };
-		83150D78190B3DC200670C34 /* HexFiend.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83150D77190B3DC200670C34 /* HexFiend.framework */; };
-		83150D7B190BDA0500670C34 /* HexFiend.framework in Copy frameworks */ = {isa = PBXBuildFile; fileRef = 83150D77190B3DC200670C34 /* HexFiend.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		832D5B090AFFF00B007D1E56 /* MyDocument.h in Headers */ = {isa = PBXBuildFile; fileRef = 2A37F4AEFDCFA73011CA2CEA /* MyDocument.h */; };
 		832D5B0A0AFFF00B007D1E56 /* Interface.h in Headers */ = {isa = PBXBuildFile; fileRef = 8332D40F069EDC4900F35800 /* Interface.h */; };
 		832D5B0B0AFFF00B007D1E56 /* socketpath.h in Headers */ = {isa = PBXBuildFile; fileRef = 83124C7F06A149C8008B5F66 /* socketpath.h */; };
@@ -206,6 +204,7 @@
 		83383EF91E662649007959C5 /* ethernet-manufacturers.oui in Resources */ = {isa = PBXBuildFile; fileRef = 83383EF81E662649007959C5 /* ethernet-manufacturers.oui */; };
 		83383EFB1E662692007959C5 /* port-numbers-tcp.port in Resources */ = {isa = PBXBuildFile; fileRef = 83383EFA1E662692007959C5 /* port-numbers-tcp.port */; };
 		83383EFD1E6626A1007959C5 /* port-numbers-udp.port in Resources */ = {isa = PBXBuildFile; fileRef = 83383EFC1E6626A1007959C5 /* port-numbers-udp.port */; };
+		833B0E8B23765A1600570695 /* HexFiend.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 833B0E8A23765A1500570695 /* HexFiend.framework */; };
 		8352BE860C82B9FC00284D91 /* PPProgressWindowController.h in Headers */ = {isa = PBXBuildFile; fileRef = 8352BE840C82B9FC00284D91 /* PPProgressWindowController.h */; };
 		8352BE870C82B9FC00284D91 /* PPProgressWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8352BE850C82B9FC00284D91 /* PPProgressWindowController.m */; };
 		83565A430D356C7B0037485E /* helper_dummy.h in Headers */ = {isa = PBXBuildFile; fileRef = 83565A3F0D356BFB0037485E /* helper_dummy.h */; };
@@ -299,6 +298,62 @@
 			remoteGlobalIDString = 832D5B070AFFF00B007D1E56;
 			remoteInfo = "PacketPeeper (Upgraded)";
 		};
+		833B0E7C2376580900570695 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 833B0E712376580800570695 /* HexFiend_2.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8D1107320486CEB800E47090;
+			remoteInfo = HexFiend_2;
+		};
+		833B0E7E2376580900570695 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 833B0E712376580800570695 /* HexFiend_2.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D01E7BB80CDC530C00943F9E;
+			remoteInfo = HexFiend_Framework;
+		};
+		833B0E802376580900570695 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 833B0E712376580800570695 /* HexFiend_2.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A5EF294A20F187B700CA7B39;
+			remoteInfo = HexFiend_Framework_iOS;
+		};
+		833B0E822376580900570695 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 833B0E712376580800570695 /* HexFiend_2.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D047E3151022CEFE00EF307B;
+			remoteInfo = "FortunateSon (PrivilegedHelper)";
+		};
+		833B0E842376580900570695 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 833B0E712376580800570695 /* HexFiend_2.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D00C15E50FF091FF006D021F;
+			remoteInfo = HexFiendling;
+		};
+		833B0E862376580900570695 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 833B0E712376580800570695 /* HexFiend_2.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9408FBFA19DD72DE004F800E;
+			remoteInfo = "HexFiend_Framework Tests";
+		};
+		833B0E882376580900570695 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 833B0E712376580800570695 /* HexFiend_2.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A550A7161F7877F8001C79C7;
+			remoteInfo = hexf;
+		};
+		833B0E8C23765AFC00570695 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 833B0E712376580800570695 /* HexFiend_2.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D01E7BB70CDC530C00943F9E;
+			remoteInfo = HexFiend_Framework;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -308,7 +363,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				83150D7B190BDA0500670C34 /* HexFiend.framework in Copy frameworks */,
 			);
 			name = "Copy frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -366,7 +420,6 @@
 		8314CAD30CB12A09003610FD /* NSMutableArrayExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSMutableArrayExtensions.m; sourceTree = "<group>"; };
 		8314CB1E0CB12E9F003610FD /* ppdocumenticon2.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = ppdocumenticon2.icns; sourceTree = "<group>"; };
 		8314CB1F0CB12E9F003610FD /* ppicon2.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = ppicon2.icns; sourceTree = "<group>"; };
-		83150D77190B3DC200670C34 /* HexFiend.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = HexFiend.framework; sourceTree = "<group>"; };
 		8320757106F8FA1C00416E79 /* prev.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = prev.tiff; sourceTree = "<group>"; };
 		8320757306F8FA2000416E79 /* next.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = next.tiff; sourceTree = "<group>"; };
 		8320758106F9084100416E79 /* last.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = last.tiff; sourceTree = "<group>"; };
@@ -392,6 +445,8 @@
 		83383EFA1E662692007959C5 /* port-numbers-tcp.port */ = {isa = PBXFileReference; lastKnownFileType = file; name = "port-numbers-tcp.port"; path = "build/PacketPeeper.build/Release/PacketPeeper.build/DerivedSources/port-numbers-tcp.port"; sourceTree = "<group>"; };
 		83383EFC1E6626A1007959C5 /* port-numbers-udp.port */ = {isa = PBXFileReference; lastKnownFileType = file; name = "port-numbers-udp.port"; path = "build/PacketPeeper.build/Release/PacketPeeper.build/DerivedSources/port-numbers-udp.port"; sourceTree = "<group>"; };
 		83383EFE1E662793007959C5 /* PacketPeeper_x86_64.breakpad */ = {isa = PBXFileReference; lastKnownFileType = text; name = PacketPeeper_x86_64.breakpad; path = build/PacketPeeper.build/Release/PacketPeeper.build/DerivedSources/PacketPeeper_x86_64.breakpad; sourceTree = "<group>"; };
+		833B0E712376580800570695 /* HexFiend_2.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = HexFiend_2.xcodeproj; path = third_party/HexFiend/HexFiend_2.xcodeproj; sourceTree = "<group>"; };
+		833B0E8A23765A1500570695 /* HexFiend.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HexFiend.framework; path = third_party/HexFiend/build/Release/HexFiend.framework; sourceTree = "<group>"; };
 		833B81BA07EC520900178219 /* PPTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPTableView.h; sourceTree = "<group>"; };
 		833B81BC07EC521300178219 /* PPTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPTableView.m; sourceTree = "<group>"; };
 		833B81F107F36D5000178219 /* PPTCPStreamWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPTCPStreamWindowController.h; sourceTree = "<group>"; };
@@ -537,7 +592,7 @@
 			files = (
 				83A1D4B418E09D4C00ED3C30 /* libpython2.7.dylib in Frameworks */,
 				832D5B850AFFF00B007D1E56 /* Cocoa.framework in Frameworks */,
-				83150D78190B3DC200670C34 /* HexFiend.framework in Frameworks */,
+				833B0E8B23765A1600570695 /* HexFiend.framework in Frameworks */,
 				832D5B860AFFF00B007D1E56 /* Security.framework in Frameworks */,
 				83CC8DC00C9B516400B70DF4 /* libpcap.dylib in Frameworks */,
 			);
@@ -583,6 +638,7 @@
 				2A37F4C3FDCFA73011CA2CEA /* Frameworks */,
 				19C28FB0FE9D524F11CA2CBB /* Products */,
 				8300DBC20B00BE18004C8233 /* PacketPeeper.plist */,
+				833B0E712376580800570695 /* HexFiend_2.xcodeproj */,
 			);
 			name = PacketPeeper;
 			sourceTree = "<group>";
@@ -667,7 +723,7 @@
 		2A37F4C3FDCFA73011CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				83150D77190B3DC200670C34 /* HexFiend.framework */,
+				833B0E8A23765A1500570695 /* HexFiend.framework */,
 				83A1D4B318E09D4C00ED3C30 /* libpython2.7.dylib */,
 				83CC8DBF0C9B516300B70DF4 /* libpcap.dylib */,
 				8332D42C069EE17000F35800 /* Security.framework */,
@@ -707,6 +763,20 @@
 				83368D84192E77F900D1CF35 /* main.m */,
 			);
 			path = ArpSpoofingTester;
+			sourceTree = "<group>";
+		};
+		833B0E722376580800570695 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				833B0E7D2376580900570695 /* Hex Fiend.app */,
+				833B0E7F2376580900570695 /* HexFiend.framework */,
+				833B0E812376580900570695 /* HexFiend_Framework_iOS.framework */,
+				833B0E832376580900570695 /* com.ridiculousfish.HexFiend.PrivilegedHelper */,
+				833B0E852376580900570695 /* HexFiendling.app */,
+				833B0E872376580900570695 /* HexFiend_Framework Tests.xctest */,
+				833B0E892376580900570695 /* hexf */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		83565B5A0D38DCC30037485E /* Filters */ = {
@@ -1009,6 +1079,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				833B0E8D23765AFC00570695 /* PBXTargetDependency */,
 			);
 			name = PacketPeeper;
 			productName = PacketPeeper;
@@ -1068,6 +1139,12 @@
 			);
 			mainGroup = 2A37F4AAFDCFA73011CA2CEA /* PacketPeeper */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 833B0E722376580800570695 /* Products */;
+					ProjectRef = 833B0E712376580800570695 /* HexFiend_2.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				832D5B070AFFF00B007D1E56 /* PacketPeeper */,
@@ -1077,6 +1154,58 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		833B0E7D2376580900570695 /* Hex Fiend.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "Hex Fiend.app";
+			remoteRef = 833B0E7C2376580900570695 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		833B0E7F2376580900570695 /* HexFiend.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = HexFiend.framework;
+			remoteRef = 833B0E7E2376580900570695 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		833B0E812376580900570695 /* HexFiend_Framework_iOS.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = HexFiend_Framework_iOS.framework;
+			remoteRef = 833B0E802376580900570695 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		833B0E832376580900570695 /* com.ridiculousfish.HexFiend.PrivilegedHelper */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = com.ridiculousfish.HexFiend.PrivilegedHelper;
+			remoteRef = 833B0E822376580900570695 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		833B0E852376580900570695 /* HexFiendling.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = HexFiendling.app;
+			remoteRef = 833B0E842376580900570695 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		833B0E872376580900570695 /* HexFiend_Framework Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "HexFiend_Framework Tests.xctest";
+			remoteRef = 833B0E862376580900570695 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		833B0E892376580900570695 /* hexf */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = hexf;
+			remoteRef = 833B0E882376580900570695 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		832D5B3C0AFFF00B007D1E56 /* Resources */ = {
@@ -1319,6 +1448,11 @@
 			target = 832D5B070AFFF00B007D1E56 /* PacketPeeper */;
 			targetProxy = 832D5BE70AFFF00B007D1E56 /* PBXContainerItemProxy */;
 		};
+		833B0E8D23765AFC00570695 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = HexFiend_Framework;
+			targetProxy = 833B0E8C23765AFC00570695 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -1418,12 +1552,16 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/third_party/HexFiend/build/Release",
+				);
 				HEADER_SEARCH_PATHS = /System/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7;
 				INFOPLIST_FILE = PacketPeeper.plist;
 				LIBRARY_SEARCH_PATHS = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Python.framework/Versions/2.7/lib/python2.7/config";
 				PRODUCT_BUNDLE_IDENTIFIER = org.PacketPeeper;
 				PRODUCT_NAME = "Packet Peeper";
+				"USER_HEADER_SEARCH_PATHS[arch=*]" = "";
 				USE_HEADERMAP = NO;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1434,7 +1572,10 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/third_party/HexFiend/build/Release",
+				);
 				HEADER_SEARCH_PATHS = /System/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7;
 				INFOPLIST_FILE = PacketPeeper.plist;
 				LIBRARY_SEARCH_PATHS = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Python.framework/Versions/2.7/lib/python2.7/config";
