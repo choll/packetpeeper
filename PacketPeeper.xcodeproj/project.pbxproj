@@ -172,7 +172,6 @@
 		832D5BC80AFFF00B007D1E56 /* PortCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 8396932307A056CC00E1EDB9 /* PortCache.m */; };
 		832D5BCA0AFFF00B007D1E56 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */; };
 		832D5BE90AFFF00B007D1E56 /* PacketPeeperHelper in Copy PacketPeeperHelper */ = {isa = PBXBuildFile; fileRef = 832D5BD00AFFF00B007D1E56 /* PacketPeeperHelper */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		83368D85192E77F900D1CF35 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 83368D84192E77F900D1CF35 /* main.m */; };
 		83368D8C192E7D4500D1CF35 /* Bpf.m in Sources */ = {isa = PBXBuildFile; fileRef = 8332D428069EDD3C00F35800 /* Bpf.m */; };
 		83368D8D192E7D4F00D1CF35 /* lookup_dummy.c in Sources */ = {isa = PBXBuildFile; fileRef = 83B5CBA7094B6BC700C46868 /* lookup_dummy.c */; };
 		83368D8E192E7D5600D1CF35 /* helper_dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 83565A400D356BFB0037485E /* helper_dummy.m */; };
@@ -206,6 +205,8 @@
 		83383EFD1E6626A1007959C5 /* port-numbers-udp.port in Resources */ = {isa = PBXBuildFile; fileRef = 83383EFC1E6626A1007959C5 /* port-numbers-udp.port */; };
 		833B0E8B23765A1600570695 /* HexFiend.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 833B0E8A23765A1500570695 /* HexFiend.framework */; };
 		833B0E8E2376609C00570695 /* HexFiend.framework in Copy frameworks */ = {isa = PBXBuildFile; fileRef = 833B0E8A23765A1500570695 /* HexFiend.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		833B0E9F23767F0C00570695 /* oui.txt in Resources */ = {isa = PBXBuildFile; fileRef = 833B0E9E23767F0C00570695 /* oui.txt */; };
+		833B0EA123767F1B00570695 /* service-names-port-numbers.csv in Resources */ = {isa = PBXBuildFile; fileRef = 833B0EA023767F1B00570695 /* service-names-port-numbers.csv */; };
 		8352BE860C82B9FC00284D91 /* PPProgressWindowController.h in Headers */ = {isa = PBXBuildFile; fileRef = 8352BE840C82B9FC00284D91 /* PPProgressWindowController.h */; };
 		8352BE870C82B9FC00284D91 /* PPProgressWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8352BE850C82B9FC00284D91 /* PPProgressWindowController.m */; };
 		83565A430D356C7B0037485E /* helper_dummy.h in Headers */ = {isa = PBXBuildFile; fileRef = 83565A3F0D356BFB0037485E /* helper_dummy.h */; };
@@ -442,13 +443,13 @@
 		8332D428069EDD3C00F35800 /* Bpf.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Bpf.m; sourceTree = "<group>"; };
 		8332D42C069EE17000F35800 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = /System/Library/Frameworks/Security.framework; sourceTree = "<absolute>"; };
 		83368D82192E77F900D1CF35 /* ArpSpoofingTester */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ArpSpoofingTester; sourceTree = BUILT_PRODUCTS_DIR; };
-		83368D84192E77F900D1CF35 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		83383EF81E662649007959C5 /* ethernet-manufacturers.oui */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ethernet-manufacturers.oui"; path = "build/PacketPeeper.build/Release/PacketPeeper.build/DerivedSources/ethernet-manufacturers.oui"; sourceTree = "<group>"; };
-		83383EFA1E662692007959C5 /* port-numbers-tcp.port */ = {isa = PBXFileReference; lastKnownFileType = file; name = "port-numbers-tcp.port"; path = "build/PacketPeeper.build/Release/PacketPeeper.build/DerivedSources/port-numbers-tcp.port"; sourceTree = "<group>"; };
-		83383EFC1E6626A1007959C5 /* port-numbers-udp.port */ = {isa = PBXFileReference; lastKnownFileType = file; name = "port-numbers-udp.port"; path = "build/PacketPeeper.build/Release/PacketPeeper.build/DerivedSources/port-numbers-udp.port"; sourceTree = "<group>"; };
-		83383EFE1E662793007959C5 /* PacketPeeper_x86_64.breakpad */ = {isa = PBXFileReference; lastKnownFileType = text; name = PacketPeeper_x86_64.breakpad; path = build/PacketPeeper.build/Release/PacketPeeper.build/DerivedSources/PacketPeeper_x86_64.breakpad; sourceTree = "<group>"; };
+		83383EF81E662649007959C5 /* ethernet-manufacturers.oui */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ethernet-manufacturers.oui"; sourceTree = "<group>"; };
+		83383EFA1E662692007959C5 /* port-numbers-tcp.port */ = {isa = PBXFileReference; lastKnownFileType = file; path = "port-numbers-tcp.port"; sourceTree = "<group>"; };
+		83383EFC1E6626A1007959C5 /* port-numbers-udp.port */ = {isa = PBXFileReference; lastKnownFileType = file; path = "port-numbers-udp.port"; sourceTree = "<group>"; };
 		833B0E712376580800570695 /* HexFiend_2.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = HexFiend_2.xcodeproj; path = third_party/HexFiend/HexFiend_2.xcodeproj; sourceTree = "<group>"; };
 		833B0E8A23765A1500570695 /* HexFiend.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HexFiend.framework; path = third_party/HexFiend/build/Release/HexFiend.framework; sourceTree = "<group>"; };
+		833B0E9E23767F0C00570695 /* oui.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = oui.txt; sourceTree = "<group>"; };
+		833B0EA023767F1B00570695 /* service-names-port-numbers.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "service-names-port-numbers.csv"; sourceTree = "<group>"; };
 		833B81BA07EC520900178219 /* PPTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPTableView.h; sourceTree = "<group>"; };
 		833B81BC07EC521300178219 /* PPTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPTableView.m; sourceTree = "<group>"; };
 		833B81F107F36D5000178219 /* PPTCPStreamWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPTCPStreamWindowController.h; sourceTree = "<group>"; };
@@ -632,11 +633,10 @@
 		2A37F4AAFDCFA73011CA2CEA /* PacketPeeper */ = {
 			isa = PBXGroup;
 			children = (
-				83A74A2106C004C600FD3004 /* Main */,
-				8332D3FE069ECB5500F35800 /* PacketPeeperHelper */,
-				83A74A2206C0060E00FD3004 /* Shared */,
-				2A37F4B8FDCFA73011CA2CEA /* Resources */,
-				83368D83192E77F900D1CF35 /* ArpSpoofingTester */,
+				833B0E9623767A1C00570695 /* PacketPeeper */,
+				833B0E91237677C400570695 /* PacketPeeperHelper */,
+				833B0E922376783F00570695 /* Resources */,
+				833B0E932376787700570695 /* Shared */,
 				2A37F4C3FDCFA73011CA2CEA /* Frameworks */,
 				19C28FB0FE9D524F11CA2CBB /* Products */,
 				8300DBC20B00BE18004C8233 /* PacketPeeper.plist */,
@@ -645,54 +645,51 @@
 			name = PacketPeeper;
 			sourceTree = "<group>";
 		};
-		2A37F4ABFDCFA73011CA2CEA /* UI Classes */ = {
+		2A37F4C3FDCFA73011CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				834F0425097EEA8300647E3C /* syncmenu.h */,
-				834F0426097EEA8300647E3C /* syncmenu.m */,
-				83B5CD5A094F778500C46868 /* TCPStreams */,
-				83D7F7970D281D5B00229DB3 /* PPPacketUIAdditons.h */,
-				83D7F7930D281C1200229DB3 /* PPPacketUIAdditons.m */,
-				8352BE840C82B9FC00284D91 /* PPProgressWindowController.h */,
-				8352BE850C82B9FC00284D91 /* PPProgressWindowController.m */,
-				83FA84D70DC35092004C66C3 /* IndividualPacketWindowController.h */,
-				839C2C150782D413006BA02E /* IndividualPacketWindowController.m */,
-				83FA84D50DC3507D004C66C3 /* PacketCaptureWindowController.h */,
-				83A6398A06F5DCDC00E8CF04 /* PacketCaptureWindowController.m */,
-				83A6398F06F5EDEC00E8CF04 /* CaptureSetupWindowController.h */,
-				83A6398D06F5EDE300E8CF04 /* CaptureSetupWindowController.m */,
-				83566B310D4E87C90037485E /* PPCaptureFilterWindowController.h */,
-				83566B320D4E87C90037485E /* PPCaptureFilterWindowController.m */,
-				83D22BD219241BE400DA0745 /* PPArpSpoofingWindowController.h */,
-				83D22BD41924256700DA0745 /* PPArpSpoofingWindowController.m */,
-				83C45660076F49C900050832 /* ErrorReportWindowController.h */,
-				83C45661076F49C900050832 /* ErrorReportWindowController.m */,
-				83AD23090994C6860048B019 /* PPDataQuantityFormatter.h */,
-				83AD230A0994C6860048B019 /* PPDataQuantityFormatter.m */,
-				83A6397D06F3A0F400E8CF04 /* MyDocumentController.h */,
-				83A6397E06F3A0F400E8CF04 /* MyDocumentController.m */,
-				2A37F4AEFDCFA73011CA2CEA /* MyDocument.h */,
-				2A37F4ACFDCFA73011CA2CEA /* MyDocument.m */,
-				83D22BC7191D591100DA0745 /* DataInspectorRepresenter.h */,
-				83D22BC8191D591100DA0745 /* DataInspectorRepresenter.m */,
-				833B81BA07EC520900178219 /* PPTableView.h */,
-				833B81BC07EC521300178219 /* PPTableView.m */,
-				83C45664076FB20A00050832 /* ColumnIdentifier.h */,
-				83C45665076FB20A00050832 /* ColumnIdentifier.m */,
-				83E4C11506FE46CB001F592F /* OutlineViewItem.h */,
-				83E4C11206FE46BE001F592F /* OutlineViewItem.m */,
-				83D1CBEB07E8B6CB007E7652 /* pkt_compare.h */,
-				83D1CBE907E8B6BA007E7652 /* pkt_compare.m */,
-				839334640CE2738C00FF58C5 /* stream_compare.h */,
-				839334650CE2738C00FF58C5 /* stream_compare.m */,
+				833B0E8A23765A1500570695 /* HexFiend.framework */,
+				83A1D4B318E09D4C00ED3C30 /* libpython2.7.dylib */,
+				83CC8DBF0C9B516300B70DF4 /* libpcap.dylib */,
+				8332D42C069EE17000F35800 /* Security.framework */,
+				2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */,
+				1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */,
 			);
-			name = "UI Classes";
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		2A37F4B8FDCFA73011CA2CEA /* Resources */ = {
+		833B0E722376580800570695 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				83383EFE1E662793007959C5 /* PacketPeeper_x86_64.breakpad */,
+				833B0E7D2376580900570695 /* Hex Fiend.app */,
+				833B0E7F2376580900570695 /* HexFiend.framework */,
+				833B0E812376580900570695 /* HexFiend_Framework_iOS.framework */,
+				833B0E832376580900570695 /* com.ridiculousfish.HexFiend.PrivilegedHelper */,
+				833B0E852376580900570695 /* HexFiendling.app */,
+				833B0E872376580900570695 /* HexFiend_Framework Tests.xctest */,
+				833B0E892376580900570695 /* hexf */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		833B0E91237677C400570695 /* PacketPeeperHelper */ = {
+			isa = PBXGroup;
+			children = (
+				8332D427069EDD3C00F35800 /* Bpf.h */,
+				8332D428069EDD3C00F35800 /* Bpf.m */,
+				83B5CBA7094B6BC700C46868 /* lookup_dummy.c */,
+				8332D3FF069ECBC700F35800 /* PacketPeeperHelper.m */,
+				83565A3F0D356BFB0037485E /* helper_dummy.h */,
+				83565A400D356BFB0037485E /* helper_dummy.m */,
+			);
+			path = PacketPeeperHelper;
+			sourceTree = "<group>";
+		};
+		833B0E922376783F00570695 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				833B0E9E23767F0C00570695 /* oui.txt */,
+				833B0EA023767F1B00570695 /* service-names-port-numbers.csv */,
 				83383EFC1E6626A1007959C5 /* port-numbers-udp.port */,
 				83383EFA1E662692007959C5 /* port-numbers-tcp.port */,
 				83383EF81E662649007959C5 /* ethernet-manufacturers.oui */,
@@ -719,172 +716,22 @@
 				83FE245B082051F8006CA5C5 /* PPTCPStreamWindow.nib */,
 				83B5C8D30948E49100C46868 /* PPStreamsWindow.nib */,
 			);
-			name = Resources;
+			path = Resources;
 			sourceTree = "<group>";
 		};
-		2A37F4C3FDCFA73011CA2CEA /* Frameworks */ = {
+		833B0E932376787700570695 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				833B0E8A23765A1500570695 /* HexFiend.framework */,
-				83A1D4B318E09D4C00ED3C30 /* libpython2.7.dylib */,
-				83CC8DBF0C9B516300B70DF4 /* libpcap.dylib */,
-				8332D42C069EE17000F35800 /* Security.framework */,
-				2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */,
-				1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		8314CB070CB12DD2003610FD /* Categories */ = {
-			isa = PBXGroup;
-			children = (
-				83CD8FAC07739D7D0012C1CD /* DateFormat.h */,
-				83CD8FA907739D680012C1CD /* DateFormat.m */,
-				8314CAD20CB12A09003610FD /* NSMutableArrayExtensions.h */,
-				8314CAD30CB12A09003610FD /* NSMutableArrayExtensions.m */,
-			);
-			name = Categories;
-			sourceTree = "<group>";
-		};
-		8332D3FE069ECB5500F35800 /* PacketPeeperHelper */ = {
-			isa = PBXGroup;
-			children = (
-				8332D427069EDD3C00F35800 /* Bpf.h */,
-				8332D428069EDD3C00F35800 /* Bpf.m */,
-				83B5CBA7094B6BC700C46868 /* lookup_dummy.c */,
-				8332D3FF069ECBC700F35800 /* PacketPeeperHelper.m */,
-				83565A3F0D356BFB0037485E /* helper_dummy.h */,
-				83565A400D356BFB0037485E /* helper_dummy.m */,
-			);
-			name = PacketPeeperHelper;
-			sourceTree = "<group>";
-		};
-		83368D83192E77F900D1CF35 /* ArpSpoofingTester */ = {
-			isa = PBXGroup;
-			children = (
-				83368D84192E77F900D1CF35 /* main.m */,
-			);
-			path = ArpSpoofingTester;
-			sourceTree = "<group>";
-		};
-		833B0E722376580800570695 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				833B0E7D2376580900570695 /* Hex Fiend.app */,
-				833B0E7F2376580900570695 /* HexFiend.framework */,
-				833B0E812376580900570695 /* HexFiend_Framework_iOS.framework */,
-				833B0E832376580900570695 /* com.ridiculousfish.HexFiend.PrivilegedHelper */,
-				833B0E852376580900570695 /* HexFiendling.app */,
-				833B0E872376580900570695 /* HexFiend_Framework Tests.xctest */,
-				833B0E892376580900570695 /* hexf */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		83565B5A0D38DCC30037485E /* Filters */ = {
-			isa = PBXGroup;
-			children = (
-				835666CB0D43EB300037485E /* bpf_filter.h */,
-				835666BE0D43EAEC0037485E /* bpf_filter.c */,
-				83565B600D38E0260037485E /* PPCaptureFilter.h */,
-				83565B610D38E0260037485E /* PPCaptureFilter.m */,
-				83565B660D38E0730037485E /* PPBPFProgram.h */,
-				83565B670D38E0730037485E /* PPBPFProgram.m */,
-				83565D6B0D3D69A20037485E /* PPHexNumberFormatter.h */,
-				83565D6C0D3D69A20037485E /* PPHexNumberFormatter.m */,
-				83565E2F0D3EA46D0037485E /* PPCaptureFilterManager.h */,
-				83565E300D3EA46D0037485E /* PPCaptureFilterManager.m */,
-				83565FD20D3FE9E00037485E /* PPCaptureFilterFormatter.h */,
-				83565FD30D3FE9E00037485E /* PPCaptureFilterFormatter.m */,
-			);
-			name = Filters;
-			sourceTree = "<group>";
-		};
-		8364184B06C14B1A004048C1 /* ObjectIO */ = {
-			isa = PBXGroup;
-			children = (
-				83FDF2B306BA9AA3009C3584 /* ObjectIO.h */,
-				83FDF2B406BA9AA3009C3584 /* ObjectIO.m */,
-				83F6B10806B1B81900E320E9 /* Messages.h */,
-				83F6B10B06B1B83100E320E9 /* Messages.m */,
-				83124C7F06A149C8008B5F66 /* socketpath.h */,
-				83124CA806A6F676008B5F66 /* writevn.c */,
-				83124CAB06A6F73F008B5F66 /* writevn.h */,
-			);
-			name = ObjectIO;
-			sourceTree = "<group>";
-		};
-		83A74A2106C004C600FD3004 /* Main */ = {
-			isa = PBXGroup;
-			children = (
-				83B8AFDF095F66B300027F4E /* oui2pp.py */,
-				83B8B01709600F7500027F4E /* services2pp.py */,
-				8332D413069EDC6300F35800 /* main.m */,
-				83A6398506F3BC5B00E8CF04 /* AppController.h */,
-				83A6398606F3BC5B00E8CF04 /* AppController.m */,
-				83CD8FD90773B2790012C1CD /* Describe.h */,
-				8332D40F069EDC4900F35800 /* Interface.h */,
-				8332D410069EDC4900F35800 /* Interface.m */,
-				8332D40C069EDC4900F35800 /* HostCache.hh */,
-				8332D40D069EDC4900F35800 /* HostCache.mm */,
-				8369ADDB191857B5002966D9 /* async.cpp */,
-				8369ADDC191857B5002966D9 /* async.hpp */,
-				8396932207A056CC00E1EDB9 /* PortCache.h */,
-				8396932307A056CC00E1EDB9 /* PortCache.m */,
-				8396932607A0570F00E1EDB9 /* OUICache.h */,
-				8396932707A0570F00E1EDB9 /* OUICache.m */,
-				83B5CD57094F776D00C46868 /* TCPStreams */,
-				834C84E70796A98500C0235D /* Cache.h */,
-				834C84E50796A97300C0235D /* Cache.m */,
-				8304C2EE07C6A884004FAC45 /* rb_tree.h */,
-				8304C2ED07C6A884004FAC45 /* rb_tree.c */,
-				83565B5A0D38DCC30037485E /* Filters */,
-				83D7F35C0D257B2700229DB3 /* Plugins */,
-				8314CB070CB12DD2003610FD /* Categories */,
-				2A37F4ABFDCFA73011CA2CEA /* UI Classes */,
-			);
-			name = Main;
-			sourceTree = "<group>";
-		};
-		83A74A2206C0060E00FD3004 /* Shared */ = {
-			isa = PBXGroup;
-			children = (
-				83CD8FDC0773B60D0012C1CD /* Decoding */,
-				8364184B06C14B1A004048C1 /* ObjectIO */,
 				833FF94706D0EFAF00D0395E /* ErrorStack.h */,
 				833FF94806D0EFAF00D0395E /* ErrorStack.m */,
 				8321A4F906E54C2D00D96BA4 /* PacketPeeper.h */,
+				833B0E952376788F00570695 /* ObjectIO */,
+				833B0E942376788A00570695 /* Decoding */,
 			);
-			name = Shared;
+			path = Shared;
 			sourceTree = "<group>";
 		};
-		83B5CD57094F776D00C46868 /* TCPStreams */ = {
-			isa = PBXGroup;
-			children = (
-				83DBE6870CCAC2BB0084120D /* PPDataView.h */,
-				83DBE6880CCAC2BB0084120D /* PPDataView.m */,
-				83B5CD63094F77EE00C46868 /* PPTCPStream.h */,
-				83B5CD64094F77EE00C46868 /* PPTCPStream.m */,
-				83B5CD4F094F775800C46868 /* PPTCPStreamController.h */,
-				83B5CD50094F775800C46868 /* PPTCPStreamController.m */,
-				83D1CBDF07DCC38F007E7652 /* PPTCPStreamReassembler.h */,
-				83D1CBE107DCC39A007E7652 /* PPTCPStreamReassembler.m */,
-			);
-			name = TCPStreams;
-			sourceTree = "<group>";
-		};
-		83B5CD5A094F778500C46868 /* TCPStreams */ = {
-			isa = PBXGroup;
-			children = (
-				83B5CCBD094E28A300C46868 /* PPStreamsWindowController.h */,
-				83B5CCBC094E28A300C46868 /* PPStreamsWindowController.m */,
-				833B81F107F36D5000178219 /* PPTCPStreamWindowController.h */,
-				833B81F307F36D5D00178219 /* PPTCPStreamWindowController.m */,
-			);
-			name = TCPStreams;
-			sourceTree = "<group>";
-		};
-		83CD8FDC0773B60D0012C1CD /* Decoding */ = {
+		833B0E942376788A00570695 /* Decoding */ = {
 			isa = PBXGroup;
 			children = (
 				835F0BC90C70C498003B6A65 /* in_cksum.h */,
@@ -923,10 +770,90 @@
 				83CD8FBB0773B02D0012C1CD /* UDPDecode.h */,
 				83CD8FBC0773B02D0012C1CD /* UDPDecode.m */,
 			);
-			name = Decoding;
+			path = Decoding;
 			sourceTree = "<group>";
 		};
-		83D7F35C0D257B2700229DB3 /* Plugins */ = {
+		833B0E952376788F00570695 /* ObjectIO */ = {
+			isa = PBXGroup;
+			children = (
+				83FDF2B306BA9AA3009C3584 /* ObjectIO.h */,
+				83FDF2B406BA9AA3009C3584 /* ObjectIO.m */,
+				83F6B10806B1B81900E320E9 /* Messages.h */,
+				83F6B10B06B1B83100E320E9 /* Messages.m */,
+				83124C7F06A149C8008B5F66 /* socketpath.h */,
+				83124CA806A6F676008B5F66 /* writevn.c */,
+				83124CAB06A6F73F008B5F66 /* writevn.h */,
+			);
+			path = ObjectIO;
+			sourceTree = "<group>";
+		};
+		833B0E9623767A1C00570695 /* PacketPeeper */ = {
+			isa = PBXGroup;
+			children = (
+				83B8AFDF095F66B300027F4E /* oui2pp.py */,
+				83B8B01709600F7500027F4E /* services2pp.py */,
+				8332D413069EDC6300F35800 /* main.m */,
+				83A6398506F3BC5B00E8CF04 /* AppController.h */,
+				83A6398606F3BC5B00E8CF04 /* AppController.m */,
+				83CD8FD90773B2790012C1CD /* Describe.h */,
+				8332D40F069EDC4900F35800 /* Interface.h */,
+				8332D410069EDC4900F35800 /* Interface.m */,
+				8332D40C069EDC4900F35800 /* HostCache.hh */,
+				8332D40D069EDC4900F35800 /* HostCache.mm */,
+				8369ADDB191857B5002966D9 /* async.cpp */,
+				8369ADDC191857B5002966D9 /* async.hpp */,
+				8396932207A056CC00E1EDB9 /* PortCache.h */,
+				8396932307A056CC00E1EDB9 /* PortCache.m */,
+				8396932607A0570F00E1EDB9 /* OUICache.h */,
+				8396932707A0570F00E1EDB9 /* OUICache.m */,
+				834C84E70796A98500C0235D /* Cache.h */,
+				834C84E50796A97300C0235D /* Cache.m */,
+				8304C2EE07C6A884004FAC45 /* rb_tree.h */,
+				8304C2ED07C6A884004FAC45 /* rb_tree.c */,
+				833B0E9723767A2D00570695 /* TCPStreams */,
+				833B0E9823767A3600570695 /* Filters */,
+				833B0E9923767A3B00570695 /* Plugins */,
+				833B0E9A23767A4100570695 /* Categories */,
+				833B0E9B23767A4800570695 /* UI Classes */,
+			);
+			path = PacketPeeper;
+			sourceTree = "<group>";
+		};
+		833B0E9723767A2D00570695 /* TCPStreams */ = {
+			isa = PBXGroup;
+			children = (
+				83DBE6870CCAC2BB0084120D /* PPDataView.h */,
+				83DBE6880CCAC2BB0084120D /* PPDataView.m */,
+				83B5CD63094F77EE00C46868 /* PPTCPStream.h */,
+				83B5CD64094F77EE00C46868 /* PPTCPStream.m */,
+				83B5CD4F094F775800C46868 /* PPTCPStreamController.h */,
+				83B5CD50094F775800C46868 /* PPTCPStreamController.m */,
+				83D1CBDF07DCC38F007E7652 /* PPTCPStreamReassembler.h */,
+				83D1CBE107DCC39A007E7652 /* PPTCPStreamReassembler.m */,
+			);
+			path = TCPStreams;
+			sourceTree = "<group>";
+		};
+		833B0E9823767A3600570695 /* Filters */ = {
+			isa = PBXGroup;
+			children = (
+				835666CB0D43EB300037485E /* bpf_filter.h */,
+				835666BE0D43EAEC0037485E /* bpf_filter.c */,
+				83565B600D38E0260037485E /* PPCaptureFilter.h */,
+				83565B610D38E0260037485E /* PPCaptureFilter.m */,
+				83565B660D38E0730037485E /* PPBPFProgram.h */,
+				83565B670D38E0730037485E /* PPBPFProgram.m */,
+				83565D6B0D3D69A20037485E /* PPHexNumberFormatter.h */,
+				83565D6C0D3D69A20037485E /* PPHexNumberFormatter.m */,
+				83565E2F0D3EA46D0037485E /* PPCaptureFilterManager.h */,
+				83565E300D3EA46D0037485E /* PPCaptureFilterManager.m */,
+				83565FD20D3FE9E00037485E /* PPCaptureFilterFormatter.h */,
+				83565FD30D3FE9E00037485E /* PPCaptureFilterFormatter.m */,
+			);
+			path = Filters;
+			sourceTree = "<group>";
+		};
+		833B0E9923767A3B00570695 /* Plugins */ = {
 			isa = PBXGroup;
 			children = (
 				83D7F3B00D25812A00229DB3 /* PPDecoderPlugin.h */,
@@ -939,7 +866,73 @@
 				83FA8B980DCE35E8004C66C3 /* ip_options.py */,
 				833125580D3107A900BD80C4 /* dns.py */,
 			);
-			name = Plugins;
+			path = Plugins;
+			sourceTree = "<group>";
+		};
+		833B0E9A23767A4100570695 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				83CD8FAC07739D7D0012C1CD /* DateFormat.h */,
+				83CD8FA907739D680012C1CD /* DateFormat.m */,
+				8314CAD20CB12A09003610FD /* NSMutableArrayExtensions.h */,
+				8314CAD30CB12A09003610FD /* NSMutableArrayExtensions.m */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		833B0E9B23767A4800570695 /* UI Classes */ = {
+			isa = PBXGroup;
+			children = (
+				833B0E9D23767ACB00570695 /* TCPStreams */,
+				834F0425097EEA8300647E3C /* syncmenu.h */,
+				834F0426097EEA8300647E3C /* syncmenu.m */,
+				83D7F7970D281D5B00229DB3 /* PPPacketUIAdditons.h */,
+				83D7F7930D281C1200229DB3 /* PPPacketUIAdditons.m */,
+				8352BE840C82B9FC00284D91 /* PPProgressWindowController.h */,
+				8352BE850C82B9FC00284D91 /* PPProgressWindowController.m */,
+				83FA84D70DC35092004C66C3 /* IndividualPacketWindowController.h */,
+				839C2C150782D413006BA02E /* IndividualPacketWindowController.m */,
+				83FA84D50DC3507D004C66C3 /* PacketCaptureWindowController.h */,
+				83A6398A06F5DCDC00E8CF04 /* PacketCaptureWindowController.m */,
+				83A6398F06F5EDEC00E8CF04 /* CaptureSetupWindowController.h */,
+				83A6398D06F5EDE300E8CF04 /* CaptureSetupWindowController.m */,
+				83566B310D4E87C90037485E /* PPCaptureFilterWindowController.h */,
+				83566B320D4E87C90037485E /* PPCaptureFilterWindowController.m */,
+				83D22BD219241BE400DA0745 /* PPArpSpoofingWindowController.h */,
+				83D22BD41924256700DA0745 /* PPArpSpoofingWindowController.m */,
+				83C45660076F49C900050832 /* ErrorReportWindowController.h */,
+				83C45661076F49C900050832 /* ErrorReportWindowController.m */,
+				83AD23090994C6860048B019 /* PPDataQuantityFormatter.h */,
+				83AD230A0994C6860048B019 /* PPDataQuantityFormatter.m */,
+				83A6397D06F3A0F400E8CF04 /* MyDocumentController.h */,
+				83A6397E06F3A0F400E8CF04 /* MyDocumentController.m */,
+				2A37F4AEFDCFA73011CA2CEA /* MyDocument.h */,
+				2A37F4ACFDCFA73011CA2CEA /* MyDocument.m */,
+				83D22BC7191D591100DA0745 /* DataInspectorRepresenter.h */,
+				83D22BC8191D591100DA0745 /* DataInspectorRepresenter.m */,
+				833B81BA07EC520900178219 /* PPTableView.h */,
+				833B81BC07EC521300178219 /* PPTableView.m */,
+				83C45664076FB20A00050832 /* ColumnIdentifier.h */,
+				83C45665076FB20A00050832 /* ColumnIdentifier.m */,
+				83E4C11506FE46CB001F592F /* OutlineViewItem.h */,
+				83E4C11206FE46BE001F592F /* OutlineViewItem.m */,
+				83D1CBEB07E8B6CB007E7652 /* pkt_compare.h */,
+				83D1CBE907E8B6BA007E7652 /* pkt_compare.m */,
+				839334640CE2738C00FF58C5 /* stream_compare.h */,
+				839334650CE2738C00FF58C5 /* stream_compare.m */,
+			);
+			path = "UI Classes";
+			sourceTree = "<group>";
+		};
+		833B0E9D23767ACB00570695 /* TCPStreams */ = {
+			isa = PBXGroup;
+			children = (
+				83B5CCBD094E28A300C46868 /* PPStreamsWindowController.h */,
+				83B5CCBC094E28A300C46868 /* PPStreamsWindowController.m */,
+				833B81F107F36D5000178219 /* PPTCPStreamWindowController.h */,
+				833B81F307F36D5D00178219 /* PPTCPStreamWindowController.m */,
+			);
+			path = TCPStreams;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1068,6 +1061,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 832D5B890AFFF00B007D1E56 /* Build configuration list for PBXNativeTarget "PacketPeeper" */;
 			buildPhases = (
+				833B0E8F237666EF00570695 /* ShellScript */,
 				832D5B080AFFF00B007D1E56 /* Headers */,
 				83383EE91E660C03007959C5 /* Generate TCP/UDP services database */,
 				83383EEA1E660C95007959C5 /* Generate ethernet OUI database */,
@@ -1219,6 +1213,7 @@
 				83383EF91E662649007959C5 /* ethernet-manufacturers.oui in Resources */,
 				832D5B3D0AFFF00B007D1E56 /* Credits.rtf in Resources */,
 				832D5B3E0AFFF00B007D1E56 /* MainMenu.nib in Resources */,
+				833B0EA123767F1B00570695 /* service-names-port-numbers.csv in Resources */,
 				832D5B3F0AFFF00B007D1E56 /* MyDocument.nib in Resources */,
 				832D5B410AFFF00B007D1E56 /* CaptureSetupSheet.nib in Resources */,
 				832D5B430AFFF00B007D1E56 /* prev.tiff in Resources */,
@@ -1232,6 +1227,7 @@
 				832D5B4D0AFFF00B007D1E56 /* PPTCPStreamWindow.nib in Resources */,
 				83D22BD119217B5D00DA0745 /* PPArpSpoofingWindow.xib in Resources */,
 				83D22BCD191FEA4B00DA0745 /* DataInspectorView.xib in Resources */,
+				833B0E9F23767F0C00570695 /* oui.txt in Resources */,
 				832D5B4F0AFFF00B007D1E56 /* PPStreamsWindow.nib in Resources */,
 				830C23F618E22FC400ACBD55 /* ProgressSheet.nib in Resources */,
 				8314CB200CB12E9F003610FD /* ppdocumenticon2.icns in Resources */,
@@ -1262,7 +1258,7 @@
 			files = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/service-names-port-numbers.csv",
+				"$(SRCROOT)/Resources/service-names-port-numbers.csv",
 			);
 			name = "Generate TCP/UDP services database";
 			outputPaths = (
@@ -1271,7 +1267,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "./services2pp.py $SRCROOT/service-names-port-numbers.csv $DERIVED_FILE_DIR/port-numbers-tcp.port $DERIVED_FILE_DIR/port-numbers-udp.port";
+			shellScript = "./services2pp.py $SRCROOT/Resources/service-names-port-numbers.csv $DERIVED_FILE_DIR/port-numbers-tcp.port $DERIVED_FILE_DIR/port-numbers-udp.port\n";
 			showEnvVarsInLog = 0;
 		};
 		83383EEA1E660C95007959C5 /* Generate ethernet OUI database */ = {
@@ -1280,7 +1276,7 @@
 			files = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/oui.txt",
+				"$(SRCROOT)/Resources/oui.txt",
 			);
 			name = "Generate ethernet OUI database";
 			outputPaths = (
@@ -1288,8 +1284,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "./oui2pp.py $SRCROOT/oui.txt $DERIVED_FILE_DIR/ethernet-manufacturers.oui";
+			shellScript = "./oui2pp.py $SRCROOT/Resources/oui.txt $DERIVED_FILE_DIR/ethernet-manufacturers.oui\n";
 			showEnvVarsInLog = 0;
+		};
+		833B0E8F237666EF00570695 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nexport DATE=$(date '+%Y-%m-%d')\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1421,7 +1434,6 @@
 				83368DA4192EB84700D1CF35 /* rb_tree.c in Sources */,
 				83368D8D192E7D4F00D1CF35 /* lookup_dummy.c in Sources */,
 				83368DA0192EB36700D1CF35 /* PortCache.m in Sources */,
-				83368D85192E77F900D1CF35 /* main.m in Sources */,
 				83368D9F192EB35C00D1CF35 /* OutlineViewItem.m in Sources */,
 				83368D8F192E861600D1CF35 /* ErrorStack.m in Sources */,
 				83368D95192E9AF600D1CF35 /* IPV4Decode.m in Sources */,
