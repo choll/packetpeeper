@@ -20,7 +20,7 @@
 #ifndef _BPF_H_
 #define _BPF_H_
 
-#include "ErrorStack.h"
+#include "../Shared/ErrorStack.h"
 #import <Foundation/NSObject.h>
 #include <net/bpf.h>
 #include <sys/time.h>

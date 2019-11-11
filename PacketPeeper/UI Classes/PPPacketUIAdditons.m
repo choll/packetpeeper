@@ -17,16 +17,15 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "PPPacketUIAdditons.h"
-#include "ColumnIdentifier.h"
-#include "DateFormat.h"
-#include "Decode.h"
-#include "PPBPFProgram.h"
-#include "PPDecoderPlugin.h"
-#include "PPPluginManager.h"
-#include "PPPluginWrapper.h"
-#include "PacketPeeper.h"
-#include "bpf_filter.h"
+#include "PPPacketUIAdditions.h"
+#include "../Categories/DateFormat.h"
+#include "../../Shared/Decoding/Decode.h"
+#include "../Filters/PPBPFProgram.h"
+#include "../Plugins/PPDecoderPlugin.h"
+#include "../Plugins/PPPluginManager.h"
+#include "../Plugins/PPPluginWrapper.h"
+#include "../../Shared/PacketPeeper.h"
+#include "../Filters/bpf_filter.h"
 #include "pkt_compare.h"
 #import <Foundation/NSArray.h>
 #import <Foundation/NSData.h>

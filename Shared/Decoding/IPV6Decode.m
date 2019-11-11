@@ -18,12 +18,11 @@
  */
 
 #include "IPV6Decode.h"
-#include "ColumnIdentifier.h"
-#include "HostCache.hh"
+#include "../../PacketPeeper/HostCache.hh"
 #include "Packet.h"
 #include "TCPDecode.h"
 #include "UDPDecode.h"
-#include "pkt_compare.h"
+#include "../../PacketPeeper/UI Classes/pkt_compare.h"
 #include "strfuncs.h"
 #import <Foundation/NSArchiver.h>
 #import <Foundation/NSArray.h>

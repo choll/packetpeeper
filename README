@@ -1,6 +1,9 @@
-# BUILD INSTRUCTIONS #
+### Build instructions:
 
 * git submodule update --init --recursive
 * xcodebuild -target All -configuration Release
-* make_dmg.sh
+
+If you want to build a dmg file you can use:
+
+* xcodebuild -target CreateDiskImage -configuration Release
 

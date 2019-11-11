@@ -18,7 +18,7 @@
  */
 
 #include "ErrorReportWindowController.h"
-#include "ErrorStack.h"
+#include "../../Shared/ErrorStack.h"
 #import <AppKit/NSApplication.h>
 #import <AppKit/NSButton.h>
 #import <AppKit/NSTextField.h>

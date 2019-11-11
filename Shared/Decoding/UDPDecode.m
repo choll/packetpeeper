@@ -21,9 +21,9 @@
 #include "IPV4Decode.h"
 #include "IPV6Decode.h"
 #include "Packet.h"
-#include "PortCache.h"
+#include "../../PacketPeeper/PortCache.h"
 #include "in_cksum.h"
-#include "pkt_compare.h"
+#include "../../PacketPeeper/UI Classes/pkt_compare.h"
 #import <Foundation/NSArchiver.h>
 #import <Foundation/NSArray.h>
 #import <Foundation/NSData.h>

@@ -19,10 +19,10 @@
 
 #include "PPCaptureFilterWindowController.h"
 #include "MyDocument.h"
-#include "PPCaptureFilter.h"
-#include "PPCaptureFilterFormatter.h"
-#include "PPCaptureFilterManager.h"
-#include "PPHexNumberFormatter.h"
+#include "../Filters/PPCaptureFilter.h"
+#include "../Filters/PPCaptureFilterFormatter.h"
+#include "../Filters/PPCaptureFilterManager.h"
+#include "../Filters/PPHexNumberFormatter.h"
 #import <AppKit/NSApplication.h>
 #import <AppKit/NSComboBox.h>
 #import <AppKit/NSTextField.h>

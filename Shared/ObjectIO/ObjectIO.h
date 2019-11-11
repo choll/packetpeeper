@@ -20,7 +20,7 @@
 #ifndef _OBJECTIO_H_
 #define _OBJECTIO_H_
 
-#include "ErrorStack.h"
+#include "../ErrorStack.h"
 #import <Foundation/NSObject.h>
 #include <stdint.h>
 #include <sys/types.h>

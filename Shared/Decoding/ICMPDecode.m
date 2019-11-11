@@ -18,7 +18,7 @@
  */
 
 #include "ICMPDecode.h"
-#include "HostCache.hh"
+#include "../../PacketPeeper/HostCache.hh"
 #include "IPV4Decode.h"
 #include "Packet.h"
 #include "TCPDecode.h"

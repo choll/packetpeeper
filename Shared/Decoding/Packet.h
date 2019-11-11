@@ -20,7 +20,7 @@
 #ifndef PACKETPEEPER_PACKET_H
 #define PACKETPEEPER_PACKET_H
 
-#include "OutlineViewItem.h"
+#include "../../PacketPeeper/UI Classes/OutlineViewItem.h"
 #include "PPDecoderParent.h"
 
 #import <Foundation/NSObject.h>

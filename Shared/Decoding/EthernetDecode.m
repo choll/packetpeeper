@@ -19,11 +19,10 @@
 
 #include "EthernetDecode.h"
 #include "ARPDecode.h"
-#include "ColumnIdentifier.h"
 #include "IPV4Decode.h"
 #include "IPV6Decode.h"
-#include "OUICache.h"
-#include "pkt_compare.h"
+#include "../../PacketPeeper/OUICache.h"
+#include "../../PacketPeeper/UI Classes/pkt_compare.h"
 #include "strfuncs.h"
 #import <Foundation/NSArchiver.h>
 #import <Foundation/NSArray.h>

@@ -18,10 +18,10 @@
  */
 
 #include "ARPDecode.h"
-#include "HostCache.hh"
-#include "OUICache.h"
+#include "../../PacketPeeper/HostCache.hh"
+#include "../../PacketPeeper/OUICache.h"
 #include "Packet.h"
-#include "pkt_compare.h"
+#include "../../PacketPeeper/UI Classes/pkt_compare.h"
 #include "strfuncs.h"
 #import <Foundation/NSArchiver.h>
 #import <Foundation/NSArray.h>

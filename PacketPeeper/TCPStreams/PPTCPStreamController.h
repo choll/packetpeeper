@@ -20,7 +20,7 @@
 #ifndef _PPTCPSTREAMCONTROLLER_H_
 #define _PPTCPSTREAMCONTROLLER_H_
 
-#include "rb_tree.h"
+#include "../rb_tree.h"
 #import <Foundation/NSObject.h>
 #include <netinet/in.h>
 

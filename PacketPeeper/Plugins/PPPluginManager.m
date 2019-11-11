@@ -18,11 +18,11 @@
  */
 
 #include "PPPluginManager.h"
-#include "Describe.h"
+#include "../Describe.h"
 #include "PPDecoderPlugin.h"
 #include "PPPyDecoderPlugin.h"
-#include "TCPDecode.h"
-#include "UDPDecode.h"
+#include "../../Shared/Decoding/TCPDecode.h"
+#include "../../Shared/Decoding/UDPDecode.h"
 #import <Foundation/NSArray.h>
 #import <Foundation/NSBundle.h>
 #import <Foundation/NSFileManager.h>

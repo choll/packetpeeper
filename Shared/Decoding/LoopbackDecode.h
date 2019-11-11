@@ -20,10 +20,10 @@
 #ifndef _LOOPBACKDECODE_H_
 #define _LOOPBACKDECODE_H_
 
-#include "ColumnIdentifier.h"
+#include "../../PacketPeeper/UI Classes/ColumnIdentifier.h"
 #include "Decode.h"
-#include "Describe.h"
-#include "OutlineViewItem.h"
+#include "../../PacketPeeper/Describe.h"
+#include "../../PacketPeeper/UI Classes/OutlineViewItem.h"
 #import <Foundation/NSObject.h>
 #include <stdint.h>
 

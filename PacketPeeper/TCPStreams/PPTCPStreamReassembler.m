@@ -18,11 +18,11 @@
  */
 
 #include "PPTCPStreamReassembler.h"
-#include "IPV4Decode.h"
+#include "../../Shared/Decoding/IPV4Decode.h"
 #include "PPTCPStream.h"
 #include "PPTCPStreamController.h"
-#include "PacketPeeper.h"
-#include "TCPDecode.h"
+#include "../../Shared/PacketPeeper.h"
+#include "../../Shared/Decoding/TCPDecode.h"
 #import <Foundation/NSArray.h>
 #import <Foundation/NSData.h>
 #import <Foundation/NSString.h>

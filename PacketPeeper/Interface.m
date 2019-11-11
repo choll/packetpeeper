@@ -18,8 +18,8 @@
  */
 
 #include "Interface.h"
-#include "ErrorStack.h"
-#include "pktap.h"
+#include "../Shared/ErrorStack.h"
+#include "../Shared/Decoding/pktap.h"
 #import <Foundation/NSArray.h>
 #import <Foundation/NSString.h>
 #include <errno.h>

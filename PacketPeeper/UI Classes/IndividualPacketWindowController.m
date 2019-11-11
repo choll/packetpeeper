@@ -19,13 +19,13 @@
 
 #include "IndividualPacketWindowController.h"
 #import "DataInspectorRepresenter.h"
-#include "HostCache.hh"
+#include "../HostCache.hh"
 #include "MyDocument.h"
 #include "OutlineViewItem.h"
-#include "PPPacketUIAdditons.h"
-#include "Packet.h"
+#include "PPPacketUIAdditions.h"
+#include "../../Shared/Decoding/Packet.h"
 #include "PacketCaptureWindowController.h"
-#include "PacketPeeper.h"
+#include "../../Shared/PacketPeeper.h"
 #import <AppKit/NSClipView.h>
 #import <AppKit/NSOutlineView.h>
 #import <AppKit/NSProgressIndicator.h> // For HexFiend

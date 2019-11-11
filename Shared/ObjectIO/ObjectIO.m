@@ -18,7 +18,6 @@
  */
 
 #include "ObjectIO.h"
-#include "ErrorStack.h"
 #include "writevn.h"
 #import <Foundation/NSArchiver.h>
 #import <Foundation/NSData.h>

@@ -18,10 +18,6 @@
  */
 
 #include "PPPluginWrapper.h"
-#include "ColumnIdentifier.h"
-#include "Decode.h"
-#include "Describe.h"
-#include "OutlineViewItem.h"
 #include "PPDecoderPlugin.h"
 #include <Foundation/NSData.h>
 #import <Foundation/NSObject.h>

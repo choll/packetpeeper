@@ -20,10 +20,10 @@
 #ifndef PPPLUGINWRAPPER_H_
 #define PPPLUGINWRAPPER_H_
 
-#include "ColumnIdentifier.h"
-#include "Decode.h"
-#include "Describe.h"
-#include "OutlineViewItem.h"
+#include "../UI Classes/ColumnIdentifier.h"
+#include "../../Shared/Decoding/Decode.h"
+#include "../Describe.h"
+#include "../UI Classes/OutlineViewItem.h"
 
 @class NSObject;
 @protocol Describe;

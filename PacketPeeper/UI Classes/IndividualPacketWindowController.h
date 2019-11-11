@@ -20,7 +20,7 @@
 #ifndef _INVIDIVIDUALPACKETWINDOWCONTROLLER_H_
 #define _INVIDIVIDUALPACKETWINDOWCONTROLLER_H_
 
-#include "PacketPeeper.h"
+#include "../../Shared/PacketPeeper.h"
 #import <AppKit/NSOutlineView.h>
 #import <AppKit/NSWindowController.h>
 

@@ -18,13 +18,13 @@
  */
 
 #include "CaptureSetupWindowController.h"
-#include "ErrorStack.h"
-#include "Interface.h"
+#include "../../Shared/ErrorStack.h"
+#include "../Interface.h"
 #include "MyDocument.h"
 #include "MyDocumentController.h"
 #include "PPDataQuantityFormatter.h"
-#include "PacketPeeper.h"
-#include "pktap.h"
+#include "../../Shared/PacketPeeper.h"
+#include "../../Shared/Decoding/pktap.h"
 #import <AppKit/NSApplication.h>
 #import <AppKit/NSButton.h>
 #import <AppKit/NSDatePicker.h>

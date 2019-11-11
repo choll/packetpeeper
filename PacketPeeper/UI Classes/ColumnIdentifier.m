@@ -18,8 +18,8 @@
  */
 
 #include "ColumnIdentifier.h"
-#include "PPDecoderPlugin.h"
-#include "PPPluginManager.h"
+#include "../Plugins/PPDecoderPlugin.h"
+#include "../Plugins/PPPluginManager.h"
 #import <Foundation/NSCoder.h>
 #import <Foundation/NSString.h>
 

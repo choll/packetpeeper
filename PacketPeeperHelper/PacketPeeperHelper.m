@@ -18,13 +18,13 @@
  */
 
 #include "Bpf.h"
-#include "ErrorStack.h"
-#include "Messages.h"
-#include "ObjectIO.h"
-#include "Packet.h"
-#include "PacketPeeper.h"
-#include "dlt_lookup.h"
-#include "socketpath.h"
+#include "../Shared/ErrorStack.h"
+#include "../Shared/ObjectIO/Messages.h"
+#include "../Shared/ObjectIO/ObjectIO.h"
+#include "../Shared/Decoding/Packet.h"
+#include "../Shared/PacketPeeper.h"
+#include "../Shared/Decoding/dlt_lookup.h"
+#include "../Shared/ObjectIO/socketpath.h"
 #import <Foundation/NSArray.h>
 #import <Foundation/NSAutoreleasePool.h>
 #import <Foundation/NSData.h>

@@ -19,7 +19,7 @@
 
 #include "PPCaptureFilterManager.h"
 #include "PPCaptureFilter.h"
-#include "PacketPeeper.h"
+#include "../../Shared/PacketPeeper.h"
 #import <Foundation/NSArchiver.h>
 #import <Foundation/NSData.h>
 #import <Foundation/NSDictionary.h>

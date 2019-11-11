@@ -19,6 +19,18 @@
 			name = All;
 			productName = All;
 		};
+		833B0EB82379023F00570695 /* CreateDiskImage */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 833B0EB92379023F00570695 /* Build configuration list for PBXAggregateTarget "CreateDiskImage" */;
+			buildPhases = (
+				833B0EBE237902C900570695 /* ShellScript */,
+			);
+			dependencies = (
+				833B0EBD237902BF00570695 /* PBXTargetDependency */,
+			);
+			name = CreateDiskImage;
+			productName = CreateDiskImage;
+		};
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
@@ -356,6 +368,13 @@
 			remoteGlobalIDString = D01E7BB70CDC530C00943F9E;
 			remoteInfo = HexFiend_Framework;
 		};
+		833B0EBC237902BF00570695 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 832D5BD20AFFF00B007D1E56;
+			remoteInfo = All;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -532,8 +551,8 @@
 		83B5CD50094F775800C46868 /* PPTCPStreamController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPTCPStreamController.m; sourceTree = "<group>"; };
 		83B5CD63094F77EE00C46868 /* PPTCPStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPTCPStream.h; sourceTree = "<group>"; };
 		83B5CD64094F77EE00C46868 /* PPTCPStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPTCPStream.m; sourceTree = "<group>"; };
-		83B8AFDF095F66B300027F4E /* oui2pp.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = oui2pp.py; sourceTree = "<group>"; };
-		83B8B01709600F7500027F4E /* services2pp.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = services2pp.py; sourceTree = "<group>"; };
+		83B8AFDF095F66B300027F4E /* oui2pp.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = oui2pp.py; path = ../Scripts/oui2pp.py; sourceTree = "<group>"; };
+		83B8B01709600F7500027F4E /* services2pp.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = services2pp.py; path = ../Scripts/services2pp.py; sourceTree = "<group>"; };
 		83C4565E076F469C00050832 /* ErrorReportSheet.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = ErrorReportSheet.nib; path = en.lproj/ErrorReportSheet.nib; sourceTree = "<group>"; };
 		83C45660076F49C900050832 /* ErrorReportWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorReportWindowController.h; sourceTree = "<group>"; };
 		83C45661076F49C900050832 /* ErrorReportWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorReportWindowController.m; sourceTree = "<group>"; };
@@ -1061,7 +1080,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 832D5B890AFFF00B007D1E56 /* Build configuration list for PBXNativeTarget "PacketPeeper" */;
 			buildPhases = (
-				833B0E8F237666EF00570695 /* ShellScript */,
 				832D5B080AFFF00B007D1E56 /* Headers */,
 				83383EE91E660C03007959C5 /* Generate TCP/UDP services database */,
 				83383EEA1E660C95007959C5 /* Generate ethernet OUI database */,
@@ -1125,6 +1143,11 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 1010;
+				TargetAttributes = {
+					833B0EB82379023F00570695 = {
+						CreatedOnToolsVersion = 10.1;
+					};
+				};
 			};
 			buildConfigurationList = 837EF0640855D81A00A36659 /* Build configuration list for PBXProject "PacketPeeper" */;
 			compatibilityVersion = "Xcode 9.3";
@@ -1147,6 +1170,7 @@
 				832D5B900AFFF00B007D1E56 /* PacketPeeperHelper */,
 				832D5BD20AFFF00B007D1E56 /* All */,
 				83368D81192E77F900D1CF35 /* ArpSpoofingTester */,
+				833B0EB82379023F00570695 /* CreateDiskImage */,
 			);
 		};
 /* End PBXProject section */
@@ -1267,7 +1291,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "./services2pp.py $SRCROOT/Resources/service-names-port-numbers.csv $DERIVED_FILE_DIR/port-numbers-tcp.port $DERIVED_FILE_DIR/port-numbers-udp.port\n";
+			shellScript = "Scripts/services2pp.py $SRCROOT/Resources/service-names-port-numbers.csv $DERIVED_FILE_DIR/port-numbers-tcp.port $DERIVED_FILE_DIR/port-numbers-udp.port\n";
 			showEnvVarsInLog = 0;
 		};
 		83383EEA1E660C95007959C5 /* Generate ethernet OUI database */ = {
@@ -1284,10 +1308,10 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "./oui2pp.py $SRCROOT/Resources/oui.txt $DERIVED_FILE_DIR/ethernet-manufacturers.oui\n";
+			shellScript = "Scripts/oui2pp.py $SRCROOT/Resources/oui.txt $DERIVED_FILE_DIR/ethernet-manufacturers.oui\n";
 			showEnvVarsInLog = 0;
 		};
-		833B0E8F237666EF00570695 /* ShellScript */ = {
+		833B0EBE237902C900570695 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1302,7 +1326,8 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nexport DATE=$(date '+%Y-%m-%d')\n";
+			shellScript = "DATE=$(date '+%Y-%m-%d')\nagvtool new-marketing-version $DATE\nagvtool new-version -all $DATE\nhdiutil create -format UDBZ build/Release/PacketPeeper_$DATE.dmg -volname \"Packet Peeper\" -srcfolder 'build/Release/Packet Peeper.app'\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1467,6 +1492,11 @@
 			name = HexFiend_Framework;
 			targetProxy = 833B0E8C23765AFC00570695 /* PBXContainerItemProxy */;
 		};
+		833B0EBD237902BF00570695 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 832D5BD20AFFF00B007D1E56 /* All */;
+			targetProxy = 833B0EBC237902BF00570695 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -1575,8 +1605,8 @@
 				LIBRARY_SEARCH_PATHS = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Python.framework/Versions/2.7/lib/python2.7/config";
 				PRODUCT_BUNDLE_IDENTIFIER = org.PacketPeeper;
 				PRODUCT_NAME = "Packet Peeper";
-				"USER_HEADER_SEARCH_PATHS[arch=*]" = "";
 				USE_HEADERMAP = NO;
+				VERSIONING_SYSTEM = "apple-generic";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1596,6 +1626,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.PacketPeeper;
 				PRODUCT_NAME = "Packet Peeper";
 				USE_HEADERMAP = NO;
+				VERSIONING_SYSTEM = "apple-generic";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -1623,6 +1654,7 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				PRODUCT_NAME = All;
+				USE_HEADERMAP = NO;
 			};
 			name = Debug;
 		};
@@ -1631,6 +1663,7 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				PRODUCT_NAME = All;
+				USE_HEADERMAP = NO;
 			};
 			name = Release;
 		};
@@ -1639,6 +1672,7 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USE_HEADERMAP = NO;
 			};
 			name = Debug;
 		};
@@ -1646,6 +1680,25 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				USE_HEADERMAP = NO;
+			};
+			name = Release;
+		};
+		833B0EBA2379023F00570695 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		833B0EBB2379023F00570695 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -1825,6 +1878,15 @@
 			buildConfigurations = (
 				83368D88192E77F900D1CF35 /* Debug */,
 				83368D89192E77F900D1CF35 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		833B0EB92379023F00570695 /* Build configuration list for PBXAggregateTarget "CreateDiskImage" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				833B0EBA2379023F00570695 /* Debug */,
+				833B0EBB2379023F00570695 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

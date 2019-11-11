@@ -20,7 +20,7 @@
 #ifndef PPDECODERPLUGIN_H_
 #define PPDECODERPLUGIN_H_
 
-#include "Describe.h"
+#include "../Describe.h"
 #import <Foundation/NSObjCRuntime.h>
 
 @class NSString;

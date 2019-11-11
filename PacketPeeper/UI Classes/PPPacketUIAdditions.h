@@ -22,7 +22,7 @@
 
 #include "ColumnIdentifier.h"
 #include "OutlineViewItem.h"
-#include "Packet.h"
+#include "../../Shared/Decoding/Packet.h"
 
 #define PACKET_COLUMN_INDEX_NUMBER 0
 #define PACKET_COLUMN_INDEX_DATE   1

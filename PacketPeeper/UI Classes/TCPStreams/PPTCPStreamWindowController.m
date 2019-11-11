@@ -18,11 +18,11 @@
  */
 
 #include "PPTCPStreamWindowController.h"
-#include "HostCache.hh"
-#include "MyDocument.h"
-#include "PPTCPStream.h"
-#include "PacketCaptureWindowController.h"
-#include "PacketPeeper.h"
+#include "../../HostCache.hh"
+#include "../MyDocument.h"
+#include "../../TCPStreams/PPTCPStream.h"
+#include "../PacketCaptureWindowController.h"
+#include "../../../Shared/PacketPeeper.h"
 #import <AppKit/NSColor.h>
 #import <AppKit/NSFont.h>
 #import <AppKit/NSLayoutManager.h>

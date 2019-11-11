@@ -18,7 +18,7 @@
  */
 
 #import "stream_compare.h"
-#import "PPTCPStream.h"
+#import "../TCPStreams/PPTCPStream.h"
 
 NSComparisonResult stream_compare(id stream1, id stream2, void* context)
 {

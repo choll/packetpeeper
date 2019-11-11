@@ -18,17 +18,17 @@
  */
 
 #include "PPTCPStreamController.h"
-#include "DateFormat.h"
-#include "IPV4Decode.h"
-#include "NSMutableArrayExtensions.h"
-#include "OutlineViewItem.h"
+#include "../Categories/DateFormat.h"
+#include "../../Shared/Decoding/IPV4Decode.h"
+#include "../Categories/NSMutableArrayExtensions.h"
+#include "../UI Classes/OutlineViewItem.h"
 #include "PPTCPStream.h"
 #include "PPTCPStreamReassembler.h"
-#include "Packet.h"
-#include "PacketPeeper.h"
-#include "TCPDecode.h"
-#include "pkt_compare.h"
-#include "stream_compare.h"
+#include "../../Shared/Decoding/Packet.h"
+#include "../../Shared/PacketPeeper.h"
+#include "../../Shared/Decoding/TCPDecode.h"
+#include "../UI Classes/pkt_compare.h"
+#include "../UI Classes/stream_compare.h"
 #import <Foundation/NSArray.h>
 #import <Foundation/NSDate.h>
 #import <Foundation/NSString.h>

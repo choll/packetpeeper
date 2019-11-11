@@ -24,7 +24,7 @@ I dont use a PPP connection...
 
 #include "PPPDecode.h"
 #include "IPV4Decode.h"
-#include "pkt_compare.h"
+#include "../../PacketPeeper/UI Classes/pkt_compare.h"
 #import <Foundation/NSArchiver.h>
 #import <Foundation/NSArray.h>
 #import <Foundation/NSData.h>
