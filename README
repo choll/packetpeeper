@@ -1,3 +1,5 @@
+[![Build Status](https://dev.azure.com/cholloway/PacketPeeper/_apis/build/status/choll.packetpeeper?branchName=master)](https://dev.azure.com/cholloway/PacketPeeper/_build/latest?definitionId=1&branchName=master)
+
 ### Build instructions:
 
 * git submodule update --init --recursive
