@@ -14,6 +14,7 @@ steps:
   inputs:
     actions: 'build'
     scheme: 'All'
+    sdk: 'macOS'
     configuration: 'Release'
     xcWorkspacePath: '**/*.xcodeproj/project.xcworkspace'
     xcodeVersion: 'default' # Options: 8, 9, 10, default, specifyPath
