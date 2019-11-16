@@ -21,6 +21,7 @@ steps:
     args: '-target All'
     sdk: 'macosx10.14'
     configuration: 'Release'
+    xcWorkspacePath: 
     xcodeVersion: '10' # Options: 8, 9, 10, default, specifyPath
 
  
