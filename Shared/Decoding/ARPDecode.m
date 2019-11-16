@@ -20,8 +20,8 @@
 #include "ARPDecode.h"
 #include "../../PacketPeeper/HostCache.hh"
 #include "../../PacketPeeper/OUICache.h"
-#include "Packet.h"
 #include "../../PacketPeeper/UI Classes/pkt_compare.h"
+#include "Packet.h"
 #include "strfuncs.h"
 #import <Foundation/NSArchiver.h>
 #import <Foundation/NSArray.h>

@@ -18,8 +18,8 @@
  */
 
 #include "PPCaptureFilterManager.h"
-#include "PPCaptureFilter.h"
 #include "../../Shared/PacketPeeper.h"
+#include "PPCaptureFilter.h"
 #import <Foundation/NSArchiver.h>
 #import <Foundation/NSData.h>
 #import <Foundation/NSDictionary.h>

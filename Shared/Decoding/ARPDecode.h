@@ -20,10 +20,10 @@
 #ifndef _ARPDECODE_H_
 #define _ARPDECODE_H_
 
-#include "../../PacketPeeper/UI Classes/ColumnIdentifier.h"
-#include "Decode.h"
 #include "../../PacketPeeper/Describe.h"
+#include "../../PacketPeeper/UI Classes/ColumnIdentifier.h"
 #include "../../PacketPeeper/UI Classes/OutlineViewItem.h"
+#include "Decode.h"
 #import <Foundation/NSObject.h>
 #include <net/ethernet.h>
 #include <netinet/in.h>

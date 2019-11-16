@@ -18,12 +18,12 @@
  */
 
 #include "MyDocumentController.h"
-#include "CaptureSetupWindowController.h"
 #include "../../Shared/ErrorStack.h"
+#include "../../Shared/ObjectIO/socketpath.h"
+#include "CaptureSetupWindowController.h"
 #include "MyDocument.h"
 #include "PPCaptureFilterWindowController.h"
 #include "PPProgressWindowController.h"
-#include "../../Shared/ObjectIO/socketpath.h"
 #import <AppKit/NSApplication.h>
 #import <AppKit/NSOpenPanel.h>
 #import <AppKit/NSWindow.h>

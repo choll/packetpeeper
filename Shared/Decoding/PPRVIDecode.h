@@ -20,10 +20,10 @@
 #ifndef PACKETPEEPER_RVIDECODE_H
 #define PACKETPEEPER_RVIDECODE_H
 
-#include "../../PacketPeeper/UI Classes/ColumnIdentifier.h"
-#include "Decode.h"
 #include "../../PacketPeeper/Describe.h"
+#include "../../PacketPeeper/UI Classes/ColumnIdentifier.h"
 #include "../../PacketPeeper/UI Classes/OutlineViewItem.h"
+#include "Decode.h"
 
 #import <Foundation/NSObject.h>
 

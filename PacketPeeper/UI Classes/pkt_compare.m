@@ -18,9 +18,9 @@
  */
 
 #include "pkt_compare.h"
+#include "../../Shared/Decoding/Packet.h"
 #include "ColumnIdentifier.h"
 #include "PPPacketUIAdditions.h"
-#include "../../Shared/Decoding/Packet.h"
 
 NSComparisonResult pkt_compare(id pkt1, id pkt2, void* context)
 {

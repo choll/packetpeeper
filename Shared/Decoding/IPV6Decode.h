@@ -20,10 +20,10 @@
 #ifndef PACKETPEEPER_IPV6DECODE_H
 #define PACKETPEEPER_IPV6DECODE_H
 
-#include "../../PacketPeeper/UI Classes/ColumnIdentifier.h"
-#include "Decode.h"
 #include "../../PacketPeeper/Describe.h"
+#include "../../PacketPeeper/UI Classes/ColumnIdentifier.h"
 #include "../../PacketPeeper/UI Classes/OutlineViewItem.h"
+#include "Decode.h"
 #import <Foundation/NSObject.h>
 #include <netinet/in.h>
 #include <stdint.h>

@@ -18,9 +18,9 @@
  */
 
 #include "LoopbackDecode.h"
+#include "../../PacketPeeper/UI Classes/pkt_compare.h"
 #include "IPV4Decode.h"
 #include "IPV6Decode.h"
-#include "../../PacketPeeper/UI Classes/pkt_compare.h"
 #import <Foundation/NSArchiver.h>
 #import <Foundation/NSArray.h>
 #import <Foundation/NSData.h>

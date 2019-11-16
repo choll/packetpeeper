@@ -18,9 +18,9 @@
  */
 
 #include "PPPyDecoderPlugin.h"
+#include "../../Shared/Decoding/strfuncs.h"
 #include "../UI Classes/ColumnIdentifier.h"
 #include "../UI Classes/OutlineViewItem.h"
-#include "../../Shared/Decoding/strfuncs.h"
 #import <Foundation/NSArray.h>
 #import <Foundation/NSBundle.h>
 #import <Foundation/NSData.h>

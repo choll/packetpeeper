@@ -18,15 +18,15 @@
  */
 
 #include "Packet.h"
+#include "../../PacketPeeper/Plugins/PPPluginManager.h"
 #include "../../PacketPeeper/UI Classes/ColumnIdentifier.h"
+#include "../../PacketPeeper/UI Classes/MyDocument.h"
+#include "../PacketPeeper.h"
 #include "EthernetDecode.h"
 #include "IPV4Decode.h"
 #include "LoopbackDecode.h"
-#include "../../PacketPeeper/UI Classes/MyDocument.h"
 #include "PPPDecode.h"
-#include "../../PacketPeeper/Plugins/PPPluginManager.h"
 #include "PPRVIDecode.h"
-#include "../PacketPeeper.h"
 #include "demultiplex.h"
 #include "pktap.h"
 #import <Foundation/NSArchiver.h>

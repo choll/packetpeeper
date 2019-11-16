@@ -18,11 +18,11 @@
  */
 
 #include "PPCaptureFilterWindowController.h"
-#include "MyDocument.h"
 #include "../Filters/PPCaptureFilter.h"
 #include "../Filters/PPCaptureFilterFormatter.h"
 #include "../Filters/PPCaptureFilterManager.h"
 #include "../Filters/PPHexNumberFormatter.h"
+#include "MyDocument.h"
 #import <AppKit/NSApplication.h>
 #import <AppKit/NSComboBox.h>
 #import <AppKit/NSTextField.h>

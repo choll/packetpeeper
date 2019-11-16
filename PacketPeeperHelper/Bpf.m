@@ -18,8 +18,8 @@
  */
 
 #include "Bpf.h"
-#include "../Shared/ErrorStack.h"
 #include "../PacketPeeper/Filters/PPBPFProgram.h"
+#include "../Shared/ErrorStack.h"
 #import <Foundation/NSArray.h>
 #import <Foundation/NSData.h>
 #import <Foundation/NSException.h>

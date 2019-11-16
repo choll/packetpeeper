@@ -18,9 +18,9 @@
  */
 
 #include "PPRVIDecode.h"
+#include "../../PacketPeeper/UI Classes/pkt_compare.h"
 #include "Packet.h"
 #include "dlt_lookup.h"
-#include "../../PacketPeeper/UI Classes/pkt_compare.h"
 #include "strfuncs.h"
 
 #import <Foundation/NSArchiver.h>

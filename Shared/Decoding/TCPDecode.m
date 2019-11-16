@@ -18,12 +18,12 @@
  */
 
 #include "TCPDecode.h"
+#include "../../PacketPeeper/PortCache.h"
+#include "../../PacketPeeper/UI Classes/pkt_compare.h"
 #include "IPV4Decode.h"
 #include "IPV6Decode.h"
 #include "Packet.h"
-#include "../../PacketPeeper/PortCache.h"
 #include "in_cksum.h"
-#include "../../PacketPeeper/UI Classes/pkt_compare.h"
 #import <Foundation/NSArchiver.h>
 #import <Foundation/NSArray.h>
 #import <Foundation/NSData.h>

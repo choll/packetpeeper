@@ -18,19 +18,19 @@
  */
 
 #include "PPStreamsWindowController.h"
+#include "../../../Shared/Decoding/Packet.h"
+#include "../../../Shared/Decoding/TCPDecode.h"
+#include "../../../Shared/PacketPeeper.h"
 #include "../../AppController.h"
-#include "../ColumnIdentifier.h"
 #include "../../Categories/DateFormat.h"
 #include "../../HostCache.hh"
+#include "../../TCPStreams/PPTCPStream.h"
+#include "../../TCPStreams/PPTCPStreamController.h"
+#include "../ColumnIdentifier.h"
 #include "../MyDocument.h"
 #include "../PPDataQuantityFormatter.h"
 #include "../PPPacketUIAdditions.h"
-#include "../../TCPStreams/PPTCPStream.h"
-#include "../../TCPStreams/PPTCPStreamController.h"
-#include "../../../Shared/Decoding/Packet.h"
 #include "../PacketCaptureWindowController.h"
-#include "../../../Shared/PacketPeeper.h"
-#include "../../../Shared/Decoding/TCPDecode.h"
 #include "../syncmenu.h"
 #import <AppKit/NSApplication.h>
 #import <AppKit/NSCell.h>

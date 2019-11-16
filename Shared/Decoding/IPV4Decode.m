@@ -19,14 +19,14 @@
 
 #include "IPV4Decode.h"
 #include "../../PacketPeeper/HostCache.hh"
-#include "ICMPDecode.h"
 #include "../../PacketPeeper/Plugins/PPDecoderPlugin.h"
 #include "../../PacketPeeper/Plugins/PPPluginManager.h"
+#include "../../PacketPeeper/UI Classes/pkt_compare.h"
+#include "ICMPDecode.h"
 #include "Packet.h"
 #include "TCPDecode.h"
 #include "UDPDecode.h"
 #include "in_cksum.h"
-#include "../../PacketPeeper/UI Classes/pkt_compare.h"
 #include "strfuncs.h"
 #import <Foundation/NSArchiver.h>
 #import <Foundation/NSArray.h>

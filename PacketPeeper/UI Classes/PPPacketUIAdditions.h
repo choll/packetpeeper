@@ -20,9 +20,9 @@
 #ifndef PPPacketUIAdditions_H_
 #define PPPacketUIAdditions_H_
 
+#include "../../Shared/Decoding/Packet.h"
 #include "ColumnIdentifier.h"
 #include "OutlineViewItem.h"
-#include "../../Shared/Decoding/Packet.h"
 
 #define PACKET_COLUMN_INDEX_NUMBER 0
 #define PACKET_COLUMN_INDEX_DATE   1

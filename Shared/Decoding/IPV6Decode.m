@@ -19,10 +19,10 @@
 
 #include "IPV6Decode.h"
 #include "../../PacketPeeper/HostCache.hh"
+#include "../../PacketPeeper/UI Classes/pkt_compare.h"
 #include "Packet.h"
 #include "TCPDecode.h"
 #include "UDPDecode.h"
-#include "../../PacketPeeper/UI Classes/pkt_compare.h"
 #include "strfuncs.h"
 #import <Foundation/NSArchiver.h>
 #import <Foundation/NSArray.h>
