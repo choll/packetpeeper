@@ -1,4 +1,7 @@
-[![Build Status](https://dev.azure.com/cholloway/PacketPeeper/_apis/build/status/choll.packetpeeper?branchName=master)](https://dev.azure.com/cholloway/PacketPeeper/_build/latest?definitionId=2&branchName=master)
+[![Azure Pipelines][azure-badge]][azure-link]
+
+[azure-badge]: https://dev.azure.com/cholloway/PacketPeeper/_apis/build/status/choll.packetpeeper?branchName=master
+[azure-link]: https://dev.azure.com/cholloway/PacketPeeper/_build/latest?definitionId=2&branchName=master
 
 ### Build instructions:
 
