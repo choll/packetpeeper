@@ -3,6 +3,9 @@
 # Add steps that install certificates, test, sign, and distribute an app, save build artifacts, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/xcode
 
+#    xcWorkspacePath: '**/*.xcodeproj/project.xcworkspace'
+#    scheme: ''
+
 trigger:
 - master
 
@@ -16,10 +19,8 @@ steps:
   inputs:
     actions: 'build'
     args: '-target All'
-#    scheme: ''
     sdk: 'macosx10.14'
     configuration: 'Release'
-#    xcWorkspacePath: '**/*.xcodeproj/project.xcworkspace'
     xcodeVersion: '10' # Options: 8, 9, 10, default, specifyPath
 
  
