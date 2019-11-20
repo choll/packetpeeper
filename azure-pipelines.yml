@@ -29,4 +29,13 @@ steps:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
     publishLocation: 'Container'
-
+- task: GitHubRelease@1
+  inputs:
+    githubConnection:  InstallationAccessToken
+    repositoryName: choll/packetepeeper
+    action: 'create'
+    target: '$(Build.SourceVersion)'
+    tagSource: 'gitTag'
+    tagPattern: 'v*'
+    assets: '$(System.ArtifactStagingDirectory)/*.dmg'
+    addChangeLog: false
