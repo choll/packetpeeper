@@ -24,14 +24,13 @@ steps:
   inputs:
     contents: 'build/Release/PacketPeeper*.dmg'
     targetFolder: $(Build.ArtifactStagingDirectory)
-
-#- task: PublishBuildArtifacts@1
-#  inputs:
-#    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-#    ArtifactName: 'drop'
-#    publishLocation: 'Container'
-#- task: GithubRelease@0
-#  inputs:
-#    githubConnection: choll
-#    repositoryName: choll/packetepeeper
-#    assets: '$(System.ArtifactsDirectory)\ZenithWorks-Core\drop\target\*.jar'
+- task: GitHubRelease@0
+  inputs:
+    githubConnection: choll
+    repositoryName: choll/packetepeeper
+    action: 'create'
+    target: '$(Build.SourceVersion)'
+#    tagSource: 'gitTag'
+    tagPattern: 'v*'
+    assets: '$(System.ArtifactStagingDirectory)/*.dmg'
+    addChangeLog: false
