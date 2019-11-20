@@ -38,3 +38,14 @@ steps:
 #    tagSource: auto
 #    tagPattern: 'v*'
 #    addChangeLog: false
+- task: GitHubRelease@1
+  inputs:
+    gitHubConnection: 'GitHubServiceConnection'
+    repositoryName: '$(Build.Repository.Name)'
+    action: 'create'
+    target: '$(Build.SourceVersion)'
+    tagSource: 'gitTag'
+    tagPattern: 'v*'
+    releaseNotesSource: 'inline'
+    addChangeLog: false
+    assets: $(Build.ArtifactStagingDirectory)/*.dmg
