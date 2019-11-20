@@ -26,8 +26,8 @@ steps:
     targetFolder: $(Build.ArtifactStagingDirectory)
 - task: GitHubRelease@0
   inputs:
-    githubConnection: choll
-    repositoryName: choll/packetepeeper
+    githubConnection: OAuth2
+    #repositoryName: choll/packetepeeper
     action: 'create'
     target: '$(Build.SourceVersion)'
 #    tagSource: 'gitTag'
