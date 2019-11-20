@@ -7,7 +7,7 @@ trigger:
 - master
 
 pool:
-  vmImage: 'macOS-10.13'
+  vmImage: 'macOS-10.14'
 
 steps:
 - checkout: self
@@ -31,7 +31,7 @@ steps:
     publishLocation: 'Container'
 #- task: GitHubRelease@0
 #  inputs:
-#    gitHubConnection:
+#    gitHubConnection: 
 #    repositoryName: '$(Build.Repository.Name)'
 #    action: 'create'
 #    target: '$(Build.SourceVersion)'
