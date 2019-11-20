@@ -29,15 +29,6 @@ steps:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
     publishLocation: 'Container'
-#- task: GitHubRelease@0
-#  inputs:
-#    gitHubConnection: 
-#    repositoryName: '$(Build.Repository.Name)'
-#    action: 'create'
-#    target: '$(Build.SourceVersion)'
-#    tagSource: auto
-#    tagPattern: 'v*'
-#    addChangeLog: false
 - task: GitHubRelease@1
   inputs:
     gitHubConnection: 'GitHubServiceConnection'
