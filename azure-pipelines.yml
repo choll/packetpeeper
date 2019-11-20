@@ -20,3 +20,13 @@ steps:
     configuration: 'Release'
     xcWorkspacePath: 
     xcodeVersion: '10' # Options: 8, 9, 10, default, specifyPath
+- task: GitHubRelease@1
+  inputs:
+    gitHubConnection: choll
+    repositoryName: '$(Build.Repository.Name)'
+    action: 'create'
+    target: '$(Build.SourceVersion)'
+    tagSource: 'gitTag'
+    tagPattern: 'v*'
+    assets: '$(Build.ArtifactStagingDirectory)/*.dmg'
+    addChangeLog: false
