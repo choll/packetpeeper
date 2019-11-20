@@ -24,13 +24,9 @@ steps:
   inputs:
     contents: 'build/Release/PacketPeeper*.dmg'
     targetFolder: $(Build.ArtifactStagingDirectory)
-- task: GitHubRelease@0
+- task: PublishBuildArtifacts@1
   inputs:
-    githubConnection: OAuth2
-    #repositoryName: choll/packetepeeper
-    action: 'create'
-    target: '$(Build.SourceVersion)'
-#    tagSource: 'gitTag'
-    tagPattern: 'v*'
-    assets: '$(System.ArtifactStagingDirectory)/*.dmg'
-    addChangeLog: false
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
+
