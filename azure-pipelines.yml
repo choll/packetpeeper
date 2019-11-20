@@ -7,7 +7,7 @@ trigger:
 - master
 
 pool:
-  vmImage: 'macos-latest'
+  vmImage: 'macOS-10.13'
 
 steps:
 - checkout: self
@@ -16,7 +16,7 @@ steps:
   inputs:
     actions: 'build'
     args: '-target CreateDiskImage'
-    sdk: 'macosx10.14'
+    sdk: 'macosx10.13'
     configuration: 'Release'
     xcWorkspacePath: 
     xcodeVersion: '10' # Options: 8, 9, 10, default, specifyPath
@@ -29,12 +29,12 @@ steps:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
     publishLocation: 'Container'
-- task: GitHubRelease@0
-  inputs:
-    gitHubConnection:
-    repositoryName: '$(Build.Repository.Name)'
-    action: 'create'
-    target: '$(Build.SourceVersion)'
-    tagSource: auto
-    tagPattern: 'v*'
-    addChangeLog: false
+#- task: GitHubRelease@0
+#  inputs:
+#    gitHubConnection:
+#    repositoryName: '$(Build.Repository.Name)'
+#    action: 'create'
+#    target: '$(Build.SourceVersion)'
+#    tagSource: auto
+#    tagPattern: 'v*'
+#    addChangeLog: false
