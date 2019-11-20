@@ -15,18 +15,23 @@ steps:
 - task: Xcode@5
   inputs:
     actions: 'build'
-    args: '-target All'
+    args: '-target CreateDiskImage'
     sdk: 'macosx10.14'
     configuration: 'Release'
     xcWorkspacePath: 
     xcodeVersion: '10' # Options: 8, 9, 10, default, specifyPath
-- task: GitHubRelease@1
+- task: CopyFiles@2
   inputs:
-    gitHubConnection: choll
-    repositoryName: '$(Build.Repository.Name)'
-    action: 'create'
-    target: '$(Build.SourceVersion)'
-    tagSource: 'gitTag'
-    tagPattern: 'v*'
-    assets: '$(Build.ArtifactStagingDirectory)/*.dmg'
-    addChangeLog: false
+    contents: 'build/Release/PacketPeeper*.dmg'
+    targetFolder: $(Build.ArtifactStagingDirectory)
+
+#- task: PublishBuildArtifacts@1
+#  inputs:
+#    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+#    ArtifactName: 'drop'
+#    publishLocation: 'Container'
+#- task: GithubRelease@0
+#  inputs:
+#    githubConnection: choll
+#    repositoryName: choll/packetepeeper
+#    assets: '$(System.ArtifactsDirectory)\ZenithWorks-Core\drop\target\*.jar'
