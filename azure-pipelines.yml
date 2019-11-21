@@ -9,7 +9,7 @@ trigger:
       - master
   tags:
     include:
-    - v*
+    - ????-??-??
 
 pool:
   vmImage: 'macOS-10.14'
