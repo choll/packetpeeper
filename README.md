@@ -1,5 +1,4 @@
-# Packet Peeper
-![Packet Peeper Logo](https://packetpeeper.github.io/ppicon.png)
+# Packet Peeper ![Packet Peeper Logo](https://packetpeeper.github.io/ppicon.png)
 
 [![Azure Pipelines][azure-badge]][azure-link]
 
