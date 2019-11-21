@@ -45,4 +45,3 @@ steps:
     releaseNotesSource: 'inline'
     addChangeLog: false
     assets: '$(Build.ArtifactStagingDirectory)/build/Release/*.dmg'
-    isDraft: true
