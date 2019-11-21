@@ -31,7 +31,7 @@ steps:
     targetFolder: $(Build.ArtifactStagingDirectory)
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/build/Release'
     ArtifactName: 'drop'
     publishLocation: 'Container'
 - task: GitHubRelease@1
@@ -44,5 +44,5 @@ steps:
     tagPattern: '^\d{4}-\d{2}-\d{2}$'
     releaseNotesSource: 'inline'
     addChangeLog: false
-    assets: $(Build.ArtifactStagingDirectory)/build/Release/*.dmg
+    assets: '$(Build.ArtifactStagingDirectory)/build/Release/*.dmg'
     isDraft: true
