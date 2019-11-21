@@ -5,8 +5,6 @@
 [azure-badge]: https://dev.azure.com/cholloway/PacketPeeper/_apis/build/status/choll.packetpeeper?branchName=master
 [azure-link]: https://dev.azure.com/cholloway/PacketPeeper/_build/latest?definitionId=2&branchName=master
 
-![Packet Peeper Logo](https://packetpeeper.github.io/ppicon.png)
-
 ## Building:
 
 * git submodule update --init --recursive
