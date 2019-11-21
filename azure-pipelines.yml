@@ -44,5 +44,5 @@ steps:
     tagPattern: '^\d{4}-\d{2}-\d{2}$'
     releaseNotesSource: 'inline'
     addChangeLog: false
-    assets: $(Build.ArtifactStagingDirectory)/*.dmg
+    #assets: $(Build.ArtifactStagingDirectory)/*.dmg
     isDraft: true
