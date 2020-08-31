@@ -164,8 +164,6 @@ def readResourceRecord(packet, offset):
 	return ((resultList, resultDict), offset + rd_len)
 
 def decodeResourceRecords(packet, count, offset):
-	n_answers, = packetpeeper.unpack(packet, "6x>H")
-
 	records = []
 	i = 0
 	while(i < count):
@@ -264,7 +262,7 @@ def typeStrLong(value):
 				"Mailbox or mail list information",
 				"Mail exchange",
 				"Text strings"][value - 1]
-	except:
+	except Exception:
 		return ("[Unknown type %u]" % value)
 
 def typeStr(value):
@@ -273,7 +271,7 @@ def typeStr(value):
 				"CNAME", "SOA", "MB", "MG",
 				"MR", "NULL", "WKS", "PTR",
 				"HINFO", "MINFO", "MX", "TXT"][value - 1]
-	except:
+	except Exception:
 		return ("[Unknown type %u]" % value)
 
 def queryTypeStrLong(value):
@@ -282,13 +280,13 @@ def queryTypeStrLong(value):
 				"Mailbox records",
 				"Mail agent RRs",
 				"All records"][value - 252]
-	except:
+	except Exception:
 		return typeStrLong(value)
 
 def queryTypeStr(value):
 	try:
 		return ["AXFR", "MAILB", "MAILA", "ANY"][value - 252]
-	except:
+	except Exception:
 		return typeStr(value)
 
 def classStr(value):
@@ -297,7 +295,7 @@ def classStr(value):
 				"CSNET",
 				"Chaos",
 				"Hesiod"][value - 1]
-	except:
+	except Exception:
 		return ("[Unknown class %u]" % value)
 
 def queryClassStr(value):
@@ -308,7 +306,7 @@ def queryClassStr(value):
 def opcodeStr(value):
 	try:
 		return ["Standard query", "Inverse query", "Server status request"][value]
-	except:
+	except Exception:
 		return "Unknown"
 
 def responseCodeLongStr(value):
@@ -319,7 +317,7 @@ def responseCodeLongStr(value):
 				"No such name",
 				"Name server does not support requested kind of query",
 				"Name server refuses to perform requested operation"][value]
-	except:
+	except Exception:
 		return "Unknown"
 
 def readName(packet, offset):
