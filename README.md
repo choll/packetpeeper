@@ -14,3 +14,6 @@ If you want to build a dmg file you can use:
 
 * xcodebuild -target CreateDiskImage -configuration Release
 
+## Releases:
+
+* Push a tag with pattern YYYY-MM-DD and a corresponding disk image will be uploaded to the GitHub release assets by Azure Pipelines.

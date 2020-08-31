@@ -38,11 +38,11 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2019-11-11</string>
+	<string>2019-12-17</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>2019-11-11</string>
+	<string>2019-12-17</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright 2006, 2007, 2008, 2014, 2016, 2017 Chris E. Holloway</string>
 	<key>NSMainNibFile</key>
