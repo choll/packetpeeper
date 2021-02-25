@@ -5,6 +5,10 @@
 [azure-badge]: https://dev.azure.com/cholloway/PacketPeeper/_apis/build/status/choll.packetpeeper?branchName=master
 [azure-link]: https://dev.azure.com/cholloway/PacketPeeper/_build/latest?definitionId=2&branchName=master
 
+## Latest Release:
+
+Download [here](https://github.com/choll/packetpeeper/releases/download/2019-12-17/PacketPeeper_2019-12-17.dmg)
+
 ## Building:
 
 * git submodule update --init --recursive
