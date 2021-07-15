@@ -136,7 +136,6 @@ def descriptionTree(packet):
 				offset += opt_len
 	except Exception, e:
 		print "exception" + str(e)
-		pass
 
 	ret = ["Options"] + items
 
