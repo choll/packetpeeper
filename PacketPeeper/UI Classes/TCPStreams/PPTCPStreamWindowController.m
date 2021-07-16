@@ -261,12 +261,12 @@
 
     objects[1] = [NSFont userFixedPitchFontOfSize:0.0f];
 
-    objects[0] = [NSColor redColor];
+    objects[0] = [NSColor systemRedColor];
     redAttributes = [[NSDictionary alloc] initWithObjects:objects
                                                   forKeys:keys
                                                     count:ARRAY_NELEMS(keys)];
 
-    objects[0] = [NSColor blueColor];
+    objects[0] = [NSColor systemBlueColor];
     blueAttributes = [[NSDictionary alloc] initWithObjects:objects
                                                    forKeys:keys
                                                      count:ARRAY_NELEMS(keys)];
