@@ -17,14 +17,11 @@ pool:
 steps:
 - checkout: self
   submodules: true
-- task: CmdLine@2
-  inputs:
-    script: 'xcodebuild -showsdks' 
 - task: Xcode@5
   inputs:
     actions: 'build'
     args: '-target CreateDiskImage'
-    sdk: 'latest'
+    sdk: 'macosx11.1'
     configuration: 'Release'
     xcWorkspacePath: 
     xcodeVersion: 'default' # Options: 8, 9, 10, default, specifyPath
