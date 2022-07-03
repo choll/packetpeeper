@@ -24,7 +24,7 @@ steps:
     sdk: 'macosx10.14'
     configuration: 'Release'
     xcWorkspacePath: 
-    xcodeVersion: '10' # Options: 8, 9, 10, default, specifyPath
+    xcodeVersion: 'default' # Options: 8, 9, 10, default, specifyPath
 - task: CopyFiles@2
   inputs:
     contents: 'build/Release/PacketPeeper*.dmg'
