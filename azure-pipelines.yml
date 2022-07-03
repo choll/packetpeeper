@@ -12,7 +12,7 @@ trigger:
     - ????-??-??
 
 pool:
-  vmImage: 'macOS-latest'
+  vmImage: 'macOS-1015'
 
 steps:
 - checkout: self
