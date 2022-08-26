@@ -1,9 +1,6 @@
 # Packet Peeper
 
-[![Azure Pipelines][azure-badge]][azure-link]
-
-[azure-badge]: https://dev.azure.com/cholloway/PacketPeeper/_apis/build/status/choll.packetpeeper?branchName=master
-[azure-link]: https://dev.azure.com/cholloway/PacketPeeper/_build/latest?definitionId=2&branchName=master
+[![Xcode - Build](https://github.com/choll/packetpeeper/actions/workflows/objective-c-xcode.yml/badge.svg)](https://github.com/choll/packetpeeper/actions/workflows/objective-c-xcode.yml)
 
 ## Latest Release
 
