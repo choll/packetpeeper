@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 # Packet Peeper
 # Copyright 2006, 2007, 2008, 2014 Chris E. Holloway
@@ -21,8 +21,8 @@ import struct
 import sys
 
 infile = open(sys.argv[1], 'r')
-datfile_tcp = open(sys.argv[2], 'w')
-datfile_udp = open(sys.argv[3], 'w')
+datfile_tcp = open(sys.argv[2], "wb")
+datfile_udp = open(sys.argv[3], "wb")
 
 maxdesc = 0
 port2name = {}
@@ -66,7 +66,7 @@ for line in infile.readlines():
 
     port = lport
     while port <= hport:
-        if (port2name.has_key(port)):
+        if (port in port2name):
             port2name[port].append([name, description, proto])
         else:
             port2name[port] = [[name, description, proto]]
@@ -103,9 +103,9 @@ while (port < pow(2,16)):
         # Skip over duplicate entries
         i = 0
         badService = False
-        while (i < (len(tcpservices) - 1)):
+        while (i < len(tcpservices) - 1):
             if (tcpservices[i][1] != tcpservices[i + 1][1]):
-                print ("Service mismatch on port %u between:\n\t" % port) + tcpservices[i][1] + "\n\tand:\n\t" + tcpservices[i + 1][1] + "\n"
+                print(("Service mismatch on port %u between:\n\t" % port) + tcpservices[i][1] + "\n\tand:\n\t" + tcpservices[i + 1][1] + "\n")
                 badService = True
             i = i + 1
 
@@ -115,7 +115,7 @@ while (port < pow(2,16)):
         # Check for an equivalent UDP service
         i = 0
         hasEquivalent = False
-        while (i < (len(port2name[port]) - 1)):
+        while (i < len(port2name[port]) - 1):
             servicea = port2name[port][i]
             serviceb = port2name[port][i + 1]
             if ((servicea[2] == "tcp" and serviceb[2] == "udp") or (servicea[2] == "udp" and serviceb[2] == "tcp")):
@@ -132,11 +132,11 @@ while (port < pow(2,16)):
             flags = 0x1
         else:
             flags = 0x0
-        bytes = struct.pack(">HB" + ('%u' % maxdesc) + "s", len(description), flags, description)
+        bytes = struct.pack(">HB" + ('%u' % maxdesc) + "s", len(description), flags, description.encode("utf8"))
         datfile_tcp.write(bytes)
 
     except KeyError:
-            bytes = struct.pack(">HB" + ('%u' % maxdesc) + "s", 0, 0, "")
+            bytes = struct.pack(">HB" + ('%u' % maxdesc) + "s", 0, 0, b"")
             datfile_tcp.write(bytes)
 
     port = port + 1
@@ -164,7 +164,7 @@ while (port < pow(2,16)):
         badService = False
         while (i < (len(udpservices) - 1)):
             if (udpservices[i][1] != udpservices[i + 1][1]):
-                print ("Service mismatch on port %u between:\n\t" % port) + udpservices[i][1] + "\n\tand:\n\t" + udpservices[i + 1][1] + "\n"
+                print(("Service mismatch on port %u between:\n\t" % port) + udpservices[i][1] + "\n\tand:\n\t" + udpservices[i + 1][1] + "\n")
                 badService = True
             i = i + 1
 
@@ -191,11 +191,11 @@ while (port < pow(2,16)):
             flags = 0x1
         else:
             flags = 0x0
-        bytes = struct.pack(">HB" + ('%u' % maxdesc) + "s", len(description), flags, description)
+        bytes = struct.pack(">HB" + ('%u' % maxdesc) + "s", len(description), flags, description.encode("utf8"))
         datfile_udp.write(bytes)
 
     except KeyError:
-            bytes = struct.pack(">HB" + ('%u' % maxdesc) + "s", 0, 0, "")
+            bytes = struct.pack(">HB" + ('%u' % maxdesc) + "s", 0, 0, b"")
             datfile_udp.write(bytes)
 
     port = port + 1

@@ -25,12 +25,3 @@ extern NSString* const DataInspectorDidDeleteAllRows;
 - (void)resizeTableViewAfterChangingRowCount;
 
 @end
-
-@interface DataInspectorScrollView : NSScrollView
-@end
-
-@interface DataInspectorPlusMinusButtonCell : NSButtonCell
-@end
-
-@interface DataInspectorTableView : NSTableView
-@end

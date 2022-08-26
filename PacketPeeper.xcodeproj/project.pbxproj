@@ -34,6 +34,23 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		6F1092CC2880CEAD00A5C4DA /* Python3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F1092C72880227700A5C4DA /* Python3.framework */; };
+		6F1092CD2880CEAD00A5C4DA /* Python3.framework in Copy frameworks */ = {isa = PBXBuildFile; fileRef = 6F1092C72880227700A5C4DA /* Python3.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6F1092D028837BD200A5C4DA /* DataInspector.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F1092CE28837BD200A5C4DA /* DataInspector.m */; };
+		6F1092D128837BD200A5C4DA /* DataInspector.h in Headers */ = {isa = PBXBuildFile; fileRef = 6F1092CF28837BD200A5C4DA /* DataInspector.h */; };
+		6F1092D628837C2500A5C4DA /* DataInspectorType.h in Headers */ = {isa = PBXBuildFile; fileRef = 6F1092D328837C2500A5C4DA /* DataInspectorType.h */; };
+		6FC75C9828A0643900D77ACB /* next.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FC75C9728A0643900D77ACB /* next.png */; };
+		6FC75C9A28A06A0600D77ACB /* clear_filters.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FC75C9928A06A0600D77ACB /* clear_filters.png */; };
+		6FC75C9C28A06A4900D77ACB /* filters.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FC75C9B28A06A4900D77ACB /* filters.png */; };
+		6FC75C9E28A06A6700D77ACB /* stop.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FC75C9D28A06A6700D77ACB /* stop.png */; };
+		6FC75CA028A06A8A00D77ACB /* delete.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FC75C9F28A06A8A00D77ACB /* delete.png */; };
+		6FC75CA228A06AB800D77ACB /* first.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FC75CA128A06AB800D77ACB /* first.png */; };
+		6FC75CA428A06AE500D77ACB /* prev.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FC75CA328A06AE500D77ACB /* prev.png */; };
+		6FC75CA628A06B1400D77ACB /* last.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FC75CA528A06B1400D77ACB /* last.png */; };
+		6FCB5E20288DE6F6002EAD7D /* DataInspectorScrollView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FCB5E17288DE6F5002EAD7D /* DataInspectorScrollView.h */; };
+		6FCB5E21288DE6F6002EAD7D /* DataInspectorScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCB5E1F288DE6F6002EAD7D /* DataInspectorScrollView.m */; };
+		6FCB5E24288DE70D002EAD7D /* DataInspectorPlusMinusButtonCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FCB5E22288DE70D002EAD7D /* DataInspectorPlusMinusButtonCell.h */; };
+		6FCB5E25288DE70D002EAD7D /* DataInspectorPlusMinusButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCB5E23288DE70D002EAD7D /* DataInspectorPlusMinusButtonCell.m */; };
 		8304C6E80D4FC70900652885 /* PPCaptureFilterSheet.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8304C6E20D4FC70900652885 /* PPCaptureFilterSheet.nib */; };
 		830C23F618E22FC400ACBD55 /* ProgressSheet.nib in Resources */ = {isa = PBXBuildFile; fileRef = 830C23F818E22FC400ACBD55 /* ProgressSheet.nib */; };
 		8314CAD40CB12A09003610FD /* NSMutableArrayExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 8314CAD20CB12A09003610FD /* NSMutableArrayExtensions.h */; };
@@ -84,12 +101,6 @@
 		832D5B3E0AFFF00B007D1E56 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 2A37F4B6FDCFA73011CA2CEA /* MainMenu.nib */; };
 		832D5B3F0AFFF00B007D1E56 /* MyDocument.nib in Resources */ = {isa = PBXBuildFile; fileRef = 2A37F4B4FDCFA73011CA2CEA /* MyDocument.nib */; };
 		832D5B410AFFF00B007D1E56 /* CaptureSetupSheet.nib in Resources */ = {isa = PBXBuildFile; fileRef = 83A6399106F5F17700E8CF04 /* CaptureSetupSheet.nib */; };
-		832D5B430AFFF00B007D1E56 /* prev.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 8320757106F8FA1C00416E79 /* prev.tiff */; };
-		832D5B440AFFF00B007D1E56 /* next.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 8320757306F8FA2000416E79 /* next.tiff */; };
-		832D5B450AFFF00B007D1E56 /* last.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 8320758106F9084100416E79 /* last.tiff */; };
-		832D5B460AFFF00B007D1E56 /* first.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 8320758306F9084C00416E79 /* first.tiff */; };
-		832D5B470AFFF00B007D1E56 /* delete.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 8320758506F90C4B00416E79 /* delete.tiff */; };
-		832D5B480AFFF00B007D1E56 /* stop.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 8320758B06FA040500416E79 /* stop.tiff */; };
 		832D5B490AFFF00B007D1E56 /* ErrorReportSheet.nib in Resources */ = {isa = PBXBuildFile; fileRef = 83C4565D076F469C00050832 /* ErrorReportSheet.nib */; };
 		832D5B4B0AFFF00B007D1E56 /* IndividualPacket.nib in Resources */ = {isa = PBXBuildFile; fileRef = 839C2C280783230E006BA02E /* IndividualPacket.nib */; };
 		832D5B4D0AFFF00B007D1E56 /* PPTCPStreamWindow.nib in Resources */ = {isa = PBXBuildFile; fileRef = 83FE245B082051F8006CA5C5 /* PPTCPStreamWindow.nib */; };
@@ -241,8 +252,6 @@
 		835666CC0D43EB300037485E /* bpf_filter.h in Headers */ = {isa = PBXBuildFile; fileRef = 835666CB0D43EB300037485E /* bpf_filter.h */; };
 		83566B330D4E87C90037485E /* PPCaptureFilterWindowController.h in Headers */ = {isa = PBXBuildFile; fileRef = 83566B310D4E87C90037485E /* PPCaptureFilterWindowController.h */; };
 		83566B340D4E87C90037485E /* PPCaptureFilterWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83566B320D4E87C90037485E /* PPCaptureFilterWindowController.m */; };
-		835B0B8E0D947E2B0034E32D /* clear_filters.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 835B0B8C0D947E2B0034E32D /* clear_filters.tiff */; };
-		835B0B8F0D947E2B0034E32D /* filters.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 835B0B8D0D947E2B0034E32D /* filters.tiff */; };
 		835F0BCA0C70C498003B6A65 /* in_cksum.c in Sources */ = {isa = PBXBuildFile; fileRef = 835F0BC80C70C498003B6A65 /* in_cksum.c */; };
 		835F0BCB0C70C499003B6A65 /* in_cksum.h in Headers */ = {isa = PBXBuildFile; fileRef = 835F0BC90C70C498003B6A65 /* in_cksum.h */; };
 		835F14660C73AEBD003B6A65 /* in_cksum.c in Sources */ = {isa = PBXBuildFile; fileRef = 835F0BC80C70C498003B6A65 /* in_cksum.c */; };
@@ -256,7 +265,6 @@
 		83700F5519428FE8005BE7DB /* PPRVIDecode.m in Sources */ = {isa = PBXBuildFile; fileRef = 83700F5219428FE8005BE7DB /* PPRVIDecode.m */; };
 		83700F5619428FE8005BE7DB /* PPRVIDecode.m in Sources */ = {isa = PBXBuildFile; fileRef = 83700F5219428FE8005BE7DB /* PPRVIDecode.m */; };
 		83700F5719428FE8005BE7DB /* PPRVIDecode.m in Sources */ = {isa = PBXBuildFile; fileRef = 83700F5219428FE8005BE7DB /* PPRVIDecode.m */; };
-		83871A8F2441D6A800974161 /* Python.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83871A8E2441D6A700974161 /* Python.framework */; };
 		838B25650B03A07400F9CA41 /* OUICache.h in Headers */ = {isa = PBXBuildFile; fileRef = 8396932607A0570F00E1EDB9 /* OUICache.h */; };
 		838B25660B03A07400F9CA41 /* OUICache.m in Sources */ = {isa = PBXBuildFile; fileRef = 8396932707A0570F00E1EDB9 /* OUICache.m */; };
 		838EAD550E2A91940003F920 /* PPDecoderParent.h in Headers */ = {isa = PBXBuildFile; fileRef = 838EAD540E2A91940003F920 /* PPDecoderParent.h */; };
@@ -384,6 +392,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				6F1092CD2880CEAD00A5C4DA /* Python3.framework in Copy frameworks */,
 				833B0E8E2376609C00570695 /* HexFiend.framework in Copy frameworks */,
 			);
 			name = "Copy frameworks";
@@ -426,15 +435,37 @@
 		1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		2A37F4ACFDCFA73011CA2CEA /* MyDocument.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = MyDocument.m; sourceTree = "<group>"; };
 		2A37F4AEFDCFA73011CA2CEA /* MyDocument.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MyDocument.h; sourceTree = "<group>"; };
-		2A37F4B5FDCFA73011CA2CEA /* en */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = en; path = en.lproj/MyDocument.nib; sourceTree = "<group>"; };
-		2A37F4B7FDCFA73011CA2CEA /* en */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = en; path = en.lproj/MainMenu.nib; sourceTree = "<group>"; };
 		2A37F4BAFDCFA73011CA2CEA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		6F1092C72880227700A5C4DA /* Python3.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Python3.framework; path = Library/Frameworks/Python3.framework; sourceTree = DEVELOPER_DIR; };
+		6F1092CE28837BD200A5C4DA /* DataInspector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataInspector.m; sourceTree = "<group>"; };
+		6F1092CF28837BD200A5C4DA /* DataInspector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataInspector.h; sourceTree = "<group>"; };
+		6F1092D328837C2500A5C4DA /* DataInspectorType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataInspectorType.h; sourceTree = "<group>"; };
+		6F1092D828843AEA00A5C4DA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/DataInspectorView.xib; sourceTree = "<group>"; };
+		6F1092D928843AEA00A5C4DA /* Base */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Base; path = Base.lproj/PPCaptureFilterSheet.nib; sourceTree = "<group>"; };
+		6F1092DA28843AEA00A5C4DA /* Base */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Base; path = Base.lproj/ProgressSheet.nib; sourceTree = "<group>"; };
+		6F1092DB28843AEA00A5C4DA /* Base */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Base; path = Base.lproj/MainMenu.nib; sourceTree = "<group>"; };
+		6F1092DC28843AEA00A5C4DA /* Base */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Base; path = Base.lproj/MyDocument.nib; sourceTree = "<group>"; };
+		6F1092DD28843AEA00A5C4DA /* Base */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Base; path = Base.lproj/CaptureSetupSheet.nib; sourceTree = "<group>"; };
+		6F1092DE28843AEA00A5C4DA /* Base */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Base; path = Base.lproj/ErrorReportSheet.nib; sourceTree = "<group>"; };
+		6F1092DF28843AEA00A5C4DA /* Base */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Base; path = Base.lproj/IndividualPacket.nib; sourceTree = "<group>"; };
+		6F1092E028843AEA00A5C4DA /* Base */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Base; path = Base.lproj/PPTCPStreamWindow.nib; sourceTree = "<group>"; };
+		6F1092E128843AEB00A5C4DA /* Base */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Base; path = Base.lproj/PPStreamsWindow.nib; sourceTree = "<group>"; };
+		6FC75C9728A0643900D77ACB /* next.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = next.png; sourceTree = "<group>"; };
+		6FC75C9928A06A0600D77ACB /* clear_filters.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clear_filters.png; sourceTree = "<group>"; };
+		6FC75C9B28A06A4900D77ACB /* filters.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = filters.png; sourceTree = "<group>"; };
+		6FC75C9D28A06A6700D77ACB /* stop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stop.png; sourceTree = "<group>"; };
+		6FC75C9F28A06A8A00D77ACB /* delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = delete.png; sourceTree = "<group>"; };
+		6FC75CA128A06AB800D77ACB /* first.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = first.png; sourceTree = "<group>"; };
+		6FC75CA328A06AE500D77ACB /* prev.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = prev.png; sourceTree = "<group>"; };
+		6FC75CA528A06B1400D77ACB /* last.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = last.png; sourceTree = "<group>"; };
+		6FCB5E17288DE6F5002EAD7D /* DataInspectorScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataInspectorScrollView.h; sourceTree = "<group>"; };
+		6FCB5E1F288DE6F6002EAD7D /* DataInspectorScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataInspectorScrollView.m; sourceTree = "<group>"; };
+		6FCB5E22288DE70D002EAD7D /* DataInspectorPlusMinusButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataInspectorPlusMinusButtonCell.h; sourceTree = "<group>"; };
+		6FCB5E23288DE70D002EAD7D /* DataInspectorPlusMinusButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataInspectorPlusMinusButtonCell.m; sourceTree = "<group>"; };
 		8300DBC20B00BE18004C8233 /* PacketPeeper.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PacketPeeper.plist; sourceTree = "<group>"; };
 		8304C2ED07C6A884004FAC45 /* rb_tree.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = rb_tree.c; sourceTree = "<group>"; };
 		8304C2EE07C6A884004FAC45 /* rb_tree.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = rb_tree.h; sourceTree = "<group>"; };
-		8304C6E30D4FC70900652885 /* en */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = en; path = en.lproj/PPCaptureFilterSheet.nib; sourceTree = "<group>"; };
-		830C23F718E22FC400ACBD55 /* en */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = en; path = en.lproj/ProgressSheet.nib; sourceTree = "<group>"; };
 		83124C7F06A149C8008B5F66 /* socketpath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = socketpath.h; sourceTree = "<group>"; };
 		83124CA806A6F676008B5F66 /* writevn.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = writevn.c; sourceTree = "<group>"; };
 		83124CAB06A6F73F008B5F66 /* writevn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = writevn.h; sourceTree = "<group>"; };
@@ -442,12 +473,6 @@
 		8314CAD30CB12A09003610FD /* NSMutableArrayExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSMutableArrayExtensions.m; sourceTree = "<group>"; };
 		8314CB1E0CB12E9F003610FD /* ppdocumenticon2.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = ppdocumenticon2.icns; sourceTree = "<group>"; };
 		8314CB1F0CB12E9F003610FD /* ppicon2.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = ppicon2.icns; sourceTree = "<group>"; };
-		8320757106F8FA1C00416E79 /* prev.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = prev.tiff; sourceTree = "<group>"; };
-		8320757306F8FA2000416E79 /* next.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = next.tiff; sourceTree = "<group>"; };
-		8320758106F9084100416E79 /* last.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = last.tiff; sourceTree = "<group>"; };
-		8320758306F9084C00416E79 /* first.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = first.tiff; sourceTree = "<group>"; };
-		8320758506F90C4B00416E79 /* delete.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = delete.tiff; sourceTree = "<group>"; };
-		8320758B06FA040500416E79 /* stop.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = stop.tiff; sourceTree = "<group>"; };
 		8321A4F906E54C2D00D96BA4 /* PacketPeeper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PacketPeeper.h; sourceTree = "<group>"; };
 		832D5B8E0AFFF00B007D1E56 /* Packet Peeper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Packet Peeper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		832D5BD00AFFF00B007D1E56 /* PacketPeeperHelper */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PacketPeeperHelper; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -497,8 +522,6 @@
 		835666CB0D43EB300037485E /* bpf_filter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bpf_filter.h; sourceTree = "<group>"; };
 		83566B310D4E87C90037485E /* PPCaptureFilterWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPCaptureFilterWindowController.h; sourceTree = "<group>"; };
 		83566B320D4E87C90037485E /* PPCaptureFilterWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPCaptureFilterWindowController.m; sourceTree = "<group>"; };
-		835B0B8C0D947E2B0034E32D /* clear_filters.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = clear_filters.tiff; sourceTree = "<group>"; };
-		835B0B8D0D947E2B0034E32D /* filters.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = filters.tiff; sourceTree = "<group>"; };
 		835F0BC80C70C498003B6A65 /* in_cksum.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = in_cksum.c; sourceTree = "<group>"; };
 		835F0BC90C70C498003B6A65 /* in_cksum.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = in_cksum.h; sourceTree = "<group>"; };
 		83620A1E06E08B8A00336558 /* strfuncs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = strfuncs.m; sourceTree = "<group>"; };
@@ -527,7 +550,6 @@
 		8396932607A0570F00E1EDB9 /* OUICache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OUICache.h; sourceTree = "<group>"; };
 		8396932707A0570F00E1EDB9 /* OUICache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OUICache.m; sourceTree = "<group>"; };
 		839C2C150782D413006BA02E /* IndividualPacketWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndividualPacketWindowController.m; sourceTree = "<group>"; };
-		839C2C290783230E006BA02E /* en */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = en; path = en.lproj/IndividualPacket.nib; sourceTree = "<group>"; };
 		83A6397D06F3A0F400E8CF04 /* MyDocumentController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MyDocumentController.h; sourceTree = "<group>"; };
 		83A6397E06F3A0F400E8CF04 /* MyDocumentController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = MyDocumentController.m; sourceTree = "<group>"; };
 		83A6398506F3BC5B00E8CF04 /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = AppController.h; sourceTree = "<group>"; };
@@ -535,7 +557,6 @@
 		83A6398A06F5DCDC00E8CF04 /* PacketCaptureWindowController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = PacketCaptureWindowController.m; sourceTree = "<group>"; };
 		83A6398D06F5EDE300E8CF04 /* CaptureSetupWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptureSetupWindowController.m; sourceTree = "<group>"; };
 		83A6398F06F5EDEC00E8CF04 /* CaptureSetupWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptureSetupWindowController.h; sourceTree = "<group>"; };
-		83A6399206F5F17700E8CF04 /* CaptureSetupSheet.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = CaptureSetupSheet.nib; path = en.lproj/CaptureSetupSheet.nib; sourceTree = "<group>"; };
 		83A74A1806BFC37400FD3004 /* Decode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Decode.h; sourceTree = "<group>"; };
 		83A74A1B06C0040200FD3004 /* Packet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Packet.h; sourceTree = "<group>"; };
 		83A74A1C06C0040200FD3004 /* Packet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Packet.m; sourceTree = "<group>"; };
@@ -543,7 +564,6 @@
 		83A81E8E191121BE008B6B73 /* IPV6Decode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPV6Decode.m; sourceTree = "<group>"; };
 		83AD23090994C6860048B019 /* PPDataQuantityFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPDataQuantityFormatter.h; sourceTree = "<group>"; };
 		83AD230A0994C6860048B019 /* PPDataQuantityFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPDataQuantityFormatter.m; sourceTree = "<group>"; };
-		83B5C8D40948E49100C46868 /* en */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = en; path = en.lproj/PPStreamsWindow.nib; sourceTree = "<group>"; };
 		83B5CBA7094B6BC700C46868 /* lookup_dummy.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = lookup_dummy.c; sourceTree = "<group>"; };
 		83B5CCBC094E28A300C46868 /* PPStreamsWindowController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = PPStreamsWindowController.m; sourceTree = "<group>"; };
 		83B5CCBD094E28A300C46868 /* PPStreamsWindowController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PPStreamsWindowController.h; sourceTree = "<group>"; };
@@ -553,7 +573,6 @@
 		83B5CD64094F77EE00C46868 /* PPTCPStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPTCPStream.m; sourceTree = "<group>"; };
 		83B8AFDF095F66B300027F4E /* oui2pp.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = oui2pp.py; path = ../Scripts/oui2pp.py; sourceTree = "<group>"; };
 		83B8B01709600F7500027F4E /* services2pp.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = services2pp.py; path = ../Scripts/services2pp.py; sourceTree = "<group>"; };
-		83C4565E076F469C00050832 /* ErrorReportSheet.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = ErrorReportSheet.nib; path = en.lproj/ErrorReportSheet.nib; sourceTree = "<group>"; };
 		83C45660076F49C900050832 /* ErrorReportWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorReportWindowController.h; sourceTree = "<group>"; };
 		83C45661076F49C900050832 /* ErrorReportWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorReportWindowController.m; sourceTree = "<group>"; };
 		83C45664076FB20A00050832 /* ColumnIdentifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColumnIdentifier.h; sourceTree = "<group>"; };
@@ -580,7 +599,6 @@
 		83D1CBEB07E8B6CB007E7652 /* pkt_compare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pkt_compare.h; sourceTree = "<group>"; };
 		83D22BC7191D591100DA0745 /* DataInspectorRepresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataInspectorRepresenter.h; sourceTree = "<group>"; };
 		83D22BC8191D591100DA0745 /* DataInspectorRepresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataInspectorRepresenter.m; sourceTree = "<group>"; };
-		83D22BCE191FEA4B00DA0745 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/DataInspectorView.xib; sourceTree = "<group>"; };
 		83D22BD019217B5D00DA0745 /* PPArpSpoofingWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PPArpSpoofingWindow.xib; sourceTree = "<group>"; };
 		83D22BD219241BE400DA0745 /* PPArpSpoofingWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPArpSpoofingWindowController.h; sourceTree = "<group>"; };
 		83D22BD41924256700DA0745 /* PPArpSpoofingWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPArpSpoofingWindowController.m; sourceTree = "<group>"; };
@@ -604,7 +622,6 @@
 		83FA8B980DCE35E8004C66C3 /* ip_options.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = ip_options.py; sourceTree = "<group>"; };
 		83FDF2B306BA9AA3009C3584 /* ObjectIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectIO.h; sourceTree = "<group>"; };
 		83FDF2B406BA9AA3009C3584 /* ObjectIO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjectIO.m; sourceTree = "<group>"; };
-		83FE245C082051F8006CA5C5 /* en */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = en; path = en.lproj/PPTCPStreamWindow.nib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -612,11 +629,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				83871A8F2441D6A800974161 /* Python.framework in Frameworks */,
 				832D5B850AFFF00B007D1E56 /* Cocoa.framework in Frameworks */,
 				833B0E8B23765A1600570695 /* HexFiend.framework in Frameworks */,
 				832D5B860AFFF00B007D1E56 /* Security.framework in Frameworks */,
 				83CC8DC00C9B516400B70DF4 /* libpcap.dylib in Frameworks */,
+				6F1092CC2880CEAD00A5C4DA /* Python3.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -667,6 +684,7 @@
 		2A37F4C3FDCFA73011CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6F1092C72880227700A5C4DA /* Python3.framework */,
 				83871A8E2441D6A700974161 /* Python.framework */,
 				833B0E8A23765A1500570695 /* HexFiend.framework */,
 				83CC8DBF0C9B516300B70DF4 /* libpcap.dylib */,
@@ -714,14 +732,14 @@
 				83383EF81E662649007959C5 /* ethernet-manufacturers.oui */,
 				8314CB1E0CB12E9F003610FD /* ppdocumenticon2.icns */,
 				8314CB1F0CB12E9F003610FD /* ppicon2.icns */,
-				835B0B8C0D947E2B0034E32D /* clear_filters.tiff */,
-				835B0B8D0D947E2B0034E32D /* filters.tiff */,
-				8320758B06FA040500416E79 /* stop.tiff */,
-				8320758506F90C4B00416E79 /* delete.tiff */,
-				8320758306F9084C00416E79 /* first.tiff */,
-				8320757106F8FA1C00416E79 /* prev.tiff */,
-				8320757306F8FA2000416E79 /* next.tiff */,
-				8320758106F9084100416E79 /* last.tiff */,
+				6FC75C9928A06A0600D77ACB /* clear_filters.png */,
+				6FC75C9B28A06A4900D77ACB /* filters.png */,
+				6FC75C9D28A06A6700D77ACB /* stop.png */,
+				6FC75C9F28A06A8A00D77ACB /* delete.png */,
+				6FC75CA128A06AB800D77ACB /* first.png */,
+				6FC75CA328A06AE500D77ACB /* prev.png */,
+				6FC75C9728A0643900D77ACB /* next.png */,
+				6FC75CA528A06B1400D77ACB /* last.png */,
 				2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */,
 				83D22BCF191FEA4B00DA0745 /* DataInspectorView.xib */,
 				83D22BD019217B5D00DA0745 /* PPArpSpoofingWindow.xib */,
@@ -927,6 +945,13 @@
 				83A6397E06F3A0F400E8CF04 /* MyDocumentController.m */,
 				2A37F4AEFDCFA73011CA2CEA /* MyDocument.h */,
 				2A37F4ACFDCFA73011CA2CEA /* MyDocument.m */,
+				6F1092D328837C2500A5C4DA /* DataInspectorType.h */,
+				6F1092CF28837BD200A5C4DA /* DataInspector.h */,
+				6F1092CE28837BD200A5C4DA /* DataInspector.m */,
+				6FCB5E17288DE6F5002EAD7D /* DataInspectorScrollView.h */,
+				6FCB5E1F288DE6F6002EAD7D /* DataInspectorScrollView.m */,
+				6FCB5E22288DE70D002EAD7D /* DataInspectorPlusMinusButtonCell.h */,
+				6FCB5E23288DE70D002EAD7D /* DataInspectorPlusMinusButtonCell.m */,
 				83D22BC7191D591100DA0745 /* DataInspectorRepresenter.h */,
 				83D22BC8191D591100DA0745 /* DataInspectorRepresenter.m */,
 				833B81BA07EC520900178219 /* PPTableView.h */,
@@ -975,6 +1000,7 @@
 				832D5B120AFFF00B007D1E56 /* EthernetDecode.h in Headers */,
 				832D5B130AFFF00B007D1E56 /* IPV4Decode.h in Headers */,
 				832D5B140AFFF00B007D1E56 /* PacketPeeper.h in Headers */,
+				6F1092D628837C2500A5C4DA /* DataInspectorType.h in Headers */,
 				8369ADDE191857B5002966D9 /* async.hpp in Headers */,
 				832D5B160AFFF00B007D1E56 /* MyDocumentController.h in Headers */,
 				832D5B170AFFF00B007D1E56 /* AppController.h in Headers */,
@@ -983,6 +1009,7 @@
 				832D5B1C0AFFF00B007D1E56 /* ColumnIdentifier.h in Headers */,
 				832D5B1D0AFFF00B007D1E56 /* DateFormat.h in Headers */,
 				832D5B1E0AFFF00B007D1E56 /* Describe.h in Headers */,
+				6F1092D128837BD200A5C4DA /* DataInspector.h in Headers */,
 				832D5B1F0AFFF00B007D1E56 /* Decode.h in Headers */,
 				832D5B200AFFF00B007D1E56 /* strfuncs.h in Headers */,
 				832D5B210AFFF00B007D1E56 /* ARPDecode.h in Headers */,
@@ -995,6 +1022,7 @@
 				83D22BC4191ABDE300DA0745 /* HostCache.hh in Headers */,
 				832D5B2D0AFFF00B007D1E56 /* rb_tree.h in Headers */,
 				832D5B2F0AFFF00B007D1E56 /* pkt_compare.h in Headers */,
+				6FCB5E20288DE6F6002EAD7D /* DataInspectorScrollView.h in Headers */,
 				832D5B300AFFF00B007D1E56 /* PPTableView.h in Headers */,
 				832D5B320AFFF00B007D1E56 /* CaptureSetupWindowController.h in Headers */,
 				832D5B330AFFF00B007D1E56 /* PPTCPStreamReassembler.h in Headers */,
@@ -1015,6 +1043,7 @@
 				83D7F35F0D257B3B00229DB3 /* PPPyDecoderPlugin.h in Headers */,
 				83D7F3B10D25812A00229DB3 /* PPDecoderPlugin.h in Headers */,
 				83700F4F1940C7A5005BE7DB /* pktap.h in Headers */,
+				6FCB5E24288DE70D002EAD7D /* DataInspectorPlusMinusButtonCell.h in Headers */,
 				83D7F3C80D2584D400229DB3 /* PPPluginManager.h in Headers */,
 				83D7F7980D281D8E00229DB3 /* PPPacketUIAdditons.h in Headers */,
 				83D7F8BA0D28450F00229DB3 /* PPPluginWrapper.h in Headers */,
@@ -1142,7 +1171,7 @@
 		2A37F4A9FDCFA73011CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1010;
+				LastUpgradeCheck = 1310;
 				TargetAttributes = {
 					833B0EB82379023F00570695 = {
 						CreatedOnToolsVersion = 10.1;
@@ -1155,6 +1184,7 @@
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 2A37F4AAFDCFA73011CA2CEA /* PacketPeeper */;
 			projectDirPath = "";
@@ -1235,31 +1265,31 @@
 				83383EFD1E6626A1007959C5 /* port-numbers-udp.port in Resources */,
 				83383EFB1E662692007959C5 /* port-numbers-tcp.port in Resources */,
 				83383EF91E662649007959C5 /* ethernet-manufacturers.oui in Resources */,
+				6FC75C9A28A06A0600D77ACB /* clear_filters.png in Resources */,
+				6FC75CA028A06A8A00D77ACB /* delete.png in Resources */,
 				832D5B3D0AFFF00B007D1E56 /* Credits.rtf in Resources */,
 				832D5B3E0AFFF00B007D1E56 /* MainMenu.nib in Resources */,
 				833B0EA123767F1B00570695 /* service-names-port-numbers.csv in Resources */,
+				6FC75C9C28A06A4900D77ACB /* filters.png in Resources */,
 				832D5B3F0AFFF00B007D1E56 /* MyDocument.nib in Resources */,
 				832D5B410AFFF00B007D1E56 /* CaptureSetupSheet.nib in Resources */,
-				832D5B430AFFF00B007D1E56 /* prev.tiff in Resources */,
-				832D5B440AFFF00B007D1E56 /* next.tiff in Resources */,
-				832D5B450AFFF00B007D1E56 /* last.tiff in Resources */,
-				832D5B460AFFF00B007D1E56 /* first.tiff in Resources */,
-				832D5B470AFFF00B007D1E56 /* delete.tiff in Resources */,
-				832D5B480AFFF00B007D1E56 /* stop.tiff in Resources */,
 				832D5B490AFFF00B007D1E56 /* ErrorReportSheet.nib in Resources */,
+				6FC75C9828A0643900D77ACB /* next.png in Resources */,
 				832D5B4B0AFFF00B007D1E56 /* IndividualPacket.nib in Resources */,
+				6FC75CA228A06AB800D77ACB /* first.png in Resources */,
+				6FC75C9E28A06A6700D77ACB /* stop.png in Resources */,
 				832D5B4D0AFFF00B007D1E56 /* PPTCPStreamWindow.nib in Resources */,
 				83D22BD119217B5D00DA0745 /* PPArpSpoofingWindow.xib in Resources */,
 				83D22BCD191FEA4B00DA0745 /* DataInspectorView.xib in Resources */,
+				6FC75CA628A06B1400D77ACB /* last.png in Resources */,
 				833B0E9F23767F0C00570695 /* oui.txt in Resources */,
 				832D5B4F0AFFF00B007D1E56 /* PPStreamsWindow.nib in Resources */,
 				830C23F618E22FC400ACBD55 /* ProgressSheet.nib in Resources */,
 				8314CB200CB12E9F003610FD /* ppdocumenticon2.icns in Resources */,
+				6FC75CA428A06AE500D77ACB /* prev.png in Resources */,
 				8314CB210CB12E9F003610FD /* ppicon2.icns in Resources */,
 				83565A640D356CE30037485E /* dns.py in Resources */,
 				8304C6E80D4FC70900652885 /* PPCaptureFilterSheet.nib in Resources */,
-				835B0B8E0D947E2B0034E32D /* clear_filters.tiff in Resources */,
-				835B0B8F0D947E2B0034E32D /* filters.tiff in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1352,6 +1382,7 @@
 				832D5B630AFFF00B007D1E56 /* PacketCaptureWindowController.m in Sources */,
 				832D5B640AFFF00B007D1E56 /* CaptureSetupWindowController.m in Sources */,
 				832D5B650AFFF00B007D1E56 /* OutlineViewItem.m in Sources */,
+				6F1092D028837BD200A5C4DA /* DataInspector.m in Sources */,
 				832D5B670AFFF00B007D1E56 /* ErrorReportWindowController.m in Sources */,
 				832D5B680AFFF00B007D1E56 /* ColumnIdentifier.m in Sources */,
 				832D5B690AFFF00B007D1E56 /* DateFormat.m in Sources */,
@@ -1366,6 +1397,7 @@
 				832D5B740AFFF00B007D1E56 /* OUICache.m in Sources */,
 				832D5B750AFFF00B007D1E56 /* rb_tree.c in Sources */,
 				832D5B770AFFF00B007D1E56 /* pkt_compare.m in Sources */,
+				6FCB5E25288DE70D002EAD7D /* DataInspectorPlusMinusButtonCell.m in Sources */,
 				83D22BCA191D591100DA0745 /* DataInspectorRepresenter.m in Sources */,
 				832D5B780AFFF00B007D1E56 /* PPTableView.m in Sources */,
 				832D5B7A0AFFF00B007D1E56 /* PPTCPStreamReassembler.m in Sources */,
@@ -1382,6 +1414,7 @@
 				835F0BCA0C70C498003B6A65 /* in_cksum.c in Sources */,
 				8352BE870C82B9FC00284D91 /* PPProgressWindowController.m in Sources */,
 				8314CAD50CB12A09003610FD /* NSMutableArrayExtensions.m in Sources */,
+				6FCB5E21288DE6F6002EAD7D /* DataInspectorScrollView.m in Sources */,
 				839334670CE2738C00FF58C5 /* stream_compare.m in Sources */,
 				83D7F3600D257B3B00229DB3 /* PPPyDecoderPlugin.m in Sources */,
 				83D7F3C90D2584D400229DB3 /* PPPluginManager.m in Sources */,
@@ -1503,7 +1536,7 @@
 		2A37F4B4FDCFA73011CA2CEA /* MyDocument.nib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				2A37F4B5FDCFA73011CA2CEA /* en */,
+				6F1092DC28843AEA00A5C4DA /* Base */,
 			);
 			name = MyDocument.nib;
 			sourceTree = "<group>";
@@ -1511,7 +1544,7 @@
 		2A37F4B6FDCFA73011CA2CEA /* MainMenu.nib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				2A37F4B7FDCFA73011CA2CEA /* en */,
+				6F1092DB28843AEA00A5C4DA /* Base */,
 			);
 			name = MainMenu.nib;
 			sourceTree = "<group>";
@@ -1527,7 +1560,7 @@
 		8304C6E20D4FC70900652885 /* PPCaptureFilterSheet.nib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				8304C6E30D4FC70900652885 /* en */,
+				6F1092D928843AEA00A5C4DA /* Base */,
 			);
 			name = PPCaptureFilterSheet.nib;
 			sourceTree = "<group>";
@@ -1535,7 +1568,7 @@
 		830C23F818E22FC400ACBD55 /* ProgressSheet.nib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				830C23F718E22FC400ACBD55 /* en */,
+				6F1092DA28843AEA00A5C4DA /* Base */,
 			);
 			name = ProgressSheet.nib;
 			sourceTree = "<group>";
@@ -1543,7 +1576,7 @@
 		839C2C280783230E006BA02E /* IndividualPacket.nib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				839C2C290783230E006BA02E /* en */,
+				6F1092DF28843AEA00A5C4DA /* Base */,
 			);
 			name = IndividualPacket.nib;
 			sourceTree = "<group>";
@@ -1551,7 +1584,7 @@
 		83A6399106F5F17700E8CF04 /* CaptureSetupSheet.nib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				83A6399206F5F17700E8CF04 /* CaptureSetupSheet.nib */,
+				6F1092DD28843AEA00A5C4DA /* Base */,
 			);
 			name = CaptureSetupSheet.nib;
 			sourceTree = "<group>";
@@ -1559,7 +1592,7 @@
 		83B5C8D30948E49100C46868 /* PPStreamsWindow.nib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				83B5C8D40948E49100C46868 /* en */,
+				6F1092E128843AEB00A5C4DA /* Base */,
 			);
 			name = PPStreamsWindow.nib;
 			sourceTree = "<group>";
@@ -1567,7 +1600,7 @@
 		83C4565D076F469C00050832 /* ErrorReportSheet.nib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				83C4565E076F469C00050832 /* ErrorReportSheet.nib */,
+				6F1092DE28843AEA00A5C4DA /* Base */,
 			);
 			name = ErrorReportSheet.nib;
 			sourceTree = "<group>";
@@ -1575,7 +1608,7 @@
 		83D22BCF191FEA4B00DA0745 /* DataInspectorView.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				83D22BCE191FEA4B00DA0745 /* en */,
+				6F1092D828843AEA00A5C4DA /* Base */,
 			);
 			name = DataInspectorView.xib;
 			sourceTree = "<group>";
@@ -1583,7 +1616,7 @@
 		83FE245B082051F8006CA5C5 /* PPTCPStreamWindow.nib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				83FE245C082051F8006CA5C5 /* en */,
+				6F1092E028843AEA00A5C4DA /* Base */,
 			);
 			name = PPTCPStreamWindow.nib;
 			sourceTree = "<group>";
@@ -1595,14 +1628,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/third_party/HexFiend/build/Release",
+					/Library/Developer/CommandLineTools/Library/Frameworks,
 				);
-				HEADER_SEARCH_PATHS = /System/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7;
+				HEADER_SEARCH_PATHS = /Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/Current/Headers;
 				INFOPLIST_FILE = PacketPeeper.plist;
-				LIBRARY_SEARCH_PATHS = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Python.framework/Versions/2.7/lib/python2.7/config";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.PacketPeeper;
 				PRODUCT_NAME = "Packet Peeper";
 				USE_HEADERMAP = NO;
@@ -1615,14 +1653,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/third_party/HexFiend/build/Release",
+					/Library/Developer/CommandLineTools/Library/Frameworks,
 				);
-				HEADER_SEARCH_PATHS = /System/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7;
+				HEADER_SEARCH_PATHS = /Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/Current/Headers;
 				INFOPLIST_FILE = PacketPeeper.plist;
-				LIBRARY_SEARCH_PATHS = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Python.framework/Versions/2.7/lib/python2.7/config";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.PacketPeeper;
 				PRODUCT_NAME = "Packet Peeper";
 				USE_HEADERMAP = NO;
@@ -1635,6 +1678,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "";
 				PRODUCT_NAME = PacketPeeperHelper;
 				USE_HEADERMAP = NO;
 			};
@@ -1644,6 +1688,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "";
 				PRODUCT_NAME = PacketPeeperHelper;
 				USE_HEADERMAP = NO;
 			};
@@ -1671,6 +1716,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USE_HEADERMAP = NO;
 			};
@@ -1680,6 +1726,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USE_HEADERMAP = NO;
 			};
@@ -1722,6 +1769,7 @@
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -1761,7 +1809,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				LIBRARY_SEARCH_PATHS = "";
 				LLVM_LTO = YES_THIN;
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "";
 				OTHER_CPLUSPLUSFLAGS = "";
@@ -1769,7 +1817,6 @@
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PRODUCT_NAME = "Packet Peeper";
 				SDKROOT = macosx;
-				VALID_ARCHS = x86_64;
 				WARNING_CFLAGS = "-Wall";
 			};
 			name = Debug;
@@ -1793,6 +1840,7 @@
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -1811,7 +1859,7 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_INPUT_FILETYPE = automatic;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = fast;
+				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_STRICT_ALIASING = NO;
 				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
 				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = YES;
@@ -1836,13 +1884,12 @@
 				LIBRARY_SEARCH_PATHS = "";
 				LLVM_LTO = YES_THIN;
 				MACH_O_TYPE = mh_execute;
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				OTHER_CFLAGS = "";
 				OTHER_CPLUSPLUSFLAGS = "";
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PRODUCT_NAME = "Packet Peeper";
 				SDKROOT = macosx;
-				VALID_ARCHS = x86_64;
 				WARNING_CFLAGS = "-Wall";
 			};
 			name = Release;

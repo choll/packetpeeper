@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 # Packet Peeper
 # Copyright 2006, 2007, 2008, 2014 Chris E. Holloway
@@ -23,7 +23,7 @@ import struct
 import sys
 
 infile = open(sys.argv[1], 'r')
-datfile = open(sys.argv[2], 'w')
+datfile = open(sys.argv[2], 'wb')
 maxlen = 0
 slist = []
 oui2manufacturer = {}
@@ -33,12 +33,12 @@ for line in infile.readlines():
 
     if len(words) == 2:
         hbytes = words[0].split("-")
-        oui = (long(hbytes[0], 16) << 16) + (long(hbytes[1], 16) << 8) + long(hbytes[2], 16)
+        oui = (int(hbytes[0], 16) << 16) + (int(hbytes[1], 16) << 8) + int(hbytes[2], 16)
 
         if(len(words[1].strip()) > maxlen):
             maxlen = len(words[1].strip())
 
-        if(not oui2manufacturer.has_key(oui)):
+        if(not oui in oui2manufacturer):
             slist.append([oui, words[1].strip()])
 
         oui2manufacturer[oui] = words[1].strip()
@@ -56,6 +56,6 @@ datfile.write(bytes)
 slist.sort()
 
 for oui in slist:
-    bytes = struct.pack(">LH" + ('%u' % maxlen) + "s", oui[0], len(oui[1]), oui[1])
+    bytes = struct.pack(">LH" + ('%u' % maxlen) + "s", oui[0], len(oui[1]), oui[1].encode("utf-8"))
     datfile.write(bytes);
 

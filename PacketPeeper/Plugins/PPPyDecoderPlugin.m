@@ -107,8 +107,11 @@ static PyMethodDef ppMethods[] = {
     {
         if (!Py_IsInitialized())
         {
+            if (PyImport_AppendInittab("packetpeeper", init_packetpeeper_module) == -1)
+                return nil;
+
             Py_Initialize();
-            init_packetpeeper_module();
+
             /* gcc barfs if we try to pass this directly to PyRun_SimpleString() */
             const char* temp = [[NSString
                 stringWithFormat:@"import sys\nsys.path.append(\"%@\")\n",
@@ -167,7 +170,7 @@ static PyMethodDef ppMethods[] = {
     if (moduleName == NULL)
         return NO;
 
-    if ((name = PyString_FromString([moduleName UTF8String])) == NULL)
+    if ((name = PyUnicode_FromString([moduleName UTF8String])) == NULL)
         return NO;
 
     module = PyImport_Import(name);
@@ -227,7 +230,7 @@ static PyMethodDef ppMethods[] = {
     if ((args = PyTuple_New(2)) == NULL)
         goto err;
 
-    if ((value = PyString_FromString([protocol UTF8String])) == NULL)
+    if ((value = PyUnicode_FromString([protocol UTF8String])) == NULL)
         goto err;
 
     /* value reference stolen here */
@@ -275,9 +278,9 @@ err:
 
     ret = nil;
 
-    if (value != NULL && PyString_Check(value))
+    if (value != NULL && PyUnicode_Check(value))
     {
-        if ((temp = PyString_AsString(value)) != NULL)
+        if ((temp = PyUnicode_AsUTF8(value)) != NULL)
             ret = [[NSString alloc] initWithUTF8String:temp];
     }
 
@@ -305,9 +308,9 @@ err:
 
     ret = nil;
 
-    if (value != NULL && PyString_Check(value))
+    if (value != NULL && PyUnicode_Check(value))
     {
-        if ((temp = PyString_AsString(value)) != NULL)
+        if ((temp = PyUnicode_AsUTF8(value)) != NULL)
             ret = [[NSString alloc] initWithUTF8String:temp];
     }
 
@@ -344,9 +347,9 @@ err:
         goto err;
     }
 
-    if (value != NULL && PyString_Check(value))
+    if (value != NULL && PyUnicode_Check(value))
     {
-        if ((temp = PyString_AsString(value)) != NULL)
+        if ((temp = PyUnicode_AsUTF8(value)) != NULL)
             ret = [[NSString alloc] initWithUTF8String:temp];
     }
 
@@ -405,15 +408,15 @@ err:
             /* should actually create a columnIdentifier object here, and init it with shortName
 			   and longName. Missing is the class variable though... */
             if (py_longName == NULL || py_shortName == NULL ||
-                !PyString_Check(py_longName) || !PyString_Check(py_shortName))
+                !PyUnicode_Check(py_longName) || !PyUnicode_Check(py_shortName))
                 continue;
 
-            if ((temp = PyString_AsString(py_longName)) == NULL)
+            if ((temp = PyUnicode_AsUTF8(py_longName)) == NULL)
                 continue;
 
             longName = [[NSString alloc] initWithUTF8String:temp];
 
-            if ((temp = PyString_AsString(py_shortName)) == NULL)
+            if ((temp = PyUnicode_AsUTF8(py_shortName)) == NULL)
             {
                 [longName release];
                 continue;
@@ -472,9 +475,9 @@ err:
         goto err;
     }
 
-    if (PyString_Check(value))
+    if (PyUnicode_Check(value))
     {
-        if ((temp = PyString_AsString(value)) != NULL)
+        if ((temp = PyUnicode_AsUTF8(value)) != NULL)
             ret = [[NSString alloc] initWithUTF8String:temp];
     }
 
@@ -527,10 +530,10 @@ err:
         goto err;
     }
 
-    if (PyInt_Check(value))
+    if (PyLong_Check(value))
     {
         /* can return -1 on failure, assume it always succeeds */
-        temp = PyInt_AsLong(value);
+        temp = PyLong_AsLong(value);
     }
 
 err:
@@ -649,9 +652,16 @@ err:
 
 static PyMODINIT_FUNC init_packetpeeper_module(void)
 {
-    void* Py_InitModule4TraceRefs(
-        char* name, void* methods, char* doc, void* self, int apiver);
-    Py_InitModule("packetpeeper", ppMethods);
+    static struct PyModuleDef def =
+    {
+        PyModuleDef_HEAD_INIT,
+        "packetpeeper",
+        NULL,
+        -1,
+        ppMethods
+    };
+
+    return PyModule_Create(&def);
 }
 
 static PyObject* pp_size(PyObject* self, PyObject* args)
@@ -759,13 +769,13 @@ static PyObject* pp_unpack(PyObject* self, PyObject* args)
         goto err;
     }
 
-    if (!PyString_Check(py_format))
+    if (!PyUnicode_Check(py_format))
     {
         PyErr_SetString(PyExc_TypeError, "a string is required");
         goto err;
     }
 
-    if ((format = PyString_AsString(py_format)) == NULL)
+    if ((format = PyUnicode_AsUTF8(py_format)) == NULL)
     {
         PyErr_NoMemory();
         goto err;
@@ -817,7 +827,7 @@ static PyObject* pp_unpack(PyObject* self, PyObject* args)
                 goto err;
             }
 
-            /* PyString_FromFormat doesn't support the full set of
+            /* PyUnicode_FromFormat doesn't support the full set of
 			   printf format strings, so we have to futz about here */
 
             if ((temp = malloc(repeat_modifier + 1)) == NULL)
@@ -832,7 +842,7 @@ static PyObject* pp_unpack(PyObject* self, PyObject* args)
                 "%.*s",
                 repeat_modifier,
                 (char*)pkt_data);
-            item = PyString_FromString(temp);
+            item = PyUnicode_FromString(temp);
 
             free(temp);
 
@@ -879,7 +889,7 @@ static PyObject* pp_unpack(PyObject* self, PyObject* args)
                             "not enough data for format string (char)");
                         goto err;
                     }
-                    item = PyString_FromFormat("%c", *(char*)pkt_data);
+                    item = PyUnicode_FromFormat("%c", *(char*)pkt_data);
                     break;
 
                 case TYPE_INT8:
@@ -891,7 +901,7 @@ static PyObject* pp_unpack(PyObject* self, PyObject* args)
                             "not enough data for format string (int8)");
                         goto err;
                     }
-                    item = PyInt_FromLong(*(int8_t*)pkt_data);
+                    item = PyLong_FromLong(*(int8_t*)pkt_data);
                     break;
 
                 case TYPE_UINT8:
@@ -903,7 +913,7 @@ static PyObject* pp_unpack(PyObject* self, PyObject* args)
                             "not enough data for format string (uint8)");
                         goto err;
                     }
-                    item = PyInt_FromLong(*(uint8_t*)pkt_data);
+                    item = PyLong_FromLong(*(uint8_t*)pkt_data);
                     break;
 
                 case TYPE_INT16:
@@ -916,11 +926,11 @@ static PyObject* pp_unpack(PyObject* self, PyObject* args)
                         goto err;
                     }
                     if (endian_modifier == BIG_ORDER_STD_ALIGN)
-                        item = PyInt_FromLong(be16toh(*(int16_t*)pkt_data));
+                        item = PyLong_FromLong(be16toh(*(int16_t*)pkt_data));
                     else if (endian_modifier == LITTLE_ORDER_STD_ALIGN)
-                        item = PyInt_FromLong(le16toh(*(int16_t*)pkt_data));
+                        item = PyLong_FromLong(le16toh(*(int16_t*)pkt_data));
                     else
-                        item = PyInt_FromLong(*(int16_t*)pkt_data);
+                        item = PyLong_FromLong(*(int16_t*)pkt_data);
                     break;
 
                 case TYPE_UINT16:
@@ -933,11 +943,11 @@ static PyObject* pp_unpack(PyObject* self, PyObject* args)
                         goto err;
                     }
                     if (endian_modifier == BIG_ORDER_STD_ALIGN)
-                        item = PyInt_FromLong(be16toh(*(uint16_t*)pkt_data));
+                        item = PyLong_FromLong(be16toh(*(uint16_t*)pkt_data));
                     else if (endian_modifier == LITTLE_ORDER_STD_ALIGN)
-                        item = PyInt_FromLong(le16toh(*(uint16_t*)pkt_data));
+                        item = PyLong_FromLong(le16toh(*(uint16_t*)pkt_data));
                     else
-                        item = PyInt_FromLong(*(uint16_t*)pkt_data);
+                        item = PyLong_FromLong(*(uint16_t*)pkt_data);
                     break;
 
                 case TYPE_INT32:
@@ -950,11 +960,11 @@ static PyObject* pp_unpack(PyObject* self, PyObject* args)
                         goto err;
                     }
                     if (endian_modifier == BIG_ORDER_STD_ALIGN)
-                        item = PyInt_FromLong(be32toh(*(int32_t*)pkt_data));
+                        item = PyLong_FromLong(be32toh(*(int32_t*)pkt_data));
                     else if (endian_modifier == LITTLE_ORDER_STD_ALIGN)
-                        item = PyInt_FromLong(le32toh(*(int32_t*)pkt_data));
+                        item = PyLong_FromLong(le32toh(*(int32_t*)pkt_data));
                     else
-                        item = PyInt_FromLong(*(int32_t*)pkt_data);
+                        item = PyLong_FromLong(*(int32_t*)pkt_data);
                     break;
 
                 case TYPE_UINT32:
@@ -1048,7 +1058,7 @@ static PyObject* pp_unpack(PyObject* self, PyObject* args)
                             "not enough data for format string (IPv4 address)");
                         goto err;
                     }
-                    item = PyString_FromString([ipaddrstr(
+                    item = PyUnicode_FromString([ipaddrstr(
                         pkt_data, sizeof(struct in_addr)) UTF8String]);
                     break;
 
@@ -1225,12 +1235,12 @@ static OutlineViewItem* buildOutlineViewItemTreeFromList(PyObject* list)
     {
         elem = PyList_GetItem(list, i);
 
-        if (PyString_Check(elem))
+        if (PyUnicode_Check(elem))
         {
             NSString* str;
             const char* temp;
 
-            if ((temp = PyString_AsString(elem)) != NULL)
+            if ((temp = PyUnicode_AsUTF8(elem)) != NULL)
             {
                 if ((str = [[NSString alloc] initWithUTF8String:temp]) != nil)
                 {

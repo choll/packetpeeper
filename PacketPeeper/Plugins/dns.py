@@ -205,11 +205,11 @@ def info(packet):
 	try:
 		(questions, offset) = decodeQuestions(packet, n_questions, 12)
 		(answers, offset) = decodeResourceRecords(packet, n_answers, offset)
-	except RuntimeError, errorString:
+	except RuntimeError as e:
 		answers = []
 		questions = []
-		detailStr = " [malformed packet: %s]" % errorString
-	except Exception, e:
+		detailStr = " [malformed packet: %s]" % str(e)
+	except Exception as e:
 		answers = []
 		questions = []
 		detailStr = " [parse error: %s] " % str(e)
@@ -397,9 +397,9 @@ def descriptionTree(packet):
 			temp.append(record[0])
 		ret.append(temp)
 
-	except RuntimeError, errorString:
-		ret.append(["Error", str(errorString)])
-	except Exception, e:
+	except RuntimeError as e:
+		ret.append(["Error", str(e)])
+	except Exception as e:
 		ret.append(["Error", str(e)])
 
 	return ret
