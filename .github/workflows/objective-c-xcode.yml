@@ -11,6 +11,11 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
-      
+
+      - name: init submodules
+        run: git submodule init
+      - name: update submodules
+        run: git submodule update
+
       - name: Build
         run: xcodebuild -target All -configuration Release
