@@ -16,3 +16,7 @@ jobs:
 
       - name: Build
         run: xcodebuild -target CreateDiskImage -configuration Release
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: build/Release/PacketPeeper_*.dmg
