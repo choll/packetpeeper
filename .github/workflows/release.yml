@@ -2,8 +2,9 @@
 name: Xcode-Release
 
 on:
-  release:
-    branches: [ "master" ]
+  push:
+    tags:
+      - "[0-9]+-[0-9]+-[0-9]+"
 
 jobs:
   build:
@@ -16,6 +17,7 @@ jobs:
 
       - name: Build
         run: xcodebuild -target CreateDiskImage -configuration Release
+        
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
