@@ -541,7 +541,6 @@
 		83700F5219428FE8005BE7DB /* PPRVIDecode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPRVIDecode.m; sourceTree = "<group>"; };
 		8384E1BC06D660AB001F2BA7 /* IPV4Decode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPV4Decode.h; sourceTree = "<group>"; };
 		8384E1BD06D660AB001F2BA7 /* IPV4Decode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPV4Decode.m; sourceTree = "<group>"; };
-		83871A8E2441D6A700974161 /* Python.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Python.framework; path = ../../../../System/Library/Frameworks/Python.framework; sourceTree = "<group>"; };
 		838EAD540E2A91940003F920 /* PPDecoderParent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPDecoderParent.h; sourceTree = "<group>"; };
 		839334640CE2738C00FF58C5 /* stream_compare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stream_compare.h; sourceTree = "<group>"; };
 		839334650CE2738C00FF58C5 /* stream_compare.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = stream_compare.m; sourceTree = "<group>"; };
@@ -685,7 +684,6 @@
 			isa = PBXGroup;
 			children = (
 				6F1092C72880227700A5C4DA /* Python3.framework */,
-				83871A8E2441D6A700974161 /* Python.framework */,
 				833B0E8A23765A1500570695 /* HexFiend.framework */,
 				83CC8DBF0C9B516300B70DF4 /* libpcap.dylib */,
 				8332D42C069EE17000F35800 /* Security.framework */,
