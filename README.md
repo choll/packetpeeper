@@ -1,6 +1,6 @@
 # Packet Peeper
 
-[![Xcode - Build](https://github.com/choll/packetpeeper/actions/workflows/objective-c-xcode.yml/badge.svg)](https://github.com/choll/packetpeeper/actions/workflows/objective-c-xcode.yml)
+[![Xcode](https://github.com/choll/packetpeeper/actions/workflows/build.yml/badge.svg)](https://github.com/choll/packetpeeper/actions/workflows/build.yml)
 
 ## Latest Release
 
