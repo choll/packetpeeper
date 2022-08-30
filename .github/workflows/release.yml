@@ -1,5 +1,5 @@
 
-name: Xcode-Release
+name: Release
 
 on:
   push:
