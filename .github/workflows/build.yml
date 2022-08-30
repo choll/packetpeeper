@@ -1,4 +1,4 @@
-name: Xcode
+name: Build
 
 on:
   push:
