@@ -4,7 +4,7 @@
 
 ## Latest Release
 
-Download [here](https://github.com/choll/packetpeeper/releases/download/2021-07-18/PacketPeeper_2021-07-18.dmg)
+Download [here](https://github.com/choll/packetpeeper/releases/download/2022-08-31/PacketPeeper_2022-08-31.dmg)
 
 ## Building
 
@@ -17,4 +17,4 @@ If you want to build a dmg file you can use:
 
 ## Releases
 
-* Push a tag with pattern YYYY-MM-DD and a corresponding disk image will be uploaded to the GitHub release assets by Azure Pipelines.
+* Push a tag with pattern YYYY-MM-DD and a release will be created containing a disk image built from the tag.
