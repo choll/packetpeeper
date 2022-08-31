@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXAggregateTarget section */
@@ -23,7 +23,7 @@
 			isa = PBXAggregateTarget;
 			buildConfigurationList = 833B0EB92379023F00570695 /* Build configuration list for PBXAggregateTarget "CreateDiskImage" */;
 			buildPhases = (
-				833B0EBE237902C900570695 /* ShellScript */,
+				833B0EBE237902C900570695 /* Run Script */,
 			);
 			dependencies = (
 				833B0EBD237902BF00570695 /* PBXTargetDependency */,
@@ -1110,6 +1110,7 @@
 				832D5B080AFFF00B007D1E56 /* Headers */,
 				83383EE91E660C03007959C5 /* Generate TCP/UDP services database */,
 				83383EEA1E660C95007959C5 /* Generate ethernet OUI database */,
+				6F54996C28C012DD00C31460 /* Set bundle version */,
 				832D5B530AFFF00B007D1E56 /* Sources */,
 				832D5B840AFFF00B007D1E56 /* Frameworks */,
 				832D5B3C0AFFF00B007D1E56 /* Resources */,
@@ -1304,6 +1305,26 @@
 /* End PBXRezBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		6F54996C28C012DD00C31460 /* Set bundle version */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Set bundle version";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "DATE=$(date '+%Y-%m-%d')\nagvtool new-marketing-version $DATE\nagvtool new-version -all $DATE\n";
+			showEnvVarsInLog = 0;
+		};
 		83383EE91E660C03007959C5 /* Generate TCP/UDP services database */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1339,8 +1360,9 @@
 			shellScript = "Scripts/oui2pp.py $SRCROOT/Resources/oui.txt $DERIVED_FILE_DIR/ethernet-manufacturers.oui\n";
 			showEnvVarsInLog = 0;
 		};
-		833B0EBE237902C900570695 /* ShellScript */ = {
+		833B0EBE237902C900570695 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -1348,13 +1370,14 @@
 			);
 			inputPaths = (
 			);
+			name = "Run Script";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "DATE=$(date '+%Y-%m-%d')\nagvtool new-marketing-version $DATE\nagvtool new-version -all $DATE\nhdiutil create -ov -format UDBZ build/Release/PacketPeeper_$DATE.dmg -volname \"Packet Peeper\" -srcfolder 'build/Release/Packet Peeper.app'\n";
+			shellScript = "DATE=$(date '+%Y-%m-%d')\nhdiutil create -ov -format UDBZ build/Release/PacketPeeper_$DATE.dmg -volname \"Packet Peeper\" -srcfolder 'build/Release/Packet Peeper.app'\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
