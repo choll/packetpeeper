@@ -4,7 +4,7 @@
 
 ## Latest Release
 
-Download [here](https://github.com/choll/packetpeeper/releases/download/2022-08-31/PacketPeeper_2022-08-31.dmg)
+Download [here](https://github.com/choll/packetpeeper/releases/download/2022-08-31/PacketPeeper_2022-08-31.dmg).
 
 ## Building
 
